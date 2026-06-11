@@ -1,50 +1,1287 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+// Osaki — Japanese Sushi Restaurant
 ---
 
 <!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <title>Osaki — Ristorante Giapponese di Sushi</title>
+  <meta name="description" content="Un'autentica esperienza di sushi giapponese a Milano. Omakase, ingredienti stagionali freschi, atmosfera esclusiva." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:        #0A0A0A;
+      --bg-2:      #111111;
+      --bg-card:   #141414;
+      --gold:      #C9A84C;
+      --gold-2:    #E3C47A;
+      --gold-dim:  rgba(201,168,76,0.12);
+      --cream:     #F0EBE1;
+      --muted:     #7A6D5E;
+      --border:    rgba(201,168,76,0.15);
+      --serif:     'Noto Serif JP', serif;
+      --sans:      'Noto Sans JP', sans-serif;
+      --ease:      cubic-bezier(0.4,0,0.2,1);
+    }
+    *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      background:var(--bg);
+      color:var(--cream);
+      font-family:var(--sans);
+      font-weight:300;
+      line-height:1.75;
+      overflow-x:hidden;
+    }
+    h1,h2,h3,h4 { font-family:var(--serif); font-weight:500; }
+    a { color:inherit; text-decoration:none; }
+    ul { list-style:none; }
+    img { display:block; max-width:100%; }
+    button { cursor:pointer; font-family:var(--sans); }
+
+    /* ── ANIMATIONS ─────────────────────────────── */
+    @keyframes fadeInUp {
+      from { opacity:0; transform:translateY(28px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity:0; }
+      to   { opacity:1; }
+    }
+    @keyframes expandX {
+      from { transform:scaleX(0); }
+      to   { transform:scaleX(1); }
+    }
+    @keyframes float {
+      0%,100% { transform:translateY(0); }
+      50%      { transform:translateY(-12px); }
+    }
+    @keyframes scrollBounce {
+      0%,100% { transform:translateY(0); opacity:1; }
+      50%      { transform:translateY(8px); opacity:.4; }
+    }
+    @keyframes goldShimmer {
+      0%   { background-position:200% center; }
+      100% { background-position:-200% center; }
+    }
+
+    .animate-on-scroll {
+      opacity:0;
+      transform:translateY(32px);
+      transition:opacity .7s var(--ease), transform .7s var(--ease);
+    }
+    .animate-on-scroll.visible {
+      opacity:1;
+      transform:translateY(0);
+    }
+    .animate-delay-1 { transition-delay:.1s; }
+    .animate-delay-2 { transition-delay:.2s; }
+    .animate-delay-3 { transition-delay:.3s; }
+    .animate-delay-4 { transition-delay:.4s; }
+
+    /* ── UTILITIES ───────────────────────────────── */
+    .section-label {
+      display:inline-flex;
+      align-items:center;
+      gap:.75rem;
+      font-size:.7rem;
+      letter-spacing:.35em;
+      text-transform:uppercase;
+      color:var(--gold);
+      margin-bottom:1.25rem;
+    }
+    .section-label::before {
+      content:'';
+      display:block;
+      width:32px;
+      height:1px;
+      background:var(--gold);
+    }
+    .section-title {
+      font-size:clamp(2rem,4vw,3rem);
+      color:var(--cream);
+      line-height:1.2;
+      margin-bottom:1.25rem;
+    }
+    .section-sub {
+      font-size:.95rem;
+      color:var(--muted);
+      max-width:520px;
+      line-height:1.8;
+    }
+    .btn-primary {
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      padding:.85rem 2rem;
+      background:var(--gold);
+      color:#0A0A0A;
+      font-family:var(--sans);
+      font-size:.8rem;
+      font-weight:500;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      border:none;
+      transition:background .25s var(--ease), transform .2s var(--ease);
+      cursor:pointer;
+    }
+    .btn-primary:hover {
+      background:var(--gold-2);
+      transform:translateY(-2px);
+    }
+    .btn-secondary {
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      padding:.85rem 2rem;
+      background:transparent;
+      color:var(--cream);
+      font-family:var(--sans);
+      font-size:.8rem;
+      font-weight:400;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      border:1px solid rgba(240,235,225,.25);
+      transition:border-color .25s var(--ease), color .25s var(--ease), transform .2s var(--ease);
+      cursor:pointer;
+    }
+    .btn-secondary:hover {
+      border-color:var(--gold);
+      color:var(--gold);
+      transform:translateY(-2px);
+    }
+
+    /* ── NAVBAR ──────────────────────────────────── */
+    #navbar {
+      position:fixed;
+      top:0; left:0; right:0;
+      z-index:100;
+      padding:1.5rem 2.5rem;
+      transition:background .4s var(--ease), padding .4s var(--ease), box-shadow .4s var(--ease);
+    }
+    #navbar.scrolled {
+      background:rgba(10,10,10,.92);
+      backdrop-filter:blur(16px);
+      -webkit-backdrop-filter:blur(16px);
+      padding:1rem 2.5rem;
+      box-shadow:0 1px 0 var(--border);
+    }
+    .nav-inner {
+      max-width:1200px;
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .nav-logo {
+      display:flex;
+      flex-direction:column;
+      line-height:1;
+      cursor:pointer;
+    }
+    .logo-en {
+      font-family:var(--serif);
+      font-size:1.4rem;
+      font-weight:600;
+      letter-spacing:.2em;
+      color:var(--cream);
+    }
+    .logo-jp {
+      font-family:var(--serif);
+      font-size:.65rem;
+      letter-spacing:.3em;
+      color:var(--gold);
+      margin-top:2px;
+    }
+    .nav-links {
+      display:flex;
+      align-items:center;
+      gap:2.5rem;
+    }
+    .nav-links a {
+      font-size:.78rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--muted);
+      transition:color .25s var(--ease);
+    }
+    .nav-links a:hover { color:var(--cream); }
+    .nav-reserve {
+      font-size:.78rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      padding:.6rem 1.4rem;
+      border:1px solid var(--gold);
+      color:var(--gold) !important;
+      transition:background .25s var(--ease), color .25s var(--ease) !important;
+    }
+    .nav-reserve:hover {
+      background:var(--gold) !important;
+      color:#0A0A0A !important;
+    }
+    .nav-burger {
+      display:none;
+      flex-direction:column;
+      gap:5px;
+      background:none;
+      border:none;
+      padding:.25rem;
+    }
+    .nav-burger span {
+      display:block;
+      width:22px;
+      height:1px;
+      background:var(--cream);
+      transition:transform .3s var(--ease), opacity .3s var(--ease);
+    }
+    .nav-mobile {
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(10,10,10,.98);
+      z-index:99;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:2.5rem;
+    }
+    .nav-mobile.open { display:flex; }
+    .nav-mobile a {
+      font-family:var(--serif);
+      font-size:1.8rem;
+      color:var(--cream);
+      letter-spacing:.1em;
+    }
+    .nav-mobile a:hover { color:var(--gold); }
+    .nav-mobile-close {
+      position:absolute;
+      top:1.5rem; right:2rem;
+      background:none;
+      border:none;
+      color:var(--muted);
+      font-size:1.5rem;
+      line-height:1;
+    }
+
+    /* ── HERO ────────────────────────────────────── */
+    #hero {
+      height:100vh;
+      min-height:600px;
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      overflow:hidden;
+    }
+    .hero-bg {
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(ellipse 90% 60% at 50% 40%, rgba(201,168,76,.05) 0%, transparent 70%),
+        linear-gradient(180deg,#0A0A0A 0%,#0E0D0B 100%);
+    }
+    .hero-kanji {
+      position:absolute;
+      font-family:var(--serif);
+      font-size:min(55vw,52vh);
+      font-weight:700;
+      color:rgba(201,168,76,.028);
+      user-select:none;
+      pointer-events:none;
+      line-height:1;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      animation:float 8s ease-in-out infinite;
+    }
+    .hero-lines {
+      position:absolute;
+      inset:0;
+      overflow:hidden;
+      pointer-events:none;
+    }
+    .hero-line-h {
+      position:absolute;
+      left:0; right:0;
+      height:1px;
+      background:linear-gradient(90deg,transparent,rgba(201,168,76,.08),transparent);
+    }
+    .hero-line-h:nth-child(1) { top:25%; }
+    .hero-line-h:nth-child(2) { top:75%; }
+    .hero-content {
+      position:relative;
+      z-index:2;
+      padding:0 1.5rem;
+    }
+    .hero-sup {
+      display:block;
+      font-size:.7rem;
+      letter-spacing:.45em;
+      text-transform:uppercase;
+      color:var(--gold);
+      margin-bottom:1.75rem;
+      opacity:0;
+      animation:fadeInUp .9s .2s var(--ease) forwards;
+    }
+    .hero-title {
+      font-family:var(--serif);
+      font-size:clamp(5.5rem,16vw,13rem);
+      font-weight:400;
+      letter-spacing:.18em;
+      line-height:1;
+      color:var(--cream);
+      margin-bottom:1.5rem;
+      opacity:0;
+      animation:fadeInUp .9s .45s var(--ease) forwards;
+    }
+    .hero-tagline {
+      font-size:clamp(.85rem,1.5vw,1rem);
+      font-weight:300;
+      color:var(--muted);
+      letter-spacing:.08em;
+      margin-bottom:3rem;
+      opacity:0;
+      animation:fadeInUp .9s .65s var(--ease) forwards;
+    }
+    .hero-divider {
+      width:60px;
+      height:1px;
+      background:var(--gold);
+      margin:0 auto 3rem;
+      transform-origin:center;
+      opacity:0;
+      animation:expandX .8s .85s var(--ease) forwards, fadeIn .8s .85s var(--ease) forwards;
+    }
+    .hero-actions {
+      display:flex;
+      gap:1rem;
+      justify-content:center;
+      flex-wrap:wrap;
+      opacity:0;
+      animation:fadeInUp .9s 1s var(--ease) forwards;
+    }
+    .hero-scroll {
+      position:absolute;
+      bottom:2.5rem;
+      left:50%;
+      transform:translateX(-50%);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:.5rem;
+      opacity:0;
+      animation:fadeIn 1s 1.4s var(--ease) forwards;
+    }
+    .hero-scroll span {
+      font-size:.6rem;
+      letter-spacing:.35em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    .scroll-arrow {
+      width:1px;
+      height:36px;
+      background:linear-gradient(180deg,var(--gold),transparent);
+      animation:scrollBounce 2s ease-in-out infinite;
+    }
+
+    /* ── PHILOSOPHY ──────────────────────────────── */
+    #philosophy {
+      padding:7rem 2.5rem;
+      background:var(--bg-2);
+      position:relative;
+      overflow:hidden;
+    }
+    .philosophy-inner {
+      max-width:1100px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:6rem;
+      align-items:center;
+    }
+    .philosophy-kanji-art {
+      font-family:var(--serif);
+      font-size:clamp(6rem,12vw,10rem);
+      font-weight:700;
+      color:rgba(201,168,76,.15);
+      line-height:1;
+      text-align:center;
+      animation:float 6s ease-in-out infinite;
+    }
+    .philosophy-kanji-label {
+      text-align:center;
+      font-size:.65rem;
+      letter-spacing:.3em;
+      text-transform:uppercase;
+      color:var(--gold);
+      margin-top:.5rem;
+    }
+    .philosophy-text .section-sub {
+      max-width:100%;
+      margin-bottom:1.5rem;
+    }
+    .philosophy-quote {
+      border-left:2px solid var(--gold);
+      padding:.75rem 1.25rem;
+      font-family:var(--serif);
+      font-size:1.05rem;
+      color:var(--muted);
+      font-style:italic;
+      margin-top:2rem;
+    }
+
+    /* ── SIGNATURE DISHES ───────────────────────── */
+    #signature {
+      padding:7rem 2.5rem;
+      background:var(--bg);
+    }
+    .signature-header {
+      max-width:1100px;
+      margin:0 auto 4rem;
+    }
+    .dishes-grid {
+      max-width:1100px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:1.5rem;
+    }
+    .dish-card {
+      background:var(--bg-card);
+      border:1px solid var(--border);
+      overflow:hidden;
+      cursor:pointer;
+      transition:border-color .3s var(--ease), transform .3s var(--ease);
+    }
+    .dish-card:hover {
+      border-color:rgba(201,168,76,.4);
+      transform:translateY(-6px);
+    }
+    .dish-img {
+      height:220px;
+      position:relative;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .dish-kanji {
+      font-family:var(--serif);
+      font-size:5rem;
+      font-weight:700;
+      color:rgba(240,235,225,.06);
+      transition:color .3s var(--ease);
+      user-select:none;
+    }
+    .dish-card:hover .dish-kanji { color:rgba(201,168,76,.12); }
+    .dish-tag {
+      position:absolute;
+      top:.75rem; left:.75rem;
+      font-size:.6rem;
+      letter-spacing:.25em;
+      text-transform:uppercase;
+      color:var(--gold);
+      background:rgba(201,168,76,.1);
+      padding:.3rem .7rem;
+    }
+    .dish-info {
+      padding:1.25rem;
+    }
+    .dish-name {
+      font-family:var(--serif);
+      font-size:1.1rem;
+      color:var(--cream);
+      margin-bottom:.3rem;
+    }
+    .dish-desc {
+      font-size:.8rem;
+      color:var(--muted);
+      line-height:1.6;
+      margin-bottom:.75rem;
+    }
+    .dish-price {
+      font-size:.85rem;
+      color:var(--gold);
+      letter-spacing:.05em;
+    }
+    /* Dish backgrounds */
+    .dish-toro   .dish-img { background:linear-gradient(135deg,#160808,#2d1010,#180a0a); }
+    .dish-uni    .dish-img { background:linear-gradient(135deg,#0e1510,#1a2f1a,#0c1a0e); }
+    .dish-dragon .dish-img { background:linear-gradient(135deg,#0d1508,#1e3014,#0c1a08); }
+    .dish-wagyu  .dish-img { background:linear-gradient(135deg,#150e05,#2e200a,#180e06); }
+
+    /* ── OMAKASE ─────────────────────────────────── */
+    #omakase {
+      padding:8rem 2.5rem;
+      background:var(--bg-2);
+      position:relative;
+      overflow:hidden;
+      text-align:center;
+    }
+    .omakase-bg-kanji {
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-family:var(--serif);
+      font-size:40vw;
+      font-weight:700;
+      color:rgba(201,168,76,.02);
+      pointer-events:none;
+      user-select:none;
+      line-height:1;
+    }
+    .omakase-inner {
+      position:relative;
+      z-index:1;
+      max-width:700px;
+      margin:0 auto;
+    }
+    .omakase-inner .section-sub {
+      max-width:100%;
+      margin:0 auto 1.5rem;
+      text-align:center;
+    }
+    .omakase-price {
+      display:inline-flex;
+      flex-direction:column;
+      align-items:center;
+      gap:.25rem;
+      margin:2rem 0;
+      padding:1.5rem 3rem;
+      border:1px solid var(--border);
+    }
+    .omakase-price-label {
+      font-size:.65rem;
+      letter-spacing:.35em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    .omakase-price-value {
+      font-family:var(--serif);
+      font-size:2.5rem;
+      color:var(--gold);
+      font-weight:500;
+    }
+    .omakase-price-note {
+      font-size:.75rem;
+      color:var(--muted);
+    }
+    .omakase-features {
+      display:flex;
+      justify-content:center;
+      gap:3rem;
+      margin-bottom:2.5rem;
+      flex-wrap:wrap;
+    }
+    .omakase-feat {
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:.5rem;
+    }
+    .omakase-feat-icon {
+      width:40px; height:40px;
+      border:1px solid var(--border);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--gold);
+    }
+    .omakase-feat-icon svg { width:18px; height:18px; }
+    .omakase-feat-text {
+      font-size:.72rem;
+      letter-spacing:.08em;
+      color:var(--muted);
+      text-align:center;
+    }
+
+    /* ── MENU ────────────────────────────────────── */
+    #menu {
+      padding:7rem 2.5rem;
+      background:var(--bg);
+    }
+    .menu-inner {
+      max-width:900px;
+      margin:0 auto;
+    }
+    .menu-header { margin-bottom:3.5rem; }
+    .menu-tabs {
+      display:flex;
+      gap:0;
+      border-bottom:1px solid var(--border);
+      margin-bottom:3rem;
+    }
+    .menu-tab {
+      padding:.75rem 1.75rem;
+      background:none;
+      border:none;
+      color:var(--muted);
+      font-family:var(--sans);
+      font-size:.78rem;
+      letter-spacing:.15em;
+      text-transform:uppercase;
+      cursor:pointer;
+      border-bottom:2px solid transparent;
+      margin-bottom:-1px;
+      transition:color .25s var(--ease), border-color .25s var(--ease);
+    }
+    .menu-tab.active {
+      color:var(--gold);
+      border-bottom-color:var(--gold);
+    }
+    .menu-tab:hover { color:var(--cream); }
+    .menu-panel { display:none; }
+    .menu-panel.active { display:block; }
+    .menu-items {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:1.5rem 3rem;
+    }
+    .menu-item {
+      display:flex;
+      justify-content:space-between;
+      align-items:baseline;
+      gap:1rem;
+      padding-bottom:1.25rem;
+      border-bottom:1px solid rgba(240,235,225,.05);
+    }
+    .menu-item-left {}
+    .menu-item-name {
+      font-family:var(--serif);
+      font-size:1rem;
+      color:var(--cream);
+      margin-bottom:.2rem;
+    }
+    .menu-item-desc {
+      font-size:.75rem;
+      color:var(--muted);
+    }
+    .menu-item-price {
+      font-size:.9rem;
+      color:var(--gold);
+      white-space:nowrap;
+      flex-shrink:0;
+    }
+
+    /* ── RESERVATION ─────────────────────────────── */
+    #reservation {
+      padding:7rem 2.5rem;
+      background:var(--bg-2);
+    }
+    .reservation-inner {
+      max-width:1100px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:6rem;
+      align-items:start;
+    }
+    .res-info-title {
+      font-family:var(--serif);
+      font-size:clamp(2rem,4vw,3rem);
+      margin-bottom:1rem;
+    }
+    .res-info-sub {
+      font-size:.9rem;
+      color:var(--muted);
+      margin-bottom:2.5rem;
+      line-height:1.8;
+    }
+    .res-detail {
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+    }
+    .res-detail-item {
+      display:flex;
+      flex-direction:column;
+      gap:.15rem;
+    }
+    .res-detail-label {
+      font-size:.65rem;
+      letter-spacing:.3em;
+      text-transform:uppercase;
+      color:var(--gold);
+    }
+    .res-detail-value {
+      font-size:.9rem;
+      color:var(--cream);
+    }
+    .res-form {
+      display:flex;
+      flex-direction:column;
+      gap:1.25rem;
+    }
+    .form-row {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:1.25rem;
+    }
+    .form-group {
+      display:flex;
+      flex-direction:column;
+      gap:.4rem;
+    }
+    .form-label {
+      font-size:.65rem;
+      letter-spacing:.25em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    .form-input, .form-select, .form-textarea {
+      background:rgba(240,235,225,.04);
+      border:1px solid var(--border);
+      color:var(--cream);
+      font-family:var(--sans);
+      font-size:.9rem;
+      font-weight:300;
+      padding:.85rem 1rem;
+      outline:none;
+      transition:border-color .25s var(--ease), background .25s var(--ease);
+      width:100%;
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color:var(--muted); }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color:var(--gold);
+      background:rgba(201,168,76,.04);
+    }
+    .form-select { cursor:pointer; }
+    .form-select option { background:#111; color:var(--cream); }
+    .form-textarea { resize:vertical; min-height:100px; }
+    .form-submit {
+      width:100%;
+      padding:1rem;
+      margin-top:.5rem;
+    }
+
+    /* ── FOOTER ──────────────────────────────────── */
+    footer {
+      background:#080808;
+      border-top:1px solid var(--border);
+      padding:4rem 2.5rem 2.5rem;
+    }
+    .footer-inner {
+      max-width:1100px;
+      margin:0 auto;
+    }
+    .footer-top {
+      display:grid;
+      grid-template-columns:2fr 1fr 1fr;
+      gap:4rem;
+      margin-bottom:3.5rem;
+    }
+    .footer-brand {}
+    .footer-logo-en {
+      font-family:var(--serif);
+      font-size:1.6rem;
+      letter-spacing:.2em;
+      color:var(--cream);
+    }
+    .footer-logo-jp {
+      font-family:var(--serif);
+      font-size:.7rem;
+      letter-spacing:.3em;
+      color:var(--gold);
+      margin-top:.15rem;
+      margin-bottom:1rem;
+    }
+    .footer-tagline {
+      font-size:.82rem;
+      color:var(--muted);
+      line-height:1.7;
+      max-width:260px;
+    }
+    .footer-col-title {
+      font-size:.65rem;
+      letter-spacing:.35em;
+      text-transform:uppercase;
+      color:var(--gold);
+      margin-bottom:1.25rem;
+    }
+    .footer-col ul {
+      display:flex;
+      flex-direction:column;
+      gap:.75rem;
+    }
+    .footer-col a {
+      font-size:.82rem;
+      color:var(--muted);
+      transition:color .25s var(--ease);
+    }
+    .footer-col a:hover { color:var(--cream); }
+    .footer-hours {
+      display:flex;
+      flex-direction:column;
+      gap:.6rem;
+    }
+    .footer-hour-row {
+      display:flex;
+      justify-content:space-between;
+      font-size:.8rem;
+    }
+    .footer-hour-day { color:var(--muted); }
+    .footer-hour-time { color:var(--cream); }
+    .footer-bottom {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding-top:2rem;
+      border-top:1px solid rgba(240,235,225,.05);
+      flex-wrap:wrap;
+      gap:1rem;
+    }
+    .footer-copy {
+      font-size:.72rem;
+      color:var(--muted);
+      letter-spacing:.05em;
+    }
+    .footer-address {
+      font-size:.72rem;
+      color:var(--muted);
+      text-align:right;
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────── */
+    @media (max-width:900px) {
+      .dishes-grid { grid-template-columns:repeat(2,1fr); }
+      .philosophy-inner { grid-template-columns:1fr; gap:3rem; }
+      .philosophy-kanji-art { font-size:8rem; }
+      .reservation-inner { grid-template-columns:1fr; gap:3rem; }
+      .footer-top { grid-template-columns:1fr 1fr; gap:2.5rem; }
+      .footer-brand { grid-column:1/-1; }
+    }
+    @media (max-width:640px) {
+      .dishes-grid { grid-template-columns:1fr; }
+      .nav-links { display:none; }
+      .nav-burger { display:flex; }
+      .menu-items { grid-template-columns:1fr; }
+      .form-row { grid-template-columns:1fr; }
+      .footer-top { grid-template-columns:1fr; }
+      .omakase-features { gap:1.5rem; }
+      #navbar { padding:1.25rem 1.5rem; }
+      #navbar.scrolled { padding:.85rem 1.5rem; }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      *, *::before, *::after {
+        animation-duration:.01ms !important;
+        transition-duration:.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ════════════════════════════════ NAVBAR -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <span class="logo-en">OSAKI</span>
+      <span class="logo-jp">大崎</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#philosophy">Filosofia</a></li>
+      <li><a href="#signature">Piatti</a></li>
+      <li><a href="#omakase">Omakase</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#reservation" class="nav-reserve">Prenota</a></li>
+    </ul>
+    <button class="nav-burger" id="navBurger" aria-label="Apri menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<nav class="nav-mobile" id="navMobile">
+  <button class="nav-mobile-close" id="navClose" aria-label="Chiudi">✕</button>
+  <a href="#philosophy"  onclick="closeMobile()">Filosofia</a>
+  <a href="#signature"   onclick="closeMobile()">Piatti</a>
+  <a href="#omakase"     onclick="closeMobile()">Omakase</a>
+  <a href="#menu"        onclick="closeMobile()">Menu</a>
+  <a href="#reservation" onclick="closeMobile()">Prenota</a>
+</nav>
+
+<!-- ════════════════════════════════ HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines">
+    <div class="hero-line-h"></div>
+    <div class="hero-line-h"></div>
+  </div>
+  <div class="hero-kanji">大</div>
+  <div class="hero-content">
+    <span class="hero-sup">大崎 — Autentica Cucina Giapponese</span>
+    <h1 class="hero-title">OSAKI</h1>
+    <p class="hero-tagline">Dove ogni piatto racconta una storia antica</p>
+    <div class="hero-divider"></div>
+    <div class="hero-actions">
+      <a href="#reservation" class="btn-primary">Prenota un Tavolo</a>
+      <a href="#menu" class="btn-secondary">Scopri il Menu</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════ PHILOSOPHY -->
+<section id="philosophy">
+  <div class="philosophy-inner">
+    <div class="animate-on-scroll">
+      <div class="philosophy-kanji-art">間</div>
+      <p class="philosophy-kanji-label">Ma — Lo Spazio</p>
+    </div>
+    <div class="philosophy-text">
+      <p class="section-label animate-on-scroll">La Nostra Filosofia</p>
+      <h2 class="section-title animate-on-scroll animate-delay-1">L'Arte del<br/>Silenzio e del Sapore</h2>
+      <p class="section-sub animate-on-scroll animate-delay-2">
+        Osaki nasce dall'incontro tra la tradizione culinaria giapponese e la sensibilità contemporanea. Il nostro chef, formatosi a Tokyo e Kyoto per oltre un decennio, porta in tavola il concetto di <em>Ma</em> — lo spazio prezioso tra gli ingredienti, dove i sapori respirano.
+      </p>
+      <p class="section-sub animate-on-scroll animate-delay-3" style="margin-top:1rem">
+        Ogni mattina selezioniamo il pesce fresco direttamente dai mercati ittici, scegliendo solo ciò che la stagione ci offre nel pieno della sua essenza.
+      </p>
+      <blockquote class="philosophy-quote animate-on-scroll animate-delay-4">
+        "Il sushi perfetto non è nel pesce, né nel riso — è nel silenzio tra i due."
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════ SIGNATURE -->
+<section id="signature">
+  <div class="signature-header animate-on-scroll">
+    <p class="section-label">I Nostri Signature</p>
+    <h2 class="section-title">Piatti Iconici</h2>
+    <p class="section-sub">Quattro espressioni del nostro approccio alla cucina giapponese.</p>
+  </div>
+  <div class="dishes-grid">
+    <div class="dish-card dish-toro animate-on-scroll animate-delay-1">
+      <div class="dish-img">
+        <span class="dish-tag">Signature</span>
+        <span class="dish-kanji">鮪</span>
+      </div>
+      <div class="dish-info">
+        <h3 class="dish-name">Ōtoro Nigiri</h3>
+        <p class="dish-desc">Tonno grasso del Pacifico, riso invecchiato al vapore, wasabi fresco di montagna.</p>
+        <span class="dish-price">€ 28 · 2 pz</span>
+      </div>
+    </div>
+    <div class="dish-card dish-uni animate-on-scroll animate-delay-2">
+      <div class="dish-img">
+        <span class="dish-tag">Stagionale</span>
+        <span class="dish-kanji">雲丹</span>
+      </div>
+      <div class="dish-info">
+        <h3 class="dish-name">Uni Temaki</h3>
+        <p class="dish-desc">Ricci di mare di Hokkaido, alga nori croccante, caviale di trota, burro di yuzu.</p>
+        <span class="dish-price">€ 32 · 1 pz</span>
+      </div>
+    </div>
+    <div class="dish-card dish-dragon animate-on-scroll animate-delay-3">
+      <div class="dish-img">
+        <span class="dish-tag">Chef's Choice</span>
+        <span class="dish-kanji">龍</span>
+      </div>
+      <div class="dish-info">
+        <h3 class="dish-name">Dragon Roll</h3>
+        <p class="dish-desc">Anguilla alla brace, gambero tempura, avocado cremoso, salsa unagi, semi di sesamo.</p>
+        <span class="dish-price">€ 24 · 8 pz</span>
+      </div>
+    </div>
+    <div class="dish-card dish-wagyu animate-on-scroll animate-delay-4">
+      <div class="dish-img">
+        <span class="dish-tag">Luxury</span>
+        <span class="dish-kanji">和牛</span>
+      </div>
+      <div class="dish-info">
+        <h3 class="dish-name">Wagyu Nigiri</h3>
+        <p class="dish-desc">Manzo Wagyu A5 flambé al momento, tartufo nero, sale marino di Okinawa.</p>
+        <span class="dish-price">€ 38 · 2 pz</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════ OMAKASE -->
+<section id="omakase">
+  <div class="omakase-bg-kanji">お</div>
+  <div class="omakase-inner">
+    <p class="section-label animate-on-scroll">Esperienza Esclusiva</p>
+    <h2 class="section-title animate-on-scroll animate-delay-1">Omakase</h2>
+    <p class="section-sub animate-on-scroll animate-delay-2">
+      Affidati completamente allo chef. Un percorso di 12–16 portate che cambia ogni sera, seguendo la stagionalità e l'ispirazione del momento. Un'esperienza unica e irripetibile.
+    </p>
+    <div class="omakase-features animate-on-scroll animate-delay-3">
+      <div class="omakase-feat">
+        <div class="omakase-feat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 6v6l4 2M12 2a10 10 0 100 20A10 10 0 0012 2z"/></svg>
+        </div>
+        <span class="omakase-feat-text">2,5 ore<br/>di esperienza</span>
+      </div>
+      <div class="omakase-feat">
+        <div class="omakase-feat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
+        </div>
+        <span class="omakase-feat-text">12–16<br/>portate</span>
+      </div>
+      <div class="omakase-feat">
+        <div class="omakase-feat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <span class="omakase-feat-text">Ingredienti<br/>stagionali</span>
+      </div>
+    </div>
+    <div class="omakase-price animate-on-scroll animate-delay-4">
+      <span class="omakase-price-label">A persona</span>
+      <span class="omakase-price-value">€ 120</span>
+      <span class="omakase-price-note">Bevande escluse · abbinamento sake +€ 45</span>
+    </div>
+    <div class="animate-on-scroll animate-delay-4">
+      <a href="#reservation" class="btn-primary">Prenota l'Esperienza</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════ MENU -->
+<section id="menu">
+  <div class="menu-inner">
+    <div class="menu-header animate-on-scroll">
+      <p class="section-label">La Nostra Carta</p>
+      <h2 class="section-title">Il Menu</h2>
+    </div>
+    <div class="menu-tabs animate-on-scroll animate-delay-1">
+      <button class="menu-tab active" data-tab="nigiri">Nigiri</button>
+      <button class="menu-tab" data-tab="maki">Maki</button>
+      <button class="menu-tab" data-tab="sashimi">Sashimi</button>
+      <button class="menu-tab" data-tab="specials">Specialità</button>
+    </div>
+    <!-- Nigiri -->
+    <div class="menu-panel active" id="tab-nigiri">
+      <div class="menu-items">
+        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Maguro</p><p class="menu-item-desc">Tonno rosso del Mediterraneo</p></div><span class="menu-item-price">€ 12</span></div>
+        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Sake</p><p class="menu-item-desc">Salmone selvaggio dell'Atlantico</p></div><span class="menu-item-price">€ 10</span></div>
+        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Hamachi</p><p class="menu-item-desc">Ricciola gialla, ponzu citrus</p></div><span class="menu-item-price">€ 14</span></div>
+        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Hotate</p><p class="menu-item-desc">Capesante di Hokkaido, yuzu</p></div><span class="menu-item-price">€ 16</span></div>
+        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Ōtoro</p><p class="menu-item-desc">Ventresca di tonno blu del Pacifico</p></div><span class="menu-item-price">€ 28</span></div>
+        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Uni</p><p class="menu-item-desc">Ricci di mare di Hokkaido</p></div><span class="menu-item-price">€ 22</span></div>
+        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Ikura</p><p class="menu-item-desc">Uova di salmone marinate al sake</p></div><span class="menu-item-price">€ 14</span></div>
+        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Wagyu</p><p class="menu-item-desc">Manzo A5 flambé, tartufo nero</p></div><span class="menu-item-price">€ 38</span></div>
+      </div>
+    </div>
+    <!-- Maki -->
+    <div class="menu-panel" id="tab-maki">
+      <div class="menu-items">
+        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Dragon Roll</p><p class="menu-item-desc">Anguilla, gambero tempura, avocado</p></div><span class="menu-item-price">€ 24</span></div>
+        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Rainbow Roll</p><p class="menu-item-desc">Tre pesci, avocado, sesamo dorato</p></div><span class="menu-item-price">€ 22</span></div>
+        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Spicy Tuna</p><p class="menu-item-desc">Tonno, mayo sriracha, cetriolo</p></div><span class="menu-item-price">€ 18</span></div>
+        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Osaki Roll</p><p class="menu-item-desc">Signature — salmone truffle, tobiko oro</p></div><span class="menu-item-price">€ 26</span></div>
+        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Caterpillar</p><p class="menu-item-desc">Gambero tempura, cetriolo, avocado</p></div><span class="menu-item-price">€ 20</span></div>
+        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Volcano Roll</p><p class="menu-item-desc">Gambero, salmone scottato, spicy mayo</p></div><span class="menu-item-price">€ 22</span></div>
+      </div>
+    </div>
+    <!-- Sashimi -->
+    <div class="menu-panel" id="tab-sashimi">
+      <div class="menu-items">
+        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Sashimi Moriawase</p><p class="menu-item-desc">Selezione dello chef, 9 pezzi</p></div><span class="menu-item-price">€ 36</span></div>
+        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Maguro Sashimi</p><p class="menu-item-desc">Tonno rosso, 5 fette</p></div><span class="menu-item-price">€ 22</span></div>
+        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Sake Sashimi</p><p class="menu-item-desc">Salmone selvaggio, 5 fette</p></div><span class="menu-item-price">€ 18</span></div>
+        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Omakase Sashimi</p><p class="menu-item-desc">Stagionale, scelta dello chef, 12 pz</p></div><span class="menu-item-price">€ 55</span></div>
+        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Tako</p><p class="menu-item-desc">Polpo del Mediterraneo, sudachi</p></div><span class="menu-item-price">€ 16</span></div>
+        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Hotate Sashimi</p><p class="menu-item-desc">Capesante di Hokkaido, ponzu lime</p></div><span class="menu-item-price">€ 24</span></div>
+      </div>
+    </div>
+    <!-- Specialità -->
+    <div class="menu-panel" id="tab-specials">
+      <div class="menu-items">
+        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Miso Truffle</p><p class="menu-item-desc">Zuppa di miso con tartufo nero e tofu</p></div><span class="menu-item-price">€ 18</span></div>
+        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Edamame al Burro</p><p class="menu-item-desc">Burro di yuzu, fleur de sel, wasabi</p></div><span class="menu-item-price">€ 10</span></div>
+        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Gyoza Crispy</p><p class="menu-item-desc">Maiale e gambero, salsa ponzu agrumata</p></div><span class="menu-item-price">€ 14</span></div>
+        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Karaage Chicken</p><p class="menu-item-desc">Pollo fritto doppio, mayo kewpie</p></div><span class="menu-item-price">€ 16</span></div>
+        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Chawanmushi</p><p class="menu-item-desc">Budino di uova al vapore, dashi, ikura</p></div><span class="menu-item-price">€ 14</span></div>
+        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Matcha Panna Cotta</p><p class="menu-item-desc">Dessert alla crema di tè verde, anko</p></div><span class="menu-item-price">€ 10</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════ RESERVATION -->
+<section id="reservation">
+  <div class="reservation-inner">
+    <div>
+      <p class="section-label animate-on-scroll">Contattaci</p>
+      <h2 class="res-info-title animate-on-scroll animate-delay-1">Prenota il Tuo<br/>Tavolo</h2>
+      <p class="res-info-sub animate-on-scroll animate-delay-2">
+        Per un'esperienza indimenticabile. Consigliamo di prenotare con almeno 3 giorni di anticipo. Per l'Omakase è richiesta prenotazione minima 7 giorni prima.
+      </p>
+      <div class="res-detail animate-on-scroll animate-delay-3">
+        <div class="res-detail-item">
+          <span class="res-detail-label">Indirizzo</span>
+          <span class="res-detail-value">Via della Pace 14, 20121 Milano</span>
+        </div>
+        <div class="res-detail-item">
+          <span class="res-detail-label">Telefono</span>
+          <span class="res-detail-value">+39 02 8765 4321</span>
+        </div>
+        <div class="res-detail-item">
+          <span class="res-detail-label">Apertura</span>
+          <span class="res-detail-value">Mer–Dom · 12:00–15:00 · 18:30–23:00</span>
+        </div>
+      </div>
+    </div>
+    <form class="res-form animate-on-scroll animate-delay-2" onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="fname">Nome</label>
+          <input class="form-input" id="fname" type="text" placeholder="Il tuo nome" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="femail">Email</label>
+          <input class="form-input" id="femail" type="email" placeholder="email@esempio.com" required />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="fdate">Data</label>
+          <input class="form-input" id="fdate" type="date" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="ftime">Ora</label>
+          <select class="form-select" id="ftime" required>
+            <option value="" disabled selected>Seleziona</option>
+            <option>12:00</option><option>12:30</option><option>13:00</option><option>13:30</option>
+            <option>18:30</option><option>19:00</option><option>19:30</option><option>20:00</option>
+            <option>20:30</option><option>21:00</option><option>21:30</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="fguests">Ospiti</label>
+          <select class="form-select" id="fguests" required>
+            <option value="" disabled selected>N. persone</option>
+            <option>1</option><option>2</option><option>3</option><option>4</option>
+            <option>5</option><option>6</option><option>7</option><option>8+</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="ftype">Tipo</label>
+          <select class="form-select" id="ftype">
+            <option value="" disabled selected>Esperienza</option>
+            <option>À la Carte</option>
+            <option>Omakase (€120 p.p.)</option>
+            <option>Occasione speciale</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="fnote">Note speciali</label>
+        <textarea class="form-textarea" id="fnote" placeholder="Allergie, richieste particolari, occasioni speciali..."></textarea>
+      </div>
+      <button type="submit" class="btn-primary form-submit">Invia Prenotazione</button>
+    </form>
+  </div>
+</section>
+
+<!-- ════════════════════════════════ FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo-en">OSAKI</div>
+        <div class="footer-logo-jp">大崎</div>
+        <p class="footer-tagline">Un viaggio nel cuore della cucina giapponese, piatto dopo piatto.</p>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Navigazione</p>
+        <ul>
+          <li><a href="#philosophy">Filosofia</a></li>
+          <li><a href="#signature">Piatti Signature</a></li>
+          <li><a href="#omakase">Omakase</a></li>
+          <li><a href="#menu">Il Menu</a></li>
+          <li><a href="#reservation">Prenota</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Orari</p>
+        <div class="footer-hours">
+          <div class="footer-hour-row"><span class="footer-hour-day">Lun – Mar</span><span class="footer-hour-time">Chiuso</span></div>
+          <div class="footer-hour-row"><span class="footer-hour-day">Mer – Ven</span><span class="footer-hour-time">12–15 · 18:30–23</span></div>
+          <div class="footer-hour-row"><span class="footer-hour-day">Sab – Dom</span><span class="footer-hour-time">12–15:30 · 18–23</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Osaki · Tutti i diritti riservati</p>
+      <p class="footer-address">Via della Pace 14 · 20121 Milano · +39 02 8765 4321</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── Navbar scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+
+  // ── Mobile menu
+  const burger = document.getElementById('navBurger');
+  const mobileNav = document.getElementById('navMobile');
+  const closeBtn = document.getElementById('navClose');
+  burger.addEventListener('click', () => mobileNav.classList.add('open'));
+  closeBtn.addEventListener('click', () => mobileNav.classList.remove('open'));
+  function closeMobile() { mobileNav.classList.remove('open'); }
+
+  // ── Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+  // ── Menu tabs
+  document.querySelectorAll('.menu-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+    });
+  });
+
+  // ── Form submit
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.form-submit');
+    btn.textContent = 'Prenotazione Inviata ✓';
+    btn.style.background = '#4a7c59';
+    btn.disabled = true;
+  }
+
+  // ── Set min date for date input
+  const dateInput = document.getElementById('fdate');
+  if (dateInput) {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    dateInput.min = tomorrow.toISOString().split('T')[0];
+  }
+</script>
+
+</body>
 </html>
