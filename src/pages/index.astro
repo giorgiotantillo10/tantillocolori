@@ -15,849 +15,268 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg:        #0A0A0A;
-      --bg-2:      #111111;
-      --bg-card:   #141414;
-      --gold:      #C9A84C;
-      --gold-2:    #E3C47A;
-      --gold-dim:  rgba(201,168,76,0.12);
-      --cream:     #F0EBE1;
-      --muted:     #7A6D5E;
-      --border:    rgba(201,168,76,0.15);
-      --serif:     'Noto Serif JP', serif;
-      --sans:      'Noto Sans JP', sans-serif;
-      --ease:      cubic-bezier(0.4,0,0.2,1);
+      --bg:       #0A0A0A;
+      --bg-2:     #111111;
+      --bg-card:  #141414;
+      --gold:     #C9A84C;
+      --gold-2:   #E3C47A;
+      --gold-dim: rgba(201,168,76,0.12);
+      --cream:    #F0EBE1;
+      --muted:    #7A6D5E;
+      --border:   rgba(201,168,76,0.15);
+      --serif:    'Noto Serif JP', serif;
+      --sans:     'Noto Sans JP', sans-serif;
+      --ease:     cubic-bezier(0.4,0,0.2,1);
     }
     *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior:smooth; }
-    body {
-      background:var(--bg);
-      color:var(--cream);
-      font-family:var(--sans);
-      font-weight:300;
-      line-height:1.75;
-      overflow-x:hidden;
-    }
+    body { background:var(--bg); color:var(--cream); font-family:var(--sans); font-weight:300; line-height:1.75; overflow-x:hidden; }
     h1,h2,h3,h4 { font-family:var(--serif); font-weight:500; }
     a { color:inherit; text-decoration:none; }
     ul { list-style:none; }
-    img { display:block; max-width:100%; }
     button { cursor:pointer; font-family:var(--sans); }
 
-    /* ── ANIMATIONS ─────────────────────────────── */
-    @keyframes fadeInUp {
-      from { opacity:0; transform:translateY(28px); }
-      to   { opacity:1; transform:translateY(0); }
+    /* ── KEYFRAMES ───────────────────────────────── */
+    @keyframes fadeInUp  { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeIn    { from{opacity:0} to{opacity:1} }
+    @keyframes expandX   { from{transform:scaleX(0)} to{transform:scaleX(1)} }
+    @keyframes scrollBounce { 0%,100%{transform:translateY(0);opacity:1} 50%{transform:translateY(8px);opacity:.4} }
+
+    /* Uramaki float + rotate */
+    @keyframes floatRoll {
+      0%,100% { transform:translateY(0) rotate(var(--ra)); }
+      50%      { transform:translateY(-18px) rotate(var(--rb)); }
     }
-    @keyframes fadeIn {
-      from { opacity:0; }
-      to   { opacity:1; }
+    @keyframes spinSlow { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+
+    /* Sakura fall */
+    @keyframes sakuraFall {
+      0%   { transform:translateY(-60px) rotate(0deg) translateX(0); opacity:1; }
+      80%  { opacity:.8; }
+      100% { transform:translateY(680px) rotate(720deg) translateX(var(--drift)); opacity:0; }
     }
-    @keyframes expandX {
-      from { transform:scaleX(0); }
-      to   { transform:scaleX(1); }
+
+    /* Torii glow pulse after draw */
+    @keyframes toriiGlow {
+      0%,100% { filter:drop-shadow(0 0 6px rgba(201,168,76,.35)); }
+      50%      { filter:drop-shadow(0 0 22px rgba(201,168,76,.8)); }
     }
-    @keyframes float {
-      0%,100% { transform:translateY(0); }
-      50%      { transform:translateY(-12px); }
-    }
-    @keyframes scrollBounce {
-      0%,100% { transform:translateY(0); opacity:1; }
-      50%      { transform:translateY(8px); opacity:.4; }
-    }
-    @keyframes goldShimmer {
+
+    /* Text shimmer */
+    @keyframes shimmer {
       0%   { background-position:200% center; }
       100% { background-position:-200% center; }
     }
 
-    .animate-on-scroll {
-      opacity:0;
-      transform:translateY(32px);
-      transition:opacity .7s var(--ease), transform .7s var(--ease);
-    }
-    .animate-on-scroll.visible {
-      opacity:1;
-      transform:translateY(0);
-    }
-    .animate-delay-1 { transition-delay:.1s; }
-    .animate-delay-2 { transition-delay:.2s; }
-    .animate-delay-3 { transition-delay:.3s; }
-    .animate-delay-4 { transition-delay:.4s; }
+    /* ── SCROLL ANIMATION BASE ───────────────────── */
+    .anim { opacity:0; transform:translateY(32px); transition:opacity .7s var(--ease),transform .7s var(--ease); }
+    .anim.in { opacity:1; transform:none; }
+    .d1 { transition-delay:.1s; }
+    .d2 { transition-delay:.2s; }
+    .d3 { transition-delay:.3s; }
+    .d4 { transition-delay:.4s; }
+    .d5 { transition-delay:.5s; }
 
     /* ── UTILITIES ───────────────────────────────── */
-    .section-label {
-      display:inline-flex;
-      align-items:center;
-      gap:.75rem;
-      font-size:.7rem;
-      letter-spacing:.35em;
-      text-transform:uppercase;
-      color:var(--gold);
-      margin-bottom:1.25rem;
-    }
-    .section-label::before {
-      content:'';
-      display:block;
-      width:32px;
-      height:1px;
-      background:var(--gold);
-    }
-    .section-title {
-      font-size:clamp(2rem,4vw,3rem);
-      color:var(--cream);
-      line-height:1.2;
-      margin-bottom:1.25rem;
-    }
-    .section-sub {
-      font-size:.95rem;
-      color:var(--muted);
-      max-width:520px;
-      line-height:1.8;
-    }
-    .btn-primary {
-      display:inline-flex;
-      align-items:center;
-      gap:.5rem;
-      padding:.85rem 2rem;
-      background:var(--gold);
-      color:#0A0A0A;
-      font-family:var(--sans);
-      font-size:.8rem;
-      font-weight:500;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      border:none;
-      transition:background .25s var(--ease), transform .2s var(--ease);
-      cursor:pointer;
-    }
-    .btn-primary:hover {
-      background:var(--gold-2);
-      transform:translateY(-2px);
-    }
-    .btn-secondary {
-      display:inline-flex;
-      align-items:center;
-      gap:.5rem;
-      padding:.85rem 2rem;
-      background:transparent;
-      color:var(--cream);
-      font-family:var(--sans);
-      font-size:.8rem;
-      font-weight:400;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      border:1px solid rgba(240,235,225,.25);
-      transition:border-color .25s var(--ease), color .25s var(--ease), transform .2s var(--ease);
-      cursor:pointer;
-    }
-    .btn-secondary:hover {
-      border-color:var(--gold);
-      color:var(--gold);
-      transform:translateY(-2px);
-    }
+    .lbl { display:inline-flex; align-items:center; gap:.75rem; font-size:.7rem; letter-spacing:.35em; text-transform:uppercase; color:var(--gold); margin-bottom:1.25rem; }
+    .lbl::before { content:''; display:block; width:32px; height:1px; background:var(--gold); }
+    .sec-title { font-size:clamp(2rem,4vw,3rem); color:var(--cream); line-height:1.2; margin-bottom:1.25rem; }
+    .sec-sub { font-size:.95rem; color:var(--muted); max-width:520px; line-height:1.8; }
+    .btn-p { display:inline-flex; align-items:center; gap:.5rem; padding:.85rem 2rem; background:var(--gold); color:#0A0A0A; font-family:var(--sans); font-size:.8rem; font-weight:500; letter-spacing:.12em; text-transform:uppercase; border:none; transition:background .25s var(--ease),transform .2s var(--ease); cursor:pointer; }
+    .btn-p:hover { background:var(--gold-2); transform:translateY(-2px); }
+    .btn-s { display:inline-flex; align-items:center; gap:.5rem; padding:.85rem 2rem; background:transparent; color:var(--cream); font-family:var(--sans); font-size:.8rem; font-weight:400; letter-spacing:.12em; text-transform:uppercase; border:1px solid rgba(240,235,225,.25); transition:border-color .25s var(--ease),color .25s var(--ease),transform .2s var(--ease); cursor:pointer; }
+    .btn-s:hover { border-color:var(--gold); color:var(--gold); transform:translateY(-2px); }
 
     /* ── NAVBAR ──────────────────────────────────── */
-    #navbar {
-      position:fixed;
-      top:0; left:0; right:0;
-      z-index:100;
-      padding:1.5rem 2.5rem;
-      transition:background .4s var(--ease), padding .4s var(--ease), box-shadow .4s var(--ease);
-    }
-    #navbar.scrolled {
-      background:rgba(10,10,10,.92);
-      backdrop-filter:blur(16px);
-      -webkit-backdrop-filter:blur(16px);
-      padding:1rem 2.5rem;
-      box-shadow:0 1px 0 var(--border);
-    }
-    .nav-inner {
-      max-width:1200px;
-      margin:0 auto;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-    }
-    .nav-logo {
-      display:flex;
-      flex-direction:column;
-      line-height:1;
-      cursor:pointer;
-    }
-    .logo-en {
-      font-family:var(--serif);
-      font-size:1.4rem;
-      font-weight:600;
-      letter-spacing:.2em;
-      color:var(--cream);
-    }
-    .logo-jp {
-      font-family:var(--serif);
-      font-size:.65rem;
-      letter-spacing:.3em;
-      color:var(--gold);
-      margin-top:2px;
-    }
-    .nav-links {
-      display:flex;
-      align-items:center;
-      gap:2.5rem;
-    }
-    .nav-links a {
-      font-size:.78rem;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      color:var(--muted);
-      transition:color .25s var(--ease);
-    }
+    #navbar { position:fixed; top:0; left:0; right:0; z-index:100; padding:1.5rem 2.5rem; transition:background .4s var(--ease),padding .4s var(--ease),box-shadow .4s var(--ease); }
+    #navbar.scrolled { background:rgba(10,10,10,.93); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); padding:1rem 2.5rem; box-shadow:0 1px 0 var(--border); }
+    .nav-inner { max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; }
+    .nav-logo { display:flex; flex-direction:column; line-height:1; cursor:pointer; }
+    .logo-en { font-family:var(--serif); font-size:1.4rem; font-weight:600; letter-spacing:.2em; color:var(--cream); }
+    .logo-jp { font-family:var(--serif); font-size:.65rem; letter-spacing:.3em; color:var(--gold); margin-top:2px; }
+    .nav-links { display:flex; align-items:center; gap:2.5rem; }
+    .nav-links a { font-size:.78rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); transition:color .25s; }
     .nav-links a:hover { color:var(--cream); }
-    .nav-reserve {
-      font-size:.78rem;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      padding:.6rem 1.4rem;
-      border:1px solid var(--gold);
-      color:var(--gold) !important;
-      transition:background .25s var(--ease), color .25s var(--ease) !important;
-    }
-    .nav-reserve:hover {
-      background:var(--gold) !important;
-      color:#0A0A0A !important;
-    }
-    .nav-burger {
-      display:none;
-      flex-direction:column;
-      gap:5px;
-      background:none;
-      border:none;
-      padding:.25rem;
-    }
-    .nav-burger span {
-      display:block;
-      width:22px;
-      height:1px;
-      background:var(--cream);
-      transition:transform .3s var(--ease), opacity .3s var(--ease);
-    }
-    .nav-mobile {
-      display:none;
-      position:fixed;
-      inset:0;
-      background:rgba(10,10,10,.98);
-      z-index:99;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      gap:2.5rem;
-    }
+    .nav-reserve { font-size:.78rem!important; letter-spacing:.12em!important; text-transform:uppercase!important; padding:.6rem 1.4rem!important; border:1px solid var(--gold)!important; color:var(--gold)!important; transition:background .25s,color .25s!important; }
+    .nav-reserve:hover { background:var(--gold)!important; color:#0A0A0A!important; }
+    .nav-burger { display:none; flex-direction:column; gap:5px; background:none; border:none; padding:.25rem; }
+    .nav-burger span { display:block; width:22px; height:1px; background:var(--cream); transition:transform .3s,opacity .3s; }
+    .nav-mobile { display:none; position:fixed; inset:0; background:rgba(10,10,10,.98); z-index:99; flex-direction:column; align-items:center; justify-content:center; gap:2.5rem; }
     .nav-mobile.open { display:flex; }
-    .nav-mobile a {
-      font-family:var(--serif);
-      font-size:1.8rem;
-      color:var(--cream);
-      letter-spacing:.1em;
-    }
+    .nav-mobile a { font-family:var(--serif); font-size:1.8rem; color:var(--cream); letter-spacing:.1em; }
     .nav-mobile a:hover { color:var(--gold); }
-    .nav-mobile-close {
-      position:absolute;
-      top:1.5rem; right:2rem;
-      background:none;
-      border:none;
-      color:var(--muted);
-      font-size:1.5rem;
-      line-height:1;
-    }
+    .nav-mc { position:absolute; top:1.5rem; right:2rem; background:none; border:none; color:var(--muted); font-size:1.5rem; line-height:1; }
 
     /* ── HERO ────────────────────────────────────── */
-    #hero {
-      height:100vh;
-      min-height:600px;
-      position:relative;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      overflow:hidden;
-    }
-    .hero-bg {
-      position:absolute;
-      inset:0;
-      background:
-        radial-gradient(ellipse 90% 60% at 50% 40%, rgba(201,168,76,.05) 0%, transparent 70%),
-        linear-gradient(180deg,#0A0A0A 0%,#0E0D0B 100%);
-    }
-    .hero-kanji {
-      position:absolute;
-      font-family:var(--serif);
-      font-size:min(55vw,52vh);
-      font-weight:700;
-      color:rgba(201,168,76,.028);
-      user-select:none;
-      pointer-events:none;
-      line-height:1;
-      top:50%;
-      left:50%;
-      transform:translate(-50%,-50%);
-      animation:float 8s ease-in-out infinite;
-    }
-    .hero-lines {
-      position:absolute;
-      inset:0;
-      overflow:hidden;
-      pointer-events:none;
-    }
-    .hero-line-h {
-      position:absolute;
-      left:0; right:0;
-      height:1px;
-      background:linear-gradient(90deg,transparent,rgba(201,168,76,.08),transparent);
-    }
-    .hero-line-h:nth-child(1) { top:25%; }
-    .hero-line-h:nth-child(2) { top:75%; }
-    .hero-content {
-      position:relative;
-      z-index:2;
-      padding:0 1.5rem;
-    }
-    .hero-sup {
-      display:block;
-      font-size:.7rem;
-      letter-spacing:.45em;
-      text-transform:uppercase;
-      color:var(--gold);
-      margin-bottom:1.75rem;
-      opacity:0;
-      animation:fadeInUp .9s .2s var(--ease) forwards;
-    }
+    #hero { height:100vh; min-height:600px; position:relative; display:flex; align-items:center; justify-content:center; text-align:center; overflow:hidden; }
+    .hero-bg { position:absolute; inset:0; background:radial-gradient(ellipse 90% 60% at 50% 40%,rgba(201,168,76,.055) 0%,transparent 70%),linear-gradient(180deg,#0A0A0A 0%,#0E0D0B 100%); }
+    .hero-kanji { position:absolute; font-family:var(--serif); font-size:min(55vw,52vh); font-weight:700; color:rgba(201,168,76,.025); user-select:none; pointer-events:none; line-height:1; top:50%; left:50%; transform:translate(-50%,-50%); will-change:transform; }
+    .hero-lines { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+    .hero-lh { position:absolute; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(201,168,76,.07),transparent); }
+    .hero-lh:nth-child(1) { top:25%; }
+    .hero-lh:nth-child(2) { top:75%; }
+    .hero-content { position:relative; z-index:2; padding:0 1.5rem; }
+    .hero-sup { display:block; font-size:.7rem; letter-spacing:.45em; text-transform:uppercase; color:var(--gold); margin-bottom:1.75rem; opacity:0; animation:fadeInUp .9s .2s var(--ease) forwards; }
     .hero-title {
-      font-family:var(--serif);
-      font-size:clamp(5.5rem,16vw,13rem);
-      font-weight:400;
-      letter-spacing:.18em;
-      line-height:1;
-      color:var(--cream);
-      margin-bottom:1.5rem;
-      opacity:0;
+      font-family:var(--serif); font-size:clamp(5.5rem,16vw,13rem); font-weight:400; letter-spacing:.18em; line-height:1; margin-bottom:1.5rem; opacity:0;
       animation:fadeInUp .9s .45s var(--ease) forwards;
+      background:linear-gradient(90deg,var(--cream) 0%,var(--gold-2) 40%,var(--cream) 60%,var(--gold-2) 80%,var(--cream) 100%);
+      background-size:200% auto;
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
     }
-    .hero-tagline {
-      font-size:clamp(.85rem,1.5vw,1rem);
-      font-weight:300;
-      color:var(--muted);
-      letter-spacing:.08em;
-      margin-bottom:3rem;
-      opacity:0;
-      animation:fadeInUp .9s .65s var(--ease) forwards;
+    .hero-title.shimmer { animation:fadeInUp .9s .45s var(--ease) forwards, shimmer 4s 1.5s linear infinite; }
+    .hero-tagline { font-size:clamp(.85rem,1.5vw,1rem); font-weight:300; color:var(--muted); letter-spacing:.08em; margin-bottom:3rem; opacity:0; animation:fadeInUp .9s .65s var(--ease) forwards; }
+    .hero-divider { width:60px; height:1px; background:var(--gold); margin:0 auto 3rem; transform-origin:center; opacity:0; animation:expandX .8s .85s var(--ease) forwards, fadeIn .8s .85s forwards; }
+    .hero-actions { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; opacity:0; animation:fadeInUp .9s 1s var(--ease) forwards; }
+    .hero-scroll { position:absolute; bottom:2.5rem; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:.5rem; opacity:0; animation:fadeIn 1s 1.4s var(--ease) forwards; }
+    .hero-scroll span { font-size:.6rem; letter-spacing:.35em; text-transform:uppercase; color:var(--muted); }
+    .scroll-arr { width:1px; height:36px; background:linear-gradient(180deg,var(--gold),transparent); animation:scrollBounce 2s ease-in-out infinite; }
+
+    /* ── URAMAKI FLOATING ────────────────────────── */
+    .uramaki-wrap {
+      position:absolute; z-index:1; pointer-events:none;
+      opacity:0; animation:fadeIn .8s forwards;
     }
-    .hero-divider {
-      width:60px;
-      height:1px;
-      background:var(--gold);
-      margin:0 auto 3rem;
-      transform-origin:center;
-      opacity:0;
-      animation:expandX .8s .85s var(--ease) forwards, fadeIn .8s .85s var(--ease) forwards;
-    }
-    .hero-actions {
-      display:flex;
-      gap:1rem;
-      justify-content:center;
-      flex-wrap:wrap;
-      opacity:0;
-      animation:fadeInUp .9s 1s var(--ease) forwards;
-    }
-    .hero-scroll {
-      position:absolute;
-      bottom:2.5rem;
-      left:50%;
-      transform:translateX(-50%);
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:.5rem;
-      opacity:0;
-      animation:fadeIn 1s 1.4s var(--ease) forwards;
-    }
-    .hero-scroll span {
-      font-size:.6rem;
-      letter-spacing:.35em;
-      text-transform:uppercase;
-      color:var(--muted);
-    }
-    .scroll-arrow {
-      width:1px;
-      height:36px;
-      background:linear-gradient(180deg,var(--gold),transparent);
-      animation:scrollBounce 2s ease-in-out infinite;
-    }
+    .uramaki-wrap svg { display:block; border-radius:50%; filter:drop-shadow(0 4px 18px rgba(201,168,76,.22)); }
+    .ur1 { width:72px; top:18%; left:5%; --ra:-8deg; --rb:6deg; animation:fadeIn .8s 1.8s forwards, floatRoll 7s 1.8s ease-in-out infinite; }
+    .ur2 { width:54px; top:58%; left:3%; --ra:12deg; --rb:-4deg; animation:fadeIn .8s 2.4s forwards, floatRoll 9s 2.4s ease-in-out infinite; }
+    .ur3 { width:78px; top:18%; right:5%; --ra:5deg; --rb:-10deg; animation:fadeIn .8s 1.5s forwards, floatRoll 8s 1.5s ease-in-out infinite; }
+    .ur4 { width:58px; top:62%; right:3%; --ra:-6deg; --rb:8deg; animation:fadeIn .8s 3s forwards, floatRoll 6.5s 3s ease-in-out infinite; }
+    .ur5 { width:46px; bottom:14%; left:47%; --ra:10deg; --rb:-5deg; animation:fadeIn .8s 2.8s forwards, floatRoll 11s 2.8s ease-in-out infinite; }
+    @media (max-width:640px) { .uramaki-wrap { display:none; } }
 
     /* ── PHILOSOPHY ──────────────────────────────── */
-    #philosophy {
-      padding:7rem 2.5rem;
-      background:var(--bg-2);
-      position:relative;
-      overflow:hidden;
-    }
-    .philosophy-inner {
-      max-width:1100px;
-      margin:0 auto;
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:6rem;
-      align-items:center;
-    }
-    .philosophy-kanji-art {
-      font-family:var(--serif);
-      font-size:clamp(6rem,12vw,10rem);
-      font-weight:700;
-      color:rgba(201,168,76,.15);
-      line-height:1;
-      text-align:center;
-      animation:float 6s ease-in-out infinite;
-    }
-    .philosophy-kanji-label {
-      text-align:center;
-      font-size:.65rem;
-      letter-spacing:.3em;
-      text-transform:uppercase;
-      color:var(--gold);
-      margin-top:.5rem;
-    }
-    .philosophy-text .section-sub {
-      max-width:100%;
-      margin-bottom:1.5rem;
-    }
-    .philosophy-quote {
-      border-left:2px solid var(--gold);
-      padding:.75rem 1.25rem;
-      font-family:var(--serif);
-      font-size:1.05rem;
-      color:var(--muted);
-      font-style:italic;
-      margin-top:2rem;
-    }
+    #philosophy { padding:7rem 2.5rem; background:var(--bg-2); position:relative; overflow:hidden; }
+    .phil-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:6rem; align-items:center; }
+    .phil-art { font-family:var(--serif); font-size:clamp(6rem,12vw,10rem); font-weight:700; color:rgba(201,168,76,.15); line-height:1; text-align:center; will-change:transform; }
+    .phil-art-lbl { text-align:center; font-size:.65rem; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin-top:.5rem; }
+    .phil-sub { max-width:100%!important; margin-bottom:1.5rem; }
+    .phil-quote { border-left:2px solid var(--gold); padding:.75rem 1.25rem; font-family:var(--serif); font-size:1.05rem; color:var(--muted); font-style:italic; margin-top:2rem; }
 
     /* ── SIGNATURE DISHES ───────────────────────── */
-    #signature {
-      padding:7rem 2.5rem;
-      background:var(--bg);
-    }
-    .signature-header {
-      max-width:1100px;
-      margin:0 auto 4rem;
-    }
-    .dishes-grid {
-      max-width:1100px;
-      margin:0 auto;
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:1.5rem;
-    }
-    .dish-card {
-      background:var(--bg-card);
-      border:1px solid var(--border);
-      overflow:hidden;
-      cursor:pointer;
-      transition:border-color .3s var(--ease), transform .3s var(--ease);
-    }
-    .dish-card:hover {
-      border-color:rgba(201,168,76,.4);
-      transform:translateY(-6px);
-    }
-    .dish-img {
-      height:220px;
-      position:relative;
-      overflow:hidden;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-    .dish-kanji {
-      font-family:var(--serif);
-      font-size:5rem;
-      font-weight:700;
-      color:rgba(240,235,225,.06);
-      transition:color .3s var(--ease);
-      user-select:none;
-    }
-    .dish-card:hover .dish-kanji { color:rgba(201,168,76,.12); }
-    .dish-tag {
-      position:absolute;
-      top:.75rem; left:.75rem;
-      font-size:.6rem;
-      letter-spacing:.25em;
-      text-transform:uppercase;
-      color:var(--gold);
-      background:rgba(201,168,76,.1);
-      padding:.3rem .7rem;
-    }
-    .dish-info {
-      padding:1.25rem;
-    }
-    .dish-name {
-      font-family:var(--serif);
-      font-size:1.1rem;
-      color:var(--cream);
-      margin-bottom:.3rem;
-    }
-    .dish-desc {
-      font-size:.8rem;
-      color:var(--muted);
-      line-height:1.6;
-      margin-bottom:.75rem;
-    }
-    .dish-price {
-      font-size:.85rem;
-      color:var(--gold);
-      letter-spacing:.05em;
-    }
-    /* Dish backgrounds */
-    .dish-toro   .dish-img { background:linear-gradient(135deg,#160808,#2d1010,#180a0a); }
-    .dish-uni    .dish-img { background:linear-gradient(135deg,#0e1510,#1a2f1a,#0c1a0e); }
+    #signature { padding:7rem 2.5rem; background:var(--bg); }
+    .sig-hd { max-width:1100px; margin:0 auto 4rem; }
+    .dishes-grid { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:1.5rem; }
+    .dish-card { background:var(--bg-card); border:1px solid var(--border); overflow:hidden; cursor:pointer; transition:border-color .3s var(--ease),transform .35s var(--ease),box-shadow .35s var(--ease); }
+    .dish-card:hover { border-color:rgba(201,168,76,.45); transform:translateY(-8px); box-shadow:0 20px 50px rgba(0,0,0,.5),0 0 30px rgba(201,168,76,.07); }
+    .dish-img { height:220px; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+    .dish-kanji { font-family:var(--serif); font-size:5rem; font-weight:700; color:rgba(240,235,225,.055); transition:color .35s var(--ease),transform .35s var(--ease); user-select:none; }
+    .dish-card:hover .dish-kanji { color:rgba(201,168,76,.14); transform:scale(1.08); }
+    .dish-tag { position:absolute; top:.75rem; left:.75rem; font-size:.6rem; letter-spacing:.25em; text-transform:uppercase; color:var(--gold); background:rgba(201,168,76,.1); padding:.3rem .7rem; }
+    .dish-info { padding:1.25rem; }
+    .dish-name { font-family:var(--serif); font-size:1.1rem; color:var(--cream); margin-bottom:.3rem; }
+    .dish-desc { font-size:.8rem; color:var(--muted); line-height:1.6; margin-bottom:.75rem; }
+    .dish-price { font-size:.85rem; color:var(--gold); letter-spacing:.05em; }
+    .dish-toro .dish-img   { background:linear-gradient(135deg,#160808,#2d1010,#180a0a); }
+    .dish-uni .dish-img    { background:linear-gradient(135deg,#0e1510,#1a2f1a,#0c1a0e); }
     .dish-dragon .dish-img { background:linear-gradient(135deg,#0d1508,#1e3014,#0c1a08); }
-    .dish-wagyu  .dish-img { background:linear-gradient(135deg,#150e05,#2e200a,#180e06); }
+    .dish-wagyu .dish-img  { background:linear-gradient(135deg,#150e05,#2e200a,#180e06); }
 
     /* ── OMAKASE ─────────────────────────────────── */
-    #omakase {
-      padding:8rem 2.5rem;
-      background:var(--bg-2);
-      position:relative;
-      overflow:hidden;
-      text-align:center;
+    #omakase { padding:8rem 2.5rem; background:var(--bg-2); position:relative; overflow:hidden; text-align:center; }
+    .om-bg-k { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:var(--serif); font-size:40vw; font-weight:700; color:rgba(201,168,76,.02); pointer-events:none; user-select:none; line-height:1; }
+    .om-inner { position:relative; z-index:1; max-width:700px; margin:0 auto; }
+    .om-inner .sec-sub { max-width:100%; margin:0 auto 1.5rem; }
+    .om-price { display:inline-flex; flex-direction:column; align-items:center; gap:.25rem; margin:2rem 0; padding:1.5rem 3rem; border:1px solid var(--border); }
+    .om-plabel { font-size:.65rem; letter-spacing:.35em; text-transform:uppercase; color:var(--muted); }
+    .om-pval   { font-family:var(--serif); font-size:2.5rem; color:var(--gold); font-weight:500; }
+    .om-pnote  { font-size:.75rem; color:var(--muted); }
+    .om-feats { display:flex; justify-content:center; gap:3rem; margin-bottom:2.5rem; flex-wrap:wrap; }
+    .om-feat { display:flex; flex-direction:column; align-items:center; gap:.5rem; }
+    .om-feat-icon { width:40px; height:40px; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; color:var(--gold); }
+    .om-feat-icon svg { width:18px; height:18px; }
+    .om-feat-txt { font-size:.72rem; letter-spacing:.08em; color:var(--muted); text-align:center; }
+
+    /* ── TORII GATE ──────────────────────────────── */
+    #torii { padding:7rem 2.5rem 5rem; background:#060606; position:relative; overflow:hidden; text-align:center; }
+    .torii-top { margin-bottom:4rem; }
+    .torii-top .sec-sub { max-width:520px; margin:0 auto; }
+    .torii-stage { position:relative; display:flex; justify-content:center; align-items:flex-start; }
+    .torii-svg { width:min(420px,82vw); height:auto; }
+    .torii-path { stroke:var(--gold); stroke-linecap:square; fill:none; }
+    .torii-svg.glowing .torii-path { animation:toriiGlow 2.5s ease-in-out infinite; }
+
+    /* pillars get extra vertical line inside */
+    .torii-pillar-inner { stroke:rgba(201,168,76,.3); }
+
+    .torii-kanji-base {
+      position:absolute; bottom:-10px; left:50%; transform:translateX(-50%);
+      font-family:var(--serif); font-size:1rem; letter-spacing:.6em;
+      color:var(--gold); opacity:0; transition:opacity 1.2s ease;
+      white-space:nowrap;
     }
-    .omakase-bg-kanji {
-      position:absolute;
-      inset:0;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-family:var(--serif);
-      font-size:40vw;
-      font-weight:700;
-      color:rgba(201,168,76,.02);
-      pointer-events:none;
-      user-select:none;
-      line-height:1;
-    }
-    .omakase-inner {
-      position:relative;
-      z-index:1;
-      max-width:700px;
-      margin:0 auto;
-    }
-    .omakase-inner .section-sub {
-      max-width:100%;
-      margin:0 auto 1.5rem;
-      text-align:center;
-    }
-    .omakase-price {
-      display:inline-flex;
-      flex-direction:column;
-      align-items:center;
-      gap:.25rem;
-      margin:2rem 0;
-      padding:1.5rem 3rem;
-      border:1px solid var(--border);
-    }
-    .omakase-price-label {
-      font-size:.65rem;
-      letter-spacing:.35em;
-      text-transform:uppercase;
-      color:var(--muted);
-    }
-    .omakase-price-value {
-      font-family:var(--serif);
-      font-size:2.5rem;
-      color:var(--gold);
-      font-weight:500;
-    }
-    .omakase-price-note {
-      font-size:.75rem;
-      color:var(--muted);
-    }
-    .omakase-features {
-      display:flex;
-      justify-content:center;
-      gap:3rem;
-      margin-bottom:2.5rem;
-      flex-wrap:wrap;
-    }
-    .omakase-feat {
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:.5rem;
-    }
-    .omakase-feat-icon {
-      width:40px; height:40px;
-      border:1px solid var(--border);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:var(--gold);
-    }
-    .omakase-feat-icon svg { width:18px; height:18px; }
-    .omakase-feat-text {
-      font-size:.72rem;
-      letter-spacing:.08em;
-      color:var(--muted);
-      text-align:center;
-    }
+    .torii-kanji-base.show { opacity:1; }
+
+    /* sakura container */
+    .sakura-layer { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+    .spetal { position:absolute; top:0; width:22px; height:22px; opacity:0; animation:sakuraFall var(--dur) var(--del) linear forwards; }
 
     /* ── MENU ────────────────────────────────────── */
-    #menu {
-      padding:7rem 2.5rem;
-      background:var(--bg);
-    }
-    .menu-inner {
-      max-width:900px;
-      margin:0 auto;
-    }
-    .menu-header { margin-bottom:3.5rem; }
-    .menu-tabs {
-      display:flex;
-      gap:0;
-      border-bottom:1px solid var(--border);
-      margin-bottom:3rem;
-    }
-    .menu-tab {
-      padding:.75rem 1.75rem;
-      background:none;
-      border:none;
-      color:var(--muted);
-      font-family:var(--sans);
-      font-size:.78rem;
-      letter-spacing:.15em;
-      text-transform:uppercase;
-      cursor:pointer;
-      border-bottom:2px solid transparent;
-      margin-bottom:-1px;
-      transition:color .25s var(--ease), border-color .25s var(--ease);
-    }
-    .menu-tab.active {
-      color:var(--gold);
-      border-bottom-color:var(--gold);
-    }
+    #menu { padding:7rem 2.5rem; background:var(--bg); }
+    .menu-inner { max-width:900px; margin:0 auto; }
+    .menu-hd { margin-bottom:3.5rem; }
+    .menu-tabs { display:flex; gap:0; border-bottom:1px solid var(--border); margin-bottom:3rem; }
+    .menu-tab { padding:.75rem 1.75rem; background:none; border:none; color:var(--muted); font-family:var(--sans); font-size:.78rem; letter-spacing:.15em; text-transform:uppercase; cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px; transition:color .25s,border-color .25s; }
+    .menu-tab.active { color:var(--gold); border-bottom-color:var(--gold); }
     .menu-tab:hover { color:var(--cream); }
     .menu-panel { display:none; }
     .menu-panel.active { display:block; }
-    .menu-items {
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:1.5rem 3rem;
-    }
-    .menu-item {
-      display:flex;
-      justify-content:space-between;
-      align-items:baseline;
-      gap:1rem;
-      padding-bottom:1.25rem;
-      border-bottom:1px solid rgba(240,235,225,.05);
-    }
-    .menu-item-left {}
-    .menu-item-name {
-      font-family:var(--serif);
-      font-size:1rem;
-      color:var(--cream);
-      margin-bottom:.2rem;
-    }
-    .menu-item-desc {
-      font-size:.75rem;
-      color:var(--muted);
-    }
-    .menu-item-price {
-      font-size:.9rem;
-      color:var(--gold);
-      white-space:nowrap;
-      flex-shrink:0;
-    }
+    .menu-items { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem 3rem; }
+    .menu-item { display:flex; justify-content:space-between; align-items:baseline; gap:1rem; padding-bottom:1.25rem; border-bottom:1px solid rgba(240,235,225,.05); }
+    .mi-name { font-family:var(--serif); font-size:1rem; color:var(--cream); margin-bottom:.2rem; }
+    .mi-desc { font-size:.75rem; color:var(--muted); }
+    .mi-price { font-size:.9rem; color:var(--gold); white-space:nowrap; flex-shrink:0; }
 
     /* ── RESERVATION ─────────────────────────────── */
-    #reservation {
-      padding:7rem 2.5rem;
-      background:var(--bg-2);
-    }
-    .reservation-inner {
-      max-width:1100px;
-      margin:0 auto;
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:6rem;
-      align-items:start;
-    }
-    .res-info-title {
-      font-family:var(--serif);
-      font-size:clamp(2rem,4vw,3rem);
-      margin-bottom:1rem;
-    }
-    .res-info-sub {
-      font-size:.9rem;
-      color:var(--muted);
-      margin-bottom:2.5rem;
-      line-height:1.8;
-    }
-    .res-detail {
-      display:flex;
-      flex-direction:column;
-      gap:1rem;
-    }
-    .res-detail-item {
-      display:flex;
-      flex-direction:column;
-      gap:.15rem;
-    }
-    .res-detail-label {
-      font-size:.65rem;
-      letter-spacing:.3em;
-      text-transform:uppercase;
-      color:var(--gold);
-    }
-    .res-detail-value {
-      font-size:.9rem;
-      color:var(--cream);
-    }
-    .res-form {
-      display:flex;
-      flex-direction:column;
-      gap:1.25rem;
-    }
-    .form-row {
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:1.25rem;
-    }
-    .form-group {
-      display:flex;
-      flex-direction:column;
-      gap:.4rem;
-    }
-    .form-label {
-      font-size:.65rem;
-      letter-spacing:.25em;
-      text-transform:uppercase;
-      color:var(--muted);
-    }
-    .form-input, .form-select, .form-textarea {
-      background:rgba(240,235,225,.04);
-      border:1px solid var(--border);
-      color:var(--cream);
-      font-family:var(--sans);
-      font-size:.9rem;
-      font-weight:300;
-      padding:.85rem 1rem;
-      outline:none;
-      transition:border-color .25s var(--ease), background .25s var(--ease);
-      width:100%;
-    }
-    .form-input::placeholder, .form-textarea::placeholder { color:var(--muted); }
-    .form-input:focus, .form-select:focus, .form-textarea:focus {
-      border-color:var(--gold);
-      background:rgba(201,168,76,.04);
-    }
-    .form-select { cursor:pointer; }
-    .form-select option { background:#111; color:var(--cream); }
-    .form-textarea { resize:vertical; min-height:100px; }
-    .form-submit {
-      width:100%;
-      padding:1rem;
-      margin-top:.5rem;
-    }
+    #reservation { padding:7rem 2.5rem; background:var(--bg-2); }
+    .res-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:6rem; align-items:start; }
+    .res-title { font-family:var(--serif); font-size:clamp(2rem,4vw,3rem); margin-bottom:1rem; }
+    .res-sub { font-size:.9rem; color:var(--muted); margin-bottom:2.5rem; line-height:1.8; }
+    .res-det { display:flex; flex-direction:column; gap:1rem; }
+    .res-det-item { display:flex; flex-direction:column; gap:.15rem; }
+    .res-det-lbl { font-size:.65rem; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); }
+    .res-det-val { font-size:.9rem; color:var(--cream); }
+    .res-form { display:flex; flex-direction:column; gap:1.25rem; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; }
+    .form-group { display:flex; flex-direction:column; gap:.4rem; }
+    .form-lbl { font-size:.65rem; letter-spacing:.25em; text-transform:uppercase; color:var(--muted); }
+    .form-input,.form-sel,.form-ta { background:rgba(240,235,225,.04); border:1px solid var(--border); color:var(--cream); font-family:var(--sans); font-size:.9rem; font-weight:300; padding:.85rem 1rem; outline:none; transition:border-color .25s,background .25s; width:100%; }
+    .form-input::placeholder,.form-ta::placeholder { color:var(--muted); }
+    .form-input:focus,.form-sel:focus,.form-ta:focus { border-color:var(--gold); background:rgba(201,168,76,.04); }
+    .form-sel { cursor:pointer; }
+    .form-sel option { background:#111; color:var(--cream); }
+    .form-ta { resize:vertical; min-height:100px; }
+    .form-submit { width:100%; padding:1rem; margin-top:.5rem; }
 
     /* ── FOOTER ──────────────────────────────────── */
-    footer {
-      background:#080808;
-      border-top:1px solid var(--border);
-      padding:4rem 2.5rem 2.5rem;
-    }
-    .footer-inner {
-      max-width:1100px;
-      margin:0 auto;
-    }
-    .footer-top {
-      display:grid;
-      grid-template-columns:2fr 1fr 1fr;
-      gap:4rem;
-      margin-bottom:3.5rem;
-    }
-    .footer-brand {}
-    .footer-logo-en {
-      font-family:var(--serif);
-      font-size:1.6rem;
-      letter-spacing:.2em;
-      color:var(--cream);
-    }
-    .footer-logo-jp {
-      font-family:var(--serif);
-      font-size:.7rem;
-      letter-spacing:.3em;
-      color:var(--gold);
-      margin-top:.15rem;
-      margin-bottom:1rem;
-    }
-    .footer-tagline {
-      font-size:.82rem;
-      color:var(--muted);
-      line-height:1.7;
-      max-width:260px;
-    }
-    .footer-col-title {
-      font-size:.65rem;
-      letter-spacing:.35em;
-      text-transform:uppercase;
-      color:var(--gold);
-      margin-bottom:1.25rem;
-    }
-    .footer-col ul {
-      display:flex;
-      flex-direction:column;
-      gap:.75rem;
-    }
-    .footer-col a {
-      font-size:.82rem;
-      color:var(--muted);
-      transition:color .25s var(--ease);
-    }
-    .footer-col a:hover { color:var(--cream); }
-    .footer-hours {
-      display:flex;
-      flex-direction:column;
-      gap:.6rem;
-    }
-    .footer-hour-row {
-      display:flex;
-      justify-content:space-between;
-      font-size:.8rem;
-    }
-    .footer-hour-day { color:var(--muted); }
-    .footer-hour-time { color:var(--cream); }
-    .footer-bottom {
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding-top:2rem;
-      border-top:1px solid rgba(240,235,225,.05);
-      flex-wrap:wrap;
-      gap:1rem;
-    }
-    .footer-copy {
-      font-size:.72rem;
-      color:var(--muted);
-      letter-spacing:.05em;
-    }
-    .footer-address {
-      font-size:.72rem;
-      color:var(--muted);
-      text-align:right;
-    }
+    footer { background:#080808; border-top:1px solid var(--border); padding:4rem 2.5rem 2.5rem; }
+    .foot-inner { max-width:1100px; margin:0 auto; }
+    .foot-top { display:grid; grid-template-columns:2fr 1fr 1fr; gap:4rem; margin-bottom:3.5rem; }
+    .foot-logo-en { font-family:var(--serif); font-size:1.6rem; letter-spacing:.2em; color:var(--cream); }
+    .foot-logo-jp { font-family:var(--serif); font-size:.7rem; letter-spacing:.3em; color:var(--gold); margin:.15rem 0 1rem; }
+    .foot-tag { font-size:.82rem; color:var(--muted); line-height:1.7; max-width:260px; }
+    .foot-col-t { font-size:.65rem; letter-spacing:.35em; text-transform:uppercase; color:var(--gold); margin-bottom:1.25rem; }
+    .foot-col ul { display:flex; flex-direction:column; gap:.75rem; }
+    .foot-col a { font-size:.82rem; color:var(--muted); transition:color .25s; }
+    .foot-col a:hover { color:var(--cream); }
+    .foot-hrs { display:flex; flex-direction:column; gap:.6rem; }
+    .foot-hr { display:flex; justify-content:space-between; font-size:.8rem; }
+    .foot-hr-day { color:var(--muted); }
+    .foot-hr-time { color:var(--cream); }
+    .foot-bot { display:flex; justify-content:space-between; align-items:center; padding-top:2rem; border-top:1px solid rgba(240,235,225,.05); flex-wrap:wrap; gap:1rem; }
+    .foot-copy { font-size:.72rem; color:var(--muted); letter-spacing:.05em; }
+    .foot-addr { font-size:.72rem; color:var(--muted); text-align:right; }
 
     /* ── RESPONSIVE ──────────────────────────────── */
     @media (max-width:900px) {
       .dishes-grid { grid-template-columns:repeat(2,1fr); }
-      .philosophy-inner { grid-template-columns:1fr; gap:3rem; }
-      .philosophy-kanji-art { font-size:8rem; }
-      .reservation-inner { grid-template-columns:1fr; gap:3rem; }
-      .footer-top { grid-template-columns:1fr 1fr; gap:2.5rem; }
-      .footer-brand { grid-column:1/-1; }
+      .phil-inner { grid-template-columns:1fr; gap:3rem; }
+      .phil-art { font-size:8rem; }
+      .res-inner { grid-template-columns:1fr; gap:3rem; }
+      .foot-top { grid-template-columns:1fr 1fr; gap:2.5rem; }
+      .foot-brand { grid-column:1/-1; }
     }
     @media (max-width:640px) {
       .dishes-grid { grid-template-columns:1fr; }
@@ -865,24 +284,21 @@
       .nav-burger { display:flex; }
       .menu-items { grid-template-columns:1fr; }
       .form-row { grid-template-columns:1fr; }
-      .footer-top { grid-template-columns:1fr; }
-      .omakase-features { gap:1.5rem; }
+      .foot-top { grid-template-columns:1fr; }
+      .om-feats { gap:1.5rem; }
       #navbar { padding:1.25rem 1.5rem; }
       #navbar.scrolled { padding:.85rem 1.5rem; }
+      .menu-tab { padding:.75rem 1rem; font-size:.7rem; }
     }
-
     @media (prefers-reduced-motion:reduce) {
-      *, *::before, *::after {
-        animation-duration:.01ms !important;
-        transition-duration:.01ms !important;
-      }
+      *,*::before,*::after { animation-duration:.01ms!important; transition-duration:.01ms!important; }
     }
   </style>
 </head>
 
 <body>
 
-<!-- ════════════════════════════════ NAVBAR -->
+<!-- ═══════════════════ NAVBAR -->
 <nav id="navbar">
   <div class="nav-inner">
     <a href="#" class="nav-logo">
@@ -893,6 +309,7 @@
       <li><a href="#philosophy">Filosofia</a></li>
       <li><a href="#signature">Piatti</a></li>
       <li><a href="#omakase">Omakase</a></li>
+      <li><a href="#torii">Il Torii</a></li>
       <li><a href="#menu">Menu</a></li>
       <li><a href="#reservation" class="nav-reserve">Prenota</a></li>
     </ul>
@@ -902,109 +319,187 @@
   </div>
 </nav>
 
-<!-- MOBILE MENU -->
 <nav class="nav-mobile" id="navMobile">
-  <button class="nav-mobile-close" id="navClose" aria-label="Chiudi">✕</button>
-  <a href="#philosophy"  onclick="closeMobile()">Filosofia</a>
-  <a href="#signature"   onclick="closeMobile()">Piatti</a>
-  <a href="#omakase"     onclick="closeMobile()">Omakase</a>
-  <a href="#menu"        onclick="closeMobile()">Menu</a>
-  <a href="#reservation" onclick="closeMobile()">Prenota</a>
+  <button class="nav-mc" id="navClose" aria-label="Chiudi">✕</button>
+  <a href="#philosophy"  onclick="closeMob()">Filosofia</a>
+  <a href="#signature"   onclick="closeMob()">Piatti</a>
+  <a href="#omakase"     onclick="closeMob()">Omakase</a>
+  <a href="#torii"       onclick="closeMob()">Il Torii</a>
+  <a href="#menu"        onclick="closeMob()">Menu</a>
+  <a href="#reservation" onclick="closeMob()">Prenota</a>
 </nav>
 
-<!-- ════════════════════════════════ HERO -->
+<!-- ═══════════════════ HERO -->
 <section id="hero">
   <div class="hero-bg"></div>
-  <div class="hero-lines">
-    <div class="hero-line-h"></div>
-    <div class="hero-line-h"></div>
+  <div class="hero-lines"><div class="hero-lh"></div><div class="hero-lh"></div></div>
+  <div class="hero-kanji" id="heroKanji">大</div>
+
+  <!-- Floating Uramaki Rolls -->
+
+  <!-- Roll 1: Salmon -->
+  <div class="uramaki-wrap ur1">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
+      <circle cx="50" cy="50" r="48" fill="#F5EED8"/>
+      <circle cx="28" cy="24" r="2.5" fill="#C9A84C" opacity=".85"/>
+      <circle cx="50" cy="16" r="2.5" fill="#C9A84C" opacity=".85"/>
+      <circle cx="72" cy="24" r="2.5" fill="#C9A84C" opacity=".85"/>
+      <circle cx="82" cy="50" r="2.5" fill="#C9A84C" opacity=".85"/>
+      <circle cx="72" cy="76" r="2.5" fill="#C9A84C" opacity=".85"/>
+      <circle cx="50" cy="84" r="2.5" fill="#C9A84C" opacity=".85"/>
+      <circle cx="28" cy="76" r="2.5" fill="#C9A84C" opacity=".85"/>
+      <circle cx="18" cy="50" r="2.5" fill="#C9A84C" opacity=".85"/>
+      <circle cx="50" cy="50" r="37" fill="#1A1A10"/>
+      <ellipse cx="50" cy="36" rx="21" ry="14" fill="#E07242"/>
+      <ellipse cx="36" cy="62" rx="14" ry="11" fill="#5D9B3A"/>
+      <ellipse cx="64" cy="62" rx="14" ry="11" fill="#4BA865"/>
+      <circle cx="50" cy="50" r="13" fill="#F5EED8"/>
+      <circle cx="44" cy="44" r="4" fill="rgba(255,255,255,.12)"/>
+    </svg>
   </div>
-  <div class="hero-kanji">大</div>
+
+  <!-- Roll 2: Tuna -->
+  <div class="uramaki-wrap ur2">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="54" height="54">
+      <circle cx="50" cy="50" r="48" fill="#F5EED8"/>
+      <circle cx="28" cy="24" r="2.5" fill="#C9A84C" opacity=".85"/>
+      <circle cx="50" cy="16" r="2.5" fill="#C9A84C" opacity=".85"/>
+      <circle cx="72" cy="24" r="2.5" fill="#C9A84C" opacity=".85"/>
+      <circle cx="82" cy="50" r="2.5" fill="#C9A84C" opacity=".85"/>
+      <circle cx="72" cy="76" r="2.5" fill="#C9A84C" opacity=".85"/>
+      <circle cx="50" cy="84" r="2.5" fill="#C9A84C" opacity=".85"/>
+      <circle cx="28" cy="76" r="2.5" fill="#C9A84C" opacity=".85"/>
+      <circle cx="18" cy="50" r="2.5" fill="#C9A84C" opacity=".85"/>
+      <circle cx="50" cy="50" r="37" fill="#1A1A10"/>
+      <ellipse cx="50" cy="38" rx="22" ry="14" fill="#8B1C1C"/>
+      <circle cx="42" cy="37" r="3" fill="#E8A040" opacity=".8"/>
+      <circle cx="58" cy="37" r="3" fill="#E8A040" opacity=".8"/>
+      <ellipse cx="50" cy="62" rx="18" ry="11" fill="#4BA865"/>
+      <circle cx="50" cy="50" r="13" fill="#F5EED8"/>
+    </svg>
+  </div>
+
+  <!-- Roll 3: Dragon Roll (green outside) -->
+  <div class="uramaki-wrap ur3">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="78" height="78">
+      <circle cx="50" cy="50" r="48" fill="#3D6B28"/>
+      <line x1="50" y1="2" x2="50" y2="98" stroke="#2D5A1A" stroke-width="1.5"/>
+      <line x1="2" y1="50" x2="98" y2="50" stroke="#2D5A1A" stroke-width="1.5"/>
+      <line x1="16" y1="16" x2="84" y2="84" stroke="#2D5A1A" stroke-width="1.2"/>
+      <line x1="84" y1="16" x2="16" y2="84" stroke="#2D5A1A" stroke-width="1.2"/>
+      <circle cx="50" cy="50" r="37" fill="#1A1A10"/>
+      <ellipse cx="50" cy="38" rx="22" ry="13" fill="#8B5A2B"/>
+      <ellipse cx="50" cy="60" rx="19" ry="11" fill="#D4A040"/>
+      <circle cx="50" cy="50" r="13" fill="#F5EED8"/>
+      <circle cx="44" cy="44" r="4" fill="rgba(255,255,255,.12)"/>
+    </svg>
+  </div>
+
+  <!-- Roll 4: Rainbow Roll -->
+  <div class="uramaki-wrap ur4">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="58" height="58">
+      <circle cx="50" cy="50" r="48" fill="#F5EED8"/>
+      <circle cx="28" cy="24" r="2.5" fill="#C9A84C" opacity=".85"/>
+      <circle cx="50" cy="16" r="2.5" fill="#C9A84C" opacity=".85"/>
+      <circle cx="72" cy="24" r="2.5" fill="#C9A84C" opacity=".85"/>
+      <circle cx="82" cy="50" r="2.5" fill="#C9A84C" opacity=".85"/>
+      <circle cx="72" cy="76" r="2.5" fill="#C9A84C" opacity=".85"/>
+      <circle cx="50" cy="84" r="2.5" fill="#C9A84C" opacity=".85"/>
+      <circle cx="28" cy="76" r="2.5" fill="#C9A84C" opacity=".85"/>
+      <circle cx="18" cy="50" r="2.5" fill="#C9A84C" opacity=".85"/>
+      <circle cx="50" cy="50" r="37" fill="#1A1A10"/>
+      <path d="M 22,50 A 28,28 0 0 1 50,22" stroke="#E07242" stroke-width="9" fill="none" stroke-linecap="butt"/>
+      <path d="M 50,22 A 28,28 0 0 1 78,50" stroke="#8B1C1C" stroke-width="9" fill="none" stroke-linecap="butt"/>
+      <path d="M 78,50 A 28,28 0 0 1 50,78" stroke="#5D9B3A" stroke-width="9" fill="none" stroke-linecap="butt"/>
+      <path d="M 50,78 A 28,28 0 0 1 22,50" stroke="#D4A040" stroke-width="9" fill="none" stroke-linecap="butt"/>
+      <circle cx="50" cy="50" r="14" fill="#F5EED8"/>
+    </svg>
+  </div>
+
+  <!-- Roll 5: Cucumber/Veggie -->
+  <div class="uramaki-wrap ur5">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="46" height="46">
+      <circle cx="50" cy="50" r="48" fill="#F5EED8"/>
+      <circle cx="50" cy="16" r="2.5" fill="#C9A84C" opacity=".85"/>
+      <circle cx="82" cy="50" r="2.5" fill="#C9A84C" opacity=".85"/>
+      <circle cx="50" cy="84" r="2.5" fill="#C9A84C" opacity=".85"/>
+      <circle cx="18" cy="50" r="2.5" fill="#C9A84C" opacity=".85"/>
+      <circle cx="50" cy="50" r="37" fill="#1A1A10"/>
+      <ellipse cx="50" cy="50" rx="22" ry="22" fill="#2D7A4A"/>
+      <ellipse cx="50" cy="50" rx="14" ry="14" fill="#4BA865"/>
+      <circle cx="50" cy="50" r="6" fill="#F5EED8"/>
+      <line x1="50" y1="28" x2="50" y2="72" stroke="#1A1A10" stroke-width="1.5"/>
+      <line x1="28" y1="50" x2="72" y2="50" stroke="#1A1A10" stroke-width="1.5"/>
+    </svg>
+  </div>
+
   <div class="hero-content">
     <span class="hero-sup">大崎 — Autentica Cucina Giapponese</span>
-    <h1 class="hero-title">OSAKI</h1>
+    <h1 class="hero-title shimmer" id="heroTitle">OSAKI</h1>
     <p class="hero-tagline">Dove ogni piatto racconta una storia antica</p>
     <div class="hero-divider"></div>
     <div class="hero-actions">
-      <a href="#reservation" class="btn-primary">Prenota un Tavolo</a>
-      <a href="#menu" class="btn-secondary">Scopri il Menu</a>
+      <a href="#reservation" class="btn-p">Prenota un Tavolo</a>
+      <a href="#menu" class="btn-s">Scopri il Menu</a>
     </div>
   </div>
   <div class="hero-scroll">
     <span>Scroll</span>
-    <div class="scroll-arrow"></div>
+    <div class="scroll-arr"></div>
   </div>
 </section>
 
-<!-- ════════════════════════════════ PHILOSOPHY -->
+<!-- ═══════════════════ PHILOSOPHY -->
 <section id="philosophy">
-  <div class="philosophy-inner">
-    <div class="animate-on-scroll">
-      <div class="philosophy-kanji-art">間</div>
-      <p class="philosophy-kanji-label">Ma — Lo Spazio</p>
+  <div class="phil-inner">
+    <div class="anim" id="philArt">
+      <div class="phil-art">間</div>
+      <p class="phil-art-lbl">Ma — Lo Spazio</p>
     </div>
-    <div class="philosophy-text">
-      <p class="section-label animate-on-scroll">La Nostra Filosofia</p>
-      <h2 class="section-title animate-on-scroll animate-delay-1">L'Arte del<br/>Silenzio e del Sapore</h2>
-      <p class="section-sub animate-on-scroll animate-delay-2">
-        Osaki nasce dall'incontro tra la tradizione culinaria giapponese e la sensibilità contemporanea. Il nostro chef, formatosi a Tokyo e Kyoto per oltre un decennio, porta in tavola il concetto di <em>Ma</em> — lo spazio prezioso tra gli ingredienti, dove i sapori respirano.
-      </p>
-      <p class="section-sub animate-on-scroll animate-delay-3" style="margin-top:1rem">
-        Ogni mattina selezioniamo il pesce fresco direttamente dai mercati ittici, scegliendo solo ciò che la stagione ci offre nel pieno della sua essenza.
-      </p>
-      <blockquote class="philosophy-quote animate-on-scroll animate-delay-4">
-        "Il sushi perfetto non è nel pesce, né nel riso — è nel silenzio tra i due."
-      </blockquote>
+    <div class="phil-text">
+      <p class="lbl anim">La Nostra Filosofia</p>
+      <h2 class="sec-title anim d1">L'Arte del<br/>Silenzio e del Sapore</h2>
+      <p class="sec-sub phil-sub anim d2">Osaki nasce dall'incontro tra la tradizione culinaria giapponese e la sensibilità contemporanea. Il nostro chef, formatosi a Tokyo e Kyoto per oltre un decennio, porta in tavola il concetto di <em>Ma</em> — lo spazio prezioso tra gli ingredienti, dove i sapori respirano.</p>
+      <p class="sec-sub phil-sub anim d3" style="margin-top:1rem">Ogni mattina selezioniamo il pesce fresco direttamente dai mercati ittici, scegliendo solo ciò che la stagione ci offre nel pieno della sua essenza.</p>
+      <blockquote class="phil-quote anim d4">"Il sushi perfetto non è nel pesce, né nel riso — è nel silenzio tra i due."</blockquote>
     </div>
   </div>
 </section>
 
-<!-- ════════════════════════════════ SIGNATURE -->
+<!-- ═══════════════════ SIGNATURE -->
 <section id="signature">
-  <div class="signature-header animate-on-scroll">
-    <p class="section-label">I Nostri Signature</p>
-    <h2 class="section-title">Piatti Iconici</h2>
-    <p class="section-sub">Quattro espressioni del nostro approccio alla cucina giapponese.</p>
+  <div class="sig-hd anim">
+    <p class="lbl">I Nostri Signature</p>
+    <h2 class="sec-title">Piatti Iconici</h2>
+    <p class="sec-sub">Quattro espressioni del nostro approccio alla cucina giapponese.</p>
   </div>
   <div class="dishes-grid">
-    <div class="dish-card dish-toro animate-on-scroll animate-delay-1">
-      <div class="dish-img">
-        <span class="dish-tag">Signature</span>
-        <span class="dish-kanji">鮪</span>
-      </div>
+    <div class="dish-card dish-toro anim d1">
+      <div class="dish-img"><span class="dish-tag">Signature</span><span class="dish-kanji">鮪</span></div>
       <div class="dish-info">
         <h3 class="dish-name">Ōtoro Nigiri</h3>
         <p class="dish-desc">Tonno grasso del Pacifico, riso invecchiato al vapore, wasabi fresco di montagna.</p>
         <span class="dish-price">€ 28 · 2 pz</span>
       </div>
     </div>
-    <div class="dish-card dish-uni animate-on-scroll animate-delay-2">
-      <div class="dish-img">
-        <span class="dish-tag">Stagionale</span>
-        <span class="dish-kanji">雲丹</span>
-      </div>
+    <div class="dish-card dish-uni anim d2">
+      <div class="dish-img"><span class="dish-tag">Stagionale</span><span class="dish-kanji">雲丹</span></div>
       <div class="dish-info">
         <h3 class="dish-name">Uni Temaki</h3>
         <p class="dish-desc">Ricci di mare di Hokkaido, alga nori croccante, caviale di trota, burro di yuzu.</p>
         <span class="dish-price">€ 32 · 1 pz</span>
       </div>
     </div>
-    <div class="dish-card dish-dragon animate-on-scroll animate-delay-3">
-      <div class="dish-img">
-        <span class="dish-tag">Chef's Choice</span>
-        <span class="dish-kanji">龍</span>
-      </div>
+    <div class="dish-card dish-dragon anim d3">
+      <div class="dish-img"><span class="dish-tag">Chef's Choice</span><span class="dish-kanji">龍</span></div>
       <div class="dish-info">
         <h3 class="dish-name">Dragon Roll</h3>
         <p class="dish-desc">Anguilla alla brace, gambero tempura, avocado cremoso, salsa unagi, semi di sesamo.</p>
         <span class="dish-price">€ 24 · 8 pz</span>
       </div>
     </div>
-    <div class="dish-card dish-wagyu animate-on-scroll animate-delay-4">
-      <div class="dish-img">
-        <span class="dish-tag">Luxury</span>
-        <span class="dish-kanji">和牛</span>
-      </div>
+    <div class="dish-card dish-wagyu anim d4">
+      <div class="dish-img"><span class="dish-tag">Luxury</span><span class="dish-kanji">和牛</span></div>
       <div class="dish-info">
         <h3 class="dish-name">Wagyu Nigiri</h3>
         <p class="dish-desc">Manzo Wagyu A5 flambé al momento, tartufo nero, sale marino di Okinawa.</p>
@@ -1014,151 +509,155 @@
   </div>
 </section>
 
-<!-- ════════════════════════════════ OMAKASE -->
+<!-- ═══════════════════ OMAKASE -->
 <section id="omakase">
-  <div class="omakase-bg-kanji">お</div>
-  <div class="omakase-inner">
-    <p class="section-label animate-on-scroll">Esperienza Esclusiva</p>
-    <h2 class="section-title animate-on-scroll animate-delay-1">Omakase</h2>
-    <p class="section-sub animate-on-scroll animate-delay-2">
-      Affidati completamente allo chef. Un percorso di 12–16 portate che cambia ogni sera, seguendo la stagionalità e l'ispirazione del momento. Un'esperienza unica e irripetibile.
-    </p>
-    <div class="omakase-features animate-on-scroll animate-delay-3">
-      <div class="omakase-feat">
-        <div class="omakase-feat-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 6v6l4 2M12 2a10 10 0 100 20A10 10 0 0012 2z"/></svg>
-        </div>
-        <span class="omakase-feat-text">2,5 ore<br/>di esperienza</span>
+  <div class="om-bg-k">お</div>
+  <div class="om-inner">
+    <p class="lbl anim">Esperienza Esclusiva</p>
+    <h2 class="sec-title anim d1">Omakase</h2>
+    <p class="sec-sub anim d2">Affidati completamente allo chef. Un percorso di 12–16 portate che cambia ogni sera, seguendo la stagionalità e l'ispirazione del momento. Un'esperienza unica e irripetibile.</p>
+    <div class="om-feats anim d3">
+      <div class="om-feat">
+        <div class="om-feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 6v6l4 2M12 2a10 10 0 100 20A10 10 0 0012 2z"/></svg></div>
+        <span class="om-feat-txt">2,5 ore<br/>di esperienza</span>
       </div>
-      <div class="omakase-feat">
-        <div class="omakase-feat-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
-        </div>
-        <span class="omakase-feat-text">12–16<br/>portate</span>
+      <div class="om-feat">
+        <div class="om-feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg></div>
+        <span class="om-feat-txt">12–16<br/>portate</span>
       </div>
-      <div class="omakase-feat">
-        <div class="omakase-feat-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        </div>
-        <span class="omakase-feat-text">Ingredienti<br/>stagionali</span>
+      <div class="om-feat">
+        <div class="om-feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+        <span class="om-feat-txt">Ingredienti<br/>stagionali</span>
       </div>
     </div>
-    <div class="omakase-price animate-on-scroll animate-delay-4">
-      <span class="omakase-price-label">A persona</span>
-      <span class="omakase-price-value">€ 120</span>
-      <span class="omakase-price-note">Bevande escluse · abbinamento sake +€ 45</span>
+    <div class="om-price anim d4">
+      <span class="om-plabel">A persona</span>
+      <span class="om-pval">€ 120</span>
+      <span class="om-pnote">Bevande escluse · abbinamento sake +€ 45</span>
     </div>
-    <div class="animate-on-scroll animate-delay-4">
-      <a href="#reservation" class="btn-primary">Prenota l'Esperienza</a>
-    </div>
+    <div class="anim d4"><a href="#reservation" class="btn-p">Prenota l'Esperienza</a></div>
   </div>
 </section>
 
-<!-- ════════════════════════════════ MENU -->
+<!-- ═══════════════════ TORII GATE -->
+<section id="torii">
+  <div class="sakura-layer" id="sakuraLayer"></div>
+  <div class="torii-top">
+    <p class="lbl anim" style="justify-content:center">Il Simbolo</p>
+    <h2 class="sec-title anim d1">Il Portale Sacro</h2>
+    <p class="sec-sub anim d2">Come in Giappone ogni tempio custodisce un torii, ogni piatto di Osaki è un varco verso un mondo di sapori millenari. Scorri per attraversarlo.</p>
+  </div>
+  <div class="torii-stage">
+    <svg id="toriiSvg" class="torii-svg" viewBox="0 0 400 470" xmlns="http://www.w3.org/2000/svg">
+      <!-- Kasagi — top curved beam -->
+      <path class="torii-path" id="tpKasagi"
+        d="M -5,118 Q 200,58 405,118 L 405,146 Q 200,85 -5,146 Z"
+        stroke-width="3"/>
+      <!-- Shimaki — pillar caps left -->
+      <rect class="torii-path" id="tpCapL"
+        x="78" y="140" width="56" height="16" stroke-width="2.5"/>
+      <!-- Shimaki — pillar caps right -->
+      <rect class="torii-path" id="tpCapR"
+        x="266" y="140" width="56" height="16" stroke-width="2.5"/>
+      <!-- Nuki — second horizontal beam -->
+      <rect class="torii-path" id="tpNuki"
+        x="96" y="194" width="208" height="18" stroke-width="2.5"/>
+      <!-- Hashira — left pillar -->
+      <rect class="torii-path" id="tpPilL"
+        x="96" y="155" width="27" height="295" stroke-width="2.5"/>
+      <!-- Hashira — right pillar -->
+      <rect class="torii-path" id="tpPilR"
+        x="277" y="155" width="27" height="295" stroke-width="2.5"/>
+      <!-- Inner pillar details (decorative thin lines) -->
+      <line class="torii-path torii-pillar-inner" id="tpDL"
+        x1="109" y1="220" x2="109" y2="448" stroke-width="1" opacity=".4"/>
+      <line class="torii-path torii-pillar-inner" id="tpDR"
+        x1="291" y1="220" x2="291" y2="448" stroke-width="1" opacity=".4"/>
+    </svg>
+    <span class="torii-kanji-base" id="toriiLabel">大崎</span>
+  </div>
+</section>
+
+<!-- ═══════════════════ MENU -->
 <section id="menu">
   <div class="menu-inner">
-    <div class="menu-header animate-on-scroll">
-      <p class="section-label">La Nostra Carta</p>
-      <h2 class="section-title">Il Menu</h2>
+    <div class="menu-hd anim">
+      <p class="lbl">La Nostra Carta</p>
+      <h2 class="sec-title">Il Menu</h2>
     </div>
-    <div class="menu-tabs animate-on-scroll animate-delay-1">
+    <div class="menu-tabs anim d1">
       <button class="menu-tab active" data-tab="nigiri">Nigiri</button>
       <button class="menu-tab" data-tab="maki">Maki</button>
       <button class="menu-tab" data-tab="sashimi">Sashimi</button>
       <button class="menu-tab" data-tab="specials">Specialità</button>
     </div>
-    <!-- Nigiri -->
     <div class="menu-panel active" id="tab-nigiri">
       <div class="menu-items">
-        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Maguro</p><p class="menu-item-desc">Tonno rosso del Mediterraneo</p></div><span class="menu-item-price">€ 12</span></div>
-        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Sake</p><p class="menu-item-desc">Salmone selvaggio dell'Atlantico</p></div><span class="menu-item-price">€ 10</span></div>
-        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Hamachi</p><p class="menu-item-desc">Ricciola gialla, ponzu citrus</p></div><span class="menu-item-price">€ 14</span></div>
-        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Hotate</p><p class="menu-item-desc">Capesante di Hokkaido, yuzu</p></div><span class="menu-item-price">€ 16</span></div>
-        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Ōtoro</p><p class="menu-item-desc">Ventresca di tonno blu del Pacifico</p></div><span class="menu-item-price">€ 28</span></div>
-        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Uni</p><p class="menu-item-desc">Ricci di mare di Hokkaido</p></div><span class="menu-item-price">€ 22</span></div>
-        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Ikura</p><p class="menu-item-desc">Uova di salmone marinate al sake</p></div><span class="menu-item-price">€ 14</span></div>
-        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Wagyu</p><p class="menu-item-desc">Manzo A5 flambé, tartufo nero</p></div><span class="menu-item-price">€ 38</span></div>
+        <div class="menu-item"><div><p class="mi-name">Maguro</p><p class="mi-desc">Tonno rosso del Mediterraneo</p></div><span class="mi-price">€ 12</span></div>
+        <div class="menu-item"><div><p class="mi-name">Sake</p><p class="mi-desc">Salmone selvaggio dell'Atlantico</p></div><span class="mi-price">€ 10</span></div>
+        <div class="menu-item"><div><p class="mi-name">Hamachi</p><p class="mi-desc">Ricciola gialla, ponzu citrus</p></div><span class="mi-price">€ 14</span></div>
+        <div class="menu-item"><div><p class="mi-name">Hotate</p><p class="mi-desc">Capesante di Hokkaido, yuzu</p></div><span class="mi-price">€ 16</span></div>
+        <div class="menu-item"><div><p class="mi-name">Ōtoro</p><p class="mi-desc">Ventresca di tonno blu del Pacifico</p></div><span class="mi-price">€ 28</span></div>
+        <div class="menu-item"><div><p class="mi-name">Uni</p><p class="mi-desc">Ricci di mare di Hokkaido</p></div><span class="mi-price">€ 22</span></div>
+        <div class="menu-item"><div><p class="mi-name">Ikura</p><p class="mi-desc">Uova di salmone marinate al sake</p></div><span class="mi-price">€ 14</span></div>
+        <div class="menu-item"><div><p class="mi-name">Wagyu</p><p class="mi-desc">Manzo A5 flambé, tartufo nero</p></div><span class="mi-price">€ 38</span></div>
       </div>
     </div>
-    <!-- Maki -->
     <div class="menu-panel" id="tab-maki">
       <div class="menu-items">
-        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Dragon Roll</p><p class="menu-item-desc">Anguilla, gambero tempura, avocado</p></div><span class="menu-item-price">€ 24</span></div>
-        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Rainbow Roll</p><p class="menu-item-desc">Tre pesci, avocado, sesamo dorato</p></div><span class="menu-item-price">€ 22</span></div>
-        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Spicy Tuna</p><p class="menu-item-desc">Tonno, mayo sriracha, cetriolo</p></div><span class="menu-item-price">€ 18</span></div>
-        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Osaki Roll</p><p class="menu-item-desc">Signature — salmone truffle, tobiko oro</p></div><span class="menu-item-price">€ 26</span></div>
-        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Caterpillar</p><p class="menu-item-desc">Gambero tempura, cetriolo, avocado</p></div><span class="menu-item-price">€ 20</span></div>
-        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Volcano Roll</p><p class="menu-item-desc">Gambero, salmone scottato, spicy mayo</p></div><span class="menu-item-price">€ 22</span></div>
+        <div class="menu-item"><div><p class="mi-name">Dragon Roll</p><p class="mi-desc">Anguilla, gambero tempura, avocado</p></div><span class="mi-price">€ 24</span></div>
+        <div class="menu-item"><div><p class="mi-name">Rainbow Roll</p><p class="mi-desc">Tre pesci, avocado, sesamo dorato</p></div><span class="mi-price">€ 22</span></div>
+        <div class="menu-item"><div><p class="mi-name">Spicy Tuna</p><p class="mi-desc">Tonno, mayo sriracha, cetriolo</p></div><span class="mi-price">€ 18</span></div>
+        <div class="menu-item"><div><p class="mi-name">Osaki Roll</p><p class="mi-desc">Salmone truffle, tobiko oro, capesante</p></div><span class="mi-price">€ 26</span></div>
+        <div class="menu-item"><div><p class="mi-name">Caterpillar</p><p class="mi-desc">Gambero tempura, cetriolo, avocado</p></div><span class="mi-price">€ 20</span></div>
+        <div class="menu-item"><div><p class="mi-name">Volcano Roll</p><p class="mi-desc">Gambero, salmone scottato, spicy mayo</p></div><span class="mi-price">€ 22</span></div>
       </div>
     </div>
-    <!-- Sashimi -->
     <div class="menu-panel" id="tab-sashimi">
       <div class="menu-items">
-        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Sashimi Moriawase</p><p class="menu-item-desc">Selezione dello chef, 9 pezzi</p></div><span class="menu-item-price">€ 36</span></div>
-        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Maguro Sashimi</p><p class="menu-item-desc">Tonno rosso, 5 fette</p></div><span class="menu-item-price">€ 22</span></div>
-        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Sake Sashimi</p><p class="menu-item-desc">Salmone selvaggio, 5 fette</p></div><span class="menu-item-price">€ 18</span></div>
-        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Omakase Sashimi</p><p class="menu-item-desc">Stagionale, scelta dello chef, 12 pz</p></div><span class="menu-item-price">€ 55</span></div>
-        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Tako</p><p class="menu-item-desc">Polpo del Mediterraneo, sudachi</p></div><span class="menu-item-price">€ 16</span></div>
-        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Hotate Sashimi</p><p class="menu-item-desc">Capesante di Hokkaido, ponzu lime</p></div><span class="menu-item-price">€ 24</span></div>
+        <div class="menu-item"><div><p class="mi-name">Sashimi Moriawase</p><p class="mi-desc">Selezione dello chef, 9 pezzi</p></div><span class="mi-price">€ 36</span></div>
+        <div class="menu-item"><div><p class="mi-name">Maguro Sashimi</p><p class="mi-desc">Tonno rosso, 5 fette</p></div><span class="mi-price">€ 22</span></div>
+        <div class="menu-item"><div><p class="mi-name">Sake Sashimi</p><p class="mi-desc">Salmone selvaggio, 5 fette</p></div><span class="mi-price">€ 18</span></div>
+        <div class="menu-item"><div><p class="mi-name">Omakase Sashimi</p><p class="mi-desc">Stagionale, scelta dello chef, 12 pz</p></div><span class="mi-price">€ 55</span></div>
+        <div class="menu-item"><div><p class="mi-name">Tako</p><p class="mi-desc">Polpo del Mediterraneo, sudachi</p></div><span class="mi-price">€ 16</span></div>
+        <div class="menu-item"><div><p class="mi-name">Hotate Sashimi</p><p class="mi-desc">Capesante di Hokkaido, ponzu lime</p></div><span class="mi-price">€ 24</span></div>
       </div>
     </div>
-    <!-- Specialità -->
     <div class="menu-panel" id="tab-specials">
       <div class="menu-items">
-        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Miso Truffle</p><p class="menu-item-desc">Zuppa di miso con tartufo nero e tofu</p></div><span class="menu-item-price">€ 18</span></div>
-        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Edamame al Burro</p><p class="menu-item-desc">Burro di yuzu, fleur de sel, wasabi</p></div><span class="menu-item-price">€ 10</span></div>
-        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Gyoza Crispy</p><p class="menu-item-desc">Maiale e gambero, salsa ponzu agrumata</p></div><span class="menu-item-price">€ 14</span></div>
-        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Karaage Chicken</p><p class="menu-item-desc">Pollo fritto doppio, mayo kewpie</p></div><span class="menu-item-price">€ 16</span></div>
-        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Chawanmushi</p><p class="menu-item-desc">Budino di uova al vapore, dashi, ikura</p></div><span class="menu-item-price">€ 14</span></div>
-        <div class="menu-item"><div class="menu-item-left"><p class="menu-item-name">Matcha Panna Cotta</p><p class="menu-item-desc">Dessert alla crema di tè verde, anko</p></div><span class="menu-item-price">€ 10</span></div>
+        <div class="menu-item"><div><p class="mi-name">Miso Truffle</p><p class="mi-desc">Zuppa di miso con tartufo nero e tofu</p></div><span class="mi-price">€ 18</span></div>
+        <div class="menu-item"><div><p class="mi-name">Edamame al Burro</p><p class="mi-desc">Burro di yuzu, fleur de sel, wasabi</p></div><span class="mi-price">€ 10</span></div>
+        <div class="menu-item"><div><p class="mi-name">Gyoza Crispy</p><p class="mi-desc">Maiale e gambero, salsa ponzu agrumata</p></div><span class="mi-price">€ 14</span></div>
+        <div class="menu-item"><div><p class="mi-name">Karaage Chicken</p><p class="mi-desc">Pollo fritto doppio, mayo kewpie</p></div><span class="mi-price">€ 16</span></div>
+        <div class="menu-item"><div><p class="mi-name">Chawanmushi</p><p class="mi-desc">Budino di uova al vapore, dashi, ikura</p></div><span class="mi-price">€ 14</span></div>
+        <div class="menu-item"><div><p class="mi-name">Matcha Panna Cotta</p><p class="mi-desc">Crema di tè verde, anko dolce di azuki</p></div><span class="mi-price">€ 10</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ════════════════════════════════ RESERVATION -->
+<!-- ═══════════════════ RESERVATION -->
 <section id="reservation">
-  <div class="reservation-inner">
+  <div class="res-inner">
     <div>
-      <p class="section-label animate-on-scroll">Contattaci</p>
-      <h2 class="res-info-title animate-on-scroll animate-delay-1">Prenota il Tuo<br/>Tavolo</h2>
-      <p class="res-info-sub animate-on-scroll animate-delay-2">
-        Per un'esperienza indimenticabile. Consigliamo di prenotare con almeno 3 giorni di anticipo. Per l'Omakase è richiesta prenotazione minima 7 giorni prima.
-      </p>
-      <div class="res-detail animate-on-scroll animate-delay-3">
-        <div class="res-detail-item">
-          <span class="res-detail-label">Indirizzo</span>
-          <span class="res-detail-value">Via della Pace 14, 20121 Milano</span>
-        </div>
-        <div class="res-detail-item">
-          <span class="res-detail-label">Telefono</span>
-          <span class="res-detail-value">+39 02 8765 4321</span>
-        </div>
-        <div class="res-detail-item">
-          <span class="res-detail-label">Apertura</span>
-          <span class="res-detail-value">Mer–Dom · 12:00–15:00 · 18:30–23:00</span>
-        </div>
+      <p class="lbl anim">Contattaci</p>
+      <h2 class="res-title anim d1">Prenota il Tuo<br/>Tavolo</h2>
+      <p class="res-sub anim d2">Per un'esperienza indimenticabile. Consigliamo di prenotare con almeno 3 giorni di anticipo. Per l'Omakase è richiesta prenotazione minima 7 giorni prima.</p>
+      <div class="res-det anim d3">
+        <div class="res-det-item"><span class="res-det-lbl">Indirizzo</span><span class="res-det-val">Via della Pace 14, 20121 Milano</span></div>
+        <div class="res-det-item"><span class="res-det-lbl">Telefono</span><span class="res-det-val">+39 02 8765 4321</span></div>
+        <div class="res-det-item"><span class="res-det-lbl">Apertura</span><span class="res-det-val">Mer–Dom · 12:00–15:00 · 18:30–23:00</span></div>
       </div>
     </div>
-    <form class="res-form animate-on-scroll animate-delay-2" onsubmit="handleSubmit(event)">
+    <form class="res-form anim d2" onsubmit="handleSub(event)">
       <div class="form-row">
-        <div class="form-group">
-          <label class="form-label" for="fname">Nome</label>
-          <input class="form-input" id="fname" type="text" placeholder="Il tuo nome" required />
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="femail">Email</label>
-          <input class="form-input" id="femail" type="email" placeholder="email@esempio.com" required />
-        </div>
+        <div class="form-group"><label class="form-lbl" for="fn">Nome</label><input class="form-input" id="fn" type="text" placeholder="Il tuo nome" required /></div>
+        <div class="form-group"><label class="form-lbl" for="fe">Email</label><input class="form-input" id="fe" type="email" placeholder="email@esempio.com" required /></div>
       </div>
       <div class="form-row">
-        <div class="form-group">
-          <label class="form-label" for="fdate">Data</label>
-          <input class="form-input" id="fdate" type="date" required />
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="ftime">Ora</label>
-          <select class="form-select" id="ftime" required>
+        <div class="form-group"><label class="form-lbl" for="fd">Data</label><input class="form-input" id="fd" type="date" required /></div>
+        <div class="form-group"><label class="form-lbl" for="ft">Ora</label>
+          <select class="form-sel" id="ft" required>
             <option value="" disabled selected>Seleziona</option>
             <option>12:00</option><option>12:30</option><option>13:00</option><option>13:30</option>
             <option>18:30</option><option>19:00</option><option>19:30</option><option>20:00</option>
@@ -1167,44 +666,37 @@
         </div>
       </div>
       <div class="form-row">
-        <div class="form-group">
-          <label class="form-label" for="fguests">Ospiti</label>
-          <select class="form-select" id="fguests" required>
+        <div class="form-group"><label class="form-lbl" for="fg">Ospiti</label>
+          <select class="form-sel" id="fg" required>
             <option value="" disabled selected>N. persone</option>
             <option>1</option><option>2</option><option>3</option><option>4</option>
             <option>5</option><option>6</option><option>7</option><option>8+</option>
           </select>
         </div>
-        <div class="form-group">
-          <label class="form-label" for="ftype">Tipo</label>
-          <select class="form-select" id="ftype">
+        <div class="form-group"><label class="form-lbl" for="ftp">Tipo</label>
+          <select class="form-sel" id="ftp">
             <option value="" disabled selected>Esperienza</option>
-            <option>À la Carte</option>
-            <option>Omakase (€120 p.p.)</option>
-            <option>Occasione speciale</option>
+            <option>À la Carte</option><option>Omakase (€120 p.p.)</option><option>Occasione speciale</option>
           </select>
         </div>
       </div>
-      <div class="form-group">
-        <label class="form-label" for="fnote">Note speciali</label>
-        <textarea class="form-textarea" id="fnote" placeholder="Allergie, richieste particolari, occasioni speciali..."></textarea>
-      </div>
-      <button type="submit" class="btn-primary form-submit">Invia Prenotazione</button>
+      <div class="form-group"><label class="form-lbl" for="fnote">Note speciali</label><textarea class="form-ta" id="fnote" placeholder="Allergie, richieste particolari, occasioni speciali..."></textarea></div>
+      <button type="submit" class="btn-p form-submit">Invia Prenotazione</button>
     </form>
   </div>
 </section>
 
-<!-- ════════════════════════════════ FOOTER -->
+<!-- ═══════════════════ FOOTER -->
 <footer>
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <div class="footer-logo-en">OSAKI</div>
-        <div class="footer-logo-jp">大崎</div>
-        <p class="footer-tagline">Un viaggio nel cuore della cucina giapponese, piatto dopo piatto.</p>
+  <div class="foot-inner">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="foot-logo-en">OSAKI</div>
+        <div class="foot-logo-jp">大崎</div>
+        <p class="foot-tag">Un viaggio nel cuore della cucina giapponese, piatto dopo piatto.</p>
       </div>
-      <div class="footer-col">
-        <p class="footer-col-title">Navigazione</p>
+      <div class="foot-col">
+        <p class="foot-col-t">Navigazione</p>
         <ul>
           <li><a href="#philosophy">Filosofia</a></li>
           <li><a href="#signature">Piatti Signature</a></li>
@@ -1213,74 +705,146 @@
           <li><a href="#reservation">Prenota</a></li>
         </ul>
       </div>
-      <div class="footer-col">
-        <p class="footer-col-title">Orari</p>
-        <div class="footer-hours">
-          <div class="footer-hour-row"><span class="footer-hour-day">Lun – Mar</span><span class="footer-hour-time">Chiuso</span></div>
-          <div class="footer-hour-row"><span class="footer-hour-day">Mer – Ven</span><span class="footer-hour-time">12–15 · 18:30–23</span></div>
-          <div class="footer-hour-row"><span class="footer-hour-day">Sab – Dom</span><span class="footer-hour-time">12–15:30 · 18–23</span></div>
+      <div class="foot-col">
+        <p class="foot-col-t">Orari</p>
+        <div class="foot-hrs">
+          <div class="foot-hr"><span class="foot-hr-day">Lun – Mar</span><span class="foot-hr-time">Chiuso</span></div>
+          <div class="foot-hr"><span class="foot-hr-day">Mer – Ven</span><span class="foot-hr-time">12–15 · 18:30–23</span></div>
+          <div class="foot-hr"><span class="foot-hr-day">Sab – Dom</span><span class="foot-hr-time">12–15:30 · 18–23</span></div>
         </div>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p class="footer-copy">© 2025 Osaki · Tutti i diritti riservati</p>
-      <p class="footer-address">Via della Pace 14 · 20121 Milano · +39 02 8765 4321</p>
+    <div class="foot-bot">
+      <p class="foot-copy">© 2025 Osaki · Tutti i diritti riservati</p>
+      <p class="foot-addr">Via della Pace 14 · 20121 Milano · +39 02 8765 4321</p>
     </div>
   </div>
 </footer>
 
 <script>
-  // ── Navbar scroll
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 50);
-  }, { passive: true });
+// ── Navbar scroll
+const nb = document.getElementById('navbar');
+window.addEventListener('scroll', () => { nb.classList.toggle('scrolled', scrollY > 50); }, {passive:true});
 
-  // ── Mobile menu
-  const burger = document.getElementById('navBurger');
-  const mobileNav = document.getElementById('navMobile');
-  const closeBtn = document.getElementById('navClose');
-  burger.addEventListener('click', () => mobileNav.classList.add('open'));
-  closeBtn.addEventListener('click', () => mobileNav.classList.remove('open'));
-  function closeMobile() { mobileNav.classList.remove('open'); }
+// ── Hero kanji parallax
+const hk = document.getElementById('heroKanji');
+window.addEventListener('scroll', () => {
+  if(hk) hk.style.transform = `translate(-50%,calc(-50% + ${scrollY * 0.15}px))`;
+}, {passive:true});
 
-  // ── Scroll animations
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+// ── Mobile menu
+const burger = document.getElementById('navBurger');
+const mob    = document.getElementById('navMobile');
+burger.addEventListener('click', () => mob.classList.add('open'));
+document.getElementById('navClose').addEventListener('click', () => mob.classList.remove('open'));
+function closeMob() { mob.classList.remove('open'); }
 
-  // ── Menu tabs
-  document.querySelectorAll('.menu-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
-      tab.classList.add('active');
-      document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
-    });
+// ── Generic scroll animations
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } });
+}, {threshold:0.12});
+document.querySelectorAll('.anim').forEach(el => obs.observe(el));
+
+// ── Menu tabs
+document.querySelectorAll('.menu-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+  });
+});
+
+// ── Form submit
+function handleSub(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.form-submit');
+  btn.textContent = 'Prenotazione Inviata ✓';
+  btn.style.background = '#4a7c59';
+  btn.disabled = true;
+}
+
+// ── Min date
+const di = document.getElementById('fd');
+if(di){ const t = new Date(); t.setDate(t.getDate()+1); di.min = t.toISOString().split('T')[0]; }
+
+// ── TORII GATE ANIMATION
+(function(){
+  const paths = document.querySelectorAll('.torii-path');
+  const svg   = document.getElementById('toriiSvg');
+  const label = document.getElementById('toriiLabel');
+
+  // Init: hide all paths with dash offset
+  paths.forEach(p => {
+    try {
+      const len = p.getTotalLength ? p.getTotalLength() : 800;
+      p.style.strokeDasharray  = len;
+      p.style.strokeDashoffset = len;
+    } catch(err) {
+      p.style.strokeDasharray  = 800;
+      p.style.strokeDashoffset = 800;
+    }
   });
 
-  // ── Form submit
-  function handleSubmit(e) {
-    e.preventDefault();
-    const btn = e.target.querySelector('.form-submit');
-    btn.textContent = 'Prenotazione Inviata ✓';
-    btn.style.background = '#4a7c59';
-    btn.disabled = true;
-  }
+  let drawn = false;
+  const toriiObs = new IntersectionObserver(([entry]) => {
+    if(entry.isIntersecting && !drawn){
+      drawn = true;
+      // Draw each path with staggered delay
+      const order = ['tpKasagi','tpCapL','tpCapR','tpNuki','tpPilL','tpPilR','tpDL','tpDR'];
+      order.forEach((id, i) => {
+        const el = document.getElementById(id);
+        if(!el) return;
+        const delay = i * 280;
+        const dur   = id === 'tpPilL' || id === 'tpPilR' ? 1000 : 700;
+        setTimeout(() => {
+          el.style.transition = `stroke-dashoffset ${dur}ms cubic-bezier(0.4,0,0.2,1)`;
+          el.style.strokeDashoffset = '0';
+        }, delay);
+      });
+      // After all drawn: glow + label + sakura
+      const totalDelay = order.length * 280 + 1100;
+      setTimeout(() => {
+        svg.classList.add('glowing');
+        label.classList.add('show');
+        spawnSakura();
+      }, totalDelay);
+      toriiObs.disconnect();
+    }
+  }, {threshold:0.35});
 
-  // ── Set min date for date input
-  const dateInput = document.getElementById('fdate');
-  if (dateInput) {
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    dateInput.min = tomorrow.toISOString().split('T')[0];
+  const toriiSec = document.getElementById('torii');
+  if(toriiSec) toriiObs.observe(toriiSec);
+
+  // ── Sakura petals
+  function spawnSakura(){
+    const layer = document.getElementById('sakuraLayer');
+    if(!layer) return;
+    const colors = ['#FFB7C5','#FFCCD5','#FFA0B4','#FFD6E0','#E8A0B0'];
+    for(let i = 0; i < 22; i++){
+      const p = document.createElement('div');
+      p.className = 'spetal';
+      const dur   = (3.5 + Math.random() * 4.5).toFixed(1) + 's';
+      const del   = (Math.random() * 3.5).toFixed(1) + 's';
+      const left  = (Math.random() * 92 + 2).toFixed(1) + '%';
+      const drift = ((Math.random() - 0.5) * 120).toFixed(0) + 'px';
+      const col   = colors[Math.floor(Math.random() * colors.length)];
+      const rot   = Math.floor(Math.random() * 360);
+      p.style.cssText = `left:${left};--dur:${dur};--del:${del};--drift:${drift};`;
+      p.innerHTML = `<svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(${rot}deg)">
+        <ellipse cx="20" cy="10" rx="6" ry="10" fill="${col}" opacity=".85" transform="rotate(0 20 20)"/>
+        <ellipse cx="20" cy="10" rx="6" ry="10" fill="${col}" opacity=".85" transform="rotate(72 20 20)"/>
+        <ellipse cx="20" cy="10" rx="6" ry="10" fill="${col}" opacity=".85" transform="rotate(144 20 20)"/>
+        <ellipse cx="20" cy="10" rx="6" ry="10" fill="${col}" opacity=".85" transform="rotate(216 20 20)"/>
+        <ellipse cx="20" cy="10" rx="6" ry="10" fill="${col}" opacity=".85" transform="rotate(288 20 20)"/>
+        <circle cx="20" cy="20" r="3" fill="${col}"/>
+      </svg>`;
+      layer.appendChild(p);
+    }
+    // Repeat sakura every 5s
+    setTimeout(spawnSakura, 5000);
   }
+})();
 </script>
 
 </body>
