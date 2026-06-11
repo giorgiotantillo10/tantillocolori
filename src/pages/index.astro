@@ -20,7 +20,6 @@
       --bg-card:  #141414;
       --gold:     #C9A84C;
       --gold-2:   #E3C47A;
-      --gold-dim: rgba(201,168,76,0.12);
       --cream:    #F0EBE1;
       --muted:    #7A6D5E;
       --border:   rgba(201,168,76,0.15);
@@ -36,58 +35,59 @@
     ul { list-style:none; }
     button { cursor:pointer; font-family:var(--sans); }
 
-    /* ── KEYFRAMES ───────────────────────────────── */
-    @keyframes fadeInUp  { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
-    @keyframes fadeIn    { from{opacity:0} to{opacity:1} }
-    @keyframes expandX   { from{transform:scaleX(0)} to{transform:scaleX(1)} }
+    /* ════════ KEYFRAMES ════════ */
+    @keyframes fadeInUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+    @keyframes expandX { from{transform:scaleX(0)} to{transform:scaleX(1)} }
     @keyframes scrollBounce { 0%,100%{transform:translateY(0);opacity:1} 50%{transform:translateY(8px);opacity:.4} }
+    @keyframes floatRoll { 0%,100%{transform:translateY(0) rotate(var(--ra))} 50%{transform:translateY(-18px) rotate(var(--rb))} }
+    @keyframes sakuraFall { 0%{transform:translateY(-60px) rotate(0) translateX(0);opacity:1} 80%{opacity:.8} 100%{transform:translateY(680px) rotate(720deg) translateX(var(--drift));opacity:0} }
+    @keyframes toriiGlow { 0%,100%{filter:drop-shadow(0 0 6px rgba(201,168,76,.35))} 50%{filter:drop-shadow(0 0 22px rgba(201,168,76,.8))} }
+    @keyframes shimmer { 0%{background-position:200% center} 100%{background-position:-200% center} }
+    @keyframes letterIn { from{opacity:0;transform:translateY(50px) rotate(10deg) scale(.7)} to{opacity:1;transform:none} }
+    @keyframes ensoSpin { from{transform:rotate(0)} to{transform:rotate(360deg)} }
+    @keyframes dustFloat { 0%,100%{transform:translateY(0);opacity:0} 20%{opacity:.8} 50%{transform:translateY(-36px);opacity:.4} 80%{opacity:.7} }
+    @keyframes marqueeX { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    @keyframes waveMove { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    @keyframes koiSwim { 0%{transform:translate(0,0)} 25%{transform:translate(30vw,20px)} 50%{transform:translate(58vw,-14px)} 75%{transform:translate(85vw,12px)} 100%{transform:translate(118vw,0)} }
+    @keyframes koiSwimBack { 0%{transform:translate(0,0)} 25%{transform:translate(-30vw,16px)} 50%{transform:translate(-58vw,-12px)} 75%{transform:translate(-85vw,14px)} 100%{transform:translate(-118vw,0)} }
+    @keyframes tailWag { from{transform:rotate(-14deg)} to{transform:rotate(14deg)} }
+    @keyframes finWag { from{transform:rotate(-10deg)} to{transform:rotate(12deg)} }
+    @keyframes steamRise { 0%{transform:translateY(0) scaleX(1);opacity:0} 25%{opacity:.55} 100%{transform:translateY(-26px) scaleX(1.4);opacity:0} }
+    @keyframes flameFlick { 0%,100%{transform:scaleY(1) scaleX(1)} 30%{transform:scaleY(1.18) scaleX(.92)} 60%{transform:scaleY(.88) scaleX(1.08)} 80%{transform:scaleY(1.1) scaleX(.95)} }
+    @keyframes sparkleTwk { 0%,100%{opacity:0;transform:scale(.4)} 50%{opacity:1;transform:scale(1.1)} }
+    @keyframes ikuraPulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.22)} }
+    @keyframes sesameFall { 0%{transform:translateY(-8px) rotate(0);opacity:0} 15%{opacity:1} 90%{opacity:1} 100%{transform:translateY(95px) rotate(220deg);opacity:0} }
+    @keyframes sliceBob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+    @keyframes dishFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+    @keyframes sheenSweep { 0%{transform:translateX(-70px) rotate(18deg)} 60%,100%{transform:translateX(240px) rotate(18deg)} }
+    @keyframes lanternSwing { from{transform:rotate(-5deg)} to{transform:rotate(5deg)} }
+    @keyframes lanternGlow { 0%,100%{opacity:.25} 50%{opacity:.6} }
+    @keyframes sojuRipple { 0%{transform:scale(.6);opacity:.7} 100%{transform:scale(1.6);opacity:0} }
 
-    /* Uramaki float + rotate */
-    @keyframes floatRoll {
-      0%,100% { transform:translateY(0) rotate(var(--ra)); }
-      50%      { transform:translateY(-18px) rotate(var(--rb)); }
-    }
-    @keyframes spinSlow { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
-
-    /* Sakura fall */
-    @keyframes sakuraFall {
-      0%   { transform:translateY(-60px) rotate(0deg) translateX(0); opacity:1; }
-      80%  { opacity:.8; }
-      100% { transform:translateY(680px) rotate(720deg) translateX(var(--drift)); opacity:0; }
-    }
-
-    /* Torii glow pulse after draw */
-    @keyframes toriiGlow {
-      0%,100% { filter:drop-shadow(0 0 6px rgba(201,168,76,.35)); }
-      50%      { filter:drop-shadow(0 0 22px rgba(201,168,76,.8)); }
-    }
-
-    /* Text shimmer */
-    @keyframes shimmer {
-      0%   { background-position:200% center; }
-      100% { background-position:-200% center; }
-    }
-
-    /* ── SCROLL ANIMATION BASE ───────────────────── */
+    /* ════════ SCROLL ANIM BASE ════════ */
     .anim { opacity:0; transform:translateY(32px); transition:opacity .7s var(--ease),transform .7s var(--ease); }
     .anim.in { opacity:1; transform:none; }
-    .d1 { transition-delay:.1s; }
-    .d2 { transition-delay:.2s; }
-    .d3 { transition-delay:.3s; }
-    .d4 { transition-delay:.4s; }
-    .d5 { transition-delay:.5s; }
+    .d1{transition-delay:.1s} .d2{transition-delay:.2s} .d3{transition-delay:.3s} .d4{transition-delay:.4s}
 
-    /* ── UTILITIES ───────────────────────────────── */
+    /* ════════ PROGRESS BAR ════════ */
+    #progress { position:fixed; top:0; left:0; height:3px; width:0; z-index:200; background:linear-gradient(90deg,var(--gold),var(--gold-2)); box-shadow:0 0 12px rgba(201,168,76,.6); transition:width .1s linear; }
+
+    /* ════════ UTILITIES ════════ */
     .lbl { display:inline-flex; align-items:center; gap:.75rem; font-size:.7rem; letter-spacing:.35em; text-transform:uppercase; color:var(--gold); margin-bottom:1.25rem; }
     .lbl::before { content:''; display:block; width:32px; height:1px; background:var(--gold); }
-    .sec-title { font-size:clamp(2rem,4vw,3rem); color:var(--cream); line-height:1.2; margin-bottom:1.25rem; }
+    .sec-title { font-size:clamp(2rem,4vw,3rem); color:var(--cream); line-height:1.2; margin-bottom:1.25rem; position:relative; display:inline-block; }
+    .sec-title::after { content:''; position:absolute; left:0; bottom:-6px; width:100%; height:1px; background:linear-gradient(90deg,var(--gold),transparent); transform:scaleX(0); transform-origin:left; transition:transform .9s .35s var(--ease); }
+    .anim.in .sec-title::after, .sec-title.anim.in::after { transform:scaleX(1); }
     .sec-sub { font-size:.95rem; color:var(--muted); max-width:520px; line-height:1.8; }
-    .btn-p { display:inline-flex; align-items:center; gap:.5rem; padding:.85rem 2rem; background:var(--gold); color:#0A0A0A; font-family:var(--sans); font-size:.8rem; font-weight:500; letter-spacing:.12em; text-transform:uppercase; border:none; transition:background .25s var(--ease),transform .2s var(--ease); cursor:pointer; }
-    .btn-p:hover { background:var(--gold-2); transform:translateY(-2px); }
-    .btn-s { display:inline-flex; align-items:center; gap:.5rem; padding:.85rem 2rem; background:transparent; color:var(--cream); font-family:var(--sans); font-size:.8rem; font-weight:400; letter-spacing:.12em; text-transform:uppercase; border:1px solid rgba(240,235,225,.25); transition:border-color .25s var(--ease),color .25s var(--ease),transform .2s var(--ease); cursor:pointer; }
-    .btn-s:hover { border-color:var(--gold); color:var(--gold); transform:translateY(-2px); }
+    .btn-p { position:relative; overflow:hidden; display:inline-flex; align-items:center; gap:.5rem; padding:.85rem 2rem; background:var(--gold); color:#0A0A0A; font-size:.8rem; font-weight:500; letter-spacing:.12em; text-transform:uppercase; border:none; transition:background .25s var(--ease),transform .2s var(--ease),box-shadow .25s; cursor:pointer; }
+    .btn-p::after { content:''; position:absolute; top:-20%; left:0; width:40px; height:140%; background:rgba(255,255,255,.35); transform:translateX(-70px) rotate(18deg); }
+    .btn-p:hover { background:var(--gold-2); transform:translateY(-2px); box-shadow:0 8px 24px rgba(201,168,76,.35); }
+    .btn-p:hover::after { animation:sheenSweep .8s var(--ease); }
+    .btn-s { display:inline-flex; align-items:center; gap:.5rem; padding:.85rem 2rem; background:transparent; color:var(--cream); font-size:.8rem; letter-spacing:.12em; text-transform:uppercase; border:1px solid rgba(240,235,225,.25); transition:border-color .25s,color .25s,transform .2s,box-shadow .25s; cursor:pointer; }
+    .btn-s:hover { border-color:var(--gold); color:var(--gold); transform:translateY(-2px); box-shadow:0 8px 24px rgba(201,168,76,.15); }
 
-    /* ── NAVBAR ──────────────────────────────────── */
+    /* ════════ NAVBAR ════════ */
     #navbar { position:fixed; top:0; left:0; right:0; z-index:100; padding:1.5rem 2.5rem; transition:background .4s var(--ease),padding .4s var(--ease),box-shadow .4s var(--ease); }
     #navbar.scrolled { background:rgba(10,10,10,.93); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); padding:1rem 2.5rem; box-shadow:0 1px 0 var(--border); }
     .nav-inner { max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; }
@@ -95,141 +95,195 @@
     .logo-en { font-family:var(--serif); font-size:1.4rem; font-weight:600; letter-spacing:.2em; color:var(--cream); }
     .logo-jp { font-family:var(--serif); font-size:.65rem; letter-spacing:.3em; color:var(--gold); margin-top:2px; }
     .nav-links { display:flex; align-items:center; gap:2.5rem; }
-    .nav-links a { font-size:.78rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); transition:color .25s; }
+    .nav-links a { position:relative; font-size:.78rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); transition:color .25s; }
+    .nav-links a:not(.nav-reserve)::after { content:''; position:absolute; left:0; bottom:-4px; width:100%; height:1px; background:var(--gold); transform:scaleX(0); transform-origin:right; transition:transform .3s var(--ease); }
     .nav-links a:hover { color:var(--cream); }
-    .nav-reserve { font-size:.78rem!important; letter-spacing:.12em!important; text-transform:uppercase!important; padding:.6rem 1.4rem!important; border:1px solid var(--gold)!important; color:var(--gold)!important; transition:background .25s,color .25s!important; }
+    .nav-links a:not(.nav-reserve):hover::after { transform:scaleX(1); transform-origin:left; }
+    .nav-reserve { font-size:.78rem!important; padding:.6rem 1.4rem!important; border:1px solid var(--gold)!important; color:var(--gold)!important; transition:background .25s,color .25s!important; }
     .nav-reserve:hover { background:var(--gold)!important; color:#0A0A0A!important; }
     .nav-burger { display:none; flex-direction:column; gap:5px; background:none; border:none; padding:.25rem; }
-    .nav-burger span { display:block; width:22px; height:1px; background:var(--cream); transition:transform .3s,opacity .3s; }
+    .nav-burger span { display:block; width:22px; height:1px; background:var(--cream); }
     .nav-mobile { display:none; position:fixed; inset:0; background:rgba(10,10,10,.98); z-index:99; flex-direction:column; align-items:center; justify-content:center; gap:2.5rem; }
     .nav-mobile.open { display:flex; }
     .nav-mobile a { font-family:var(--serif); font-size:1.8rem; color:var(--cream); letter-spacing:.1em; }
     .nav-mobile a:hover { color:var(--gold); }
     .nav-mc { position:absolute; top:1.5rem; right:2rem; background:none; border:none; color:var(--muted); font-size:1.5rem; line-height:1; }
 
-    /* ── HERO ────────────────────────────────────── */
-    #hero { height:100vh; min-height:600px; position:relative; display:flex; align-items:center; justify-content:center; text-align:center; overflow:hidden; }
+    /* ════════ HERO ════════ */
+    #hero { height:100vh; min-height:620px; position:relative; display:flex; align-items:center; justify-content:center; text-align:center; overflow:hidden; }
     .hero-bg { position:absolute; inset:0; background:radial-gradient(ellipse 90% 60% at 50% 40%,rgba(201,168,76,.055) 0%,transparent 70%),linear-gradient(180deg,#0A0A0A 0%,#0E0D0B 100%); }
     .hero-kanji { position:absolute; font-family:var(--serif); font-size:min(55vw,52vh); font-weight:700; color:rgba(201,168,76,.025); user-select:none; pointer-events:none; line-height:1; top:50%; left:50%; transform:translate(-50%,-50%); will-change:transform; }
-    .hero-lines { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
-    .hero-lh { position:absolute; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(201,168,76,.07),transparent); }
-    .hero-lh:nth-child(1) { top:25%; }
-    .hero-lh:nth-child(2) { top:75%; }
+    .hero-enso { position:absolute; top:50%; left:50%; width:min(540px,90vw); height:min(540px,90vw); margin:calc(min(540px,90vw)/-2) 0 0 calc(min(540px,90vw)/-2); pointer-events:none; opacity:0; animation:fadeIn 2s 1.2s forwards; }
+    .hero-enso svg { width:100%; height:100%; animation:ensoSpin 50s linear infinite; }
     .hero-content { position:relative; z-index:2; padding:0 1.5rem; }
     .hero-sup { display:block; font-size:.7rem; letter-spacing:.45em; text-transform:uppercase; color:var(--gold); margin-bottom:1.75rem; opacity:0; animation:fadeInUp .9s .2s var(--ease) forwards; }
-    .hero-title {
-      font-family:var(--serif); font-size:clamp(5.5rem,16vw,13rem); font-weight:400; letter-spacing:.18em; line-height:1; margin-bottom:1.5rem; opacity:0;
-      animation:fadeInUp .9s .45s var(--ease) forwards;
+    .hero-title { font-family:var(--serif); font-size:clamp(5rem,15vw,12rem); font-weight:400; letter-spacing:.16em; line-height:1; margin-bottom:1.5rem; }
+    .hero-title span {
+      display:inline-block; opacity:0;
       background:linear-gradient(90deg,var(--cream) 0%,var(--gold-2) 40%,var(--cream) 60%,var(--gold-2) 80%,var(--cream) 100%);
       background-size:200% auto;
-      -webkit-background-clip:text;
+      -webkit-background-clip:text; background-clip:text;
       -webkit-text-fill-color:transparent;
-      background-clip:text;
+      animation:letterIn .8s calc(.35s + var(--i)*.1s) var(--ease) forwards, shimmer 4s calc(1.6s + var(--i)*.12s) linear infinite;
     }
-    .hero-title.shimmer { animation:fadeInUp .9s .45s var(--ease) forwards, shimmer 4s 1.5s linear infinite; }
-    .hero-tagline { font-size:clamp(.85rem,1.5vw,1rem); font-weight:300; color:var(--muted); letter-spacing:.08em; margin-bottom:3rem; opacity:0; animation:fadeInUp .9s .65s var(--ease) forwards; }
-    .hero-divider { width:60px; height:1px; background:var(--gold); margin:0 auto 3rem; transform-origin:center; opacity:0; animation:expandX .8s .85s var(--ease) forwards, fadeIn .8s .85s forwards; }
-    .hero-actions { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; opacity:0; animation:fadeInUp .9s 1s var(--ease) forwards; }
-    .hero-scroll { position:absolute; bottom:2.5rem; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:.5rem; opacity:0; animation:fadeIn 1s 1.4s var(--ease) forwards; }
+    .hero-tagline { font-size:clamp(.85rem,1.5vw,1rem); color:var(--muted); letter-spacing:.08em; margin-bottom:3rem; opacity:0; animation:fadeInUp .9s .95s var(--ease) forwards; }
+    .hero-divider { width:60px; height:1px; background:var(--gold); margin:0 auto 3rem; opacity:0; animation:expandX .8s 1.1s var(--ease) forwards, fadeIn .8s 1.1s forwards; }
+    .hero-actions { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; opacity:0; animation:fadeInUp .9s 1.25s var(--ease) forwards; }
+    .hero-scroll { position:absolute; bottom:2.5rem; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:.5rem; opacity:0; animation:fadeIn 1s 1.6s forwards; z-index:2; }
     .hero-scroll span { font-size:.6rem; letter-spacing:.35em; text-transform:uppercase; color:var(--muted); }
     .scroll-arr { width:1px; height:36px; background:linear-gradient(180deg,var(--gold),transparent); animation:scrollBounce 2s ease-in-out infinite; }
+    .dust { position:absolute; width:4px; height:4px; border-radius:50%; background:var(--gold-2); opacity:0; animation:dustFloat var(--dd) var(--dl) ease-in-out infinite; pointer-events:none; }
 
-    /* ── URAMAKI FLOATING ────────────────────────── */
-    .uramaki-wrap {
-      position:absolute; z-index:1; pointer-events:none;
-      opacity:0; animation:fadeIn .8s forwards;
-    }
+    /* uramaki flottanti */
+    .uramaki-wrap { position:absolute; z-index:1; pointer-events:none; opacity:0; }
     .uramaki-wrap svg { display:block; border-radius:50%; filter:drop-shadow(0 4px 18px rgba(201,168,76,.22)); }
     .ur1 { width:72px; top:18%; left:5%; --ra:-8deg; --rb:6deg; animation:fadeIn .8s 1.8s forwards, floatRoll 7s 1.8s ease-in-out infinite; }
     .ur2 { width:54px; top:58%; left:3%; --ra:12deg; --rb:-4deg; animation:fadeIn .8s 2.4s forwards, floatRoll 9s 2.4s ease-in-out infinite; }
     .ur3 { width:78px; top:18%; right:5%; --ra:5deg; --rb:-10deg; animation:fadeIn .8s 1.5s forwards, floatRoll 8s 1.5s ease-in-out infinite; }
     .ur4 { width:58px; top:62%; right:3%; --ra:-6deg; --rb:8deg; animation:fadeIn .8s 3s forwards, floatRoll 6.5s 3s ease-in-out infinite; }
-    .ur5 { width:46px; bottom:14%; left:47%; --ra:10deg; --rb:-5deg; animation:fadeIn .8s 2.8s forwards, floatRoll 11s 2.8s ease-in-out infinite; }
-    @media (max-width:640px) { .uramaki-wrap { display:none; } }
+    @media (max-width:640px) {
+      .ur1 { width:46px; top:14%; left:4%; }
+      .ur2 { display:none; }
+      .ur3 { width:50px; top:13%; right:4%; }
+      .ur4 { width:40px; top:auto; bottom:18%; right:6%; }
+    }
 
-    /* ── PHILOSOPHY ──────────────────────────────── */
+    /* ════════ MARQUEE ════════ */
+    .marquee { overflow:hidden; border-top:1px solid var(--border); border-bottom:1px solid var(--border); background:#0C0C0C; padding:1rem 0; }
+    .marquee-track { display:flex; gap:0; width:max-content; animation:marqueeX 30s linear infinite; }
+    .marquee-seq { display:flex; align-items:center; gap:3rem; padding-right:3rem; white-space:nowrap; }
+    .mq-jp { font-family:var(--serif); font-size:1.05rem; color:var(--gold); letter-spacing:.2em; }
+    .mq-en { font-size:.7rem; letter-spacing:.4em; text-transform:uppercase; color:var(--muted); }
+    .mq-dot { width:5px; height:5px; border-radius:50%; background:var(--gold); opacity:.5; flex-shrink:0; }
+
+    /* ════════ WAVE DIVIDER ════════ */
+    .wave-div { position:relative; height:70px; overflow:hidden; background:var(--bg-2); }
+    .wave-layer { position:absolute; bottom:0; left:0; width:200%; height:100%; display:flex; }
+    .wave-layer svg { width:50%; height:100%; flex-shrink:0; }
+    .w1 { animation:waveMove 22s linear infinite; opacity:.5; }
+    .w2 { animation:waveMove 14s linear infinite reverse; opacity:.3; }
+
+    /* ════════ KOI ════════ */
+    .koi { position:absolute; left:-170px; width:130px; opacity:.45; pointer-events:none; z-index:0; animation:koiSwim 19s linear infinite; }
+    .koi-back { left:auto; right:-170px; animation:koiSwimBack 23s 6s linear infinite; }
+    .koi svg { overflow:visible; }
+    .koi-tail { animation:tailWag .55s ease-in-out infinite alternate; transform-origin:4% 50%; transform-box:fill-box; }
+    .koi-fin { animation:finWag .8s ease-in-out infinite alternate; transform-origin:top center; transform-box:fill-box; }
+
+    /* ════════ PHILOSOPHY ════════ */
     #philosophy { padding:7rem 2.5rem; background:var(--bg-2); position:relative; overflow:hidden; }
-    .phil-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:6rem; align-items:center; }
-    .phil-art { font-family:var(--serif); font-size:clamp(6rem,12vw,10rem); font-weight:700; color:rgba(201,168,76,.15); line-height:1; text-align:center; will-change:transform; }
+    .phil-inner { position:relative; z-index:1; max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:6rem; align-items:center; }
+    .phil-art { font-family:var(--serif); font-size:clamp(6rem,12vw,10rem); font-weight:700; color:rgba(201,168,76,.15); line-height:1; text-align:center; animation:dishFloat 6s ease-in-out infinite; }
     .phil-art-lbl { text-align:center; font-size:.65rem; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin-top:.5rem; }
     .phil-sub { max-width:100%!important; margin-bottom:1.5rem; }
     .phil-quote { border-left:2px solid var(--gold); padding:.75rem 1.25rem; font-family:var(--serif); font-size:1.05rem; color:var(--muted); font-style:italic; margin-top:2rem; }
 
-    /* ── SIGNATURE DISHES ───────────────────────── */
-    #signature { padding:7rem 2.5rem; background:var(--bg); }
-    .sig-hd { max-width:1100px; margin:0 auto 4rem; }
-    .dishes-grid { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:1.5rem; }
+    /* ════════ SIGNATURE — PIATTI ANIMATI ════════ */
+    #signature { padding:7rem 2.5rem; background:var(--bg); position:relative; overflow:hidden; }
+    .sig-hd { max-width:1100px; margin:0 auto 4rem; position:relative; z-index:1; }
+    .dishes-grid { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:1.5rem; position:relative; z-index:1; }
     .dish-card { background:var(--bg-card); border:1px solid var(--border); overflow:hidden; cursor:pointer; transition:border-color .3s var(--ease),transform .35s var(--ease),box-shadow .35s var(--ease); }
-    .dish-card:hover { border-color:rgba(201,168,76,.45); transform:translateY(-8px); box-shadow:0 20px 50px rgba(0,0,0,.5),0 0 30px rgba(201,168,76,.07); }
-    .dish-img { height:220px; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; }
-    .dish-kanji { font-family:var(--serif); font-size:5rem; font-weight:700; color:rgba(240,235,225,.055); transition:color .35s var(--ease),transform .35s var(--ease); user-select:none; }
-    .dish-card:hover .dish-kanji { color:rgba(201,168,76,.14); transform:scale(1.08); }
-    .dish-tag { position:absolute; top:.75rem; left:.75rem; font-size:.6rem; letter-spacing:.25em; text-transform:uppercase; color:var(--gold); background:rgba(201,168,76,.1); padding:.3rem .7rem; }
+    .dish-card:hover { border-color:rgba(201,168,76,.45); transform:translateY(-8px) scale(1.01); box-shadow:0 20px 50px rgba(0,0,0,.5),0 0 30px rgba(201,168,76,.08); }
+    .dish-img { height:230px; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+    .dish-scene { width:100%; height:100%; animation:dishFloat 5s ease-in-out infinite; }
+    .dish-card:nth-child(2) .dish-scene { animation-delay:.7s; }
+    .dish-card:nth-child(3) .dish-scene { animation-delay:1.3s; }
+    .dish-card:nth-child(4) .dish-scene { animation-delay:.4s; }
+    .dish-kanji-bg { position:absolute; font-family:var(--serif); font-size:6.5rem; font-weight:700; color:rgba(240,235,225,.04); user-select:none; pointer-events:none; }
+    .dish-tag { position:absolute; top:.75rem; left:.75rem; font-size:.6rem; letter-spacing:.25em; text-transform:uppercase; color:var(--gold); background:rgba(201,168,76,.12); padding:.3rem .7rem; z-index:2; backdrop-filter:blur(4px); }
     .dish-info { padding:1.25rem; }
     .dish-name { font-family:var(--serif); font-size:1.1rem; color:var(--cream); margin-bottom:.3rem; }
     .dish-desc { font-size:.8rem; color:var(--muted); line-height:1.6; margin-bottom:.75rem; }
     .dish-price { font-size:.85rem; color:var(--gold); letter-spacing:.05em; }
-    .dish-toro .dish-img   { background:linear-gradient(135deg,#160808,#2d1010,#180a0a); }
-    .dish-uni .dish-img    { background:linear-gradient(135deg,#0e1510,#1a2f1a,#0c1a0e); }
-    .dish-dragon .dish-img { background:linear-gradient(135deg,#0d1508,#1e3014,#0c1a08); }
-    .dish-wagyu .dish-img  { background:linear-gradient(135deg,#150e05,#2e200a,#180e06); }
+    .dish-toro .dish-img   { background:radial-gradient(ellipse at 50% 80%,#241010 0%,#160808 70%); }
+    .dish-uni .dish-img    { background:radial-gradient(ellipse at 50% 80%,#1a2415 0%,#0e1510 70%); }
+    .dish-dragon .dish-img { background:radial-gradient(ellipse at 50% 80%,#1c2a10 0%,#0d1508 70%); }
+    .dish-wagyu .dish-img  { background:radial-gradient(ellipse at 50% 80%,#2a1c08 0%,#150e05 70%); }
 
-    /* ── OMAKASE ─────────────────────────────────── */
+    /* SVG dish animations */
+    .steam { animation:steamRise 3.2s ease-out infinite; transform-box:fill-box; }
+    .steam.s2 { animation-delay:1.1s; }
+    .steam.s3 { animation-delay:2.2s; }
+    .flame { animation:flameFlick .55s ease-in-out infinite; transform-origin:bottom center; transform-box:fill-box; }
+    .flame.f2 { animation-delay:.2s; animation-duration:.7s; }
+    .flame.f3 { animation-delay:.35s; animation-duration:.45s; }
+    .sparkle { animation:sparkleTwk 2.4s ease-in-out infinite; transform-origin:center; transform-box:fill-box; }
+    .sparkle.k2 { animation-delay:.8s; }
+    .sparkle.k3 { animation-delay:1.5s; }
+    .ikura { animation:ikuraPulse 2s ease-in-out infinite; transform-origin:center; transform-box:fill-box; }
+    .ikura.i2 { animation-delay:.5s; }
+    .ikura.i3 { animation-delay:1s; }
+    .sesame { animation:sesameFall 3.4s linear infinite; transform-box:fill-box; }
+    .sesame.e2 { animation-delay:1.2s; }
+    .sesame.e3 { animation-delay:2.3s; }
+    .slice { animation:sliceBob 3.4s ease-in-out infinite; transform-box:fill-box; }
+    .slice.sl2 { animation-delay:.6s; }
+    .slice.sl3 { animation-delay:1.2s; }
+    .ripple { animation:sojuRipple 2.6s ease-out infinite; transform-origin:center; transform-box:fill-box; }
+
+    /* ════════ OMAKASE ════════ */
     #omakase { padding:8rem 2.5rem; background:var(--bg-2); position:relative; overflow:hidden; text-align:center; }
     .om-bg-k { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:var(--serif); font-size:40vw; font-weight:700; color:rgba(201,168,76,.02); pointer-events:none; user-select:none; line-height:1; }
-    .om-inner { position:relative; z-index:1; max-width:700px; margin:0 auto; }
+    .om-lantern { position:absolute; top:0; right:6%; width:74px; transform-origin:top center; animation:lanternSwing 3.5s ease-in-out infinite alternate; z-index:1; }
+    .om-lantern .lglow { animation:lanternGlow 3s ease-in-out infinite; }
+    .om-lantern-l { right:auto; left:6%; animation-delay:1.2s; }
+    @media (max-width:640px){ .om-lantern { width:48px; right:3%; } .om-lantern-l { left:3%; } }
+    .om-inner { position:relative; z-index:2; max-width:700px; margin:0 auto; }
     .om-inner .sec-sub { max-width:100%; margin:0 auto 1.5rem; }
-    .om-price { display:inline-flex; flex-direction:column; align-items:center; gap:.25rem; margin:2rem 0; padding:1.5rem 3rem; border:1px solid var(--border); }
+    .om-price { display:inline-flex; flex-direction:column; align-items:center; gap:.25rem; margin:2rem 0; padding:1.5rem 3rem; border:1px solid var(--border); transition:border-color .3s,box-shadow .3s; }
+    .om-price:hover { border-color:var(--gold); box-shadow:0 0 30px rgba(201,168,76,.12); }
     .om-plabel { font-size:.65rem; letter-spacing:.35em; text-transform:uppercase; color:var(--muted); }
-    .om-pval   { font-family:var(--serif); font-size:2.5rem; color:var(--gold); font-weight:500; }
-    .om-pnote  { font-size:.75rem; color:var(--muted); }
+    .om-pval { font-family:var(--serif); font-size:2.5rem; color:var(--gold); font-weight:500; }
+    .om-pnote { font-size:.75rem; color:var(--muted); }
     .om-feats { display:flex; justify-content:center; gap:3rem; margin-bottom:2.5rem; flex-wrap:wrap; }
     .om-feat { display:flex; flex-direction:column; align-items:center; gap:.5rem; }
-    .om-feat-icon { width:40px; height:40px; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; color:var(--gold); }
-    .om-feat-icon svg { width:18px; height:18px; }
+    .om-feat-icon { width:40px; height:40px; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; color:var(--gold); transition:transform .3s,border-color .3s; }
+    .om-feat:hover .om-feat-icon { transform:rotate(45deg); border-color:var(--gold); }
+    .om-feat:hover .om-feat-icon svg { transform:rotate(-45deg); }
+    .om-feat-icon svg { width:18px; height:18px; transition:transform .3s; }
     .om-feat-txt { font-size:.72rem; letter-spacing:.08em; color:var(--muted); text-align:center; }
 
-    /* ── TORII GATE ──────────────────────────────── */
+    /* ════════ TORII ════════ */
     #torii { padding:7rem 2.5rem 5rem; background:#060606; position:relative; overflow:hidden; text-align:center; }
-    .torii-top { margin-bottom:4rem; }
+    .torii-top { margin-bottom:4rem; position:relative; z-index:1; }
     .torii-top .sec-sub { max-width:520px; margin:0 auto; }
     .torii-stage { position:relative; display:flex; justify-content:center; align-items:flex-start; }
     .torii-svg { width:min(420px,82vw); height:auto; }
     .torii-path { stroke:var(--gold); stroke-linecap:square; fill:none; }
     .torii-svg.glowing .torii-path { animation:toriiGlow 2.5s ease-in-out infinite; }
-
-    /* pillars get extra vertical line inside */
     .torii-pillar-inner { stroke:rgba(201,168,76,.3); }
-
-    .torii-kanji-base {
-      position:absolute; bottom:-10px; left:50%; transform:translateX(-50%);
-      font-family:var(--serif); font-size:1rem; letter-spacing:.6em;
-      color:var(--gold); opacity:0; transition:opacity 1.2s ease;
-      white-space:nowrap;
-    }
+    .torii-kanji-base { position:absolute; bottom:-10px; left:50%; transform:translateX(-50%); font-family:var(--serif); font-size:1rem; letter-spacing:.6em; color:var(--gold); opacity:0; transition:opacity 1.2s ease; white-space:nowrap; }
     .torii-kanji-base.show { opacity:1; }
-
-    /* sakura container */
     .sakura-layer { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
     .spetal { position:absolute; top:0; width:22px; height:22px; opacity:0; animation:sakuraFall var(--dur) var(--del) linear forwards; }
 
-    /* ── MENU ────────────────────────────────────── */
-    #menu { padding:7rem 2.5rem; background:var(--bg); }
-    .menu-inner { max-width:900px; margin:0 auto; }
+    /* ════════ MENU ════════ */
+    #menu { padding:7rem 2.5rem; background:var(--bg); position:relative; overflow:hidden; }
+    .menu-inner { max-width:900px; margin:0 auto; position:relative; z-index:1; }
     .menu-hd { margin-bottom:3.5rem; }
     .menu-tabs { display:flex; gap:0; border-bottom:1px solid var(--border); margin-bottom:3rem; }
-    .menu-tab { padding:.75rem 1.75rem; background:none; border:none; color:var(--muted); font-family:var(--sans); font-size:.78rem; letter-spacing:.15em; text-transform:uppercase; cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px; transition:color .25s,border-color .25s; }
+    .menu-tab { padding:.75rem 1.75rem; background:none; border:none; color:var(--muted); font-size:.78rem; letter-spacing:.15em; text-transform:uppercase; cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px; transition:color .25s,border-color .25s; }
     .menu-tab.active { color:var(--gold); border-bottom-color:var(--gold); }
     .menu-tab:hover { color:var(--cream); }
     .menu-panel { display:none; }
     .menu-panel.active { display:block; }
     .menu-items { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem 3rem; }
-    .menu-item { display:flex; justify-content:space-between; align-items:baseline; gap:1rem; padding-bottom:1.25rem; border-bottom:1px solid rgba(240,235,225,.05); }
+    .menu-panel.active .menu-item { opacity:0; animation:fadeInUp .5s var(--ease) forwards; }
+    .menu-panel.active .menu-item:nth-child(1){animation-delay:.05s}
+    .menu-panel.active .menu-item:nth-child(2){animation-delay:.1s}
+    .menu-panel.active .menu-item:nth-child(3){animation-delay:.15s}
+    .menu-panel.active .menu-item:nth-child(4){animation-delay:.2s}
+    .menu-panel.active .menu-item:nth-child(5){animation-delay:.25s}
+    .menu-panel.active .menu-item:nth-child(6){animation-delay:.3s}
+    .menu-panel.active .menu-item:nth-child(7){animation-delay:.35s}
+    .menu-panel.active .menu-item:nth-child(8){animation-delay:.4s}
+    .menu-item { display:flex; justify-content:space-between; align-items:baseline; gap:1rem; padding-bottom:1.25rem; border-bottom:1px solid rgba(240,235,225,.05); transition:border-color .3s,transform .3s; }
+    .menu-item:hover { border-bottom-color:rgba(201,168,76,.4); transform:translateX(6px); }
     .mi-name { font-family:var(--serif); font-size:1rem; color:var(--cream); margin-bottom:.2rem; }
     .mi-desc { font-size:.75rem; color:var(--muted); }
     .mi-price { font-size:.9rem; color:var(--gold); white-space:nowrap; flex-shrink:0; }
 
-    /* ── RESERVATION ─────────────────────────────── */
+    /* ════════ RESERVATION ════════ */
     #reservation { padding:7rem 2.5rem; background:var(--bg-2); }
     .res-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:6rem; align-items:start; }
     .res-title { font-family:var(--serif); font-size:clamp(2rem,4vw,3rem); margin-bottom:1rem; }
@@ -242,15 +296,15 @@
     .form-row { display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; }
     .form-group { display:flex; flex-direction:column; gap:.4rem; }
     .form-lbl { font-size:.65rem; letter-spacing:.25em; text-transform:uppercase; color:var(--muted); }
-    .form-input,.form-sel,.form-ta { background:rgba(240,235,225,.04); border:1px solid var(--border); color:var(--cream); font-family:var(--sans); font-size:.9rem; font-weight:300; padding:.85rem 1rem; outline:none; transition:border-color .25s,background .25s; width:100%; }
+    .form-input,.form-sel,.form-ta { background:rgba(240,235,225,.04); border:1px solid var(--border); color:var(--cream); font-family:var(--sans); font-size:.9rem; font-weight:300; padding:.85rem 1rem; outline:none; transition:border-color .25s,background .25s,box-shadow .25s; width:100%; }
     .form-input::placeholder,.form-ta::placeholder { color:var(--muted); }
-    .form-input:focus,.form-sel:focus,.form-ta:focus { border-color:var(--gold); background:rgba(201,168,76,.04); }
+    .form-input:focus,.form-sel:focus,.form-ta:focus { border-color:var(--gold); background:rgba(201,168,76,.04); box-shadow:0 0 0 3px rgba(201,168,76,.08); }
     .form-sel { cursor:pointer; }
     .form-sel option { background:#111; color:var(--cream); }
     .form-ta { resize:vertical; min-height:100px; }
     .form-submit { width:100%; padding:1rem; margin-top:.5rem; }
 
-    /* ── FOOTER ──────────────────────────────────── */
+    /* ════════ FOOTER ════════ */
     footer { background:#080808; border-top:1px solid var(--border); padding:4rem 2.5rem 2.5rem; }
     .foot-inner { max-width:1100px; margin:0 auto; }
     .foot-top { display:grid; grid-template-columns:2fr 1fr 1fr; gap:4rem; margin-bottom:3.5rem; }
@@ -259,8 +313,8 @@
     .foot-tag { font-size:.82rem; color:var(--muted); line-height:1.7; max-width:260px; }
     .foot-col-t { font-size:.65rem; letter-spacing:.35em; text-transform:uppercase; color:var(--gold); margin-bottom:1.25rem; }
     .foot-col ul { display:flex; flex-direction:column; gap:.75rem; }
-    .foot-col a { font-size:.82rem; color:var(--muted); transition:color .25s; }
-    .foot-col a:hover { color:var(--cream); }
+    .foot-col a { font-size:.82rem; color:var(--muted); transition:color .25s,padding-left .25s; }
+    .foot-col a:hover { color:var(--cream); padding-left:6px; }
     .foot-hrs { display:flex; flex-direction:column; gap:.6rem; }
     .foot-hr { display:flex; justify-content:space-between; font-size:.8rem; }
     .foot-hr-day { color:var(--muted); }
@@ -269,7 +323,7 @@
     .foot-copy { font-size:.72rem; color:var(--muted); letter-spacing:.05em; }
     .foot-addr { font-size:.72rem; color:var(--muted); text-align:right; }
 
-    /* ── RESPONSIVE ──────────────────────────────── */
+    /* ════════ RESPONSIVE ════════ */
     @media (max-width:900px) {
       .dishes-grid { grid-template-columns:repeat(2,1fr); }
       .phil-inner { grid-template-columns:1fr; gap:3rem; }
@@ -297,8 +351,9 @@
 </head>
 
 <body>
+<div id="progress"></div>
 
-<!-- ═══════════════════ NAVBAR -->
+<!-- ═══════════ NAVBAR -->
 <nav id="navbar">
   <div class="nav-inner">
     <a href="#" class="nav-logo">
@@ -321,121 +376,86 @@
 
 <nav class="nav-mobile" id="navMobile">
   <button class="nav-mc" id="navClose" aria-label="Chiudi">✕</button>
-  <a href="#philosophy"  onclick="closeMob()">Filosofia</a>
-  <a href="#signature"   onclick="closeMob()">Piatti</a>
-  <a href="#omakase"     onclick="closeMob()">Omakase</a>
-  <a href="#torii"       onclick="closeMob()">Il Torii</a>
-  <a href="#menu"        onclick="closeMob()">Menu</a>
+  <a href="#philosophy" onclick="closeMob()">Filosofia</a>
+  <a href="#signature" onclick="closeMob()">Piatti</a>
+  <a href="#omakase" onclick="closeMob()">Omakase</a>
+  <a href="#torii" onclick="closeMob()">Il Torii</a>
+  <a href="#menu" onclick="closeMob()">Menu</a>
   <a href="#reservation" onclick="closeMob()">Prenota</a>
 </nav>
 
-<!-- ═══════════════════ HERO -->
+<!-- ═══════════ HERO -->
 <section id="hero">
   <div class="hero-bg"></div>
-  <div class="hero-lines"><div class="hero-lh"></div><div class="hero-lh"></div></div>
   <div class="hero-kanji" id="heroKanji">大</div>
 
-  <!-- Floating Uramaki Rolls -->
+  <!-- Enso ring -->
+  <div class="hero-enso">
+    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="92" stroke="rgba(201,168,76,.12)" stroke-width="1.5" stroke-dasharray="500 80" stroke-linecap="round"/>
+      <circle cx="100" cy="100" r="80" stroke="rgba(201,168,76,.06)" stroke-width="1" stroke-dasharray="60 24"/>
+    </svg>
+  </div>
 
-  <!-- Roll 1: Salmon -->
+  <!-- Gold dust -->
+  <div class="dust" style="top:30%;left:20%;--dd:5s;--dl:.5s"></div>
+  <div class="dust" style="top:60%;left:12%;--dd:7s;--dl:2s"></div>
+  <div class="dust" style="top:25%;left:78%;--dd:6s;--dl:1s"></div>
+  <div class="dust" style="top:68%;left:85%;--dd:5.5s;--dl:3s"></div>
+  <div class="dust" style="top:45%;left:8%;--dd:8s;--dl:1.5s"></div>
+  <div class="dust" style="top:38%;left:90%;--dd:6.5s;--dl:2.5s"></div>
+  <div class="dust" style="top:80%;left:35%;--dd:7.5s;--dl:.8s"></div>
+  <div class="dust" style="top:15%;left:45%;--dd:9s;--dl:4s"></div>
+
+  <!-- Uramaki -->
   <div class="uramaki-wrap ur1">
     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
       <circle cx="50" cy="50" r="48" fill="#F5EED8"/>
-      <circle cx="28" cy="24" r="2.5" fill="#C9A84C" opacity=".85"/>
-      <circle cx="50" cy="16" r="2.5" fill="#C9A84C" opacity=".85"/>
-      <circle cx="72" cy="24" r="2.5" fill="#C9A84C" opacity=".85"/>
-      <circle cx="82" cy="50" r="2.5" fill="#C9A84C" opacity=".85"/>
-      <circle cx="72" cy="76" r="2.5" fill="#C9A84C" opacity=".85"/>
-      <circle cx="50" cy="84" r="2.5" fill="#C9A84C" opacity=".85"/>
-      <circle cx="28" cy="76" r="2.5" fill="#C9A84C" opacity=".85"/>
-      <circle cx="18" cy="50" r="2.5" fill="#C9A84C" opacity=".85"/>
+      <circle cx="28" cy="24" r="2.5" fill="#C9A84C" opacity=".85"/><circle cx="50" cy="16" r="2.5" fill="#C9A84C" opacity=".85"/><circle cx="72" cy="24" r="2.5" fill="#C9A84C" opacity=".85"/><circle cx="82" cy="50" r="2.5" fill="#C9A84C" opacity=".85"/><circle cx="72" cy="76" r="2.5" fill="#C9A84C" opacity=".85"/><circle cx="50" cy="84" r="2.5" fill="#C9A84C" opacity=".85"/><circle cx="28" cy="76" r="2.5" fill="#C9A84C" opacity=".85"/><circle cx="18" cy="50" r="2.5" fill="#C9A84C" opacity=".85"/>
       <circle cx="50" cy="50" r="37" fill="#1A1A10"/>
       <ellipse cx="50" cy="36" rx="21" ry="14" fill="#E07242"/>
       <ellipse cx="36" cy="62" rx="14" ry="11" fill="#5D9B3A"/>
       <ellipse cx="64" cy="62" rx="14" ry="11" fill="#4BA865"/>
       <circle cx="50" cy="50" r="13" fill="#F5EED8"/>
-      <circle cx="44" cy="44" r="4" fill="rgba(255,255,255,.12)"/>
     </svg>
   </div>
-
-  <!-- Roll 2: Tuna -->
   <div class="uramaki-wrap ur2">
     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="54" height="54">
       <circle cx="50" cy="50" r="48" fill="#F5EED8"/>
-      <circle cx="28" cy="24" r="2.5" fill="#C9A84C" opacity=".85"/>
-      <circle cx="50" cy="16" r="2.5" fill="#C9A84C" opacity=".85"/>
-      <circle cx="72" cy="24" r="2.5" fill="#C9A84C" opacity=".85"/>
-      <circle cx="82" cy="50" r="2.5" fill="#C9A84C" opacity=".85"/>
-      <circle cx="72" cy="76" r="2.5" fill="#C9A84C" opacity=".85"/>
-      <circle cx="50" cy="84" r="2.5" fill="#C9A84C" opacity=".85"/>
-      <circle cx="28" cy="76" r="2.5" fill="#C9A84C" opacity=".85"/>
-      <circle cx="18" cy="50" r="2.5" fill="#C9A84C" opacity=".85"/>
+      <circle cx="50" cy="16" r="2.5" fill="#C9A84C" opacity=".85"/><circle cx="82" cy="50" r="2.5" fill="#C9A84C" opacity=".85"/><circle cx="50" cy="84" r="2.5" fill="#C9A84C" opacity=".85"/><circle cx="18" cy="50" r="2.5" fill="#C9A84C" opacity=".85"/>
       <circle cx="50" cy="50" r="37" fill="#1A1A10"/>
       <ellipse cx="50" cy="38" rx="22" ry="14" fill="#8B1C1C"/>
-      <circle cx="42" cy="37" r="3" fill="#E8A040" opacity=".8"/>
-      <circle cx="58" cy="37" r="3" fill="#E8A040" opacity=".8"/>
       <ellipse cx="50" cy="62" rx="18" ry="11" fill="#4BA865"/>
       <circle cx="50" cy="50" r="13" fill="#F5EED8"/>
     </svg>
   </div>
-
-  <!-- Roll 3: Dragon Roll (green outside) -->
   <div class="uramaki-wrap ur3">
     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="78" height="78">
       <circle cx="50" cy="50" r="48" fill="#3D6B28"/>
       <line x1="50" y1="2" x2="50" y2="98" stroke="#2D5A1A" stroke-width="1.5"/>
       <line x1="2" y1="50" x2="98" y2="50" stroke="#2D5A1A" stroke-width="1.5"/>
-      <line x1="16" y1="16" x2="84" y2="84" stroke="#2D5A1A" stroke-width="1.2"/>
-      <line x1="84" y1="16" x2="16" y2="84" stroke="#2D5A1A" stroke-width="1.2"/>
       <circle cx="50" cy="50" r="37" fill="#1A1A10"/>
       <ellipse cx="50" cy="38" rx="22" ry="13" fill="#8B5A2B"/>
       <ellipse cx="50" cy="60" rx="19" ry="11" fill="#D4A040"/>
       <circle cx="50" cy="50" r="13" fill="#F5EED8"/>
-      <circle cx="44" cy="44" r="4" fill="rgba(255,255,255,.12)"/>
     </svg>
   </div>
-
-  <!-- Roll 4: Rainbow Roll -->
   <div class="uramaki-wrap ur4">
     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="58" height="58">
       <circle cx="50" cy="50" r="48" fill="#F5EED8"/>
-      <circle cx="28" cy="24" r="2.5" fill="#C9A84C" opacity=".85"/>
-      <circle cx="50" cy="16" r="2.5" fill="#C9A84C" opacity=".85"/>
-      <circle cx="72" cy="24" r="2.5" fill="#C9A84C" opacity=".85"/>
-      <circle cx="82" cy="50" r="2.5" fill="#C9A84C" opacity=".85"/>
-      <circle cx="72" cy="76" r="2.5" fill="#C9A84C" opacity=".85"/>
-      <circle cx="50" cy="84" r="2.5" fill="#C9A84C" opacity=".85"/>
-      <circle cx="28" cy="76" r="2.5" fill="#C9A84C" opacity=".85"/>
-      <circle cx="18" cy="50" r="2.5" fill="#C9A84C" opacity=".85"/>
+      <circle cx="28" cy="24" r="2.5" fill="#C9A84C" opacity=".85"/><circle cx="72" cy="24" r="2.5" fill="#C9A84C" opacity=".85"/><circle cx="72" cy="76" r="2.5" fill="#C9A84C" opacity=".85"/><circle cx="28" cy="76" r="2.5" fill="#C9A84C" opacity=".85"/>
       <circle cx="50" cy="50" r="37" fill="#1A1A10"/>
-      <path d="M 22,50 A 28,28 0 0 1 50,22" stroke="#E07242" stroke-width="9" fill="none" stroke-linecap="butt"/>
-      <path d="M 50,22 A 28,28 0 0 1 78,50" stroke="#8B1C1C" stroke-width="9" fill="none" stroke-linecap="butt"/>
-      <path d="M 78,50 A 28,28 0 0 1 50,78" stroke="#5D9B3A" stroke-width="9" fill="none" stroke-linecap="butt"/>
-      <path d="M 50,78 A 28,28 0 0 1 22,50" stroke="#D4A040" stroke-width="9" fill="none" stroke-linecap="butt"/>
+      <path d="M 22,50 A 28,28 0 0 1 50,22" stroke="#E07242" stroke-width="9" fill="none"/>
+      <path d="M 50,22 A 28,28 0 0 1 78,50" stroke="#8B1C1C" stroke-width="9" fill="none"/>
+      <path d="M 78,50 A 28,28 0 0 1 50,78" stroke="#5D9B3A" stroke-width="9" fill="none"/>
+      <path d="M 50,78 A 28,28 0 0 1 22,50" stroke="#D4A040" stroke-width="9" fill="none"/>
       <circle cx="50" cy="50" r="14" fill="#F5EED8"/>
-    </svg>
-  </div>
-
-  <!-- Roll 5: Cucumber/Veggie -->
-  <div class="uramaki-wrap ur5">
-    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="46" height="46">
-      <circle cx="50" cy="50" r="48" fill="#F5EED8"/>
-      <circle cx="50" cy="16" r="2.5" fill="#C9A84C" opacity=".85"/>
-      <circle cx="82" cy="50" r="2.5" fill="#C9A84C" opacity=".85"/>
-      <circle cx="50" cy="84" r="2.5" fill="#C9A84C" opacity=".85"/>
-      <circle cx="18" cy="50" r="2.5" fill="#C9A84C" opacity=".85"/>
-      <circle cx="50" cy="50" r="37" fill="#1A1A10"/>
-      <ellipse cx="50" cy="50" rx="22" ry="22" fill="#2D7A4A"/>
-      <ellipse cx="50" cy="50" rx="14" ry="14" fill="#4BA865"/>
-      <circle cx="50" cy="50" r="6" fill="#F5EED8"/>
-      <line x1="50" y1="28" x2="50" y2="72" stroke="#1A1A10" stroke-width="1.5"/>
-      <line x1="28" y1="50" x2="72" y2="50" stroke="#1A1A10" stroke-width="1.5"/>
     </svg>
   </div>
 
   <div class="hero-content">
     <span class="hero-sup">大崎 — Autentica Cucina Giapponese</span>
-    <h1 class="hero-title shimmer" id="heroTitle">OSAKI</h1>
+    <h1 class="hero-title"><span style="--i:0">O</span><span style="--i:1">S</span><span style="--i:2">A</span><span style="--i:3">K</span><span style="--i:4">I</span></h1>
     <p class="hero-tagline">Dove ogni piatto racconta una storia antica</p>
     <div class="hero-divider"></div>
     <div class="hero-actions">
@@ -449,10 +469,45 @@
   </div>
 </section>
 
-<!-- ═══════════════════ PHILOSOPHY -->
+<!-- ═══════════ MARQUEE 1 -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <div class="marquee-seq">
+      <span class="mq-jp">寿司</span><span class="mq-en">Sushi</span><span class="mq-dot"></span>
+      <span class="mq-jp">刺身</span><span class="mq-en">Sashimi</span><span class="mq-dot"></span>
+      <span class="mq-jp">海苔</span><span class="mq-en">Nori</span><span class="mq-dot"></span>
+      <span class="mq-jp">山葵</span><span class="mq-en">Wasabi</span><span class="mq-dot"></span>
+      <span class="mq-jp">大崎</span><span class="mq-en">Osaki</span><span class="mq-dot"></span>
+      <span class="mq-jp">和牛</span><span class="mq-en">Wagyu</span><span class="mq-dot"></span>
+    </div>
+    <div class="marquee-seq">
+      <span class="mq-jp">寿司</span><span class="mq-en">Sushi</span><span class="mq-dot"></span>
+      <span class="mq-jp">刺身</span><span class="mq-en">Sashimi</span><span class="mq-dot"></span>
+      <span class="mq-jp">海苔</span><span class="mq-en">Nori</span><span class="mq-dot"></span>
+      <span class="mq-jp">山葵</span><span class="mq-en">Wasabi</span><span class="mq-dot"></span>
+      <span class="mq-jp">大崎</span><span class="mq-en">Osaki</span><span class="mq-dot"></span>
+      <span class="mq-jp">和牛</span><span class="mq-en">Wagyu</span><span class="mq-dot"></span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ PHILOSOPHY -->
 <section id="philosophy">
+  <!-- Koi che nuota -->
+  <div class="koi" style="top:14%">
+    <svg viewBox="0 0 130 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g class="koi-tail">
+        <path d="M28 30 L4 12 Q12 30 4 48 Z" fill="rgba(201,168,76,.55)"/>
+      </g>
+      <ellipse cx="68" cy="30" rx="42" ry="17" fill="rgba(201,168,76,.5)"/>
+      <path d="M50 16 Q60 4 74 12 L66 22 Z" class="koi-fin" fill="rgba(201,168,76,.4)"/>
+      <circle cx="96" cy="26" r="2.8" fill="#0A0A0A"/>
+      <path d="M58 23 Q66 30 58 37" stroke="rgba(10,10,10,.4)" stroke-width="2" fill="none"/>
+      <path d="M72 21 Q80 30 72 39" stroke="rgba(10,10,10,.4)" stroke-width="2" fill="none"/>
+    </svg>
+  </div>
   <div class="phil-inner">
-    <div class="anim" id="philArt">
+    <div class="anim">
       <div class="phil-art">間</div>
       <p class="phil-art-lbl">Ma — Lo Spazio</p>
     </div>
@@ -466,7 +521,19 @@
   </div>
 </section>
 
-<!-- ═══════════════════ SIGNATURE -->
+<!-- ═══════════ WAVE DIVIDER -->
+<div class="wave-div" aria-hidden="true">
+  <div class="wave-layer w1">
+    <svg viewBox="0 0 600 70" preserveAspectRatio="none"><path d="M0,40 C100,20 200,60 300,40 C400,20 500,60 600,40 L600,70 L0,70 Z" fill="rgba(201,168,76,.06)"/></svg>
+    <svg viewBox="0 0 600 70" preserveAspectRatio="none"><path d="M0,40 C100,20 200,60 300,40 C400,20 500,60 600,40 L600,70 L0,70 Z" fill="rgba(201,168,76,.06)"/></svg>
+  </div>
+  <div class="wave-layer w2">
+    <svg viewBox="0 0 600 70" preserveAspectRatio="none"><path d="M0,50 C150,30 300,65 450,45 C520,38 560,50 600,45 L600,70 L0,70 Z" fill="rgba(201,168,76,.09)"/></svg>
+    <svg viewBox="0 0 600 70" preserveAspectRatio="none"><path d="M0,50 C150,30 300,65 450,45 C520,38 560,50 600,45 L600,70 L0,70 Z" fill="rgba(201,168,76,.09)"/></svg>
+  </div>
+</div>
+
+<!-- ═══════════ SIGNATURE — PIATTI ILLUSTRATI ANIMATI -->
 <section id="signature">
   <div class="sig-hd anim">
     <p class="lbl">I Nostri Signature</p>
@@ -474,32 +541,151 @@
     <p class="sec-sub">Quattro espressioni del nostro approccio alla cucina giapponese.</p>
   </div>
   <div class="dishes-grid">
+
+    <!-- ŌTORO NIGIRI — vapore che sale -->
     <div class="dish-card dish-toro anim d1">
-      <div class="dish-img"><span class="dish-tag">Signature</span><span class="dish-kanji">鮪</span></div>
+      <div class="dish-img">
+        <span class="dish-kanji-bg">鮪</span>
+        <span class="dish-tag">Signature</span>
+        <svg class="dish-scene" viewBox="0 0 220 150" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="110" cy="126" rx="78" ry="13" fill="#1b1414" stroke="rgba(201,168,76,.25)" stroke-width="1"/>
+          <ellipse cx="110" cy="121" rx="62" ry="9" fill="#221818"/>
+          <!-- riso -->
+          <path d="M75 112 Q75 92 110 90 Q145 92 145 112 Q128 118 110 118 Q92 118 75 112 Z" fill="#F5EED8"/>
+          <circle cx="88" cy="103" r="2" fill="#E8E0CC"/><circle cx="104" cy="108" r="2" fill="#E8E0CC"/><circle cx="122" cy="104" r="2" fill="#E8E0CC"/><circle cx="132" cy="109" r="2" fill="#E8E0CC"/>
+          <!-- otoro -->
+          <path d="M62 92 Q70 76 110 74 Q150 76 158 92 Q150 100 110 100 Q70 100 62 92 Z" fill="#E8707E"/>
+          <path d="M62 92 Q70 76 110 74 Q150 76 158 92" fill="none" stroke="#F5C3CB" stroke-width="1.4" opacity=".8"/>
+          <path d="M74 88 Q110 80 146 88" stroke="#F5C3CB" stroke-width="1.6" fill="none" opacity=".75"/>
+          <path d="M80 94 Q110 87 140 94" stroke="#F5C3CB" stroke-width="1.4" fill="none" opacity=".6"/>
+          <!-- vapore -->
+          <path class="steam" d="M88 64 Q84 56 88 48 Q92 42 88 34" stroke="rgba(240,235,225,.5)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path class="steam s2" d="M110 60 Q106 52 110 44 Q114 38 110 30" stroke="rgba(240,235,225,.5)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path class="steam s3" d="M132 64 Q128 56 132 48 Q136 42 132 34" stroke="rgba(240,235,225,.5)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
       <div class="dish-info">
         <h3 class="dish-name">Ōtoro Nigiri</h3>
         <p class="dish-desc">Tonno grasso del Pacifico, riso invecchiato al vapore, wasabi fresco di montagna.</p>
         <span class="dish-price">€ 28 · 2 pz</span>
       </div>
     </div>
+
+    <!-- UNI TEMAKI — ikura pulsanti e scintille -->
     <div class="dish-card dish-uni anim d2">
-      <div class="dish-img"><span class="dish-tag">Stagionale</span><span class="dish-kanji">雲丹</span></div>
+      <div class="dish-img">
+        <span class="dish-kanji-bg">雲丹</span>
+        <span class="dish-tag">Stagionale</span>
+        <svg class="dish-scene" viewBox="0 0 220 150" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="110" cy="130" rx="70" ry="10" fill="#13200f" opacity=".8"/>
+          <!-- cono nori -->
+          <path d="M78 50 L142 58 L116 132 Z" fill="#16240E"/>
+          <path d="M78 50 L142 58 L116 132 Z" fill="none" stroke="rgba(201,168,76,.2)" stroke-width="1"/>
+          <path d="M88 62 L128 67" stroke="#0E1A08" stroke-width="2"/>
+          <path d="M94 80 L124 84" stroke="#0E1A08" stroke-width="2"/>
+          <!-- riso -->
+          <path d="M82 52 Q96 40 112 44 Q130 46 140 57 L120 62 Z" fill="#F5EED8"/>
+          <!-- uni -->
+          <ellipse cx="100" cy="42" rx="13" ry="8" fill="#E8923F" transform="rotate(-8 100 42)"/>
+          <ellipse cx="118" cy="40" rx="12" ry="7.5" fill="#D4791F" transform="rotate(6 118 40)"/>
+          <ellipse cx="109" cy="34" rx="11" ry="7" fill="#F0A452" transform="rotate(-3 109 34)"/>
+          <!-- ikura pulsanti -->
+          <circle class="ikura" cx="132" cy="48" r="5.5" fill="#E8531F"/>
+          <circle class="ikura i2" cx="142" cy="42" r="4.5" fill="#F06030"/>
+          <circle class="ikura i3" cx="138" cy="54" r="4" fill="#D84818"/>
+          <circle cx="130" cy="46" r="1.8" fill="#FFB088"/>
+          <!-- scintille -->
+          <path class="sparkle" d="M70 36 L72.5 42 L78 44 L72.5 46 L70 52 L67.5 46 L62 44 L67.5 42 Z" fill="#E3C47A"/>
+          <path class="sparkle k2" d="M156 70 L158 74.5 L162 76 L158 77.5 L156 82 L154 77.5 L150 76 L154 74.5 Z" fill="#E3C47A"/>
+          <path class="sparkle k3" d="M84 100 L85.6 103.5 L89 105 L85.6 106.5 L84 110 L82.4 106.5 L79 105 L82.4 103.5 Z" fill="#E3C47A"/>
+        </svg>
+      </div>
       <div class="dish-info">
         <h3 class="dish-name">Uni Temaki</h3>
         <p class="dish-desc">Ricci di mare di Hokkaido, alga nori croccante, caviale di trota, burro di yuzu.</p>
         <span class="dish-price">€ 32 · 1 pz</span>
       </div>
     </div>
+
+    <!-- DRAGON ROLL — fette che ballano e sesamo che cade -->
     <div class="dish-card dish-dragon anim d3">
-      <div class="dish-img"><span class="dish-tag">Chef's Choice</span><span class="dish-kanji">龍</span></div>
+      <div class="dish-img">
+        <span class="dish-kanji-bg">龍</span>
+        <span class="dish-tag">Chef's Choice</span>
+        <svg class="dish-scene" viewBox="0 0 220 150" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="110" cy="124" rx="80" ry="12" fill="#141c0c" opacity=".9"/>
+          <!-- sesamo che cade -->
+          <ellipse class="sesame" cx="80" cy="30" rx="2.6" ry="1.6" fill="#F5EED8"/>
+          <ellipse class="sesame e2" cx="118" cy="26" rx="2.6" ry="1.6" fill="#E3C47A"/>
+          <ellipse class="sesame e3" cx="150" cy="32" rx="2.6" ry="1.6" fill="#F5EED8"/>
+          <!-- fetta 1 -->
+          <g class="slice">
+            <circle cx="64" cy="98" r="24" fill="#F5EED8"/>
+            <circle cx="64" cy="98" r="24" fill="none" stroke="#4E7A2C" stroke-width="5"/>
+            <path d="M44 84 Q64 70 84 84 L80 92 Q64 82 48 92 Z" fill="#8B5A2B"/>
+            <circle cx="64" cy="102" r="9" fill="#5D9B3A"/>
+            <circle cx="64" cy="102" r="4" fill="#F5EED8"/>
+          </g>
+          <!-- fetta 2 (centrale, più alta) -->
+          <g class="slice sl2">
+            <circle cx="110" cy="90" r="27" fill="#F5EED8"/>
+            <circle cx="110" cy="90" r="27" fill="none" stroke="#4E7A2C" stroke-width="5"/>
+            <path d="M87 74 Q110 58 133 74 L128 83 Q110 71 92 83 Z" fill="#8B5A2B"/>
+            <path d="M90 76 Q110 64 130 76" stroke="#C9A84C" stroke-width="2" fill="none" opacity=".9"/>
+            <circle cx="110" cy="95" r="10" fill="#5D9B3A"/>
+            <circle cx="110" cy="95" r="4.5" fill="#E8923F"/>
+          </g>
+          <!-- fetta 3 -->
+          <g class="slice sl3">
+            <circle cx="156" cy="98" r="24" fill="#F5EED8"/>
+            <circle cx="156" cy="98" r="24" fill="none" stroke="#4E7A2C" stroke-width="5"/>
+            <path d="M136 84 Q156 70 176 84 L172 92 Q156 82 140 92 Z" fill="#8B5A2B"/>
+            <circle cx="156" cy="102" r="9" fill="#5D9B3A"/>
+            <circle cx="156" cy="102" r="4" fill="#F5EED8"/>
+          </g>
+        </svg>
+      </div>
       <div class="dish-info">
         <h3 class="dish-name">Dragon Roll</h3>
         <p class="dish-desc">Anguilla alla brace, gambero tempura, avocado cremoso, salsa unagi, semi di sesamo.</p>
         <span class="dish-price">€ 24 · 8 pz</span>
       </div>
     </div>
+
+    <!-- WAGYU NIGIRI — fiamma flambé -->
     <div class="dish-card dish-wagyu anim d4">
-      <div class="dish-img"><span class="dish-tag">Luxury</span><span class="dish-kanji">和牛</span></div>
+      <div class="dish-img">
+        <span class="dish-kanji-bg">和牛</span>
+        <span class="dish-tag">Luxury</span>
+        <svg class="dish-scene" viewBox="0 0 220 150" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="110" cy="128" rx="78" ry="12" fill="#1d1408" opacity=".9"/>
+          <ellipse cx="110" cy="123" rx="60" ry="8" fill="#241a0a"/>
+          <!-- riso -->
+          <path d="M76 114 Q76 96 110 94 Q144 96 144 114 Q127 120 110 120 Q93 120 76 114 Z" fill="#F5EED8"/>
+          <!-- wagyu marmorizzato -->
+          <path d="M64 96 Q72 78 110 76 Q148 78 156 96 Q148 104 110 104 Q72 104 64 96 Z" fill="#B0413E"/>
+          <path d="M76 90 Q110 82 144 90" stroke="#F0D5D0" stroke-width="1.6" fill="none" opacity=".85"/>
+          <path d="M82 96 Q110 89 138 96" stroke="#F0D5D0" stroke-width="1.3" fill="none" opacity=".7"/>
+          <path d="M72 92 Q88 86 102 90" stroke="#F0D5D0" stroke-width="1.1" fill="none" opacity=".6"/>
+          <path d="M118 88 Q134 84 148 92" stroke="#F0D5D0" stroke-width="1.1" fill="none" opacity=".6"/>
+          <!-- fiamme flambé -->
+          <g class="flame">
+            <path d="M110 70 Q100 56 108 42 Q111 50 116 44 Q120 56 110 70 Z" fill="#E8923F"/>
+            <path d="M110 66 Q105 56 110 47 Q113 53 115 49 Q117 58 110 66 Z" fill="#F5C046"/>
+          </g>
+          <g class="flame f2">
+            <path d="M88 74 Q82 64 87 54 Q89 60 93 56 Q95 66 88 74 Z" fill="#E8923F" opacity=".9"/>
+            <path d="M88 71 Q85 64 88 58 Q90 62 91 60 Q92 66 88 71 Z" fill="#F5C046"/>
+          </g>
+          <g class="flame f3">
+            <path d="M134 74 Q128 64 133 54 Q135 60 139 56 Q141 66 134 74 Z" fill="#E8923F" opacity=".9"/>
+            <path d="M134 71 Q131 64 134 58 Q136 62 137 60 Q138 66 134 71 Z" fill="#F5C046"/>
+          </g>
+          <!-- tartufo -->
+          <circle cx="146" cy="86" r="5" fill="#2A2118"/>
+          <circle cx="144" cy="84" r="1.5" fill="#4A3A28"/>
+        </svg>
+      </div>
       <div class="dish-info">
         <h3 class="dish-name">Wagyu Nigiri</h3>
         <p class="dish-desc">Manzo Wagyu A5 flambé al momento, tartufo nero, sale marino di Okinawa.</p>
@@ -509,9 +695,42 @@
   </div>
 </section>
 
-<!-- ═══════════════════ OMAKASE -->
+<!-- ═══════════ OMAKASE -->
 <section id="omakase">
   <div class="om-bg-k">お</div>
+  <!-- Lanterne oscillanti -->
+  <div class="om-lantern om-lantern-l" aria-hidden="true">
+    <svg viewBox="0 0 70 120" xmlns="http://www.w3.org/2000/svg">
+      <line x1="35" y1="0" x2="35" y2="16" stroke="rgba(201,168,76,.5)" stroke-width="1.5"/>
+      <rect x="26" y="16" width="18" height="6" fill="#2A2118"/>
+      <ellipse class="lglow" cx="35" cy="58" rx="30" ry="40" fill="#E8923F" opacity=".3"/>
+      <path d="M14 30 Q35 22 56 30 Q62 58 56 86 Q35 94 14 86 Q8 58 14 30 Z" fill="#C9472A"/>
+      <path d="M14 30 Q35 22 56 30" fill="none" stroke="#8B2C18" stroke-width="1.5"/>
+      <path d="M12 44 Q35 38 58 44" fill="none" stroke="#8B2C18" stroke-width="1.2"/>
+      <path d="M11 58 Q35 53 59 58" fill="none" stroke="#8B2C18" stroke-width="1.2"/>
+      <path d="M12 72 Q35 67 58 72" fill="none" stroke="#8B2C18" stroke-width="1.2"/>
+      <path d="M14 86 Q35 94 56 86" fill="none" stroke="#8B2C18" stroke-width="1.5"/>
+      <text x="35" y="64" font-family="serif" font-size="20" fill="#F5EED8" text-anchor="middle">祭</text>
+      <rect x="26" y="92" width="18" height="6" fill="#2A2118"/>
+      <line x1="35" y1="98" x2="35" y2="110" stroke="rgba(201,168,76,.5)" stroke-width="1.5"/>
+      <circle cx="35" cy="113" r="3" fill="#C9A84C"/>
+    </svg>
+  </div>
+  <div class="om-lantern" aria-hidden="true">
+    <svg viewBox="0 0 70 120" xmlns="http://www.w3.org/2000/svg">
+      <line x1="35" y1="0" x2="35" y2="16" stroke="rgba(201,168,76,.5)" stroke-width="1.5"/>
+      <rect x="26" y="16" width="18" height="6" fill="#2A2118"/>
+      <ellipse class="lglow" cx="35" cy="58" rx="30" ry="40" fill="#E8923F" opacity=".3"/>
+      <path d="M14 30 Q35 22 56 30 Q62 58 56 86 Q35 94 14 86 Q8 58 14 30 Z" fill="#C9472A"/>
+      <path d="M12 44 Q35 38 58 44" fill="none" stroke="#8B2C18" stroke-width="1.2"/>
+      <path d="M11 58 Q35 53 59 58" fill="none" stroke="#8B2C18" stroke-width="1.2"/>
+      <path d="M12 72 Q35 67 58 72" fill="none" stroke="#8B2C18" stroke-width="1.2"/>
+      <text x="35" y="64" font-family="serif" font-size="20" fill="#F5EED8" text-anchor="middle">宴</text>
+      <rect x="26" y="92" width="18" height="6" fill="#2A2118"/>
+      <line x1="35" y1="98" x2="35" y2="110" stroke="rgba(201,168,76,.5)" stroke-width="1.5"/>
+      <circle cx="35" cy="113" r="3" fill="#C9A84C"/>
+    </svg>
+  </div>
   <div class="om-inner">
     <p class="lbl anim">Esperienza Esclusiva</p>
     <h2 class="sec-title anim d1">Omakase</h2>
@@ -539,7 +758,7 @@
   </div>
 </section>
 
-<!-- ═══════════════════ TORII GATE -->
+<!-- ═══════════ TORII -->
 <section id="torii">
   <div class="sakura-layer" id="sakuraLayer"></div>
   <div class="torii-top">
@@ -549,37 +768,56 @@
   </div>
   <div class="torii-stage">
     <svg id="toriiSvg" class="torii-svg" viewBox="0 0 400 470" xmlns="http://www.w3.org/2000/svg">
-      <!-- Kasagi — top curved beam -->
-      <path class="torii-path" id="tpKasagi"
-        d="M -5,118 Q 200,58 405,118 L 405,146 Q 200,85 -5,146 Z"
-        stroke-width="3"/>
-      <!-- Shimaki — pillar caps left -->
-      <rect class="torii-path" id="tpCapL"
-        x="78" y="140" width="56" height="16" stroke-width="2.5"/>
-      <!-- Shimaki — pillar caps right -->
-      <rect class="torii-path" id="tpCapR"
-        x="266" y="140" width="56" height="16" stroke-width="2.5"/>
-      <!-- Nuki — second horizontal beam -->
-      <rect class="torii-path" id="tpNuki"
-        x="96" y="194" width="208" height="18" stroke-width="2.5"/>
-      <!-- Hashira — left pillar -->
-      <rect class="torii-path" id="tpPilL"
-        x="96" y="155" width="27" height="295" stroke-width="2.5"/>
-      <!-- Hashira — right pillar -->
-      <rect class="torii-path" id="tpPilR"
-        x="277" y="155" width="27" height="295" stroke-width="2.5"/>
-      <!-- Inner pillar details (decorative thin lines) -->
-      <line class="torii-path torii-pillar-inner" id="tpDL"
-        x1="109" y1="220" x2="109" y2="448" stroke-width="1" opacity=".4"/>
-      <line class="torii-path torii-pillar-inner" id="tpDR"
-        x1="291" y1="220" x2="291" y2="448" stroke-width="1" opacity=".4"/>
+      <path class="torii-path" id="tpKasagi" d="M -5,118 Q 200,58 405,118 L 405,146 Q 200,85 -5,146 Z" stroke-width="3"/>
+      <rect class="torii-path" id="tpCapL" x="78" y="140" width="56" height="16" stroke-width="2.5"/>
+      <rect class="torii-path" id="tpCapR" x="266" y="140" width="56" height="16" stroke-width="2.5"/>
+      <rect class="torii-path" id="tpNuki" x="96" y="194" width="208" height="18" stroke-width="2.5"/>
+      <rect class="torii-path" id="tpPilL" x="96" y="155" width="27" height="295" stroke-width="2.5"/>
+      <rect class="torii-path" id="tpPilR" x="277" y="155" width="27" height="295" stroke-width="2.5"/>
+      <line class="torii-path torii-pillar-inner" id="tpDL" x1="109" y1="220" x2="109" y2="448" stroke-width="1" opacity=".4"/>
+      <line class="torii-path torii-pillar-inner" id="tpDR" x1="291" y1="220" x2="291" y2="448" stroke-width="1" opacity=".4"/>
     </svg>
     <span class="torii-kanji-base" id="toriiLabel">大崎</span>
   </div>
 </section>
 
-<!-- ═══════════════════ MENU -->
+<!-- ═══════════ MARQUEE 2 -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <div class="marquee-seq">
+      <span class="mq-jp">鮪</span><span class="mq-en">Maguro</span><span class="mq-dot"></span>
+      <span class="mq-jp">鮭</span><span class="mq-en">Sake</span><span class="mq-dot"></span>
+      <span class="mq-jp">雲丹</span><span class="mq-en">Uni</span><span class="mq-dot"></span>
+      <span class="mq-jp">帆立</span><span class="mq-en">Hotate</span><span class="mq-dot"></span>
+      <span class="mq-jp">いくら</span><span class="mq-en">Ikura</span><span class="mq-dot"></span>
+      <span class="mq-jp">蛸</span><span class="mq-en">Tako</span><span class="mq-dot"></span>
+    </div>
+    <div class="marquee-seq">
+      <span class="mq-jp">鮪</span><span class="mq-en">Maguro</span><span class="mq-dot"></span>
+      <span class="mq-jp">鮭</span><span class="mq-en">Sake</span><span class="mq-dot"></span>
+      <span class="mq-jp">雲丹</span><span class="mq-en">Uni</span><span class="mq-dot"></span>
+      <span class="mq-jp">帆立</span><span class="mq-en">Hotate</span><span class="mq-dot"></span>
+      <span class="mq-jp">いくら</span><span class="mq-en">Ikura</span><span class="mq-dot"></span>
+      <span class="mq-jp">蛸</span><span class="mq-en">Tako</span><span class="mq-dot"></span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ MENU -->
 <section id="menu">
+  <!-- Koi che torna indietro -->
+  <div class="koi koi-back" style="top:10%">
+    <svg viewBox="0 0 130 60" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform:scaleX(-1)">
+      <g class="koi-tail">
+        <path d="M28 30 L4 12 Q12 30 4 48 Z" fill="rgba(201,168,76,.45)"/>
+      </g>
+      <ellipse cx="68" cy="30" rx="42" ry="17" fill="rgba(201,168,76,.4)"/>
+      <path d="M50 16 Q60 4 74 12 L66 22 Z" class="koi-fin" fill="rgba(201,168,76,.32)"/>
+      <circle cx="96" cy="26" r="2.8" fill="#0A0A0A"/>
+      <path d="M58 23 Q66 30 58 37" stroke="rgba(10,10,10,.35)" stroke-width="2" fill="none"/>
+      <path d="M72 21 Q80 30 72 39" stroke="rgba(10,10,10,.35)" stroke-width="2" fill="none"/>
+    </svg>
+  </div>
   <div class="menu-inner">
     <div class="menu-hd anim">
       <p class="lbl">La Nostra Carta</p>
@@ -636,7 +874,7 @@
   </div>
 </section>
 
-<!-- ═══════════════════ RESERVATION -->
+<!-- ═══════════ RESERVATION -->
 <section id="reservation">
   <div class="res-inner">
     <div>
@@ -686,7 +924,7 @@
   </div>
 </section>
 
-<!-- ═══════════════════ FOOTER -->
+<!-- ═══════════ FOOTER -->
 <footer>
   <div class="foot-inner">
     <div class="foot-top">
@@ -722,24 +960,25 @@
 </footer>
 
 <script is:inline>
-// ── Navbar scroll
+// ── Progress bar + navbar + parallax
 const nb = document.getElementById('navbar');
-window.addEventListener('scroll', () => { nb.classList.toggle('scrolled', scrollY > 50); }, {passive:true});
-
-// ── Hero kanji parallax
 const hk = document.getElementById('heroKanji');
+const pg = document.getElementById('progress');
 window.addEventListener('scroll', () => {
+  nb.classList.toggle('scrolled', scrollY > 50);
   if(hk) hk.style.transform = `translate(-50%,calc(-50% + ${scrollY * 0.15}px))`;
+  const max = document.documentElement.scrollHeight - innerHeight;
+  if(pg && max > 0) pg.style.width = (scrollY / max * 100) + '%';
 }, {passive:true});
 
 // ── Mobile menu
 const burger = document.getElementById('navBurger');
-const mob    = document.getElementById('navMobile');
+const mob = document.getElementById('navMobile');
 burger.addEventListener('click', () => mob.classList.add('open'));
 document.getElementById('navClose').addEventListener('click', () => mob.classList.remove('open'));
 function closeMob() { mob.classList.remove('open'); }
 
-// ── Generic scroll animations
+// ── Scroll animations
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } });
 }, {threshold:0.12});
@@ -755,7 +994,7 @@ document.querySelectorAll('.menu-tab').forEach(tab => {
   });
 });
 
-// ── Form submit
+// ── Form
 function handleSub(e) {
   e.preventDefault();
   const btn = e.target.querySelector('.form-submit');
@@ -763,60 +1002,48 @@ function handleSub(e) {
   btn.style.background = '#4a7c59';
   btn.disabled = true;
 }
-
-// ── Min date
 const di = document.getElementById('fd');
 if(di){ const t = new Date(); t.setDate(t.getDate()+1); di.min = t.toISOString().split('T')[0]; }
 
-// ── TORII GATE ANIMATION
+// ── TORII draw animation
 (function(){
   const paths = document.querySelectorAll('.torii-path');
-  const svg   = document.getElementById('toriiSvg');
+  const svg = document.getElementById('toriiSvg');
   const label = document.getElementById('toriiLabel');
-
-  // Init: hide all paths with dash offset
   paths.forEach(p => {
     try {
       const len = p.getTotalLength ? p.getTotalLength() : 800;
-      p.style.strokeDasharray  = len;
+      p.style.strokeDasharray = len;
       p.style.strokeDashoffset = len;
     } catch(err) {
-      p.style.strokeDasharray  = 800;
+      p.style.strokeDasharray = 800;
       p.style.strokeDashoffset = 800;
     }
   });
-
   let drawn = false;
-  const toriiObs = new IntersectionObserver(([entry]) => {
+  const tObs = new IntersectionObserver(([entry]) => {
     if(entry.isIntersecting && !drawn){
       drawn = true;
-      // Draw each path with staggered delay
       const order = ['tpKasagi','tpCapL','tpCapR','tpNuki','tpPilL','tpPilR','tpDL','tpDR'];
       order.forEach((id, i) => {
         const el = document.getElementById(id);
         if(!el) return;
-        const delay = i * 280;
-        const dur   = id === 'tpPilL' || id === 'tpPilR' ? 1000 : 700;
         setTimeout(() => {
-          el.style.transition = `stroke-dashoffset ${dur}ms cubic-bezier(0.4,0,0.2,1)`;
+          el.style.transition = `stroke-dashoffset ${id.startsWith('tpPil') ? 1000 : 700}ms cubic-bezier(0.4,0,0.2,1)`;
           el.style.strokeDashoffset = '0';
-        }, delay);
+        }, i * 280);
       });
-      // After all drawn: glow + label + sakura
-      const totalDelay = order.length * 280 + 1100;
       setTimeout(() => {
         svg.classList.add('glowing');
         label.classList.add('show');
         spawnSakura();
-      }, totalDelay);
-      toriiObs.disconnect();
+      }, order.length * 280 + 1100);
+      tObs.disconnect();
     }
   }, {threshold:0.35});
+  const sec = document.getElementById('torii');
+  if(sec) tObs.observe(sec);
 
-  const toriiSec = document.getElementById('torii');
-  if(toriiSec) toriiObs.observe(toriiSec);
-
-  // ── Sakura petals
   function spawnSakura(){
     const layer = document.getElementById('sakuraLayer');
     if(!layer) return;
@@ -824,12 +1051,12 @@ if(di){ const t = new Date(); t.setDate(t.getDate()+1); di.min = t.toISOString()
     for(let i = 0; i < 22; i++){
       const p = document.createElement('div');
       p.className = 'spetal';
-      const dur   = (3.5 + Math.random() * 4.5).toFixed(1) + 's';
-      const del   = (Math.random() * 3.5).toFixed(1) + 's';
-      const left  = (Math.random() * 92 + 2).toFixed(1) + '%';
+      const dur = (3.5 + Math.random() * 4.5).toFixed(1) + 's';
+      const del = (Math.random() * 3.5).toFixed(1) + 's';
+      const left = (Math.random() * 92 + 2).toFixed(1) + '%';
       const drift = ((Math.random() - 0.5) * 120).toFixed(0) + 'px';
-      const col   = colors[Math.floor(Math.random() * colors.length)];
-      const rot   = Math.floor(Math.random() * 360);
+      const col = colors[Math.floor(Math.random() * colors.length)];
+      const rot = Math.floor(Math.random() * 360);
       p.style.cssText = `left:${left};--dur:${dur};--del:${del};--drift:${drift};`;
       p.innerHTML = `<svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(${rot}deg)">
         <ellipse cx="20" cy="10" rx="6" ry="10" fill="${col}" opacity=".85" transform="rotate(0 20 20)"/>
@@ -841,7 +1068,6 @@ if(di){ const t = new Date(); t.setDate(t.getDate()+1); di.min = t.toISOString()
       </svg>`;
       layer.appendChild(p);
     }
-    // Repeat sakura every 5s
     setTimeout(spawnSakura, 5000);
   }
 })();
