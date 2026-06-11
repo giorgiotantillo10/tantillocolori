@@ -347,11 +347,29 @@
     @media (prefers-reduced-motion:reduce) {
       *,*::before,*::after { animation-duration:.01ms!important; transition-duration:.01ms!important; }
     }
+
+    /* ════════ FAB PRENOTA ════════ */
+    .fab-prenota { position:fixed; bottom:2rem; right:2rem; z-index:150; display:inline-flex; align-items:center; gap:.6rem; padding:.85rem 1.6rem; background:var(--gold); color:#0A0A0A; font-family:var(--sans); font-size:.76rem; font-weight:500; letter-spacing:.14em; text-transform:uppercase; box-shadow:0 8px 32px rgba(201,168,76,.45),0 2px 8px rgba(0,0,0,.4); transition:background .25s var(--ease),transform .2s var(--ease),box-shadow .25s; text-decoration:none; overflow:hidden; }
+    .fab-prenota::before { content:''; position:absolute; inset:0; background:rgba(255,255,255,.06); }
+    .fab-prenota::after { content:''; position:absolute; top:-20%; left:0; width:40px; height:140%; background:rgba(255,255,255,.35); transform:translateX(-70px) rotate(18deg); transition:none; }
+    .fab-prenota:hover { background:var(--gold-2); transform:translateY(-3px); box-shadow:0 16px 44px rgba(201,168,76,.6),0 4px 12px rgba(0,0,0,.4); }
+    .fab-prenota:hover::after { animation:sheenSweep .8s var(--ease); }
+    .fab-prenota svg { width:15px; height:15px; flex-shrink:0; }
+    @keyframes fabPulse { 0%,100%{box-shadow:0 8px 32px rgba(201,168,76,.45),0 2px 8px rgba(0,0,0,.4)} 50%{box-shadow:0 8px 40px rgba(201,168,76,.7),0 2px 8px rgba(0,0,0,.4)} }
+    .fab-prenota { animation:fabPulse 3s ease-in-out infinite; }
+    .fab-prenota:hover { animation:none; }
+    @media (max-width:640px){ .fab-prenota { bottom:1.25rem; right:1.25rem; padding:.7rem 1.1rem; font-size:.7rem; gap:.45rem; letter-spacing:.1em; } }
   </style>
 </head>
 
 <body>
 <div id="progress"></div>
+
+<!-- ═══════════ FAB PRENOTA -->
+<a href="#reservation" class="fab-prenota" aria-label="Prenota un tavolo">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+  Prenota Tavolo
+</a>
 
 <!-- ═══════════ NAVBAR -->
 <nav id="navbar">
@@ -831,44 +849,46 @@
     </div>
     <div class="menu-panel active" id="tab-nigiri">
       <div class="menu-items">
-        <div class="menu-item"><div><p class="mi-name">Maguro</p><p class="mi-desc">Tonno rosso del Mediterraneo</p></div><span class="mi-price">€ 12</span></div>
-        <div class="menu-item"><div><p class="mi-name">Sake</p><p class="mi-desc">Salmone selvaggio dell'Atlantico</p></div><span class="mi-price">€ 10</span></div>
-        <div class="menu-item"><div><p class="mi-name">Hamachi</p><p class="mi-desc">Ricciola gialla, ponzu citrus</p></div><span class="mi-price">€ 14</span></div>
-        <div class="menu-item"><div><p class="mi-name">Hotate</p><p class="mi-desc">Capesante di Hokkaido, yuzu</p></div><span class="mi-price">€ 16</span></div>
-        <div class="menu-item"><div><p class="mi-name">Ōtoro</p><p class="mi-desc">Ventresca di tonno blu del Pacifico</p></div><span class="mi-price">€ 28</span></div>
-        <div class="menu-item"><div><p class="mi-name">Uni</p><p class="mi-desc">Ricci di mare di Hokkaido</p></div><span class="mi-price">€ 22</span></div>
-        <div class="menu-item"><div><p class="mi-name">Ikura</p><p class="mi-desc">Uova di salmone marinate al sake</p></div><span class="mi-price">€ 14</span></div>
-        <div class="menu-item"><div><p class="mi-name">Wagyu</p><p class="mi-desc">Manzo A5 flambé, tartufo nero</p></div><span class="mi-price">€ 38</span></div>
+        <div class="menu-item"><div><p class="mi-name">Sake</p><p class="mi-desc">Salmone fresco, wasabi, zenzero</p></div><span class="mi-price">€ 10 · 2pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Maguro</p><p class="mi-desc">Tonno rosso, wasabi fresco di montagna</p></div><span class="mi-price">€ 12 · 2pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Suzuki</p><p class="mi-desc">Branzino delicato, ponzu citrus</p></div><span class="mi-price">€ 12 · 2pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Anguilla</p><p class="mi-desc">Unagi alla brace, glassa teriyaki dolce</p></div><span class="mi-price">€ 14 · 2pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Sake Flambé</p><p class="mi-desc">Salmone scottato, philadelphia, uova di pesce, teriyaki</p></div><span class="mi-price">€ 16 · 2pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Sake Ikura</p><p class="mi-desc">Salmone, ikura, philadelphia cremosa</p></div><span class="mi-price">€ 16 · 2pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Sake Pistacchio</p><p class="mi-desc">Salmone, granella di pistacchio di Bronte, teriyaki</p></div><span class="mi-price">€ 14 · 2pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Maguro Tartufo Flambé</p><p class="mi-desc">Tonno scottato al cannello, philadelphia, tartufo nero</p></div><span class="mi-price">€ 22 · 2pz</span></div>
       </div>
     </div>
     <div class="menu-panel" id="tab-maki">
       <div class="menu-items">
-        <div class="menu-item"><div><p class="mi-name">Dragon Roll</p><p class="mi-desc">Anguilla, gambero tempura, avocado</p></div><span class="mi-price">€ 24</span></div>
-        <div class="menu-item"><div><p class="mi-name">Rainbow Roll</p><p class="mi-desc">Tre pesci, avocado, sesamo dorato</p></div><span class="mi-price">€ 22</span></div>
-        <div class="menu-item"><div><p class="mi-name">Spicy Tuna</p><p class="mi-desc">Tonno, mayo sriracha, cetriolo</p></div><span class="mi-price">€ 18</span></div>
-        <div class="menu-item"><div><p class="mi-name">Osaki Roll</p><p class="mi-desc">Salmone truffle, tobiko oro, capesante</p></div><span class="mi-price">€ 26</span></div>
-        <div class="menu-item"><div><p class="mi-name">Caterpillar</p><p class="mi-desc">Gambero tempura, cetriolo, avocado</p></div><span class="mi-price">€ 20</span></div>
-        <div class="menu-item"><div><p class="mi-name">Volcano Roll</p><p class="mi-desc">Gambero, salmone scottato, spicy mayo</p></div><span class="mi-price">€ 22</span></div>
+        <div class="menu-item"><div><p class="mi-name">Rainbow Roll</p><p class="mi-desc">Salmone, tonno, pesce misto, avocado, sesamo</p></div><span class="mi-price">€ 22 · 8pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Sake Truffle</p><p class="mi-desc">Salmone, avocado, philadelphia, salsa al tartufo</p></div><span class="mi-price">€ 26 · 8pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Sake Mango</p><p class="mi-desc">Salmone, avocado, philadelphia, mango fresco, salsa mango</p></div><span class="mi-price">€ 20 · 8pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Ebithen Pistacchio</p><p class="mi-desc">Gambero tempura, philadelphia, pistacchio, teriyaki</p></div><span class="mi-price">€ 22 · 8pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Salmon Tiger Bonito</p><p class="mi-desc">Salmone fritto, salmone, philadelphia, scaglie di bonito</p></div><span class="mi-price">€ 24 · 8pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Astice Roll</p><p class="mi-desc">Astice, avocado, tobiko, philadelphia, salsa spicy</p></div><span class="mi-price">€ 32 · 8pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Scampi Roll</p><p class="mi-desc">Scampi, avocado, philadelphia, tobiko, spicy teriyaki</p></div><span class="mi-price">€ 28 · 8pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Sake Gambero Rosso</p><p class="mi-desc">Salmone, avocado, philadelphia, gambero rosso di Sicilia</p></div><span class="mi-price">€ 30 · 8pz</span></div>
       </div>
     </div>
     <div class="menu-panel" id="tab-sashimi">
       <div class="menu-items">
-        <div class="menu-item"><div><p class="mi-name">Sashimi Moriawase</p><p class="mi-desc">Selezione dello chef, 9 pezzi</p></div><span class="mi-price">€ 36</span></div>
-        <div class="menu-item"><div><p class="mi-name">Maguro Sashimi</p><p class="mi-desc">Tonno rosso, 5 fette</p></div><span class="mi-price">€ 22</span></div>
-        <div class="menu-item"><div><p class="mi-name">Sake Sashimi</p><p class="mi-desc">Salmone selvaggio, 5 fette</p></div><span class="mi-price">€ 18</span></div>
-        <div class="menu-item"><div><p class="mi-name">Omakase Sashimi</p><p class="mi-desc">Stagionale, scelta dello chef, 12 pz</p></div><span class="mi-price">€ 55</span></div>
-        <div class="menu-item"><div><p class="mi-name">Tako</p><p class="mi-desc">Polpo del Mediterraneo, sudachi</p></div><span class="mi-price">€ 16</span></div>
-        <div class="menu-item"><div><p class="mi-name">Hotate Sashimi</p><p class="mi-desc">Capesante di Hokkaido, ponzu lime</p></div><span class="mi-price">€ 24</span></div>
+        <div class="menu-item"><div><p class="mi-name">Sake Sashimi</p><p class="mi-desc">Salmone fresco, 5 fette tagliate al momento</p></div><span class="mi-price">€ 18 · 5pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Maguro Sashimi</p><p class="mi-desc">Tonno rosso del Mediterraneo, 5 fette</p></div><span class="mi-price">€ 22 · 5pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Suzuki Sashimi</p><p class="mi-desc">Branzino, ponzu lime, coriandolo</p></div><span class="mi-price">€ 20 · 5pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Royal Mix</p><p class="mi-desc">Selezione premium dello chef, 9 pezzi misti</p></div><span class="mi-price">€ 36 · 9pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Omakase Sashimi</p><p class="mi-desc">Stagionale, scelta dello chef, 12 pezzi</p></div><span class="mi-price">€ 55 · 12pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Sashimi Moriawase</p><p class="mi-desc">Tre pesci, presentazione artistica, 9 fette</p></div><span class="mi-price">€ 36 · 9pz</span></div>
       </div>
     </div>
     <div class="menu-panel" id="tab-specials">
       <div class="menu-items">
-        <div class="menu-item"><div><p class="mi-name">Miso Truffle</p><p class="mi-desc">Zuppa di miso con tartufo nero e tofu</p></div><span class="mi-price">€ 18</span></div>
-        <div class="menu-item"><div><p class="mi-name">Edamame al Burro</p><p class="mi-desc">Burro di yuzu, fleur de sel, wasabi</p></div><span class="mi-price">€ 10</span></div>
-        <div class="menu-item"><div><p class="mi-name">Gyoza Crispy</p><p class="mi-desc">Maiale e gambero, salsa ponzu agrumata</p></div><span class="mi-price">€ 14</span></div>
-        <div class="menu-item"><div><p class="mi-name">Karaage Chicken</p><p class="mi-desc">Pollo fritto doppio, mayo kewpie</p></div><span class="mi-price">€ 16</span></div>
-        <div class="menu-item"><div><p class="mi-name">Chawanmushi</p><p class="mi-desc">Budino di uova al vapore, dashi, ikura</p></div><span class="mi-price">€ 14</span></div>
-        <div class="menu-item"><div><p class="mi-name">Matcha Panna Cotta</p><p class="mi-desc">Crema di tè verde, anko dolce di azuki</p></div><span class="mi-price">€ 10</span></div>
+        <div class="menu-item"><div><p class="mi-name">Bao Pollo Fritto</p><p class="mi-desc">Mantou al vapore, pollo croccante, lattuga, mayo kewpie</p></div><span class="mi-price">€ 14 · 2pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Edamame</p><p class="mi-desc">Fagioli di soia al vapore, fleur de sel, yuzu</p></div><span class="mi-price">€ 8</span></div>
+        <div class="menu-item"><div><p class="mi-name">Gyoza Crispy</p><p class="mi-desc">Ravioli di maiale e gambero, salsa ponzu agrumata</p></div><span class="mi-price">€ 14 · 6pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Temaki Sake</p><p class="mi-desc">Cono di alga nori, salmone, avocado, sesamo</p></div><span class="mi-price">€ 14 · 1pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Zuppa di Miso</p><p class="mi-desc">Miso bianco, tofu setoso, wakame, cipollotto</p></div><span class="mi-price">€ 8</span></div>
+        <div class="menu-item"><div><p class="mi-name">Matcha Panna Cotta</p><p class="mi-desc">Crema di tè verde Uji, anko dolce di azuki</p></div><span class="mi-price">€ 10</span></div>
       </div>
     </div>
   </div>
