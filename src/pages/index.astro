@@ -7,13 +7,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <title>Osaki — Ristorante Giapponese di Sushi</title>
   <meta name="description" content="Un'autentica esperienza di sushi giapponese a Milano. Omakase, ingredienti stagionali freschi, atmosfera esclusiva." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
+  <style is:inline>
     :root {
       --bg:       #0A0A0A;
       --bg-2:     #111111;
@@ -721,7 +721,7 @@
   </div>
 </footer>
 
-<script>
+<script is:inline>
 // ── Navbar scroll
 const nb = document.getElementById('navbar');
 window.addEventListener('scroll', () => { nb.classList.toggle('scrolled', scrollY > 50); }, {passive:true});
