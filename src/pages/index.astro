@@ -367,31 +367,86 @@
     .fab-prenota:hover { animation:none; }
     @media (max-width:640px){ .fab-prenota { bottom:1.25rem; right:1.25rem; padding:.7rem 1.1rem; font-size:.7rem; gap:.45rem; letter-spacing:.1em; } }
 
-    /* ════════ PAGE TRANSITION — BACCHETTE ════════ */
+    /* ════════ PAGE TRANSITION — ANNAFFIATOIO E ROSA ════════ */
     #ptOverlay { position:fixed; inset:0; z-index:300; visibility:hidden; pointer-events:none; }
     #ptOverlay.pt-active { visibility:visible; pointer-events:all; }
-    .pt-panel { position:absolute; left:0; width:100%; height:50.5%; background:linear-gradient(180deg,#0B0A08,#0E0C08); transform:scaleY(0); transition:transform .42s cubic-bezier(0.4,0,0.2,1); }
-    .pt-top { top:0; transform-origin:top; box-shadow:0 1px 0 rgba(201,168,76,.25); }
-    .pt-bot { bottom:0; transform-origin:bottom; box-shadow:0 -1px 0 rgba(201,168,76,.25); }
+    .pt-panel { position:absolute; left:0; width:100%; height:50.5%; background:linear-gradient(180deg,#050504,#0A0908); transform:scaleY(0); transition:transform .45s cubic-bezier(0.4,0,0.2,1); }
+    .pt-top { top:0; transform-origin:top; box-shadow:0 2px 0 rgba(201,168,76,.18); }
+    .pt-bot { bottom:0; transform-origin:bottom; box-shadow:0 -2px 0 rgba(201,168,76,.18); }
     #ptOverlay.pt-closing .pt-panel,
     #ptOverlay.pt-open    .pt-panel { transform:scaleY(1); }
     #ptOverlay.pt-opening .pt-panel { transform:scaleY(0); }
-    .pt-center { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.5rem; opacity:0; transition:opacity .25s ease; }
+    .pt-center { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.75rem; opacity:0; transition:opacity .3s ease; }
     #ptOverlay.pt-open .pt-center { opacity:1; }
     #ptOverlay.pt-opening .pt-center { opacity:0; }
-    .pt-scene { width:160px; height:210px; overflow:visible; }
-    .pt-grab { transform:translateY(-210px); transition:transform 1.4s cubic-bezier(0.4,0,0.2,1); }
-    #ptOverlay.pt-open .pt-grab { transform:translateY(0); }
-    #ptOverlay.pt-open .pt-nigiri { transform:translateY(0); }
-    .pt-lift .pt-grab, .pt-lift .pt-nigiri { transform:translateY(-260px) rotate(-4deg) !important; transition:transform .6s cubic-bezier(0.4,0,1,1) !important; }
-    .pt-stick-l { transform:rotate(-5deg); transition:transform .25s ease; transform-box:fill-box; transform-origin:top center; }
-    .pt-stick-r { transform:rotate(5deg); transition:transform .25s ease; transform-box:fill-box; transform-origin:top center; }
-    #ptOverlay.pt-open .pt-stick-l { transform:rotate(0deg); }
-    #ptOverlay.pt-open .pt-stick-r { transform:rotate(0deg); }
-    .pt-shadow { transition:opacity .6s, transform .6s; transform-box:fill-box; transform-origin:center; }
-    .pt-lift .pt-shadow { opacity:0 !important; transform:scaleX(.4) !important; }
+    .pt-scene { width:220px; height:310px; overflow:visible; }
+
+    /* Can descends */
+    .pt-can { transform:translateY(-260px); transition:transform 0s; }
+    #ptOverlay.pt-open .pt-can { transform:translateY(0); transition:transform 1s .1s cubic-bezier(0.34,1.1,0.64,1); }
+    #ptOverlay.pt-lifting .pt-can { transform:translateY(-260px); transition:transform .55s cubic-bezier(0.4,0,1,1); }
+
+    /* Stem grows */
+    .pt-stem { stroke-dasharray:180; stroke-dashoffset:180; transition:stroke-dashoffset 0s; }
+    #ptOverlay.pt-open .pt-stem { stroke-dashoffset:0; transition:stroke-dashoffset .9s .45s cubic-bezier(0.4,0,0.2,1); }
+
+    /* Leaves */
+    .pt-leaf { transform:scale(0); transition:transform 0s; transform-box:fill-box; transform-origin:center; }
+    #ptOverlay.pt-open .pt-leaf-l { transform:scale(1); transition:transform .55s .85s cubic-bezier(0.34,1.56,0.64,1); }
+    #ptOverlay.pt-open .pt-leaf-r { transform:scale(1); transition:transform .55s 1.05s cubic-bezier(0.34,1.56,0.64,1); }
+
+    /* Petals */
+    .pt-petal { opacity:0; transform:scale(0) rotate(var(--pr,0deg)); transition:opacity 0s, transform 0s; transform-box:fill-box; transform-origin:center bottom; }
+    #ptOverlay.pt-open .pt-petal   { opacity:1; transform:scale(1) rotate(var(--pr,0deg)); transition:opacity .35s calc(1.2s + var(--pd,0s)), transform .45s calc(1.2s + var(--pd,0s)) cubic-bezier(0.34,1.4,0.64,1); }
+
+    /* Water drops */
+    @keyframes dropFall { 0%{transform:translateY(0) scale(1);opacity:.9} 80%{opacity:.5} 100%{transform:translateY(90px) scale(.4);opacity:0} }
+    .pt-drop { opacity:0; }
+    #ptOverlay.pt-open .pt-drop   { animation:dropFall .9s calc(.55s + var(--dd,0s)) ease-in forwards; }
+
+    /* Sparkle on rose */
+    @keyframes roseSpark { 0%,100%{opacity:0;transform:scale(.3)} 50%{opacity:1;transform:scale(1.2)} }
+    .pt-spark { opacity:0; }
+    #ptOverlay.pt-open .pt-spark { animation:roseSpark 1.2s calc(1.5s + var(--ds,0s)) ease-in-out infinite; }
+
     .pt-label { font-family:var(--serif); font-size:1rem; letter-spacing:.55em; color:var(--gold); text-indent:.55em; }
-    .pt-label-jp { font-family:var(--serif); font-size:.75rem; letter-spacing:.4em; color:var(--muted); text-indent:.4em; }
+    .pt-label-jp { font-family:var(--serif); font-size:.72rem; letter-spacing:.4em; color:var(--muted); text-indent:.4em; }
+
+    /* ════════ WHATSAPP FAB ════════ */
+    .fab-wa { position:fixed; bottom:5.5rem; right:2rem; z-index:150; width:46px; height:46px; border-radius:50%; background:#25D366; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 24px rgba(37,211,102,.45),0 2px 8px rgba(0,0,0,.4); transition:transform .2s var(--ease),box-shadow .25s; }
+    .fab-wa:hover { transform:translateY(-3px) scale(1.07); box-shadow:0 12px 36px rgba(37,211,102,.6),0 4px 12px rgba(0,0,0,.4); }
+    .fab-wa svg { width:22px; height:22px; fill:#fff; }
+    @media (max-width:640px){ .fab-wa { bottom:4.5rem; right:1.25rem; width:40px; height:40px; } .fab-wa svg { width:19px; height:19px; } }
+
+    /* ════════ ANNOUNCEMENT BAR ════════ */
+    #annBar { background:linear-gradient(90deg,rgba(201,168,76,.12),rgba(201,168,76,.06),rgba(201,168,76,.12)); border-bottom:1px solid var(--border); padding:.55rem 1.5rem; display:flex; align-items:center; justify-content:center; gap:1rem; position:relative; z-index:101; }
+    .ann-text { font-size:.68rem; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); }
+    .ann-text strong { color:var(--gold); }
+    .ann-link { font-size:.68rem; letter-spacing:.15em; text-transform:uppercase; color:var(--gold); border:1px solid rgba(201,168,76,.4); padding:.25rem .75rem; transition:background .2s,color .2s; }
+    .ann-link:hover { background:var(--gold); color:#0A0A0A; }
+    .ann-dot { width:5px; height:5px; border-radius:50%; background:var(--gold); opacity:.5; animation:fabPulse 2s ease-in-out infinite; }
+
+    /* ════════ CUSTOM CURSOR ════════ */
+    @media (pointer:fine) {
+      body { cursor:none; }
+      a,button,[role=button] { cursor:none; }
+    }
+    #cursor { position:fixed; top:0; left:0; width:10px; height:10px; border-radius:50%; background:var(--gold); pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:opacity .3s; mix-blend-mode:screen; }
+    #cursor-ring { position:fixed; top:0; left:0; width:34px; height:34px; border-radius:50%; border:1px solid rgba(201,168,76,.55); pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:transform .12s ease,width .25s,height .25s,border-color .25s; }
+    body:not(:hover) #cursor, body:not(:hover) #cursor-ring { opacity:0; }
+    .cursor-grow #cursor-ring { width:54px; height:54px; border-color:var(--gold); }
+
+    /* ════════ STATS SECTION ════════ */
+    #stats { padding:5rem 2.5rem; background:var(--bg-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .stats-inner { max-width:1000px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:2rem; text-align:center; }
+    .stat-item { display:flex; flex-direction:column; align-items:center; gap:.5rem; }
+    .stat-num { font-family:var(--serif); font-size:clamp(2.2rem,4vw,3.2rem); font-weight:600; color:var(--gold); line-height:1; }
+    .stat-lbl { font-size:.68rem; letter-spacing:.3em; text-transform:uppercase; color:var(--muted); }
+    .stat-div { width:1px; height:100%; background:var(--border); }
+    @media (max-width:640px){ .stats-inner { grid-template-columns:repeat(2,1fr); } }
+
+    /* ════════ DISH CARD TILT ════════ */
+    .dish-card { transform-style:preserve-3d; will-change:transform; }
 
     /* ════════ FLOATING FOOD ════════ */
     .ffood { position:absolute; pointer-events:none; z-index:0; opacity:.8; animation:floatRoll var(--fd,8s) ease-in-out infinite; }
@@ -406,6 +461,17 @@
 
 <body>
 <div id="progress"></div>
+<!-- ═══════════ CUSTOM CURSOR -->
+<div id="cursor" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+
+<!-- ═══════════ ANNOUNCEMENT BAR -->
+<div id="annBar" aria-label="Offerta speciale">
+  <div class="ann-dot"></div>
+  <p class="ann-text">Prenotazioni aperte · <strong>Selezione Filippo Gugino €80 a vassoio</strong> · +39 393 129 1969</p>
+  <a href="#reservation" class="ann-link">Prenota</a>
+  <div class="ann-dot"></div>
+</div>
 
 <!-- ═══════════ FAB PRENOTA -->
 <a href="#reservation" class="fab-prenota" aria-label="Prenota un tavolo">
@@ -413,35 +479,109 @@
   Prenota Tavolo
 </a>
 
-<!-- ═══════════ PAGE TRANSITION — BACCHETTE CHE AFFERRANO IL NIGIRI -->
+<!-- ═══════════ FAB WHATSAPP -->
+<a href="https://wa.me/393931291969?text=Ciao%2C%20vorrei%20prenotare%20un%20tavolo%20da%20HIO%20Sushi%20Lab" class="fab-wa" target="_blank" rel="noopener" aria-label="Contatta su WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- ═══════════ PAGE TRANSITION — ANNAFFIATOIO CHE ANNAFFIA UNA ROSA -->
 <div id="ptOverlay" aria-hidden="true">
   <div class="pt-panel pt-top"></div>
   <div class="pt-panel pt-bot"></div>
   <div class="pt-center">
-    <svg class="pt-scene" viewBox="0 0 160 210" xmlns="http://www.w3.org/2000/svg">
-      <!-- ombra sotto il nigiri -->
-      <ellipse class="pt-shadow" cx="78" cy="180" rx="42" ry="7" fill="#000" opacity=".5"/>
-      <!-- nigiri -->
-      <g class="pt-nigiri">
-        <path d="M48 160 Q48 142 78 140 Q108 142 108 160 Q93 168 78 168 Q63 168 48 160 Z" fill="#F5EED8"/>
-        <circle cx="62" cy="153" r="1.8" fill="#E8E0CC"/><circle cx="78" cy="158" r="1.8" fill="#E8E0CC"/><circle cx="94" cy="153" r="1.8" fill="#E8E0CC"/>
-        <path d="M40 146 Q48 130 78 128 Q108 130 116 146 Q108 154 78 154 Q48 154 40 146 Z" fill="#E8806A"/>
-        <path d="M52 142 Q78 134 104 142" stroke="#F5C3B8" stroke-width="1.6" fill="none" opacity=".8"/>
-        <path d="M58 148 Q78 141 98 148" stroke="#F5C3B8" stroke-width="1.3" fill="none" opacity=".6"/>
+    <svg class="pt-scene" viewBox="0 0 220 310" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="canBody" cx="38%" cy="35%" r="70%">
+          <stop offset="0%" stop-color="#D4A853"/>
+          <stop offset="55%" stop-color="#B87333"/>
+          <stop offset="100%" stop-color="#8B5520"/>
+        </radialGradient>
+        <radialGradient id="canLid" cx="38%" cy="30%" r="70%">
+          <stop offset="0%" stop-color="#E3C47A"/>
+          <stop offset="100%" stop-color="#C9A84C"/>
+        </radialGradient>
+        <linearGradient id="stemGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#3A7030"/>
+          <stop offset="100%" stop-color="#5A9848"/>
+        </linearGradient>
+        <radialGradient id="petalRed" cx="40%" cy="30%" r="70%">
+          <stop offset="0%" stop-color="#E84040"/>
+          <stop offset="55%" stop-color="#C01818"/>
+          <stop offset="100%" stop-color="#8B0808"/>
+        </radialGradient>
+      </defs>
+
+      <!-- ── ROSA (cresce dal basso) ── -->
+      <!-- Stelo -->
+      <line class="pt-stem" x1="110" y1="310" x2="110" y2="148" stroke="url(#stemGrad)" stroke-width="5" stroke-linecap="round"/>
+      <!-- Foglia sinistra -->
+      <g class="pt-leaf pt-leaf-l">
+        <path d="M110 238 Q82 222 74 200 Q98 212 110 238 Z" fill="#4A8830"/>
+        <path d="M110 238 Q91 223 88 208" stroke="#3A6820" stroke-width="1" fill="none" opacity=".6"/>
       </g>
-      <!-- bacchette -->
-      <g class="pt-grab">
-        <g class="pt-stick-l">
-          <path d="M50 -50 L58 -50 L72 130 L67 136 Z" fill="#4A3520"/>
-          <path d="M50 -50 L58 -50 L59 -24 L51 -24 Z" fill="#C9A84C"/>
-          <path d="M54 -50 L58 -50 L71 130 L69 133 Z" fill="rgba(255,255,255,.12)"/>
-        </g>
-        <g class="pt-stick-r">
-          <path d="M106 -50 L98 -50 L84 130 L89 136 Z" fill="#4A3520"/>
-          <path d="M106 -50 L98 -50 L97 -24 L105 -24 Z" fill="#C9A84C"/>
-          <path d="M102 -50 L106 -50 L88 133 L86 130 Z" fill="rgba(255,255,255,.12)"/>
-        </g>
+      <!-- Foglia destra -->
+      <g class="pt-leaf pt-leaf-r">
+        <path d="M110 200 Q138 184 146 162 Q122 174 110 200 Z" fill="#4A8830"/>
+        <path d="M110 200 Q129 185 132 170" stroke="#3A6820" stroke-width="1" fill="none" opacity=".6"/>
       </g>
+      <!-- Sepali (verde) -->
+      <g class="pt-leaf pt-leaf-r" style="--pd:.2s">
+        <path d="M110 165 Q96 148 100 132 L110 144 L120 132 Q124 148 110 165 Z" fill="#4A8830" opacity=".9"/>
+      </g>
+      <!-- Petali esteriori (5) -->
+      <ellipse class="pt-petal" cx="110" cy="122" rx="24" ry="30" fill="url(#petalRed)" style="--pr:0deg;--pd:0s" transform-origin="110px 148px"/>
+      <ellipse class="pt-petal" cx="110" cy="122" rx="22" ry="28" fill="url(#petalRed)" style="--pr:-68deg;--pd:.08s" transform-origin="110px 148px"/>
+      <ellipse class="pt-petal" cx="110" cy="122" rx="22" ry="28" fill="url(#petalRed)" style="--pr:68deg;--pd:.16s" transform-origin="110px 148px"/>
+      <ellipse class="pt-petal" cx="110" cy="122" rx="22" ry="28" fill="url(#petalRed)" style="--pr:-136deg;--pd:.24s" transform-origin="110px 148px"/>
+      <ellipse class="pt-petal" cx="110" cy="122" rx="22" ry="28" fill="url(#petalRed)" style="--pr:136deg;--pd:.32s" transform-origin="110px 148px"/>
+      <!-- Petali interiori -->
+      <ellipse class="pt-petal" cx="110" cy="126" rx="15" ry="20" fill="#D42020" style="--pr:-34deg;--pd:.4s" transform-origin="110px 148px"/>
+      <ellipse class="pt-petal" cx="110" cy="126" rx="15" ry="20" fill="#D42020" style="--pr:34deg;--pd:.48s" transform-origin="110px 148px"/>
+      <!-- Centro -->
+      <circle class="pt-petal" cx="110" cy="118" r="10" fill="#9A0808" style="--pr:0deg;--pd:.56s" transform-origin="110px 148px"/>
+      <circle class="pt-petal" cx="110" cy="118" r="5" fill="#C03030" style="--pr:0deg;--pd:.62s" transform-origin="110px 148px"/>
+      <!-- Scintille sulla rosa -->
+      <circle class="pt-spark" cx="90" cy="108" r="2.5" fill="#E3C47A" style="--ds:0s"/>
+      <circle class="pt-spark" cx="132" cy="112" r="2" fill="#E3C47A" style="--ds:.3s"/>
+      <circle class="pt-spark" cx="108" cy="96" r="1.8" fill="#E3C47A" style="--ds:.6s"/>
+      <circle class="pt-spark" cx="85" cy="130" r="1.5" fill="#C9131A" style="--ds:.15s"/>
+      <circle class="pt-spark" cx="136" cy="130" r="1.5" fill="#C9131A" style="--ds:.45s"/>
+
+      <!-- ── ANNAFFIATOIO (scende dall'alto) ── -->
+      <g class="pt-can">
+        <!-- Corpo principale -->
+        <ellipse cx="148" cy="88" rx="52" ry="36" fill="url(#canBody)"/>
+        <ellipse cx="148" cy="58" rx="52" ry="16" fill="url(#canLid)"/>
+        <!-- Manico superiore ad arco -->
+        <path d="M118 62 Q148 30 178 62" fill="none" stroke="#B87333" stroke-width="14" stroke-linecap="round"/>
+        <path d="M118 62 Q148 30 178 62" fill="none" stroke="#C9A84C" stroke-width="8" stroke-linecap="round"/>
+        <path d="M118 62 Q148 30 178 62" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="4" stroke-linecap="round"/>
+        <!-- Beccuccio lungo che punta verso la rosa -->
+        <path d="M104 94 Q76 106 58 152" fill="none" stroke="#B87333" stroke-width="16" stroke-linecap="round"/>
+        <path d="M104 94 Q76 106 58 152" fill="none" stroke="#D4962A" stroke-width="10" stroke-linecap="round"/>
+        <path d="M104 94 Q76 106 58 152" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="4" stroke-linecap="round"/>
+        <!-- Pomello del beccuccio (rompigetto) -->
+        <ellipse cx="56" cy="156" rx="13" ry="9" fill="#C9A84C" transform="rotate(-30 56 156)"/>
+        <ellipse cx="56" cy="156" rx="10" ry="7" fill="#B87333" transform="rotate(-30 56 156)"/>
+        <!-- Fori del rompigetto -->
+        <circle cx="50" cy="158" r="1.8" fill="#7A5010"/>
+        <circle cx="55" cy="161" r="1.8" fill="#7A5010"/>
+        <circle cx="60" cy="159" r="1.8" fill="#7A5010"/>
+        <circle cx="52" cy="153" r="1.8" fill="#7A5010"/>
+        <circle cx="59" cy="154" r="1.8" fill="#7A5010"/>
+        <!-- Brillio sul corpo -->
+        <ellipse cx="130" cy="66" rx="24" ry="9" fill="rgba(255,255,255,.18)" transform="rotate(-8 130 66)"/>
+        <!-- Linea decorativa -->
+        <ellipse cx="148" cy="88" rx="44" ry="28" fill="none" stroke="#D4962A" stroke-width="1.2" opacity=".45"/>
+      </g>
+
+      <!-- ── GOCCE D'ACQUA (cadono dal rompigetto) ── -->
+      <circle class="pt-drop" cx="52" cy="168" r="4" fill="#7AB8E8" opacity=".9" style="--dd:0s"/>
+      <circle class="pt-drop" cx="58" cy="166" r="3" fill="#5AA0D8" opacity=".85" style="--dd:.12s"/>
+      <circle class="pt-drop" cx="46" cy="170" r="3.5" fill="#7AB8E8" opacity=".88" style="--dd:.06s"/>
+      <circle class="pt-drop" cx="62" cy="170" r="2.5" fill="#5AA0D8" opacity=".8" style="--dd:.18s"/>
+      <circle class="pt-drop" cx="49" cy="164" r="2.5" fill="#7AB8E8" opacity=".8" style="--dd:.24s"/>
+      <circle class="pt-drop" cx="56" cy="172" r="2" fill="#5AA0D8" opacity=".75" style="--dd:.09s"/>
     </svg>
     <span class="pt-label">HIO</span>
     <span class="pt-label-jp">SUSHI LAB · いただきます</span>
@@ -752,6 +892,28 @@
     </div>
   </div>
 </div>
+
+<!-- ═══════════ STATS -->
+<section id="stats" aria-label="I nostri numeri">
+  <div class="stats-inner">
+    <div class="stat-item anim">
+      <span class="stat-num" data-count="461">0</span>
+      <span class="stat-lbl">Recensioni Google</span>
+    </div>
+    <div class="stat-item anim d1">
+      <span class="stat-num" data-count="4" data-suffix=".6★">0</span>
+      <span class="stat-lbl">Punteggio Medio</span>
+    </div>
+    <div class="stat-item anim d2">
+      <span class="stat-num" data-count="24" data-suffix=" pz">0</span>
+      <span class="stat-lbl">Selezione Omakase</span>
+    </div>
+    <div class="stat-item anim d3">
+      <span class="stat-num" data-prefix="€" data-count="80">0</span>
+      <span class="stat-lbl">Selezione Filippo Gugino</span>
+    </div>
+  </div>
+</section>
 
 <!-- ═══════════ PHILOSOPHY -->
 <section id="philosophy">
@@ -1523,7 +1685,7 @@ const obs = new IntersectionObserver(entries => {
 }, {threshold:0.12});
 document.querySelectorAll('.anim').forEach(el => obs.observe(el));
 
-// ── Page transition: bacchette che afferrano il nigiri
+// ── Page transition: annaffiatoio che annaffia una rosa
 (function(){
   const ov = document.getElementById('ptOverlay');
   if(!ov) return;
@@ -1543,27 +1705,27 @@ document.querySelectorAll('.anim').forEach(el => obs.observe(el));
   function runTransition(target){
     if(busy) return;
     busy = true;
-    // fase 1 — chiudi sipario (pannelli scendono, 0-420ms)
+    // fase 1 — chiudi sipario (0-450ms)
     cl.add('pt-active','pt-closing');
-    // fase 2 — mostra bacchette + nigiri (420ms)
+    // fase 2 — apri scena: annaffiatoio scende, rosa cresce (450ms)
     setTimeout(() => {
       cl.remove('pt-closing');
       cl.add('pt-open');
-    }, 430);
-    // fase 3 — salta alla sezione (sipario già chiuso, 700ms)
-    setTimeout(() => jumpTo(target), 700);
-    // fase 4 — solleva nigiri (1300ms)
-    setTimeout(() => cl.add('pt-lift'), 1300);
-    // fase 5 — apri sipario (1700ms, transition 420ms)
+    }, 460);
+    // fase 3 — salta alla sezione (600ms)
+    setTimeout(() => jumpTo(target), 620);
+    // fase 4 — solleva annaffiatoio (2000ms)
+    setTimeout(() => cl.add('pt-lifting'), 2050);
+    // fase 5 — apri sipario (2200ms)
     setTimeout(() => {
-      cl.remove('pt-open','pt-lift');
+      cl.remove('pt-open','pt-lifting');
       cl.add('pt-opening');
-    }, 1700);
-    // fase 6 — ripristina tutto (2200ms)
+    }, 2250);
+    // fase 6 — ripristina (2750ms)
     setTimeout(() => {
       cl.remove('pt-active','pt-opening');
       busy = false;
-    }, 2200);
+    }, 2800);
   }
 
   document.querySelectorAll('a[href^="#"]').forEach(a => {
@@ -1577,6 +1739,67 @@ document.querySelectorAll('.anim').forEach(el => obs.observe(el));
       runTransition(target);
     });
   });
+})();
+
+// ── Custom cursor
+(function(){
+  const cur = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  if(!cur||!ring||!matchMedia('(pointer:fine)').matches) return;
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+  function tick(){
+    cur.style.left=mx+'px'; cur.style.top=my+'px';
+    rx += (mx-rx)*.14; ry += (my-ry)*.14;
+    ring.style.left=rx+'px'; ring.style.top=ry+'px';
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+  document.querySelectorAll('a,button,[role=button],.dish-card,.om-feat,.menu-item').forEach(el => {
+    el.addEventListener('mouseenter', () => document.body.classList.add('cursor-grow'));
+    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-grow'));
+  });
+})();
+
+// ── Dish card 3D tilt
+(function(){
+  document.querySelectorAll('.dish-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - .5;
+      const y = (e.clientY - r.top) / r.height - .5;
+      card.style.transform = `translateY(-8px) scale(1.01) rotateY(${x*10}deg) rotateX(${-y*8}deg)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+})();
+
+// ── Stats counter animation
+(function(){
+  const items = document.querySelectorAll('.stat-num[data-count]');
+  if(!items.length) return;
+  const statObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(!e.isIntersecting) return;
+      const el = e.target;
+      const target = +el.dataset.count;
+      const prefix = el.dataset.prefix||'';
+      const suffix = el.dataset.suffix||'';
+      const dur = 1400;
+      const start = performance.now();
+      function step(now){
+        const p = Math.min((now-start)/dur,1);
+        const ease = 1-Math.pow(1-p,3);
+        el.textContent = prefix + Math.round(ease*target) + suffix;
+        if(p<1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+      statObs.unobserve(el);
+    });
+  },{threshold:.5});
+  items.forEach(el => statObs.observe(el));
 })();
 
 // ── Menu tabs
