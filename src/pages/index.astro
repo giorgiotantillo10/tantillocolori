@@ -74,8 +74,9 @@
     #progress { position:fixed; top:0; left:0; height:3px; width:0; z-index:200; background:linear-gradient(90deg,var(--gold),var(--gold-2)); box-shadow:0 0 12px rgba(201,168,76,.6); transition:width .1s linear; }
 
     /* ════════ UTILITIES ════════ */
-    .lbl { display:inline-flex; align-items:center; gap:.75rem; font-size:.7rem; letter-spacing:.35em; text-transform:uppercase; color:var(--gold); margin-bottom:1.25rem; }
+    .lbl { display:flex; align-items:center; gap:.75rem; font-size:.7rem; letter-spacing:.35em; text-transform:uppercase; color:var(--gold); margin-bottom:1.25rem; }
     .lbl::before { content:''; display:block; width:32px; height:1px; background:var(--gold); }
+    #omakase .lbl, #torii .lbl { justify-content:center; }
     .sec-title { font-size:clamp(2rem,4vw,3rem); color:var(--cream); line-height:1.2; margin-bottom:1.25rem; position:relative; display:inline-block; }
     .sec-title::after { content:''; position:absolute; left:0; bottom:-6px; width:100%; height:1px; background:linear-gradient(90deg,var(--gold),transparent); transform:scaleX(0); transform-origin:left; transition:transform .9s .35s var(--ease); }
     .anim.in .sec-title::after, .sec-title.anim.in::after { transform:scaleX(1); }
@@ -468,10 +469,10 @@
     </a>
     <ul class="nav-links">
       <li><a href="#philosophy">Filosofia</a></li>
-      <li><a href="#signature">Piatti</a></li>
-      <li><a href="#omakase">Omakase</a></li>
-      <li><a href="#torii">Il Torii</a></li>
+      <li><a href="#signature">Creazioni</a></li>
+      <li><a href="#omakase">Selezione</a></li>
       <li><a href="#menu">Menu</a></li>
+      <li><a href="#reviews">Recensioni</a></li>
       <li><a href="#reservation" class="nav-reserve">Prenota</a></li>
     </ul>
     <button class="nav-burger" id="navBurger" aria-label="Apri menu">
@@ -483,10 +484,10 @@
 <nav class="nav-mobile" id="navMobile">
   <button class="nav-mc" id="navClose" aria-label="Chiudi">✕</button>
   <a href="#philosophy" onclick="closeMob()">Filosofia</a>
-  <a href="#signature" onclick="closeMob()">Piatti</a>
-  <a href="#omakase" onclick="closeMob()">Omakase</a>
-  <a href="#torii" onclick="closeMob()">Il Torii</a>
+  <a href="#signature" onclick="closeMob()">Creazioni</a>
+  <a href="#omakase" onclick="closeMob()">Selezione</a>
   <a href="#menu" onclick="closeMob()">Menu</a>
+  <a href="#reviews" onclick="closeMob()">Recensioni</a>
   <a href="#reservation" onclick="closeMob()">Prenota</a>
 </nav>
 
@@ -1474,9 +1475,10 @@
         <p class="foot-col-t">Navigazione</p>
         <ul>
           <li><a href="#philosophy">Filosofia</a></li>
-          <li><a href="#signature">Piatti Signature</a></li>
-          <li><a href="#omakase">Omakase</a></li>
+          <li><a href="#signature">Creazioni Filippo Gugino</a></li>
+          <li><a href="#omakase">Selezione dello Chef</a></li>
           <li><a href="#menu">Il Menu</a></li>
+          <li><a href="#reviews">Recensioni</a></li>
           <li><a href="#reservation">Prenota</a></li>
         </ul>
       </div>
