@@ -1,5 +1,5 @@
 ---
-// Osaki — Japanese Sushi Restaurant
+// HIO Sushi Lab — Palermo
 ---
 
 <!doctype html>
@@ -8,8 +8,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <title>Osaki — Ristorante Giapponese di Sushi</title>
-  <meta name="description" content="Un'autentica esperienza di sushi giapponese a Milano. Omakase, ingredienti stagionali freschi, atmosfera esclusiva." />
+  <title>HIO Sushi Lab — Ristorante di Sushi · Palermo</title>
+  <meta name="description" content="HIO Sushi Lab a Palermo: dove l'Oriente incontra la Sicilia. Chef Filippo Gugino, Gambero Rosso 2026, Guida Kenta 2025/2027. Via Quintino Sella 48/a." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -92,7 +92,8 @@
     #navbar.scrolled { background:rgba(10,10,10,.93); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); padding:1rem 2.5rem; box-shadow:0 1px 0 var(--border); }
     .nav-inner { max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; }
     .nav-logo { display:flex; flex-direction:column; line-height:1; cursor:pointer; }
-    .logo-en { font-family:var(--serif); font-size:1.4rem; font-weight:600; letter-spacing:.2em; color:var(--cream); }
+    .logo-en { font-family:var(--serif); font-size:1.4rem; font-weight:600; letter-spacing:.2em; color:var(--cream); display:flex; align-items:center; gap:.5rem; }
+    .logo-hio-icon { width:26px; height:26px; flex-shrink:0; }
     .logo-jp { font-family:var(--serif); font-size:.65rem; letter-spacing:.3em; color:var(--gold); margin-top:2px; }
     .nav-links { display:flex; align-items:center; gap:2.5rem; }
     .nav-links a { position:relative; font-size:.78rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); transition:color .25s; }
@@ -111,7 +112,8 @@
 
     /* ════════ HERO ════════ */
     #hero { height:100vh; min-height:620px; position:relative; display:flex; align-items:center; justify-content:center; text-align:center; overflow:hidden; }
-    .hero-bg { position:absolute; inset:0; background:radial-gradient(ellipse 90% 60% at 50% 40%,rgba(201,168,76,.055) 0%,transparent 70%),linear-gradient(180deg,#0A0A0A 0%,#0E0D0B 100%); }
+    .hero-bg { position:absolute; inset:0; background:url('https://hiosushilab.it/wp-content/uploads/2023/09/filippo_gugino_gallery_2.webp') center/cover no-repeat; }
+    .hero-bg::after { content:''; position:absolute; inset:0; background:linear-gradient(180deg,rgba(8,5,3,.82) 0%,rgba(10,7,5,.7) 50%,rgba(10,7,5,.92) 100%); }
     .hero-kanji { position:absolute; font-family:var(--serif); font-size:min(55vw,52vh); font-weight:700; color:rgba(201,168,76,.025); user-select:none; pointer-events:none; line-height:1; top:50%; left:50%; transform:translate(-50%,-50%); will-change:transform; }
     .hero-enso { position:absolute; top:50%; left:50%; width:min(540px,90vw); height:min(540px,90vw); margin:calc(min(540px,90vw)/-2) 0 0 calc(min(540px,90vw)/-2); pointer-events:none; opacity:0; animation:fadeIn 2s 1.2s forwards; }
     .hero-enso svg { width:100%; height:100%; animation:ensoSpin 50s linear infinite; }
@@ -436,8 +438,8 @@
         </g>
       </g>
     </svg>
-    <span class="pt-label">OSAKI</span>
-    <span class="pt-label-jp">大崎 — いただきます</span>
+    <span class="pt-label">HIO</span>
+    <span class="pt-label-jp">SUSHI LAB · いただきます</span>
   </div>
 </div>
 
@@ -445,8 +447,20 @@
 <nav id="navbar">
   <div class="nav-inner">
     <a href="#" class="nav-logo">
-      <span class="logo-en">OSAKI</span>
-      <span class="logo-jp">大崎</span>
+      <span class="logo-en">
+        <svg class="logo-hio-icon" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="30" cy="30" r="28" fill="none" stroke="#C9131A" stroke-width="2.5"/>
+          <path d="M30 8 C30 8 14 18 14 30 C14 42 22 50 30 52 C38 50 46 42 46 30 C46 18 30 8 30 8 Z" fill="none" stroke="#C9131A" stroke-width="1.8"/>
+          <line x1="30" y1="8" x2="30" y2="52" stroke="#C9131A" stroke-width="1.2" opacity=".7"/>
+          <line x1="14" y1="30" x2="46" y2="30" stroke="#C9131A" stroke-width="1.2" opacity=".7"/>
+          <path d="M20 14 C20 14 30 20 40 14" fill="none" stroke="#C9131A" stroke-width="1.2" opacity=".6"/>
+          <path d="M16 22 C16 22 30 28 44 22" fill="none" stroke="#C9131A" stroke-width="1.2" opacity=".5"/>
+          <path d="M16 38 C16 38 30 44 44 38" fill="none" stroke="#C9131A" stroke-width="1.2" opacity=".5"/>
+          <path d="M20 46 C20 46 30 40 40 46" fill="none" stroke="#C9131A" stroke-width="1.2" opacity=".6"/>
+        </svg>
+        HIO
+      </span>
+      <span class="logo-jp">SUSHI LAB · PALERMO</span>
     </a>
     <ul class="nav-links">
       <li><a href="#philosophy">Filosofia</a></li>
@@ -475,7 +489,7 @@
 <!-- ═══════════ HERO -->
 <section id="hero">
   <div class="hero-bg"></div>
-  <div class="hero-kanji" id="heroKanji">大</div>
+  <div class="hero-kanji" id="heroKanji">H</div>
 
   <!-- Enso ring -->
   <div class="hero-enso">
@@ -542,9 +556,9 @@
   </div>
 
   <div class="hero-content">
-    <span class="hero-sup">大崎 — Autentica Cucina Giapponese</span>
-    <h1 class="hero-title"><span style="--i:0">O</span><span style="--i:1">S</span><span style="--i:2">A</span><span style="--i:3">K</span><span style="--i:4">I</span></h1>
-    <p class="hero-tagline">Dove ogni piatto racconta una storia antica</p>
+    <span class="hero-sup">Palermo · Sicilia — Dove l'Oriente incontra la Sicilia</span>
+    <h1 class="hero-title"><span style="--i:0">H</span><span style="--i:1">I</span><span style="--i:2">O</span></h1>
+    <p class="hero-tagline">Sushi Lab · Chef Filippo Gugino · Gambero Rosso 2026</p>
     <div class="hero-divider"></div>
     <div class="hero-actions">
       <a href="#reservation" class="btn-p">Prenota un Tavolo</a>
@@ -565,7 +579,7 @@
       <span class="mq-jp">刺身</span><span class="mq-en">Sashimi</span><span class="mq-dot"></span>
       <span class="mq-jp">海苔</span><span class="mq-en">Nori</span><span class="mq-dot"></span>
       <span class="mq-jp">山葵</span><span class="mq-en">Wasabi</span><span class="mq-dot"></span>
-      <span class="mq-jp">大崎</span><span class="mq-en">Osaki</span><span class="mq-dot"></span>
+      <span class="mq-jp">HIO</span><span class="mq-en">Palermo</span><span class="mq-dot"></span>
       <span class="mq-jp">和牛</span><span class="mq-en">Wagyu</span><span class="mq-dot"></span>
     </div>
     <div class="marquee-seq">
@@ -573,7 +587,7 @@
       <span class="mq-jp">刺身</span><span class="mq-en">Sashimi</span><span class="mq-dot"></span>
       <span class="mq-jp">海苔</span><span class="mq-en">Nori</span><span class="mq-dot"></span>
       <span class="mq-jp">山葵</span><span class="mq-en">Wasabi</span><span class="mq-dot"></span>
-      <span class="mq-jp">大崎</span><span class="mq-en">Osaki</span><span class="mq-dot"></span>
+      <span class="mq-jp">HIO</span><span class="mq-en">Palermo</span><span class="mq-dot"></span>
       <span class="mq-jp">和牛</span><span class="mq-en">Wagyu</span><span class="mq-dot"></span>
     </div>
   </div>
@@ -613,15 +627,15 @@
   </div>
   <div class="phil-inner">
     <div class="anim">
-      <div class="phil-art">間</div>
-      <p class="phil-art-lbl">Ma — Lo Spazio</p>
+      <div class="phil-art">肥</div>
+      <p class="phil-art-lbl">Hio — Il Nutrimento</p>
     </div>
     <div class="phil-text">
       <p class="lbl anim">La Nostra Filosofia</p>
-      <h2 class="sec-title anim d1">L'Arte del<br/>Silenzio e del Sapore</h2>
-      <p class="sec-sub phil-sub anim d2">Osaki nasce dall'incontro tra la tradizione culinaria giapponese e la sensibilità contemporanea. Il nostro chef, formatosi a Tokyo e Kyoto per oltre un decennio, porta in tavola il concetto di <em>Ma</em> — lo spazio prezioso tra gli ingredienti, dove i sapori respirano.</p>
-      <p class="sec-sub phil-sub anim d3" style="margin-top:1rem">Ogni mattina selezioniamo il pesce fresco direttamente dai mercati ittici, scegliendo solo ciò che la stagione ci offre nel pieno della sua essenza.</p>
-      <blockquote class="phil-quote anim d4">"Il sushi perfetto non è nel pesce, né nel riso — è nel silenzio tra i due."</blockquote>
+      <h2 class="sec-title anim d1">Oriente e Sicilia<br/>in un solo piatto</h2>
+      <p class="sec-sub phil-sub anim d2">HIO Sushi Lab nasce dalla visione dello Chef Filippo Gugino: un incontro autentico tra la precisione millenaria della cucina giapponese e la ricchezza dei sapori siciliani. Ogni piatto è un dialogo tra due culture, due mari, due identità.</p>
+      <p class="sec-sub phil-sub anim d3" style="margin-top:1rem">Riconosciuto dal Gambero Rosso 2026 e dalla Guida Kenta 2025/2027, HIO è oggi uno dei riferimenti dell'alta cucina fusion nel Sud Italia. Il pesce arriva fresco ogni mattina direttamente dai mercati siciliani.</p>
+      <blockquote class="phil-quote anim d4">"La Sicilia ha il mare più bello del mondo. Il Giappone sa come rispettarlo."</blockquote>
     </div>
   </div>
 </section>
@@ -663,159 +677,177 @@
   </div>
   <div class="sig-hd anim">
     <p class="lbl">I Nostri Signature</p>
-    <h2 class="sec-title">Piatti Iconici</h2>
-    <p class="sec-sub">Quattro espressioni del nostro approccio alla cucina giapponese.</p>
+    <h2 class="sec-title">Creazioni Filippo Gugino</h2>
+    <p class="sec-sub">Quattro espressioni dell'incontro tra Giappone e Sicilia.</p>
   </div>
   <div class="dishes-grid">
 
-    <!-- ŌTORO NIGIRI — vapore che sale -->
+    <!-- NIGIRI VENTRESCA E CAVIALE — piatto dalla tua foto -->
     <div class="dish-card dish-toro anim d1">
       <div class="dish-img">
         <span class="dish-kanji-bg">鮪</span>
         <span class="dish-tag">Signature</span>
-        <svg class="dish-scene" viewBox="0 0 220 150" xmlns="http://www.w3.org/2000/svg">
-          <ellipse cx="110" cy="126" rx="78" ry="13" fill="#1b1414" stroke="rgba(201,168,76,.25)" stroke-width="1"/>
-          <ellipse cx="110" cy="121" rx="62" ry="9" fill="#221818"/>
+        <svg class="dish-scene" viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg">
+          <!-- piatto marmo bianco -->
+          <ellipse cx="110" cy="130" rx="88" ry="22" fill="#F2F0EE" stroke="#E0DCDA" stroke-width="1.5"/>
+          <ellipse cx="110" cy="128" rx="82" ry="18" fill="#FAFAFA"/>
           <!-- riso -->
-          <path d="M75 112 Q75 92 110 90 Q145 92 145 112 Q128 118 110 118 Q92 118 75 112 Z" fill="#F5EED8"/>
-          <circle cx="88" cy="103" r="2" fill="#E8E0CC"/><circle cx="104" cy="108" r="2" fill="#E8E0CC"/><circle cx="122" cy="104" r="2" fill="#E8E0CC"/><circle cx="132" cy="109" r="2" fill="#E8E0CC"/>
-          <!-- otoro -->
-          <path d="M62 92 Q70 76 110 74 Q150 76 158 92 Q150 100 110 100 Q70 100 62 92 Z" fill="#E8707E"/>
-          <path d="M62 92 Q70 76 110 74 Q150 76 158 92" fill="none" stroke="#F5C3CB" stroke-width="1.4" opacity=".8"/>
-          <path d="M74 88 Q110 80 146 88" stroke="#F5C3CB" stroke-width="1.6" fill="none" opacity=".75"/>
-          <path d="M80 94 Q110 87 140 94" stroke="#F5C3CB" stroke-width="1.4" fill="none" opacity=".6"/>
-          <!-- vapore -->
-          <path class="steam" d="M88 64 Q84 56 88 48 Q92 42 88 34" stroke="rgba(240,235,225,.5)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-          <path class="steam s2" d="M110 60 Q106 52 110 44 Q114 38 110 30" stroke="rgba(240,235,225,.5)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-          <path class="steam s3" d="M132 64 Q128 56 132 48 Q136 42 132 34" stroke="rgba(240,235,225,.5)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M82 116 Q82 100 110 98 Q138 100 138 116 Q125 122 110 122 Q95 122 82 116 Z" fill="#F7F3EC"/>
+          <path d="M84 108 Q110 103 136 108" stroke="#EAE4D8" stroke-width="1" fill="none"/>
+          <!-- ventresca rosso vivo -->
+          <path d="M72 98 Q79 82 110 80 Q141 82 148 98 Q141 106 110 106 Q79 106 72 98 Z" fill="#D42B3A"/>
+          <path d="M78 92 Q110 85 142 92" stroke="#F06070" stroke-width="1.8" fill="none" opacity=".7"/>
+          <path d="M76 96 Q110 90 144 96" stroke="#E85060" stroke-width="1.4" fill="none" opacity=".5"/>
+          <path d="M80 100 Q110 95 140 100" stroke="#F08090" stroke-width="1.2" fill="none" opacity=".4"/>
+          <!-- caviale nero -->
+          <circle class="ikura" cx="98" cy="76" r="4" fill="#1A1A1A"/>
+          <circle class="ikura i2" cx="107" cy="72" r="3.8" fill="#1A1A1A"/>
+          <circle class="ikura i3" cx="116" cy="74" r="3.6" fill="#1A1A1A"/>
+          <circle cx="124" cy="78" r="3.4" fill="#1A1A1A" style="animation:ikuraPulse 2.4s .8s ease-in-out infinite"/>
+          <circle cx="100" cy="72" r="1.4" fill="#4A4A4A"/><circle cx="109" cy="68" r="1.2" fill="#4A4A4A"/><circle cx="118" cy="70" r="1.3" fill="#4A4A4A"/>
+          <!-- luccichio caviale -->
+          <path class="sparkle" d="M89 68 L90.5 72 L94 73.5 L90.5 75 L89 79 L87.5 75 L84 73.5 L87.5 72 Z" fill="rgba(255,255,255,.5)"/>
+          <path class="sparkle k2" d="M130 66 L131.2 69.5 L134 71 L131.2 72.5 L130 76 L128.8 72.5 L126 71 L128.8 69.5 Z" fill="rgba(255,255,255,.4)"/>
         </svg>
       </div>
       <div class="dish-info">
-        <h3 class="dish-name">Ōtoro Nigiri</h3>
-        <p class="dish-desc">Tonno grasso del Pacifico, riso invecchiato al vapore, wasabi fresco di montagna.</p>
-        <span class="dish-price">€ 28 · 2 pz</span>
+        <h3 class="dish-name">Nigiri Ventresca e Caviale</h3>
+        <p class="dish-desc">Ventresca Balfegò, caviale Baikal, su riso stagionato al vapore.</p>
+        <span class="dish-price">€ 16 · 2 pz</span>
       </div>
     </div>
 
-    <!-- UNI TEMAKI — ikura pulsanti e scintille -->
+    <!-- DOLCE HIO — la sfera bianca con logo impressa -->
     <div class="dish-card dish-uni anim d2">
       <div class="dish-img">
-        <span class="dish-kanji-bg">雲丹</span>
-        <span class="dish-tag">Stagionale</span>
-        <svg class="dish-scene" viewBox="0 0 220 150" xmlns="http://www.w3.org/2000/svg">
-          <ellipse cx="110" cy="130" rx="70" ry="10" fill="#13200f" opacity=".8"/>
-          <!-- cono nori -->
-          <path d="M78 50 L142 58 L116 132 Z" fill="#16240E"/>
-          <path d="M78 50 L142 58 L116 132 Z" fill="none" stroke="rgba(201,168,76,.2)" stroke-width="1"/>
-          <path d="M88 62 L128 67" stroke="#0E1A08" stroke-width="2"/>
-          <path d="M94 80 L124 84" stroke="#0E1A08" stroke-width="2"/>
-          <!-- riso -->
-          <path d="M82 52 Q96 40 112 44 Q130 46 140 57 L120 62 Z" fill="#F5EED8"/>
-          <!-- uni -->
-          <ellipse cx="100" cy="42" rx="13" ry="8" fill="#E8923F" transform="rotate(-8 100 42)"/>
-          <ellipse cx="118" cy="40" rx="12" ry="7.5" fill="#D4791F" transform="rotate(6 118 40)"/>
-          <ellipse cx="109" cy="34" rx="11" ry="7" fill="#F0A452" transform="rotate(-3 109 34)"/>
-          <!-- ikura pulsanti -->
-          <circle class="ikura" cx="132" cy="48" r="5.5" fill="#E8531F"/>
-          <circle class="ikura i2" cx="142" cy="42" r="4.5" fill="#F06030"/>
-          <circle class="ikura i3" cx="138" cy="54" r="4" fill="#D84818"/>
-          <circle cx="130" cy="46" r="1.8" fill="#FFB088"/>
-          <!-- scintille -->
-          <path class="sparkle" d="M70 36 L72.5 42 L78 44 L72.5 46 L70 52 L67.5 46 L62 44 L67.5 42 Z" fill="#E3C47A"/>
-          <path class="sparkle k2" d="M156 70 L158 74.5 L162 76 L158 77.5 L156 82 L154 77.5 L150 76 L154 74.5 Z" fill="#E3C47A"/>
-          <path class="sparkle k3" d="M84 100 L85.6 103.5 L89 105 L85.6 106.5 L84 110 L82.4 106.5 L79 105 L82.4 103.5 Z" fill="#E3C47A"/>
+        <span class="dish-kanji-bg">菓</span>
+        <span class="dish-tag">Dolce HIO</span>
+        <svg class="dish-scene" viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg">
+          <!-- piattino -->
+          <ellipse cx="110" cy="138" rx="55" ry="12" fill="#E8E4E0" stroke="#D8D4D0" stroke-width="1"/>
+          <ellipse cx="110" cy="136" rx="50" ry="9" fill="#F5F2EF"/>
+          <!-- ombra sfera -->
+          <ellipse cx="110" cy="128" rx="46" ry="10" fill="rgba(0,0,0,.12)"/>
+          <!-- sfera bianca -->
+          <circle class="dish-scene" cx="110" cy="90" r="52" fill="url(#sphereGrad)"/>
+          <defs>
+            <radialGradient id="sphereGrad" cx="38%" cy="32%" r="65%">
+              <stop offset="0%" stop-color="#FFFFFF"/>
+              <stop offset="45%" stop-color="#F5F2EF"/>
+              <stop offset="100%" stop-color="#DDD8D2"/>
+            </radialGradient>
+          </defs>
+          <!-- highlight lucido -->
+          <ellipse cx="92" cy="68" rx="16" ry="10" fill="rgba(255,255,255,.65)" transform="rotate(-25 92 68)"/>
+          <ellipse cx="86" cy="72" rx="6" ry="4" fill="rgba(255,255,255,.9)" transform="rotate(-20 86 72)"/>
+          <!-- logo HIO inciso in oro -->
+          <circle cx="110" cy="90" r="28" fill="none" stroke="rgba(201,168,76,.35)" stroke-width="1"/>
+          <text x="110" y="88" font-family="serif" font-size="13" font-weight="600" fill="#C9A84C" text-anchor="middle" letter-spacing="3" opacity=".9">HIO</text>
+          <line x1="88" y1="94" x2="132" y2="94" stroke="rgba(201,168,76,.4)" stroke-width=".8"/>
         </svg>
       </div>
       <div class="dish-info">
-        <h3 class="dish-name">Uni Temaki</h3>
-        <p class="dish-desc">Ricci di mare di Hokkaido, alga nori croccante, caviale di trota, burro di yuzu.</p>
-        <span class="dish-price">€ 32 · 1 pz</span>
+        <h3 class="dish-name">Dolce HIO</h3>
+        <p class="dish-desc">Sfera di cioccolato bianco, ripieno a sorpresa del giorno, firma dello chef.</p>
+        <span class="dish-price">€ 9</span>
       </div>
     </div>
 
-    <!-- DRAGON ROLL — fette che ballano e sesamo che cade -->
+    <!-- HIOMAKI — vassio di roll colorati come nella tua foto -->
     <div class="dish-card dish-dragon anim d3">
       <div class="dish-img">
-        <span class="dish-kanji-bg">龍</span>
-        <span class="dish-tag">Chef's Choice</span>
-        <svg class="dish-scene" viewBox="0 0 220 150" xmlns="http://www.w3.org/2000/svg">
-          <ellipse cx="110" cy="124" rx="80" ry="12" fill="#141c0c" opacity=".9"/>
-          <!-- sesamo che cade -->
-          <ellipse class="sesame" cx="80" cy="30" rx="2.6" ry="1.6" fill="#F5EED8"/>
-          <ellipse class="sesame e2" cx="118" cy="26" rx="2.6" ry="1.6" fill="#E3C47A"/>
-          <ellipse class="sesame e3" cx="150" cy="32" rx="2.6" ry="1.6" fill="#F5EED8"/>
-          <!-- fetta 1 -->
+        <span class="dish-kanji-bg">創</span>
+        <span class="dish-tag">Creazione HIO</span>
+        <svg class="dish-scene" viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg">
+          <!-- vassoio legno scuro -->
+          <rect x="14" y="108" width="192" height="32" rx="4" fill="#2A1F14"/>
+          <rect x="14" y="108" width="192" height="8" rx="4" fill="#3A2A1A"/>
+          <line x1="20" y1="112" x2="200" y2="112" stroke="#4A3828" stroke-width="1"/>
+          <!-- sesamo cadente -->
+          <ellipse class="sesame" cx="60" cy="28" rx="2.4" ry="1.5" fill="#F5EED8"/>
+          <ellipse class="sesame e2" cx="110" cy="24" rx="2.4" ry="1.5" fill="#E3C47A"/>
+          <ellipse class="sesame e3" cx="158" cy="30" rx="2.4" ry="1.5" fill="#F5EED8"/>
+          <!-- roll 1 — salmone rosa -->
           <g class="slice">
-            <circle cx="64" cy="98" r="24" fill="#F5EED8"/>
-            <circle cx="64" cy="98" r="24" fill="none" stroke="#4E7A2C" stroke-width="5"/>
-            <path d="M44 84 Q64 70 84 84 L80 92 Q64 82 48 92 Z" fill="#8B5A2B"/>
-            <circle cx="64" cy="102" r="9" fill="#5D9B3A"/>
-            <circle cx="64" cy="102" r="4" fill="#F5EED8"/>
+            <circle cx="50" cy="96" r="25" fill="#F5EED8"/>
+            <circle cx="50" cy="96" r="25" fill="none" stroke="#16240E" stroke-width="6"/>
+            <ellipse cx="50" cy="84" rx="16" ry="9" fill="#E8705A"/>
+            <circle cx="50" cy="98" r="9" fill="#4BA865"/>
+            <circle cx="50" cy="98" r="4" fill="#F5EED8"/>
+            <circle class="ikura" cx="62" cy="80" r="5" fill="#E8531F"/>
           </g>
-          <!-- fetta 2 (centrale, più alta) -->
+          <!-- roll 2 — tonno rosso -->
           <g class="slice sl2">
-            <circle cx="110" cy="90" r="27" fill="#F5EED8"/>
-            <circle cx="110" cy="90" r="27" fill="none" stroke="#4E7A2C" stroke-width="5"/>
-            <path d="M87 74 Q110 58 133 74 L128 83 Q110 71 92 83 Z" fill="#8B5A2B"/>
-            <path d="M90 76 Q110 64 130 76" stroke="#C9A84C" stroke-width="2" fill="none" opacity=".9"/>
-            <circle cx="110" cy="95" r="10" fill="#5D9B3A"/>
-            <circle cx="110" cy="95" r="4.5" fill="#E8923F"/>
+            <circle cx="110" cy="88" r="27" fill="#F5EED8"/>
+            <circle cx="110" cy="88" r="27" fill="none" stroke="#16240E" stroke-width="6"/>
+            <ellipse cx="110" cy="76" rx="17" ry="10" fill="#C94A4A"/>
+            <circle cx="110" cy="92" r="10" fill="#5D9B3A"/>
+            <circle cx="110" cy="92" r="4.5" fill="#F5C046"/>
+            <path class="sparkle k2" d="M130 68 L131.5 72 L135 73.5 L131.5 75 L130 79 L128.5 75 L125 73.5 L128.5 72 Z" fill="#E3C47A"/>
           </g>
-          <!-- fetta 3 -->
+          <!-- roll 3 — avocado verde -->
           <g class="slice sl3">
-            <circle cx="156" cy="98" r="24" fill="#F5EED8"/>
-            <circle cx="156" cy="98" r="24" fill="none" stroke="#4E7A2C" stroke-width="5"/>
-            <path d="M136 84 Q156 70 176 84 L172 92 Q156 82 140 92 Z" fill="#8B5A2B"/>
-            <circle cx="156" cy="102" r="9" fill="#5D9B3A"/>
-            <circle cx="156" cy="102" r="4" fill="#F5EED8"/>
+            <circle cx="170" cy="96" r="25" fill="#F5EED8"/>
+            <circle cx="170" cy="96" r="25" fill="none" stroke="#16240E" stroke-width="6"/>
+            <ellipse cx="170" cy="84" rx="16" ry="9" fill="#4BA865"/>
+            <circle cx="170" cy="98" r="9" fill="#8B5A2B"/>
+            <circle cx="170" cy="98" r="4" fill="#F5EED8"/>
           </g>
         </svg>
       </div>
       <div class="dish-info">
-        <h3 class="dish-name">Dragon Roll</h3>
-        <p class="dish-desc">Anguilla alla brace, gambero tempura, avocado cremoso, salsa unagi, semi di sesamo.</p>
-        <span class="dish-price">€ 24 · 8 pz</span>
+        <h3 class="dish-name">Hiomaki Selezione</h3>
+        <p class="dish-desc">Selezione Creazioni Filippo Gugino: scampi, caviale, wagyu, tartufo. 24 pezzi.</p>
+        <span class="dish-price">€ 80 · 24 pz</span>
       </div>
     </div>
 
-    <!-- WAGYU NIGIRI — fiamma flambé -->
+    <!-- BAO WAGYU — il bao soffice con wagyu -->
     <div class="dish-card dish-wagyu anim d4">
       <div class="dish-img">
-        <span class="dish-kanji-bg">和牛</span>
+        <span class="dish-kanji-bg">包</span>
         <span class="dish-tag">Luxury</span>
-        <svg class="dish-scene" viewBox="0 0 220 150" xmlns="http://www.w3.org/2000/svg">
-          <ellipse cx="110" cy="128" rx="78" ry="12" fill="#1d1408" opacity=".9"/>
-          <ellipse cx="110" cy="123" rx="60" ry="8" fill="#241a0a"/>
-          <!-- riso -->
-          <path d="M76 114 Q76 96 110 94 Q144 96 144 114 Q127 120 110 120 Q93 120 76 114 Z" fill="#F5EED8"/>
-          <!-- wagyu marmorizzato -->
-          <path d="M64 96 Q72 78 110 76 Q148 78 156 96 Q148 104 110 104 Q72 104 64 96 Z" fill="#B0413E"/>
-          <path d="M76 90 Q110 82 144 90" stroke="#F0D5D0" stroke-width="1.6" fill="none" opacity=".85"/>
-          <path d="M82 96 Q110 89 138 96" stroke="#F0D5D0" stroke-width="1.3" fill="none" opacity=".7"/>
-          <path d="M72 92 Q88 86 102 90" stroke="#F0D5D0" stroke-width="1.1" fill="none" opacity=".6"/>
-          <path d="M118 88 Q134 84 148 92" stroke="#F0D5D0" stroke-width="1.1" fill="none" opacity=".6"/>
-          <!-- fiamme flambé -->
-          <g class="flame">
-            <path d="M110 70 Q100 56 108 42 Q111 50 116 44 Q120 56 110 70 Z" fill="#E8923F"/>
-            <path d="M110 66 Q105 56 110 47 Q113 53 115 49 Q117 58 110 66 Z" fill="#F5C046"/>
+        <svg class="dish-scene" viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg">
+          <!-- piatto bianco -->
+          <ellipse cx="110" cy="136" rx="80" ry="16" fill="#F5F2EF" stroke="#E4E0DC" stroke-width="1.2"/>
+          <ellipse cx="110" cy="134" rx="74" ry="12" fill="#FAFAFA"/>
+          <!-- ombra bao -->
+          <ellipse cx="110" cy="126" rx="52" ry="11" fill="rgba(0,0,0,.1)"/>
+          <!-- bao bianco soffice -->
+          <ellipse cx="110" cy="95" rx="54" ry="38" fill="url(#baoGrad)"/>
+          <defs>
+            <radialGradient id="baoGrad" cx="40%" cy="30%" r="70%">
+              <stop offset="0%" stop-color="#FFFFFF"/>
+              <stop offset="60%" stop-color="#F8F5F2"/>
+              <stop offset="100%" stop-color="#EAE5DF"/>
+            </radialGradient>
+          </defs>
+          <!-- piega bao -->
+          <path d="M68 88 Q110 80 152 88" stroke="#E0DAD4" stroke-width="2" fill="none"/>
+          <path d="M72 96 Q110 89 148 96" stroke="#E0DAD4" stroke-width="1.5" fill="none"/>
+          <!-- highlight -->
+          <ellipse cx="92" cy="76" rx="14" ry="9" fill="rgba(255,255,255,.7)" transform="rotate(-15 92 76)"/>
+          <!-- ripieno wagyu visibile -->
+          <path d="M80 115 Q110 122 140 115 L140 118 Q110 126 80 118 Z" fill="#8B4030" opacity=".8"/>
+          <!-- fiamma flambé sul lato -->
+          <g class="flame" style="transform:translate(154px,70px) scale(.7)">
+            <path d="M0 0 Q-10-14 -2-28 Q1-20 6-24 Q10-12 0 0 Z" fill="#E8923F"/>
+            <path d="M0-4 Q-5-14 0-21 Q3-17 5-19 Q7-10 0-4 Z" fill="#F5C046"/>
           </g>
-          <g class="flame f2">
-            <path d="M88 74 Q82 64 87 54 Q89 60 93 56 Q95 66 88 74 Z" fill="#E8923F" opacity=".9"/>
-            <path d="M88 71 Q85 64 88 58 Q90 62 91 60 Q92 66 88 71 Z" fill="#F5C046"/>
+          <g class="flame f2" style="transform:translate(165px,76px) scale(.55)">
+            <path d="M0 0 Q-8-12 -1-22 Q2-16 5-20 Q8-10 0 0 Z" fill="#E8923F" opacity=".9"/>
           </g>
-          <g class="flame f3">
-            <path d="M134 74 Q128 64 133 54 Q135 60 139 56 Q141 66 134 74 Z" fill="#E8923F" opacity=".9"/>
-            <path d="M134 71 Q131 64 134 58 Q136 62 137 60 Q138 66 134 71 Z" fill="#F5C046"/>
-          </g>
-          <!-- tartufo -->
-          <circle cx="146" cy="86" r="5" fill="#2A2118"/>
-          <circle cx="144" cy="84" r="1.5" fill="#4A3A28"/>
+          <!-- puntino tartufo -->
+          <circle cx="106" cy="85" r="3.5" fill="#2A1E14"/>
+          <circle cx="114" cy="83" r="3" fill="#2A1E14"/>
+          <circle cx="110" cy="88" r="2.5" fill="#2A1E14"/>
+          <circle cx="105" cy="84" r="1" fill="#4A3A28"/>
         </svg>
       </div>
       <div class="dish-info">
-        <h3 class="dish-name">Wagyu Nigiri</h3>
-        <p class="dish-desc">Manzo Wagyu A5 flambé al momento, tartufo nero, sale marino di Okinawa.</p>
-        <span class="dish-price">€ 38 · 2 pz</span>
+        <h3 class="dish-name">Bao Wagyu al Tartufo</h3>
+        <p class="dish-desc">Mantou al vapore farcito con wagyu giapponese A5 e pastrami al tartufo.</p>
+        <span class="dish-price">€ 15 · 1 pz</span>
       </div>
     </div>
   </div>
@@ -878,28 +910,28 @@
   </div>
   <div class="om-inner">
     <p class="lbl anim">Esperienza Esclusiva</p>
-    <h2 class="sec-title anim d1">Omakase</h2>
-    <p class="sec-sub anim d2">Affidati completamente allo chef. Un percorso di 12–16 portate che cambia ogni sera, seguendo la stagionalità e l'ispirazione del momento. Un'esperienza unica e irripetibile.</p>
+    <h2 class="sec-title anim d1">Selezione Creazioni<br/>Filippo Gugino</h2>
+    <p class="sec-sub anim d2">Il massimo dell'esperienza HIO in un unico vassoio: 24 pezzi selezionati dallo chef tra i suoi Hiomaki più iconici. Wagyu, scampi, caviale, tartufo, ricci e molto altro — la firma di una cucina unica.</p>
     <div class="om-feats anim d3">
       <div class="om-feat">
         <div class="om-feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 6v6l4 2M12 2a10 10 0 100 20A10 10 0 0012 2z"/></svg></div>
-        <span class="om-feat-txt">2,5 ore<br/>di esperienza</span>
+        <span class="om-feat-txt">Prenotazione<br/>obbligatoria</span>
       </div>
       <div class="om-feat">
         <div class="om-feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg></div>
-        <span class="om-feat-txt">12–16<br/>portate</span>
+        <span class="om-feat-txt">24 pezzi<br/>signature</span>
       </div>
       <div class="om-feat">
         <div class="om-feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
-        <span class="om-feat-txt">Ingredienti<br/>stagionali</span>
+        <span class="om-feat-txt">Gambero Rosso<br/>2026</span>
       </div>
     </div>
     <div class="om-price anim d4">
-      <span class="om-plabel">A persona</span>
-      <span class="om-pval">€ 120</span>
-      <span class="om-pnote">Bevande escluse · abbinamento sake +€ 45</span>
+      <span class="om-plabel">A vassoio</span>
+      <span class="om-pval">€ 80</span>
+      <span class="om-pnote">Bevande escluse · abbinamento sake disponibile</span>
     </div>
-    <div class="anim d4"><a href="#reservation" class="btn-p">Prenota l'Esperienza</a></div>
+    <div class="anim d4"><a href="#reservation" class="btn-p">Prenota il Tuo Tavolo</a></div>
   </div>
 </section>
 
@@ -909,7 +941,7 @@
   <div class="torii-top">
     <p class="lbl anim" style="justify-content:center">Il Simbolo</p>
     <h2 class="sec-title anim d1">Il Portale Sacro</h2>
-    <p class="sec-sub anim d2">Come in Giappone ogni tempio custodisce un torii, ogni piatto di Osaki è un varco verso un mondo di sapori millenari. Scorri per attraversarlo.</p>
+    <p class="sec-sub anim d2">Come in Giappone ogni tempio custodisce un torii, ogni piatto di HIO Sushi Lab è un varco verso un mondo di sapori millenari. Scorri per attraversarlo.</p>
   </div>
   <div class="torii-stage">
     <svg id="toriiSvg" class="torii-svg" viewBox="0 0 400 470" xmlns="http://www.w3.org/2000/svg">
@@ -922,7 +954,7 @@
       <line class="torii-path torii-pillar-inner" id="tpDL" x1="109" y1="220" x2="109" y2="448" stroke-width="1" opacity=".4"/>
       <line class="torii-path torii-pillar-inner" id="tpDR" x1="291" y1="220" x2="291" y2="448" stroke-width="1" opacity=".4"/>
     </svg>
-    <span class="torii-kanji-base" id="toriiLabel">大崎</span>
+    <span class="torii-kanji-base" id="toriiLabel">HIO SUSHI LAB</span>
   </div>
 </section>
 
@@ -989,55 +1021,108 @@
     </div>
     <div class="menu-tabs anim d1">
       <button class="menu-tab active" data-tab="nigiri">Nigiri</button>
-      <button class="menu-tab" data-tab="maki">Maki</button>
-      <button class="menu-tab" data-tab="sashimi">Sashimi</button>
-      <button class="menu-tab" data-tab="specials">Specialità</button>
+      <button class="menu-tab" data-tab="maki">Uramaki</button>
+      <button class="menu-tab" data-tab="sashimi">Crudi</button>
+      <button class="menu-tab" data-tab="specials">HIO Specials</button>
     </div>
     <div class="menu-panel active" id="tab-nigiri">
       <div class="menu-items">
-        <div class="menu-item"><div><p class="mi-name">Sake</p><p class="mi-desc">Salmone fresco, wasabi, zenzero</p></div><span class="mi-price">€ 10 · 2pz</span></div>
-        <div class="menu-item"><div><p class="mi-name">Maguro</p><p class="mi-desc">Tonno rosso, wasabi fresco di montagna</p></div><span class="mi-price">€ 12 · 2pz</span></div>
-        <div class="menu-item"><div><p class="mi-name">Suzuki</p><p class="mi-desc">Branzino delicato, ponzu citrus</p></div><span class="mi-price">€ 12 · 2pz</span></div>
-        <div class="menu-item"><div><p class="mi-name">Anguilla</p><p class="mi-desc">Unagi alla brace, glassa teriyaki dolce</p></div><span class="mi-price">€ 14 · 2pz</span></div>
-        <div class="menu-item"><div><p class="mi-name">Sake Flambé</p><p class="mi-desc">Salmone scottato, philadelphia, uova di pesce, teriyaki</p></div><span class="mi-price">€ 16 · 2pz</span></div>
-        <div class="menu-item"><div><p class="mi-name">Sake Ikura</p><p class="mi-desc">Salmone, ikura, philadelphia cremosa</p></div><span class="mi-price">€ 16 · 2pz</span></div>
-        <div class="menu-item"><div><p class="mi-name">Sake Pistacchio</p><p class="mi-desc">Salmone, granella di pistacchio di Bronte, teriyaki</p></div><span class="mi-price">€ 14 · 2pz</span></div>
-        <div class="menu-item"><div><p class="mi-name">Maguro Tartufo Flambé</p><p class="mi-desc">Tonno scottato al cannello, philadelphia, tartufo nero</p></div><span class="mi-price">€ 22 · 2pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Nigiri Salmone</p><p class="mi-desc">Salmone fresco</p></div><span class="mi-price">€ 6 · 2pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Nigiri Tonno</p><p class="mi-desc">Tonno Balfegò</p></div><span class="mi-price">€ 8 · 2pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Nigiri Ricciola Hamachi</p><p class="mi-desc">Amberjack, ponzu yuzu</p></div><span class="mi-price">€ 7 · 2pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Nigiri Gamberone</p><p class="mi-desc">Gamberone siciliano</p></div><span class="mi-price">€ 16 · 2pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Nigiri Ventresca e Caviale</p><p class="mi-desc">Ventresca Balfegò, caviale Baikal</p></div><span class="mi-price">€ 16 · 2pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Nigiri Salmone e Caviar</p><p class="mi-desc">Salmone, caviale pregiato</p></div><span class="mi-price">€ 16 · 2pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Nigiri Wagyu e Tartufo</p><p class="mi-desc">Wagyu giapponese A5, tartufo nero</p></div><span class="mi-price">€ 16 · 2pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Sashimi Mix</p><p class="mi-desc">Selezione del giorno, 9 pezzi</p></div><span class="mi-price">€ 18 · 9pz</span></div>
       </div>
     </div>
     <div class="menu-panel" id="tab-maki">
       <div class="menu-items">
-        <div class="menu-item"><div><p class="mi-name">Rainbow Roll</p><p class="mi-desc">Salmone, tonno, pesce misto, avocado, sesamo</p></div><span class="mi-price">€ 22 · 8pz</span></div>
-        <div class="menu-item"><div><p class="mi-name">Sake Truffle</p><p class="mi-desc">Salmone, avocado, philadelphia, salsa al tartufo</p></div><span class="mi-price">€ 26 · 8pz</span></div>
-        <div class="menu-item"><div><p class="mi-name">Sake Mango</p><p class="mi-desc">Salmone, avocado, philadelphia, mango fresco, salsa mango</p></div><span class="mi-price">€ 20 · 8pz</span></div>
-        <div class="menu-item"><div><p class="mi-name">Ebithen Pistacchio</p><p class="mi-desc">Gambero tempura, philadelphia, pistacchio, teriyaki</p></div><span class="mi-price">€ 22 · 8pz</span></div>
-        <div class="menu-item"><div><p class="mi-name">Salmon Tiger Bonito</p><p class="mi-desc">Salmone fritto, salmone, philadelphia, scaglie di bonito</p></div><span class="mi-price">€ 24 · 8pz</span></div>
-        <div class="menu-item"><div><p class="mi-name">Astice Roll</p><p class="mi-desc">Astice, avocado, tobiko, philadelphia, salsa spicy</p></div><span class="mi-price">€ 32 · 8pz</span></div>
-        <div class="menu-item"><div><p class="mi-name">Scampi Roll</p><p class="mi-desc">Scampi, avocado, philadelphia, tobiko, spicy teriyaki</p></div><span class="mi-price">€ 28 · 8pz</span></div>
-        <div class="menu-item"><div><p class="mi-name">Sake Gambero Rosso</p><p class="mi-desc">Salmone, avocado, philadelphia, gambero rosso di Sicilia</p></div><span class="mi-price">€ 30 · 8pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Salmone e Avocado</p><p class="mi-desc">Classico intramontabile</p></div><span class="mi-price">€ 13 · 8pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Rainbow New Style</p><p class="mi-desc">Pesce misto, avocado, salsa speciale HIO</p></div><span class="mi-price">€ 25 · 8pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Lobster Sensation</p><p class="mi-desc">Aragosta, avocado, philadelphia, spicy</p></div><span class="mi-price">€ 22 · 8pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Ventresca e Tartufo</p><p class="mi-desc">Ventresca Balfegò, tartufo, philadelphia</p></div><span class="mi-price">€ 22 · 8pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Gambero Rosso e Yuzu</p><p class="mi-desc">Gambero rosso di Sicilia, yuzu, sesamo</p></div><span class="mi-price">€ 22 · 8pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Salmone e Scampi</p><p class="mi-desc">Salmone, scampi del Mediterraneo</p></div><span class="mi-price">€ 25 · 8pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Tataki Tuna Balfegò</p><p class="mi-desc">Tonno tataki scottato, wasabi, zenzero</p></div><span class="mi-price">€ 20 · 8pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Hamachi</p><p class="mi-desc">Ricciola, avocado, sesamo tostato</p></div><span class="mi-price">€ 22 · 8pz</span></div>
       </div>
     </div>
     <div class="menu-panel" id="tab-sashimi">
       <div class="menu-items">
-        <div class="menu-item"><div><p class="mi-name">Sake Sashimi</p><p class="mi-desc">Salmone fresco, 5 fette tagliate al momento</p></div><span class="mi-price">€ 18 · 5pz</span></div>
-        <div class="menu-item"><div><p class="mi-name">Maguro Sashimi</p><p class="mi-desc">Tonno rosso del Mediterraneo, 5 fette</p></div><span class="mi-price">€ 22 · 5pz</span></div>
-        <div class="menu-item"><div><p class="mi-name">Suzuki Sashimi</p><p class="mi-desc">Branzino, ponzu lime, coriandolo</p></div><span class="mi-price">€ 20 · 5pz</span></div>
-        <div class="menu-item"><div><p class="mi-name">Royal Mix</p><p class="mi-desc">Selezione premium dello chef, 9 pezzi misti</p></div><span class="mi-price">€ 36 · 9pz</span></div>
-        <div class="menu-item"><div><p class="mi-name">Omakase Sashimi</p><p class="mi-desc">Stagionale, scelta dello chef, 12 pezzi</p></div><span class="mi-price">€ 55 · 12pz</span></div>
-        <div class="menu-item"><div><p class="mi-name">Sashimi Moriawase</p><p class="mi-desc">Tre pesci, presentazione artistica, 9 fette</p></div><span class="mi-price">€ 36 · 9pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Tartare di Tonno</p><p class="mi-desc">Tonno rosso, citronette, capperi</p></div><span class="mi-price">€ 22</span></div>
+        <div class="menu-item"><div><p class="mi-name">Tartare di Tonno al Tartufo</p><p class="mi-desc">Tonno, tartufo nero, olio EVO siciliano</p></div><span class="mi-price">€ 25</span></div>
+        <div class="menu-item"><div><p class="mi-name">Tartare di Salmone</p><p class="mi-desc">Salmone, avocado, limone, erba cipollina</p></div><span class="mi-price">€ 16</span></div>
+        <div class="menu-item"><div><p class="mi-name">Tris di Tartare</p><p class="mi-desc">Tonno, salmone, pesce bianco</p></div><span class="mi-price">€ 28</span></div>
+        <div class="menu-item"><div><p class="mi-name">Ostrica Gillardeau n4</p><p class="mi-desc">Con perle di yuzu</p></div><span class="mi-price">€ 5 · 1pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Bon bon Ricciola e Tartufo</p><p class="mi-desc">Bocconcini crudi di ricciola hamachi e tartufo</p></div><span class="mi-price">€ 12 · 4pz</span></div>
       </div>
     </div>
     <div class="menu-panel" id="tab-specials">
       <div class="menu-items">
-        <div class="menu-item"><div><p class="mi-name">Bao Pollo Fritto</p><p class="mi-desc">Mantou al vapore, pollo croccante, lattuga, mayo kewpie</p></div><span class="mi-price">€ 14 · 2pz</span></div>
-        <div class="menu-item"><div><p class="mi-name">Edamame</p><p class="mi-desc">Fagioli di soia al vapore, fleur de sel, yuzu</p></div><span class="mi-price">€ 8</span></div>
-        <div class="menu-item"><div><p class="mi-name">Gyoza Crispy</p><p class="mi-desc">Ravioli di maiale e gambero, salsa ponzu agrumata</p></div><span class="mi-price">€ 14 · 6pz</span></div>
-        <div class="menu-item"><div><p class="mi-name">Temaki Sake</p><p class="mi-desc">Cono di alga nori, salmone, avocado, sesamo</p></div><span class="mi-price">€ 14 · 1pz</span></div>
-        <div class="menu-item"><div><p class="mi-name">Zuppa di Miso</p><p class="mi-desc">Miso bianco, tofu setoso, wakame, cipollotto</p></div><span class="mi-price">€ 8</span></div>
-        <div class="menu-item"><div><p class="mi-name">Matcha Panna Cotta</p><p class="mi-desc">Crema di tè verde Uji, anko dolce di azuki</p></div><span class="mi-price">€ 10</span></div>
+        <div class="menu-item"><div><p class="mi-name">Bao Wagyu al Tartufo</p><p class="mi-desc">Mantou al vapore, wagyu A5, pastrami al tartufo</p></div><span class="mi-price">€ 15 · 1pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Gyoza Gambero Rosso e Tartufo</p><p class="mi-desc">Ravioli di gambero rosso siciliano e tartufo</p></div><span class="mi-price">€ 18 · 4pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Tacos Scampi e Caviar</p><p class="mi-desc">Tacos croccante, scampi freschi, caviale</p></div><span class="mi-price">€ 26 · 2pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Come un Risotto al Limone</p><p class="mi-desc">Creazione HIO: riso su alga, crema di limone, gamberi</p></div><span class="mi-price">€ 18 · 4pz</span></div>
+        <div class="menu-item"><div><p class="mi-name">Edamame</p><p class="mi-desc">Fagioli di soia al vapore</p></div><span class="mi-price">€ 5</span></div>
+        <div class="menu-item"><div><p class="mi-name">Dolce HIO</p><p class="mi-desc">Sfera di cioccolato bianco, ripieno a sorpresa</p></div><span class="mi-price">€ 9</span></div>
       </div>
     </div>
   </div>
+</section>
+
+<!-- ═══════════ RECENSIONI -->
+<section id="reviews" style="padding:6rem 2.5rem;background:var(--bg);position:relative;overflow:hidden;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="anim" style="margin-bottom:3rem;">
+      <p class="lbl">Cosa Dicono di Noi</p>
+      <h2 class="sec-title">Recensioni</h2>
+      <div style="display:flex;align-items:center;gap:1.5rem;margin-top:1.25rem;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:.5rem;">
+          <span style="font-size:1.8rem;color:var(--gold);font-family:var(--serif);font-weight:600;">4.6</span>
+          <div>
+            <div style="display:flex;gap:2px;margin-bottom:2px;">
+              <span style="color:var(--gold);font-size:1rem;">★★★★★</span>
+            </div>
+            <span style="font-size:.7rem;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;">461 recensioni Google</span>
+          </div>
+        </div>
+        <div style="width:1px;height:40px;background:var(--border);"></div>
+        <div style="display:flex;align-items:center;gap:.75rem;">
+          <svg width="20" height="20" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><circle cx="30" cy="30" r="28" fill="none" stroke="#C9131A" stroke-width="3"/><path d="M30 8 C30 8 14 18 14 30 C14 42 22 50 30 52 C38 50 46 42 46 30 C46 18 30 8 30 8 Z" fill="none" stroke="#C9131A" stroke-width="2.2"/><line x1="30" y1="8" x2="30" y2="52" stroke="#C9131A" stroke-width="1.4" opacity=".6"/><line x1="14" y1="30" x2="46" y2="30" stroke="#C9131A" stroke-width="1.4" opacity=".6"/></svg>
+          <span style="font-size:.75rem;letter-spacing:.1em;color:var(--muted);">Gambero Rosso 2026 · Guida Kenta 2025/27</span>
+        </div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;">
+      <div class="anim d1" style="background:var(--bg-card);border:1px solid var(--border);padding:1.75rem;transition:border-color .3s,transform .3s;" onmouseenter="this.style.borderColor='rgba(201,168,76,.4)';this.style.transform='translateY(-4px)'" onmouseleave="this.style.borderColor='rgba(201,168,76,0.15)';this.style.transform='none'">
+        <div style="display:flex;gap:2px;margin-bottom:.75rem;"><span style="color:var(--gold);">★★★★★</span></div>
+        <p style="font-size:.88rem;color:var(--cream);line-height:1.7;margin-bottom:1rem;font-style:italic;">"Qualità indiscutibile! Ogni cosa ordinata era ottima. I bao di wagyu e il 'come un risotto al limone' e il dolce HIO, miei piatti preferiti. Il servizio è attento."</p>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:.78rem;font-weight:500;color:var(--cream);">Giulia Peruggini</span>
+          <span style="font-size:.68rem;color:var(--muted);letter-spacing:.1em;">4 mesi fa · Google</span>
+        </div>
+      </div>
+      <div class="anim d2" style="background:var(--bg-card);border:1px solid var(--border);padding:1.75rem;transition:border-color .3s,transform .3s;" onmouseenter="this.style.borderColor='rgba(201,168,76,.4)';this.style.transform='translateY(-4px)'" onmouseleave="this.style.borderColor='rgba(201,168,76,0.15)';this.style.transform='none'">
+        <div style="display:flex;gap:2px;margin-bottom:.75rem;"><span style="color:var(--gold);">★★★★★</span></div>
+        <p style="font-size:.88rem;color:var(--cream);line-height:1.7;margin-bottom:1rem;font-style:italic;">"Un'esperienza di altissimo livello, sotto ogni punto di vista. Da HIO Sushi Lab non si viene semplicemente a mangiare: si vive un vero percorso sensoriale indimenticabile."</p>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:.78rem;font-weight:500;color:var(--cream);">Mariella Lorito</span>
+          <span style="font-size:.68rem;color:var(--muted);letter-spacing:.1em;">5 mesi fa · Google</span>
+        </div>
+      </div>
+      <div class="anim d3" style="background:var(--bg-card);border:1px solid var(--border);padding:1.75rem;transition:border-color .3s,transform .3s;" onmouseenter="this.style.borderColor='rgba(201,168,76,.4)';this.style.transform='translateY(-4px)'" onmouseleave="this.style.borderColor='rgba(201,168,76,0.15)';this.style.transform='none'">
+        <div style="display:flex;gap:2px;margin-bottom:.75rem;"><span style="color:var(--gold);">★★★★★</span></div>
+        <p style="font-size:.88rem;color:var(--cream);line-height:1.7;margin-bottom:1rem;font-style:italic;">"Semplicemente fantastico! Talmente fantastico che ci torniamo due sere di fila. Ho vissuto 4 anni in Giappone e posso confermare la freschezza del sushi e la maestria dello chef."</p>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:.78rem;font-weight:500;color:var(--cream);">Andrea P.</span>
+          <span style="font-size:.68rem;color:var(--muted);letter-spacing:.1em;">9 mesi fa · Google</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <style is:inline>@media(max-width:900px){#reviews [style*="grid-template-columns:repeat(3"]{grid-template-columns:1fr!important;}}@media(max-width:640px){#reviews [style*="grid-template-columns:repeat(3"]{grid-template-columns:1fr!important;}}</style>
 </section>
 
 <!-- ═══════════ RESERVATION -->
@@ -1055,11 +1140,12 @@
     <div>
       <p class="lbl anim">Contattaci</p>
       <h2 class="res-title anim d1">Prenota il Tuo<br/>Tavolo</h2>
-      <p class="res-sub anim d2">Per un'esperienza indimenticabile. Consigliamo di prenotare con almeno 3 giorni di anticipo. Per l'Omakase è richiesta prenotazione minima 7 giorni prima.</p>
+      <p class="res-sub anim d2">La prenotazione è obbligatoria. Per la Selezione Creazioni Filippo Gugino si consiglia di prenotare con almeno 2 giorni di anticipo.</p>
       <div class="res-det anim d3">
-        <div class="res-det-item"><span class="res-det-lbl">Indirizzo</span><span class="res-det-val">Via della Pace 14, 20121 Milano</span></div>
-        <div class="res-det-item"><span class="res-det-lbl">Telefono</span><span class="res-det-val">+39 02 8765 4321</span></div>
-        <div class="res-det-item"><span class="res-det-lbl">Apertura</span><span class="res-det-val">Mer–Dom · 12:00–15:00 · 18:30–23:00</span></div>
+        <div class="res-det-item"><span class="res-det-lbl">Indirizzo</span><span class="res-det-val">Via Quintino Sella, 48/a · 90139 Palermo PA</span></div>
+        <div class="res-det-item"><span class="res-det-lbl">Telefono</span><span class="res-det-val">+39 393 129 1969</span></div>
+        <div class="res-det-item"><span class="res-det-lbl">Apertura</span><span class="res-det-val">Mar–Dom · 19:30–00:00 · Lunedì chiuso</span></div>
+        <div class="res-det-item"><span class="res-det-lbl">Prezzo</span><span class="res-det-val">50–100 € · Tavoli all'aperto disponibili</span></div>
       </div>
     </div>
     <form class="res-form anim d2" onsubmit="handleSub(event)">
@@ -1104,9 +1190,12 @@
   <div class="foot-inner">
     <div class="foot-top">
       <div class="foot-brand">
-        <div class="foot-logo-en">OSAKI</div>
-        <div class="foot-logo-jp">大崎</div>
-        <p class="foot-tag">Un viaggio nel cuore della cucina giapponese, piatto dopo piatto.</p>
+        <div class="foot-logo-en" style="display:flex;align-items:center;gap:.6rem;">
+          <svg width="22" height="22" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><circle cx="30" cy="30" r="28" fill="none" stroke="#C9131A" stroke-width="2.5"/><path d="M30 8 C30 8 14 18 14 30 C14 42 22 50 30 52 C38 50 46 42 46 30 C46 18 30 8 30 8 Z" fill="none" stroke="#C9131A" stroke-width="1.8"/><line x1="30" y1="8" x2="30" y2="52" stroke="#C9131A" stroke-width="1.2" opacity=".7"/><line x1="14" y1="30" x2="46" y2="30" stroke="#C9131A" stroke-width="1.2" opacity=".7"/></svg>
+          HIO
+        </div>
+        <div class="foot-logo-jp">SUSHI LAB · PALERMO</div>
+        <p class="foot-tag">Dove l'Oriente incontra la Sicilia. Chef Filippo Gugino · Gambero Rosso 2026 · Guida Kenta 2025/27.</p>
       </div>
       <div class="foot-col">
         <p class="foot-col-t">Navigazione</p>
@@ -1121,15 +1210,15 @@
       <div class="foot-col">
         <p class="foot-col-t">Orari</p>
         <div class="foot-hrs">
-          <div class="foot-hr"><span class="foot-hr-day">Lun – Mar</span><span class="foot-hr-time">Chiuso</span></div>
-          <div class="foot-hr"><span class="foot-hr-day">Mer – Ven</span><span class="foot-hr-time">12–15 · 18:30–23</span></div>
-          <div class="foot-hr"><span class="foot-hr-day">Sab – Dom</span><span class="foot-hr-time">12–15:30 · 18–23</span></div>
+          <div class="foot-hr"><span class="foot-hr-day">Lunedì</span><span class="foot-hr-time">Chiuso</span></div>
+          <div class="foot-hr"><span class="foot-hr-day">Mar – Ven</span><span class="foot-hr-time">19:30–00:00</span></div>
+          <div class="foot-hr"><span class="foot-hr-day">Sab – Dom</span><span class="foot-hr-time">19:30–00:00</span></div>
         </div>
       </div>
     </div>
     <div class="foot-bot">
-      <p class="foot-copy">© 2025 Osaki · Tutti i diritti riservati</p>
-      <p class="foot-addr">Via della Pace 14 · 20121 Milano · +39 02 8765 4321</p>
+      <p class="foot-copy">© 2025 HIO Sushi Lab · Tutti i diritti riservati</p>
+      <p class="foot-addr">Via Quintino Sella 48/a · 90139 Palermo · +39 393 129 1969</p>
     </div>
   </div>
 </footer>
