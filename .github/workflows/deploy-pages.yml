@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - claude/website-builder-setup-install-xbmpze
+      - claude/website-builder-setup-q20xu3
       - main
   workflow_dispatch:
 
