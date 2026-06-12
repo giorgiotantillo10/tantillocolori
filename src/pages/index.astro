@@ -112,7 +112,7 @@
 
     /* ════════ HERO ════════ */
     #hero { height:100vh; min-height:620px; position:relative; display:flex; align-items:center; justify-content:center; text-align:center; overflow:hidden; }
-    .hero-bg { position:absolute; inset:0; background:url('https://hiosushilab.it/wp-content/uploads/2023/09/filippo_gugino_gallery_2.webp') center/cover no-repeat; }
+    .hero-bg { position:absolute; inset:0; background:url('img/hio-interno.jpg') center/cover no-repeat; }
     .hero-bg::after { content:''; position:absolute; inset:0; background:linear-gradient(180deg,rgba(8,5,3,.82) 0%,rgba(10,7,5,.7) 50%,rgba(10,7,5,.92) 100%); }
     .hero-kanji { position:absolute; font-family:var(--serif); font-size:min(55vw,52vh); font-weight:700; color:rgba(201,168,76,.025); user-select:none; pointer-events:none; line-height:1; top:50%; left:50%; transform:translate(-50%,-50%); will-change:transform; }
     .hero-enso { position:absolute; top:50%; left:50%; width:min(540px,90vw); height:min(540px,90vw); margin:calc(min(540px,90vw)/-2) 0 0 calc(min(540px,90vw)/-2); pointer-events:none; opacity:0; animation:fadeIn 2s 1.2s forwards; }
@@ -188,9 +188,13 @@
     .dish-card:hover { border-color:rgba(201,168,76,.45); transform:translateY(-8px) scale(1.01); box-shadow:0 20px 50px rgba(0,0,0,.5),0 0 30px rgba(201,168,76,.08); }
     .dish-img { height:230px; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; }
     .dish-scene { width:100%; height:100%; animation:dishFloat 5s ease-in-out infinite; }
-    .dish-card:nth-child(2) .dish-scene { animation-delay:.7s; }
-    .dish-card:nth-child(3) .dish-scene { animation-delay:1.3s; }
-    .dish-card:nth-child(4) .dish-scene { animation-delay:.4s; }
+    .dish-photo { width:100%; height:100%; object-fit:cover; display:block; animation:kenBurns 16s ease-in-out infinite; transition:transform .8s var(--ease),filter .8s var(--ease); }
+    @keyframes kenBurns { 0%,100% { transform:scale(1.02) translate(0,0); } 50% { transform:scale(1.12) translate(-1.5%,1%); } }
+    .dish-card:hover .dish-photo { transform:scale(1.16); filter:brightness(1.12) saturate(1.1); animation-play-state:paused; }
+    .dish-img::after { content:''; position:absolute; inset:0; background:linear-gradient(180deg,rgba(10,10,10,.25) 0%,transparent 35%,transparent 70%,rgba(10,10,10,.45) 100%); pointer-events:none; z-index:1; }
+    .dish-card:nth-child(2) .dish-photo { animation-delay:-4s; }
+    .dish-card:nth-child(3) .dish-photo { animation-delay:-8s; }
+    .dish-card:nth-child(4) .dish-photo { animation-delay:-12s; }
     .dish-kanji-bg { position:absolute; font-family:var(--serif); font-size:6.5rem; font-weight:700; color:rgba(240,235,225,.04); user-select:none; pointer-events:none; }
     .dish-tag { position:absolute; top:.75rem; left:.75rem; font-size:.6rem; letter-spacing:.25em; text-transform:uppercase; color:var(--gold); background:rgba(201,168,76,.12); padding:.3rem .7rem; z-index:2; backdrop-filter:blur(4px); }
     .dish-info { padding:1.25rem; }
@@ -682,33 +686,11 @@
   </div>
   <div class="dishes-grid">
 
-    <!-- NIGIRI VENTRESCA E CAVIALE — piatto dalla tua foto -->
+    <!-- NIGIRI VENTRESCA E CAVIALE — foto reale HIO -->
     <div class="dish-card dish-toro anim d1">
       <div class="dish-img">
-        <span class="dish-kanji-bg">鮪</span>
         <span class="dish-tag">Signature</span>
-        <svg class="dish-scene" viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg">
-          <!-- piatto marmo bianco -->
-          <ellipse cx="110" cy="130" rx="88" ry="22" fill="#F2F0EE" stroke="#E0DCDA" stroke-width="1.5"/>
-          <ellipse cx="110" cy="128" rx="82" ry="18" fill="#FAFAFA"/>
-          <!-- riso -->
-          <path d="M82 116 Q82 100 110 98 Q138 100 138 116 Q125 122 110 122 Q95 122 82 116 Z" fill="#F7F3EC"/>
-          <path d="M84 108 Q110 103 136 108" stroke="#EAE4D8" stroke-width="1" fill="none"/>
-          <!-- ventresca rosso vivo -->
-          <path d="M72 98 Q79 82 110 80 Q141 82 148 98 Q141 106 110 106 Q79 106 72 98 Z" fill="#D42B3A"/>
-          <path d="M78 92 Q110 85 142 92" stroke="#F06070" stroke-width="1.8" fill="none" opacity=".7"/>
-          <path d="M76 96 Q110 90 144 96" stroke="#E85060" stroke-width="1.4" fill="none" opacity=".5"/>
-          <path d="M80 100 Q110 95 140 100" stroke="#F08090" stroke-width="1.2" fill="none" opacity=".4"/>
-          <!-- caviale nero -->
-          <circle class="ikura" cx="98" cy="76" r="4" fill="#1A1A1A"/>
-          <circle class="ikura i2" cx="107" cy="72" r="3.8" fill="#1A1A1A"/>
-          <circle class="ikura i3" cx="116" cy="74" r="3.6" fill="#1A1A1A"/>
-          <circle cx="124" cy="78" r="3.4" fill="#1A1A1A" style="animation:ikuraPulse 2.4s .8s ease-in-out infinite"/>
-          <circle cx="100" cy="72" r="1.4" fill="#4A4A4A"/><circle cx="109" cy="68" r="1.2" fill="#4A4A4A"/><circle cx="118" cy="70" r="1.3" fill="#4A4A4A"/>
-          <!-- luccichio caviale -->
-          <path class="sparkle" d="M89 68 L90.5 72 L94 73.5 L90.5 75 L89 79 L87.5 75 L84 73.5 L87.5 72 Z" fill="rgba(255,255,255,.5)"/>
-          <path class="sparkle k2" d="M130 66 L131.2 69.5 L134 71 L131.2 72.5 L130 76 L128.8 72.5 L126 71 L128.8 69.5 Z" fill="rgba(255,255,255,.4)"/>
-        </svg>
+        <img class="dish-photo" src="img/nigiri-ventresca-caviale.jpg" alt="Nigiri di ventresca con caviale su piatto di marmo" loading="lazy"/>
       </div>
       <div class="dish-info">
         <h3 class="dish-name">Nigiri Ventresca e Caviale</h3>
@@ -717,34 +699,11 @@
       </div>
     </div>
 
-    <!-- DOLCE HIO — la sfera bianca con logo impressa -->
+    <!-- DOLCE HIO — foto reale: la sfera bianca con il logo -->
     <div class="dish-card dish-uni anim d2">
       <div class="dish-img">
-        <span class="dish-kanji-bg">菓</span>
         <span class="dish-tag">Dolce HIO</span>
-        <svg class="dish-scene" viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg">
-          <!-- piattino -->
-          <ellipse cx="110" cy="138" rx="55" ry="12" fill="#E8E4E0" stroke="#D8D4D0" stroke-width="1"/>
-          <ellipse cx="110" cy="136" rx="50" ry="9" fill="#F5F2EF"/>
-          <!-- ombra sfera -->
-          <ellipse cx="110" cy="128" rx="46" ry="10" fill="rgba(0,0,0,.12)"/>
-          <!-- sfera bianca -->
-          <circle class="dish-scene" cx="110" cy="90" r="52" fill="url(#sphereGrad)"/>
-          <defs>
-            <radialGradient id="sphereGrad" cx="38%" cy="32%" r="65%">
-              <stop offset="0%" stop-color="#FFFFFF"/>
-              <stop offset="45%" stop-color="#F5F2EF"/>
-              <stop offset="100%" stop-color="#DDD8D2"/>
-            </radialGradient>
-          </defs>
-          <!-- highlight lucido -->
-          <ellipse cx="92" cy="68" rx="16" ry="10" fill="rgba(255,255,255,.65)" transform="rotate(-25 92 68)"/>
-          <ellipse cx="86" cy="72" rx="6" ry="4" fill="rgba(255,255,255,.9)" transform="rotate(-20 86 72)"/>
-          <!-- logo HIO inciso in oro -->
-          <circle cx="110" cy="90" r="28" fill="none" stroke="rgba(201,168,76,.35)" stroke-width="1"/>
-          <text x="110" y="88" font-family="serif" font-size="13" font-weight="600" fill="#C9A84C" text-anchor="middle" letter-spacing="3" opacity=".9">HIO</text>
-          <line x1="88" y1="94" x2="132" y2="94" stroke="rgba(201,168,76,.4)" stroke-width=".8"/>
-        </svg>
+        <img class="dish-photo" src="img/dolce-hio.jpg" alt="Sfera Dolce HIO con logo inciso tra le mani dello chef" loading="lazy"/>
       </div>
       <div class="dish-info">
         <h3 class="dish-name">Dolce HIO</h3>
@@ -753,101 +712,29 @@
       </div>
     </div>
 
-    <!-- HIOMAKI — vassio di roll colorati come nella tua foto -->
+    <!-- NIGIRI SALMONE SCOTTATO — foto reale HIO -->
     <div class="dish-card dish-dragon anim d3">
       <div class="dish-img">
-        <span class="dish-kanji-bg">創</span>
-        <span class="dish-tag">Creazione HIO</span>
-        <svg class="dish-scene" viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg">
-          <!-- vassoio legno scuro -->
-          <rect x="14" y="108" width="192" height="32" rx="4" fill="#2A1F14"/>
-          <rect x="14" y="108" width="192" height="8" rx="4" fill="#3A2A1A"/>
-          <line x1="20" y1="112" x2="200" y2="112" stroke="#4A3828" stroke-width="1"/>
-          <!-- sesamo cadente -->
-          <ellipse class="sesame" cx="60" cy="28" rx="2.4" ry="1.5" fill="#F5EED8"/>
-          <ellipse class="sesame e2" cx="110" cy="24" rx="2.4" ry="1.5" fill="#E3C47A"/>
-          <ellipse class="sesame e3" cx="158" cy="30" rx="2.4" ry="1.5" fill="#F5EED8"/>
-          <!-- roll 1 — salmone rosa -->
-          <g class="slice">
-            <circle cx="50" cy="96" r="25" fill="#F5EED8"/>
-            <circle cx="50" cy="96" r="25" fill="none" stroke="#16240E" stroke-width="6"/>
-            <ellipse cx="50" cy="84" rx="16" ry="9" fill="#E8705A"/>
-            <circle cx="50" cy="98" r="9" fill="#4BA865"/>
-            <circle cx="50" cy="98" r="4" fill="#F5EED8"/>
-            <circle class="ikura" cx="62" cy="80" r="5" fill="#E8531F"/>
-          </g>
-          <!-- roll 2 — tonno rosso -->
-          <g class="slice sl2">
-            <circle cx="110" cy="88" r="27" fill="#F5EED8"/>
-            <circle cx="110" cy="88" r="27" fill="none" stroke="#16240E" stroke-width="6"/>
-            <ellipse cx="110" cy="76" rx="17" ry="10" fill="#C94A4A"/>
-            <circle cx="110" cy="92" r="10" fill="#5D9B3A"/>
-            <circle cx="110" cy="92" r="4.5" fill="#F5C046"/>
-            <path class="sparkle k2" d="M130 68 L131.5 72 L135 73.5 L131.5 75 L130 79 L128.5 75 L125 73.5 L128.5 72 Z" fill="#E3C47A"/>
-          </g>
-          <!-- roll 3 — avocado verde -->
-          <g class="slice sl3">
-            <circle cx="170" cy="96" r="25" fill="#F5EED8"/>
-            <circle cx="170" cy="96" r="25" fill="none" stroke="#16240E" stroke-width="6"/>
-            <ellipse cx="170" cy="84" rx="16" ry="9" fill="#4BA865"/>
-            <circle cx="170" cy="98" r="9" fill="#8B5A2B"/>
-            <circle cx="170" cy="98" r="4" fill="#F5EED8"/>
-          </g>
-        </svg>
+        <span class="dish-tag">Aburi</span>
+        <img class="dish-photo" src="img/nigiri-salmone.jpg" alt="Nigiri di salmone scottato sospeso con le bacchette sulla soia" loading="lazy"/>
       </div>
       <div class="dish-info">
-        <h3 class="dish-name">Hiomaki Selezione</h3>
-        <p class="dish-desc">Selezione Creazioni Filippo Gugino: scampi, caviale, wagyu, tartufo. 24 pezzi.</p>
-        <span class="dish-price">€ 80 · 24 pz</span>
+        <h3 class="dish-name">Nigiri Salmone Scottato</h3>
+        <p class="dish-desc">Salmone scottato alla fiamma su riso al vapore, servito con salsa di soia.</p>
+        <span class="dish-price">€ 6 · 2 pz</span>
       </div>
     </div>
 
-    <!-- BAO WAGYU — il bao soffice con wagyu -->
+    <!-- COME UN RISOTTO AL LIMONE — foto reale HIO -->
     <div class="dish-card dish-wagyu anim d4">
       <div class="dish-img">
-        <span class="dish-kanji-bg">包</span>
-        <span class="dish-tag">Luxury</span>
-        <svg class="dish-scene" viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg">
-          <!-- piatto bianco -->
-          <ellipse cx="110" cy="136" rx="80" ry="16" fill="#F5F2EF" stroke="#E4E0DC" stroke-width="1.2"/>
-          <ellipse cx="110" cy="134" rx="74" ry="12" fill="#FAFAFA"/>
-          <!-- ombra bao -->
-          <ellipse cx="110" cy="126" rx="52" ry="11" fill="rgba(0,0,0,.1)"/>
-          <!-- bao bianco soffice -->
-          <ellipse cx="110" cy="95" rx="54" ry="38" fill="url(#baoGrad)"/>
-          <defs>
-            <radialGradient id="baoGrad" cx="40%" cy="30%" r="70%">
-              <stop offset="0%" stop-color="#FFFFFF"/>
-              <stop offset="60%" stop-color="#F8F5F2"/>
-              <stop offset="100%" stop-color="#EAE5DF"/>
-            </radialGradient>
-          </defs>
-          <!-- piega bao -->
-          <path d="M68 88 Q110 80 152 88" stroke="#E0DAD4" stroke-width="2" fill="none"/>
-          <path d="M72 96 Q110 89 148 96" stroke="#E0DAD4" stroke-width="1.5" fill="none"/>
-          <!-- highlight -->
-          <ellipse cx="92" cy="76" rx="14" ry="9" fill="rgba(255,255,255,.7)" transform="rotate(-15 92 76)"/>
-          <!-- ripieno wagyu visibile -->
-          <path d="M80 115 Q110 122 140 115 L140 118 Q110 126 80 118 Z" fill="#8B4030" opacity=".8"/>
-          <!-- fiamma flambé sul lato -->
-          <g class="flame" style="transform:translate(154px,70px) scale(.7)">
-            <path d="M0 0 Q-10-14 -2-28 Q1-20 6-24 Q10-12 0 0 Z" fill="#E8923F"/>
-            <path d="M0-4 Q-5-14 0-21 Q3-17 5-19 Q7-10 0-4 Z" fill="#F5C046"/>
-          </g>
-          <g class="flame f2" style="transform:translate(165px,76px) scale(.55)">
-            <path d="M0 0 Q-8-12 -1-22 Q2-16 5-20 Q8-10 0 0 Z" fill="#E8923F" opacity=".9"/>
-          </g>
-          <!-- puntino tartufo -->
-          <circle cx="106" cy="85" r="3.5" fill="#2A1E14"/>
-          <circle cx="114" cy="83" r="3" fill="#2A1E14"/>
-          <circle cx="110" cy="88" r="2.5" fill="#2A1E14"/>
-          <circle cx="105" cy="84" r="1" fill="#4A3A28"/>
-        </svg>
+        <span class="dish-tag">Creazione HIO</span>
+        <img class="dish-photo" src="img/risotto-limone.jpg" alt="Creazione HIO in ciotola bianca su tavolo scuro" loading="lazy"/>
       </div>
       <div class="dish-info">
-        <h3 class="dish-name">Bao Wagyu al Tartufo</h3>
-        <p class="dish-desc">Mantou al vapore farcito con wagyu giapponese A5 e pastrami al tartufo.</p>
-        <span class="dish-price">€ 15 · 1 pz</span>
+        <h3 class="dish-name">Come un Risotto al Limone</h3>
+        <p class="dish-desc">Creazione HIO: riso su alga, crema di limone e gamberi. L'incontro tra Sicilia e Giappone.</p>
+        <span class="dish-price">€ 18 · 4 pz</span>
       </div>
     </div>
   </div>
