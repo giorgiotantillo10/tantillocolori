@@ -359,7 +359,54 @@
     .fab-prenota { animation:fabPulse 3s ease-in-out infinite; }
     .fab-prenota:hover { animation:none; }
     @media (max-width:640px){ .fab-prenota { bottom:1.25rem; right:1.25rem; padding:.7rem 1.1rem; font-size:.7rem; gap:.45rem; letter-spacing:.1em; } }
-  </style>
+
+    /* ════════ PAGE TRANSITION — BACCHETTE ════════ */
+    #ptOverlay { position:fixed; inset:0; z-index:300; visibility:hidden; pointer-events:none; }
+    #ptOverlay.play { visibility:visible; pointer-events:all; }
+    .pt-panel { position:absolute; left:0; width:100%; height:50.5%; background:linear-gradient(180deg,#0B0A08,#0E0C08); transform:scaleY(0); }
+    .pt-top { top:0; transform-origin:top; box-shadow:0 1px 0 rgba(201,168,76,.25); }
+    .pt-bot { bottom:0; transform-origin:bottom; box-shadow:0 -1px 0 rgba(201,168,76,.25); }
+    .play .pt-top, .play .pt-bot { animation: ptClose .4s var(--ease) forwards, ptOpen .55s 1.8s var(--ease) forwards; }
+    @keyframes ptClose { from{transform:scaleY(0)} to{transform:scaleY(1)} }
+    @keyframes ptOpen { from{transform:scaleY(1)} to{transform:scaleY(0)} }
+    .pt-center { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.5rem; opacity:0; }
+    .play .pt-center { animation: ptFadeIn .25s .35s forwards, ptFadeOut .3s 1.7s forwards; }
+    @keyframes ptFadeIn { to{opacity:1} }
+    @keyframes ptFadeOut { from{opacity:1} to{opacity:0} }
+    .pt-scene { width:160px; height:210px; overflow:visible; }
+    .play .pt-grab { animation: ptGrab 1.4s .45s var(--ease) both; }
+    @keyframes ptGrab {
+      0%   { transform:translateY(-210px); }
+      28%  { transform:translateY(0); }
+      46%  { transform:translateY(0); }
+      68%  { transform:translateY(-24px) rotate(-2deg); }
+      100% { transform:translateY(-250px) rotate(-4deg); }
+    }
+    .play .pt-nigiri { animation: ptNigiriLift 1.4s .45s var(--ease) both; }
+    @keyframes ptNigiriLift {
+      0%, 46% { transform:translateY(0); }
+      68%  { transform:translateY(-24px) rotate(-2deg); }
+      100% { transform:translateY(-250px) rotate(-4deg); }
+    }
+    .pt-stick-l, .pt-stick-r { transform-box:fill-box; transform-origin:top center; }
+    .play .pt-stick-l { animation: ptPinchL 1.4s .45s both; }
+    .play .pt-stick-r { animation: ptPinchR 1.4s .45s both; }
+    @keyframes ptPinchL { 0%,26%{transform:rotate(-5deg)} 38%,100%{transform:rotate(0deg)} }
+    @keyframes ptPinchR { 0%,26%{transform:rotate(5deg)} 38%,100%{transform:rotate(0deg)} }
+    .pt-shadow { transform-box:fill-box; transform-origin:center; }
+    .play .pt-shadow { animation: ptShadow 1.4s .45s both; }
+    @keyframes ptShadow { 0%,46%{opacity:.5;transform:scaleX(1)} 75%,100%{opacity:0;transform:scaleX(.4)} }
+    .pt-label { font-family:var(--serif); font-size:1rem; letter-spacing:.55em; color:var(--gold); text-indent:.55em; }
+    .pt-label-jp { font-family:var(--serif); font-size:.75rem; letter-spacing:.4em; color:var(--muted); text-indent:.4em; }
+
+    /* ════════ FLOATING FOOD ════════ */
+    .ffood { position:absolute; pointer-events:none; z-index:0; opacity:.8; animation:floatRoll var(--fd,8s) ease-in-out infinite; }
+    .ffood svg { display:block; width:100%; height:auto; filter:drop-shadow(0 5px 16px rgba(0,0,0,.45)); }
+    #reservation { position:relative; overflow:hidden; }
+    @media (max-width:640px) {
+      .ffood { opacity:.5; }
+      .ffood.hide-m { display:none; }
+    }
 </head>
 
 <body>
@@ -370,6 +417,41 @@
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
   Prenota Tavolo
 </a>
+
+<!-- ═══════════ PAGE TRANSITION — BACCHETTE CHE AFFERRANO IL NIGIRI -->
+<div id="ptOverlay" aria-hidden="true">
+  <div class="pt-panel pt-top"></div>
+  <div class="pt-panel pt-bot"></div>
+  <div class="pt-center">
+    <svg class="pt-scene" viewBox="0 0 160 210" xmlns="http://www.w3.org/2000/svg">
+      <!-- ombra sotto il nigiri -->
+      <ellipse class="pt-shadow" cx="78" cy="180" rx="42" ry="7" fill="#000" opacity=".5"/>
+      <!-- nigiri -->
+      <g class="pt-nigiri">
+        <path d="M48 160 Q48 142 78 140 Q108 142 108 160 Q93 168 78 168 Q63 168 48 160 Z" fill="#F5EED8"/>
+        <circle cx="62" cy="153" r="1.8" fill="#E8E0CC"/><circle cx="78" cy="158" r="1.8" fill="#E8E0CC"/><circle cx="94" cy="153" r="1.8" fill="#E8E0CC"/>
+        <path d="M40 146 Q48 130 78 128 Q108 130 116 146 Q108 154 78 154 Q48 154 40 146 Z" fill="#E8806A"/>
+        <path d="M52 142 Q78 134 104 142" stroke="#F5C3B8" stroke-width="1.6" fill="none" opacity=".8"/>
+        <path d="M58 148 Q78 141 98 148" stroke="#F5C3B8" stroke-width="1.3" fill="none" opacity=".6"/>
+      </g>
+      <!-- bacchette -->
+      <g class="pt-grab">
+        <g class="pt-stick-l">
+          <path d="M50 -50 L58 -50 L72 130 L67 136 Z" fill="#4A3520"/>
+          <path d="M50 -50 L58 -50 L59 -24 L51 -24 Z" fill="#C9A84C"/>
+          <path d="M54 -50 L58 -50 L71 130 L69 133 Z" fill="rgba(255,255,255,.12)"/>
+        </g>
+        <g class="pt-stick-r">
+          <path d="M106 -50 L98 -50 L84 130 L89 136 Z" fill="#4A3520"/>
+          <path d="M106 -50 L98 -50 L97 -24 L105 -24 Z" fill="#C9A84C"/>
+          <path d="M102 -50 L106 -50 L88 133 L86 130 Z" fill="rgba(255,255,255,.12)"/>
+        </g>
+      </g>
+    </svg>
+    <span class="pt-label">OSAKI</span>
+    <span class="pt-label-jp">大崎 — いただきます</span>
+  </div>
+</div>
 
 <!-- ═══════════ NAVBAR -->
 <nav id="navbar">
@@ -524,6 +606,23 @@
       <path d="M72 21 Q80 30 72 39" stroke="rgba(10,10,10,.4)" stroke-width="2" fill="none"/>
     </svg>
   </div>
+  <!-- Floating food -->
+  <div class="ffood" style="top:10%;right:5%;width:80px;--ra:-7deg;--rb:5deg;--fd:9s">
+    <svg viewBox="0 0 100 70" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 48 Q18 30 50 28 Q82 30 82 48 Q66 56 50 56 Q34 56 18 48 Z" fill="#F5EED8"/>
+      <path d="M10 34 Q18 18 50 16 Q82 18 90 34 Q82 42 50 42 Q18 42 10 34 Z" fill="#E8806A"/>
+      <path d="M22 30 Q50 22 78 30" stroke="#F5C3B8" stroke-width="1.6" fill="none" opacity=".8"/>
+      <path d="M28 36 Q50 29 72 36" stroke="#F5C3B8" stroke-width="1.3" fill="none" opacity=".6"/>
+    </svg>
+  </div>
+  <div class="ffood hide-m" style="bottom:9%;left:4%;width:74px;--ra:5deg;--rb:-6deg;--fd:11s">
+    <svg viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="50" cy="30" rx="40" ry="14" fill="#1E1812" stroke="rgba(201,168,76,.3)" stroke-width="1"/>
+      <ellipse cx="50" cy="27" rx="32" ry="10" fill="#3A2A14"/>
+      <ellipse cx="50" cy="26" rx="27" ry="8" fill="#241808"/>
+      <ellipse cx="42" cy="24" rx="8" ry="2.5" fill="rgba(240,235,225,.14)"/>
+    </svg>
+  </div>
   <div class="phil-inner">
     <div class="anim">
       <div class="phil-art">間</div>
@@ -553,6 +652,27 @@
 
 <!-- ═══════════ SIGNATURE — PIATTI ILLUSTRATI ANIMATI -->
 <section id="signature">
+  <!-- Floating food -->
+  <div class="ffood hide-m" style="top:5%;right:3%;width:64px;--ra:8deg;--rb:-5deg;--fd:10s">
+    <svg viewBox="0 0 80 100" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16 28 L64 34 L44 92 Z" fill="#16240E" stroke="rgba(201,168,76,.25)" stroke-width="1"/>
+      <path d="M24 44 L56 48" stroke="#0E1A08" stroke-width="2"/>
+      <path d="M20 30 Q34 18 48 22 Q60 24 62 33 L40 38 Z" fill="#F5EED8"/>
+      <ellipse cx="36" cy="20" rx="9" ry="6" fill="#E8806A"/>
+      <ellipse cx="50" cy="18" rx="8" ry="5" fill="#5D9B3A"/>
+      <circle class="ikura" cx="58" cy="24" r="4" fill="#E8531F"/>
+    </svg>
+  </div>
+  <div class="ffood hide-m" style="bottom:6%;left:3%;width:54px;--ra:-10deg;--rb:7deg;--fd:8s">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="48" fill="#1A1A10"/>
+      <circle cx="50" cy="50" r="44" fill="#F5EED8"/>
+      <ellipse cx="50" cy="40" rx="22" ry="13" fill="#E8806A"/>
+      <ellipse cx="40" cy="60" rx="12" ry="9" fill="#5D9B3A"/>
+      <ellipse cx="62" cy="60" rx="11" ry="8" fill="#D4A040"/>
+      <circle cx="50" cy="50" r="11" fill="#F5EED8"/>
+    </svg>
+  </div>
   <div class="sig-hd anim">
     <p class="lbl">I Nostri Signature</p>
     <h2 class="sec-title">Piatti Iconici</h2>
@@ -749,6 +869,25 @@
       <circle cx="35" cy="113" r="3" fill="#C9A84C"/>
     </svg>
   </div>
+  <!-- Floating food -->
+  <div class="ffood hide-m" style="bottom:14%;left:5%;width:62px;--ra:-6deg;--rb:8deg;--fd:9.5s">
+    <svg viewBox="0 0 80 70" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16 36 Q16 26 40 24 Q64 26 64 36 L60 56 Q40 62 20 56 Z" fill="#16240E" stroke="rgba(201,168,76,.25)" stroke-width="1"/>
+      <path d="M20 50 L60 50" stroke="#0E1A08" stroke-width="1.5"/>
+      <circle class="ikura" cx="32" cy="28" r="6" fill="#E8531F"/>
+      <circle class="ikura i2" cx="44" cy="25" r="6" fill="#F06030"/>
+      <circle class="ikura i3" cx="52" cy="30" r="5" fill="#D84818"/>
+      <circle cx="30" cy="26" r="1.8" fill="#FFB088"/>
+    </svg>
+  </div>
+  <div class="ffood hide-m" style="bottom:10%;right:6%;width:76px;--ra:5deg;--rb:-7deg;--fd:11s">
+    <svg viewBox="0 0 100 70" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 50 Q18 34 50 32 Q82 34 82 50 Q66 58 50 58 Q34 58 18 50 Z" fill="#F5EED8"/>
+      <rect x="14" y="16" width="72" height="22" rx="9" fill="#F2C94C"/>
+      <rect x="16" y="17" width="68" height="8" rx="4" fill="#F7DC85"/>
+      <rect x="44" y="8" width="12" height="54" fill="#16240E" opacity=".92"/>
+    </svg>
+  </div>
   <div class="om-inner">
     <p class="lbl anim">Esperienza Esclusiva</p>
     <h2 class="sec-title anim d1">Omakase</h2>
@@ -836,6 +975,25 @@
       <path d="M72 21 Q80 30 72 39" stroke="rgba(10,10,10,.35)" stroke-width="2" fill="none"/>
     </svg>
   </div>
+  <!-- Floating food -->
+  <div class="ffood" style="top:14%;right:4%;width:70px;--ra:-8deg;--rb:6deg;--fd:10s">
+    <svg viewBox="0 0 100 70" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 48 Q18 30 50 28 Q82 30 82 48 Q66 56 50 56 Q34 56 18 48 Z" fill="#F5EED8"/>
+      <path d="M12 36 Q20 22 50 20 Q80 22 88 36 Q80 44 50 44 Q20 44 12 36 Z" fill="#C94A4A"/>
+      <path d="M24 32 Q50 24 76 32" stroke="#E8A0A0" stroke-width="1.4" fill="none" opacity=".7"/>
+      <path d="M30 38 Q50 31 70 38" stroke="#E8A0A0" stroke-width="1.2" fill="none" opacity=".5"/>
+    </svg>
+  </div>
+  <div class="ffood hide-m" style="bottom:8%;left:3%;width:52px;--ra:9deg;--rb:-6deg;--fd:8.5s">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="48" fill="#F5EED8"/>
+      <circle cx="28" cy="24" r="2.5" fill="#C9A84C" opacity=".85"/><circle cx="72" cy="24" r="2.5" fill="#C9A84C" opacity=".85"/><circle cx="50" cy="84" r="2.5" fill="#C9A84C" opacity=".85"/>
+      <circle cx="50" cy="50" r="37" fill="#1A1A10"/>
+      <ellipse cx="50" cy="38" rx="21" ry="13" fill="#E8806A"/>
+      <ellipse cx="50" cy="62" rx="17" ry="10" fill="#5D9B3A"/>
+      <circle cx="50" cy="50" r="12" fill="#F5EED8"/>
+    </svg>
+  </div>
   <div class="menu-inner">
     <div class="menu-hd anim">
       <p class="lbl">La Nostra Carta</p>
@@ -896,6 +1054,15 @@
 
 <!-- ═══════════ RESERVATION -->
 <section id="reservation">
+  <!-- Floating food -->
+  <div class="ffood hide-m" style="top:8%;right:5%;width:58px;--ra:6deg;--rb:-8deg;--fd:9s">
+    <svg viewBox="0 0 80 100" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16 28 L64 34 L44 92 Z" fill="#16240E" stroke="rgba(201,168,76,.25)" stroke-width="1"/>
+      <path d="M20 30 Q34 18 48 22 Q60 24 62 33 L40 38 Z" fill="#F5EED8"/>
+      <ellipse cx="38" cy="20" rx="9" ry="6" fill="#C94A4A"/>
+      <ellipse cx="52" cy="19" rx="7" ry="5" fill="#5D9B3A"/>
+    </svg>
+  </div>
   <div class="res-inner">
     <div>
       <p class="lbl anim">Contattaci</p>
@@ -1003,6 +1170,35 @@ const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } });
 }, {threshold:0.12});
 document.querySelectorAll('.anim').forEach(el => obs.observe(el));
+
+// ── Page transition: bacchette che afferrano il nigiri
+const ptOv = document.getElementById('ptOverlay');
+const ptReduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let ptBusy = false;
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const href = a.getAttribute('href');
+    const target = href === '#' ? document.body : document.querySelector(href);
+    if(!target) return;
+    e.preventDefault();
+    mob.classList.remove('open');
+    if(ptReduce || ptBusy){
+      target === document.body ? scrollTo({top:0}) : target.scrollIntoView();
+      return;
+    }
+    ptBusy = true;
+    ptOv.classList.add('play');
+    // salto di pagina mentre lo schermo è coperto dal sipario
+    setTimeout(() => {
+      const html = document.documentElement;
+      const prev = html.style.scrollBehavior;
+      html.style.scrollBehavior = 'auto';
+      target === document.body ? scrollTo(0,0) : target.scrollIntoView();
+      html.style.scrollBehavior = prev;
+    }, 700);
+    setTimeout(() => { ptOv.classList.remove('play'); ptBusy = false; }, 2450);
+  });
+});
 
 // ── Menu tabs
 document.querySelectorAll('.menu-tab').forEach(tab => {
