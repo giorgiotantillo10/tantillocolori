@@ -380,15 +380,15 @@
     #ptOverlay.pt-open .pt-center { opacity:1; }
     #ptOverlay.pt-opening .pt-center { opacity:0; }
     .pt-scene { width:160px; height:210px; overflow:visible; }
-    .pt-grab { transform:translateY(-210px); transition:transform 1.4s cubic-bezier(0.4,0,0.2,1); }
+    .pt-grab { transform:translateY(-235px); transition:transform .6s cubic-bezier(0.33,0,0.2,1); }
     #ptOverlay.pt-open .pt-grab { transform:translateY(0); }
-    #ptOverlay.pt-open .pt-nigiri { transform:translateY(0); }
-    .pt-lift .pt-grab, .pt-lift .pt-nigiri { transform:translateY(-260px) rotate(-4deg) !important; transition:transform .6s cubic-bezier(0.4,0,1,1) !important; }
-    .pt-stick-l { transform:rotate(-5deg); transition:transform .25s ease; transform-box:fill-box; transform-origin:top center; }
-    .pt-stick-r { transform:rotate(5deg); transition:transform .25s ease; transform-box:fill-box; transform-origin:top center; }
-    #ptOverlay.pt-open .pt-stick-l { transform:rotate(0deg); }
-    #ptOverlay.pt-open .pt-stick-r { transform:rotate(0deg); }
-    .pt-shadow { transition:opacity .6s, transform .6s; transform-box:fill-box; transform-origin:center; }
+    .pt-nigiri { transition:transform .55s cubic-bezier(0.4,0,1,1); }
+    .pt-lift .pt-grab, .pt-lift .pt-nigiri { transform:translateY(-285px) rotate(-3deg) !important; transition:transform .55s cubic-bezier(0.4,0,1,1) !important; }
+    .pt-stick-l { transform:rotate(-9deg); transition:transform .2s ease; transform-box:fill-box; transform-origin:top center; }
+    .pt-stick-r { transform:rotate(9deg); transition:transform .2s ease; transform-box:fill-box; transform-origin:top center; }
+    #ptOverlay.pt-grabbed .pt-stick-l { transform:rotate(0deg); }
+    #ptOverlay.pt-grabbed .pt-stick-r { transform:rotate(0deg); }
+    .pt-shadow { transition:opacity .5s, transform .5s; transform-box:fill-box; transform-origin:center; }
     .pt-lift .pt-shadow { opacity:0 !important; transform:scaleX(.4) !important; }
     .pt-label { font-family:var(--serif); font-size:1rem; letter-spacing:.55em; color:var(--gold); text-indent:.55em; }
     .pt-label-jp { font-family:var(--serif); font-size:.75rem; letter-spacing:.4em; color:var(--muted); text-indent:.4em; }
@@ -1545,25 +1545,27 @@ document.querySelectorAll('.anim').forEach(el => obs.observe(el));
     busy = true;
     // fase 1 — chiudi sipario (pannelli scendono, 0-420ms)
     cl.add('pt-active','pt-closing');
-    // fase 2 — mostra bacchette + nigiri (420ms)
+    // fase 2 — sipario chiuso, le bacchette scendono verso il nigiri (430ms, discesa .6s)
     setTimeout(() => {
       cl.remove('pt-closing');
       cl.add('pt-open');
     }, 430);
-    // fase 3 — salta alla sezione (sipario già chiuso, 700ms)
-    setTimeout(() => jumpTo(target), 700);
-    // fase 4 — solleva nigiri (1300ms)
+    // fase 3 — salta alla sezione dietro al sipario chiuso (720ms)
+    setTimeout(() => jumpTo(target), 720);
+    // fase 4 — le bacchette arrivano sul nigiri e si chiudono a pinza (1050ms)
+    setTimeout(() => cl.add('pt-grabbed'), 1050);
+    // fase 5 — sollevano il nigiri afferrato (1300ms)
     setTimeout(() => cl.add('pt-lift'), 1300);
-    // fase 5 — apri sipario (1700ms, transition 420ms)
+    // fase 6 — apri sipario (1950ms, transition 420ms)
     setTimeout(() => {
-      cl.remove('pt-open','pt-lift');
+      cl.remove('pt-open','pt-grabbed','pt-lift');
       cl.add('pt-opening');
-    }, 1700);
-    // fase 6 — ripristina tutto (2200ms)
+    }, 1950);
+    // fase 7 — ripristina tutto (2420ms)
     setTimeout(() => {
       cl.remove('pt-active','pt-opening');
       busy = false;
-    }, 2200);
+    }, 2420);
   }
 
   document.querySelectorAll('a[href^="#"]').forEach(a => {
