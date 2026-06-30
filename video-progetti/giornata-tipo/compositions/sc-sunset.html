@@ -1,0 +1,186 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Archivo Black", sans-serif;
+          color: #f2ece1;
+          background: transparent;
+        }
+        .su-wipe {
+          position: absolute;
+          inset: 0;
+          background: #0b0908;
+          z-index: 50;
+          opacity: 1;
+        }
+        .su-grade {
+          position: absolute;
+          inset: 0;
+          z-index: 5;
+          pointer-events: none;
+          background: linear-gradient(180deg, rgba(255, 138, 30, 0.16) 0%, rgba(11, 9, 8, 0) 35%, rgba(11, 9, 8, 0.5) 100%);
+        }
+        .su-letterbox {
+          position: absolute;
+          left: 0;
+          right: 0;
+          height: 220px;
+          background: #0b0908;
+          z-index: 9;
+        }
+        .su-letterbox-top {
+          top: 0;
+          transform: translateY(-100%);
+        }
+        .su-letterbox-bottom {
+          bottom: 0;
+          transform: translateY(100%);
+        }
+        .su-headline {
+          position: absolute;
+          left: 96px;
+          top: 460px;
+          z-index: 10;
+          font-size: 124px;
+          line-height: 0.96;
+          letter-spacing: -0.03em;
+        }
+        .su-headline .accent {
+          color: #ffb15e;
+        }
+        .su-sub {
+          position: absolute;
+          left: 100px;
+          top: 780px;
+          z-index: 10;
+          font-family: "JetBrains Mono", monospace;
+          font-size: 36px;
+          opacity: 0;
+        }
+        .su-badge {
+          position: absolute;
+          top: 460px;
+          right: 96px;
+          z-index: 10;
+          font-family: "JetBrains Mono", monospace;
+          font-size: 30px;
+          letter-spacing: 0.1em;
+          color: #0b0908;
+          background: #f2ece1;
+          padding: 14px 28px;
+          opacity: 0;
+          transform: scale(0.7);
+        }
+        .su-coord {
+          position: absolute;
+          right: 96px;
+          bottom: 480px;
+          z-index: 10;
+          text-align: right;
+          font-family: "JetBrains Mono", monospace;
+          font-size: 30px;
+          color: #f2ece1;
+          opacity: 0;
+          line-height: 1.5;
+        }
+        .su-rule {
+          position: absolute;
+          left: 96px;
+          bottom: 600px;
+          width: 0;
+          height: 4px;
+          background: #ffb15e;
+          z-index: 10;
+        }
+        .su-quote {
+          position: absolute;
+          left: 96px;
+          bottom: 460px;
+          z-index: 10;
+          font-family: "JetBrains Mono", monospace;
+          font-size: 32px;
+          opacity: 0;
+          letter-spacing: 0.02em;
+          max-width: 1200px;
+        }
+        .su-sun-tick {
+          position: absolute;
+          left: 96px;
+          top: 1000px;
+          z-index: 10;
+          width: 90px;
+          height: 90px;
+          border-radius: 50%;
+          border: 4px solid #ffb15e;
+          opacity: 0;
+        }
+      </style>
+      <div id="root" data-composition-id="sc-sunset" data-width="2160" data-height="3840">
+        <div class="su-grade"></div>
+
+        <div class="su-badge mono" id="su-badge">FASE 04 / 06</div>
+        <div class="su-headline" id="su-headline">19:45<br /><span class="accent">TRAMONTO</span></div>
+        <div class="su-sub mono" id="su-sub">COSTA ROCCIOSA — RESPIRO</div>
+        <div class="su-sun-tick" id="su-sun"></div>
+
+        <div class="su-rule" id="su-rule"></div>
+        <div class="su-quote" id="su-quote">“UN MINUTO PER GUARDARE IL MARE.”</div>
+        <div class="su-coord mono" id="su-coord">SOLE 248° SO<br />T 21°C · VENTO LIEVE</div>
+
+        <div class="su-letterbox su-letterbox-top" id="su-lb-top"></div>
+        <div class="su-letterbox su-letterbox-bottom" id="su-lb-bottom"></div>
+        <div class="su-wipe" id="su-wipe"></div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        // ---- Transition IN: blur crossfade / focus pull (calm energy) ----
+        tl.fromTo("#su-wipe", { opacity: 1, filter: "blur(0px)" }, { opacity: 0, filter: "blur(24px)", duration: 0.75, ease: "sine.inOut" }, 0);
+        tl.set("#su-wipe", { display: "none" }, 0.75);
+
+        tl.fromTo("#su-lb-top", { yPercent: -100 }, { yPercent: 0, duration: 0.6, ease: "power2.out" }, 0.1);
+        tl.fromTo("#su-lb-bottom", { yPercent: 100 }, { yPercent: 0, duration: 0.6, ease: "power2.out" }, 0.1);
+
+        tl.fromTo(
+          "#su-badge",
+          { opacity: 0, scale: 0.7 },
+          { opacity: 0.9, scale: 1, duration: 0.45, ease: "back.out(1.7)" },
+          0.55,
+        );
+        tl.fromTo(
+          "#su-headline",
+          { opacity: 0, y: 50, filter: "blur(16px)" },
+          { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9, ease: "sine.out" },
+          0.65,
+        );
+        tl.fromTo("#su-sub", { opacity: 0 }, { opacity: 0.85, duration: 0.6, ease: "sine.out" }, 1.0);
+        tl.fromTo(
+          "#su-sun",
+          { opacity: 0, scale: 0.6 },
+          { opacity: 0.8, scale: 1, duration: 0.6, ease: "back.out(1.4)" },
+          1.1,
+        );
+
+        tl.fromTo("#su-rule", { width: 0 }, { width: 360, duration: 0.6, ease: "power3.out" }, 1.3);
+        tl.fromTo("#su-quote", { opacity: 0, x: -20 }, { opacity: 0.8, x: 0, duration: 0.6, ease: "sine.out" }, 1.5);
+        tl.fromTo("#su-coord", { opacity: 0, x: 20 }, { opacity: 0.75, x: 0, duration: 0.6, ease: "sine.out" }, 1.7);
+
+        // ambient breathing of sun ring + coords (slow, calm energy)
+        tl.to("#su-sun", { scale: 1.08, duration: 1.4, ease: "sine.inOut", yoyo: true, repeat: 2 }, 2.0);
+        tl.to("#su-coord", { opacity: 0.55, duration: 1.3, ease: "sine.inOut", yoyo: true, repeat: 2 }, 2.0);
+
+        window.__timelines["sc-sunset"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,254 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Archivo Black", sans-serif;
+          color: #f2ece1;
+          background: transparent;
+        }
+        .ni-wipe {
+          position: absolute;
+          inset: 0;
+          background: #0b0908;
+          z-index: 50;
+          transform: translateY(0%);
+        }
+        .ni-grade {
+          position: absolute;
+          inset: 0;
+          z-index: 5;
+          pointer-events: none;
+          background: linear-gradient(180deg, rgba(229, 56, 59, 0.14) 0%, rgba(11, 9, 8, 0.15) 40%, rgba(11, 9, 8, 0.65) 100%);
+        }
+        .ni-scan {
+          position: absolute;
+          left: 0;
+          right: 0;
+          height: 3px;
+          background: rgba(46, 196, 182, 0.5);
+          z-index: 7;
+          opacity: 0;
+        }
+        .ni-headline {
+          position: absolute;
+          left: 96px;
+          top: 420px;
+          z-index: 10;
+          font-size: 116px;
+          line-height: 0.96;
+          letter-spacing: -0.03em;
+        }
+        .ni-headline .accent {
+          color: #2ec4b6;
+        }
+        .ni-sub {
+          position: absolute;
+          left: 100px;
+          top: 720px;
+          z-index: 10;
+          font-family: "JetBrains Mono", monospace;
+          font-size: 36px;
+          opacity: 0;
+        }
+        .ni-badge {
+          position: absolute;
+          top: 420px;
+          right: 96px;
+          z-index: 10;
+          font-family: "JetBrains Mono", monospace;
+          font-size: 30px;
+          letter-spacing: 0.1em;
+          color: #0b0908;
+          background: #f2ece1;
+          padding: 14px 28px;
+          opacity: 0;
+          transform: scale(0.7);
+        }
+        .ni-hud-panel {
+          position: absolute;
+          left: 96px;
+          bottom: 520px;
+          z-index: 10;
+          font-family: "JetBrains Mono", monospace;
+          border-left: 4px solid #2ec4b6;
+          padding-left: 28px;
+          opacity: 0;
+        }
+        .ni-hud-panel .speed {
+          font-size: 96px;
+          color: #2ec4b6;
+          line-height: 1;
+        }
+        .ni-hud-panel .unit {
+          font-size: 28px;
+          opacity: 0.7;
+          letter-spacing: 0.1em;
+        }
+        .ni-track-panel {
+          position: absolute;
+          right: 96px;
+          bottom: 540px;
+          z-index: 10;
+          text-align: right;
+          font-family: "JetBrains Mono", monospace;
+          opacity: 0;
+        }
+        .ni-track-panel .now-playing {
+          font-size: 24px;
+          opacity: 0.6;
+          letter-spacing: 0.15em;
+        }
+        .ni-track-panel .track {
+          font-size: 38px;
+          color: #f2ece1;
+          margin-top: 6px;
+        }
+        .ni-track-panel .artist {
+          font-size: 28px;
+          opacity: 0.7;
+        }
+        .ni-eq {
+          display: flex;
+          gap: 6px;
+          justify-content: flex-end;
+          margin-top: 14px;
+        }
+        .ni-eq .bar {
+          width: 8px;
+          height: 20px;
+          background: #2ec4b6;
+          opacity: 0.7;
+          transform-origin: bottom center;
+        }
+        .ni-bottom-rule {
+          position: absolute;
+          left: 96px;
+          right: 96px;
+          bottom: 320px;
+          height: 3px;
+          background: rgba(242, 236, 225, 0.22);
+          z-index: 10;
+          transform-origin: left center;
+          transform: scaleX(0);
+        }
+        .ni-time-meta {
+          position: absolute;
+          left: 96px;
+          bottom: 240px;
+          z-index: 10;
+          font-family: "JetBrains Mono", monospace;
+          font-size: 30px;
+          opacity: 0;
+          letter-spacing: 0.08em;
+        }
+      </style>
+      <div id="root" data-composition-id="sc-night" data-width="2160" data-height="3840">
+        <div class="ni-grade"></div>
+        <div class="ni-scan" id="ni-scan" style="top: 1200px;"></div>
+
+        <div class="ni-badge mono" id="ni-badge">FASE 05 / 06</div>
+        <div class="ni-headline" id="ni-headline">23:10<br /><span class="accent">ON THE ROAD</span></div>
+        <div class="ni-sub mono" id="ni-sub">RIENTRO — STRADA COSTIERA</div>
+
+        <div class="ni-hud-panel" id="ni-hud">
+          <div class="speed mono" id="ni-speed">76</div>
+          <div class="unit mono">KM/H · MODALITÀ NOTTE</div>
+        </div>
+
+        <div class="ni-track-panel" id="ni-track">
+          <div class="now-playing mono">IN RIPRODUZIONE</div>
+          <div class="track mono">S&amp;M</div>
+          <div class="artist mono">Rihanna</div>
+          <div class="ni-eq" id="ni-eq">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+        </div>
+
+        <div class="ni-bottom-rule" id="ni-bottom-rule"></div>
+        <div class="ni-time-meta mono" id="ni-time-meta">28 KM ALLA META · ARRIVO 23:34</div>
+
+        <div class="ni-wipe" id="ni-wipe"></div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        // ---- Transition IN: vertical push (editorial direction change, topic-change feel) ----
+        tl.fromTo("#ni-wipe", { yPercent: 0 }, { yPercent: -100, duration: 0.45, ease: "power3.inOut" }, 0);
+        tl.set("#ni-wipe", { display: "none" }, 0.45);
+
+        tl.fromTo(
+          "#ni-badge",
+          { opacity: 0, scale: 0.7 },
+          { opacity: 0.9, scale: 1, duration: 0.4, ease: "back.out(2)" },
+          0.45,
+        );
+        tl.fromTo(
+          "#ni-headline",
+          { y: -120, opacity: 0, filter: "blur(12px)" },
+          { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.55, ease: "power3.out" },
+          0.52,
+        );
+        tl.fromTo("#ni-sub", { opacity: 0, x: -30 }, { opacity: 0.85, x: 0, duration: 0.4, ease: "power2.out" }, 0.8);
+
+        tl.fromTo(
+          "#ni-hud",
+          { opacity: 0, x: -40 },
+          { opacity: 1, x: 0, duration: 0.45, ease: "power2.out" },
+          1.0,
+        );
+        // speed counts up from 0 to 76 (deterministic counting rule)
+        tl.fromTo(
+          "#ni-speed",
+          { textContent: 0 },
+          { textContent: 76, duration: 0.9, ease: "power2.out", snap: { textContent: 1 } },
+          1.05,
+        );
+
+        tl.fromTo(
+          "#ni-track",
+          { opacity: 0, x: 40 },
+          { opacity: 1, x: 0, duration: 0.45, ease: "power2.out" },
+          1.3,
+        );
+
+        // EQ bars pulse like a playing track — finite, deterministic per-bar cycles
+        const bars = gsap.utils.toArray("#ni-eq .bar");
+        bars.forEach((b, i) => {
+          tl.to(
+            b,
+            {
+              scaleY: 1.8 + (i % 3) * 0.4,
+              duration: 0.28 + i * 0.02,
+              ease: "sine.inOut",
+              yoyo: true,
+              repeat: 9,
+            },
+            1.6 + i * 0.05,
+          );
+        });
+
+        tl.fromTo("#ni-bottom-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: "power3.out" }, 1.5);
+        tl.fromTo("#ni-time-meta", { opacity: 0, y: 16 }, { opacity: 0.65, y: 0, duration: 0.4, ease: "power2.out" }, 1.7);
+
+        // scanline ambient sweep
+        tl.fromTo("#ni-scan", { y: -1100, opacity: 0.5 }, { y: 1100, duration: 3.2, ease: "none", repeat: 0 }, 1.9);
+
+        window.__timelines["sc-night"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

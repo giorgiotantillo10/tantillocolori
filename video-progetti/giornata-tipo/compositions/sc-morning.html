@@ -1,0 +1,220 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Archivo Black", sans-serif;
+          color: #f2ece1;
+          background: transparent;
+        }
+        /* Wipe-in cover panel — slides off to reveal scene (transition INTO this scene) */
+        .mo-wipe {
+          position: absolute;
+          inset: 0;
+          background: #0b0908;
+          z-index: 40;
+          transform: translateX(0%);
+        }
+        .mo-glitch-bar {
+          position: absolute;
+          left: 0;
+          right: 0;
+          height: 26px;
+          background: #ff8a1e;
+          opacity: 0;
+          z-index: 41;
+        }
+        .mo-vignette {
+          position: absolute;
+          inset: 0;
+          z-index: 5;
+          pointer-events: none;
+          background: radial-gradient(ellipse at 50% 40%, rgba(11, 9, 8, 0) 38%, rgba(11, 9, 8, 0.62) 100%);
+        }
+        .mo-grade {
+          position: absolute;
+          inset: 0;
+          z-index: 4;
+          pointer-events: none;
+          background: linear-gradient(180deg, rgba(255, 138, 30, 0.1) 0%, rgba(11, 9, 8, 0) 30%, rgba(11, 9, 8, 0.35) 100%);
+        }
+        .mo-top-meta {
+          position: absolute;
+          top: 280px;
+          left: 96px;
+          z-index: 10;
+          font-family: "JetBrains Mono", monospace;
+          font-size: 34px;
+          letter-spacing: 0.12em;
+          color: #f2ece1;
+          opacity: 0;
+        }
+        .mo-headline {
+          position: absolute;
+          left: 96px;
+          bottom: 980px;
+          z-index: 10;
+          font-size: 124px;
+          line-height: 0.96;
+          letter-spacing: -0.03em;
+        }
+        .mo-headline .accent {
+          color: #ff8a1e;
+        }
+        .mo-sub {
+          position: absolute;
+          left: 100px;
+          bottom: 880px;
+          z-index: 10;
+          font-family: "JetBrains Mono", monospace;
+          font-size: 36px;
+          letter-spacing: 0.04em;
+          color: #f2ece1;
+          opacity: 0.85;
+        }
+        .mo-rule {
+          position: absolute;
+          left: 96px;
+          bottom: 850px;
+          width: 0;
+          height: 5px;
+          background: #ff8a1e;
+          z-index: 10;
+        }
+        .mo-stat-row {
+          position: absolute;
+          right: 96px;
+          bottom: 850px;
+          z-index: 10;
+          text-align: right;
+          font-family: "JetBrains Mono", monospace;
+          color: #f2ece1;
+          opacity: 0;
+        }
+        .mo-stat-row .big {
+          font-size: 70px;
+          font-weight: 700;
+          color: #ff8a1e;
+        }
+        .mo-stat-row .small {
+          font-size: 28px;
+          letter-spacing: 0.08em;
+          opacity: 0.75;
+        }
+        .mo-badge {
+          position: absolute;
+          top: 280px;
+          right: 96px;
+          z-index: 10;
+          font-family: "JetBrains Mono", monospace;
+          font-size: 30px;
+          letter-spacing: 0.1em;
+          color: #0b0908;
+          background: #f2ece1;
+          padding: 14px 28px;
+          opacity: 0;
+          transform: scale(0.7);
+        }
+        .mo-side-ticks {
+          position: absolute;
+          left: 96px;
+          top: 50%;
+          transform: translateY(-50%);
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+          z-index: 10;
+        }
+        .mo-side-ticks .tick {
+          width: 50px;
+          height: 4px;
+          background: #f2ece1;
+          opacity: 0;
+          transform-origin: left center;
+        }
+      </style>
+      <div id="root" data-composition-id="sc-morning" data-width="2160" data-height="3840">
+        <div class="mo-grade"></div>
+        <div class="mo-vignette"></div>
+
+        <div class="mo-badge mono" id="mo-badge">FASE 01 / 06</div>
+        <div class="mo-top-meta mono" id="mo-meta">CAM 01 · INTERNO BAGNO</div>
+
+        <div class="mo-side-ticks" id="mo-ticks">
+          <div class="tick"></div>
+          <div class="tick"></div>
+          <div class="tick"></div>
+          <div class="tick"></div>
+        </div>
+
+        <div class="mo-headline" id="mo-headline">06:30<br /><span class="accent">MATTINA</span></div>
+        <div class="mo-sub mono" id="mo-sub">RITUALE DI PARTENZA — SI PARTE.</div>
+        <div class="mo-rule" id="mo-rule"></div>
+
+        <div class="mo-stat-row" id="mo-stats">
+          <div class="big" id="mo-stat-num">+1</div>
+          <div class="small">GIORNO INIZIATO</div>
+        </div>
+
+        <div class="mo-glitch-bar" id="mo-bar1" style="top: 30%;"></div>
+        <div class="mo-glitch-bar" id="mo-bar2" style="top: 62%;"></div>
+        <div class="mo-wipe" id="mo-wipe"></div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        // ---- Transition IN: glitch bars flash, then wipe slides off (whip feel) ----
+        tl.to("#mo-bar1", { opacity: 0.9, duration: 0.05 }, 0);
+        tl.to("#mo-bar1", { opacity: 0, duration: 0.05 }, 0.07);
+        tl.to("#mo-bar2", { opacity: 0.9, duration: 0.05 }, 0.05);
+        tl.to("#mo-bar2", { opacity: 0, duration: 0.05 }, 0.12);
+        tl.to("#mo-wipe", { x: "-100%", duration: 0.42, ease: "power4.inOut" }, 0.08);
+
+        // ---- Entrances (distinct per element, staggered) ----
+        tl.fromTo(
+          "#mo-badge",
+          { opacity: 0, scale: 0.7 },
+          { opacity: 0.9, scale: 1, duration: 0.4, ease: "back.out(2)" },
+          0.4,
+        );
+        tl.fromTo("#mo-meta", { opacity: 0, x: -40 }, { opacity: 0.75, x: 0, duration: 0.4, ease: "power2.out" }, 0.5);
+
+        tl.fromTo(
+          "#mo-headline",
+          { y: 140, opacity: 0, filter: "blur(14px)" },
+          { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.65, ease: "power3.out" },
+          0.55,
+        );
+        tl.fromTo("#mo-sub", { opacity: 0, x: -30 }, { opacity: 0.85, x: 0, duration: 0.4, ease: "power2.out" }, 0.85);
+        tl.fromTo("#mo-rule", { width: 0 }, { width: 320, duration: 0.5, ease: "power3.out" }, 0.9);
+
+        tl.fromTo(
+          "#mo-stats",
+          { opacity: 0, y: -20 },
+          { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.6)" },
+          1.0,
+        );
+
+        const ticks = gsap.utils.toArray("#mo-ticks .tick");
+        ticks.forEach((t, i) => {
+          tl.fromTo(t, { scaleX: 0, opacity: 0 }, { scaleX: 1, opacity: 0.6, duration: 0.3, ease: "power2.out" }, 0.6 + i * 0.08);
+        });
+
+        // ---- Ambient holds across the rest of the scene ----
+        tl.to("#mo-ticks .tick", { opacity: 0.3, duration: 0.9, ease: "sine.inOut", yoyo: true, repeat: 2 }, 1.4);
+        tl.to("#mo-rule", { opacity: 0.6, duration: 0.8, ease: "sine.inOut", yoyo: true, repeat: 2 }, 1.6);
+
+        window.__timelines["sc-morning"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

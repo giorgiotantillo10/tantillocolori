@@ -1,0 +1,250 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Archivo Black", sans-serif;
+          color: #f2ece1;
+          background: transparent;
+        }
+        .dg-wipe {
+          position: absolute;
+          inset: 0;
+          background: #0b0908;
+          z-index: 50;
+        }
+        .dg-glitch-bar {
+          position: absolute;
+          left: 0;
+          right: 0;
+          height: 40px;
+          background: #2ec4b6;
+          opacity: 0;
+          z-index: 30;
+        }
+        .dg-speed-line {
+          position: absolute;
+          right: -200px;
+          width: 600px;
+          height: 8px;
+          background: linear-gradient(90deg, rgba(242, 236, 225, 0) 0%, rgba(242, 236, 225, 0.55) 100%);
+          z-index: 6;
+          opacity: 0;
+        }
+        .dg-vignette {
+          position: absolute;
+          inset: 0;
+          z-index: 5;
+          pointer-events: none;
+          background: radial-gradient(ellipse at 50% 55%, rgba(11, 9, 8, 0) 42%, rgba(11, 9, 8, 0.55) 100%);
+        }
+        .dg-headline {
+          position: absolute;
+          left: 96px;
+          top: 420px;
+          z-index: 8;
+          font-size: 124px;
+          line-height: 0.96;
+          letter-spacing: -0.03em;
+        }
+        .dg-headline .accent {
+          color: #2ec4b6;
+        }
+        .dg-sub {
+          position: absolute;
+          left: 100px;
+          top: 740px;
+          z-index: 8;
+          font-family: "JetBrains Mono", monospace;
+          font-size: 36px;
+          opacity: 0;
+        }
+        .dg-badge {
+          position: absolute;
+          top: 280px;
+          right: 96px;
+          z-index: 8;
+          font-family: "JetBrains Mono", monospace;
+          font-size: 30px;
+          letter-spacing: 0.1em;
+          color: #0b0908;
+          background: #f2ece1;
+          padding: 14px 28px;
+          opacity: 0;
+          transform: scale(0.7);
+        }
+        .dg-hud-row {
+          position: absolute;
+          left: 96px;
+          bottom: 320px;
+          right: 96px;
+          z-index: 8;
+          display: flex;
+          justify-content: space-between;
+          font-family: "JetBrains Mono", monospace;
+          font-size: 32px;
+          color: #f2ece1;
+        }
+        .dg-hud-row .item {
+          opacity: 0;
+        }
+        .dg-hud-row .accent {
+          color: #2ec4b6;
+        }
+        .dg-bottom-rule {
+          position: absolute;
+          left: 96px;
+          right: 96px;
+          bottom: 420px;
+          height: 3px;
+          background: rgba(242, 236, 225, 0.25);
+          z-index: 8;
+          transform-origin: left center;
+          transform: scaleX(0);
+        }
+        .dg-paw-tick {
+          position: absolute;
+          left: 96px;
+          top: 1000px;
+          display: flex;
+          gap: 18px;
+          z-index: 8;
+        }
+        .dg-paw-tick .p {
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+          background: #2ec4b6;
+          opacity: 0.15;
+        }
+      </style>
+      <div id="root" data-composition-id="sc-dogs" data-width="2160" data-height="3840">
+        <div class="dg-vignette"></div>
+
+        <div class="dg-speed-line" id="dg-sl-1" style="top: 900px;"></div>
+        <div class="dg-speed-line" id="dg-sl-2" style="top: 1500px;"></div>
+        <div class="dg-speed-line" id="dg-sl-3" style="top: 2200px;"></div>
+        <div class="dg-speed-line" id="dg-sl-4" style="top: 2800px;"></div>
+
+        <div class="dg-badge mono" id="dg-badge">FASE 03 / 06</div>
+        <div class="dg-headline" id="dg-headline">17:30<br /><span class="accent">I CANI</span></div>
+        <div class="dg-sub mono" id="dg-sub">PASSEGGIATA SUL LUNGOMARE</div>
+
+        <div class="dg-paw-tick" id="dg-paws">
+          <div class="p"></div>
+          <div class="p"></div>
+          <div class="p"></div>
+          <div class="p"></div>
+          <div class="p"></div>
+          <div class="p"></div>
+        </div>
+
+        <div class="dg-bottom-rule" id="dg-bottom-rule"></div>
+        <div class="dg-hud-row">
+          <div class="item mono" id="dg-hud-1">VEL <span class="accent">5.2</span> KM/H</div>
+          <div class="item mono" id="dg-hud-2">2 CANI · GUINZAGLIO</div>
+        </div>
+
+        <div class="dg-glitch-bar" id="dg-bar1" style="top: 22%;"></div>
+        <div class="dg-glitch-bar" id="dg-bar2" style="top: 58%;"></div>
+        <div class="dg-glitch-bar" id="dg-bar3" style="top: 80%;"></div>
+        <div class="dg-wipe" id="dg-wipe"></div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        // ---- Transition IN: glitch flash bars (tense/edgy match for handheld energy) ----
+        tl.to("#dg-bar1", { opacity: 0.85, duration: 0.045 }, 0);
+        tl.to("#dg-bar1", { opacity: 0, duration: 0.045 }, 0.06);
+        tl.to("#dg-bar2", { opacity: 0.85, duration: 0.045 }, 0.04);
+        tl.to("#dg-bar2", { opacity: 0, duration: 0.045 }, 0.1);
+        tl.to("#dg-bar3", { opacity: 0.85, duration: 0.045 }, 0.08);
+        tl.to("#dg-bar3", { opacity: 0, duration: 0.045 }, 0.14);
+        tl.to("#dg-wipe", { opacity: 0, duration: 0.18, ease: "power4.in" }, 0);
+        tl.set("#dg-wipe", { display: "none" }, 0.18);
+
+        tl.fromTo(
+          "#dg-badge",
+          { opacity: 0, scale: 0.7 },
+          { opacity: 0.9, scale: 1, duration: 0.35, ease: "back.out(2)" },
+          0.2,
+        );
+        tl.fromTo(
+          "#dg-headline",
+          { scale: 1.5, filter: "blur(18px)", opacity: 0 },
+          { scale: 1, filter: "blur(0px)", opacity: 1, duration: 0.42, ease: "power4.out" },
+          0.26,
+        );
+        tl.fromTo("#dg-sub", { opacity: 0, x: -30 }, { opacity: 0.85, x: 0, duration: 0.35, ease: "power2.out" }, 0.55);
+
+        // speed lines streak across, staggered (matches handheld whip motion)
+        const lines = ["#dg-sl-1", "#dg-sl-2", "#dg-sl-3", "#dg-sl-4"];
+        lines.forEach((sel, i) => {
+          tl.fromTo(
+            sel,
+            { x: 0, opacity: 0 },
+            { x: -2200, opacity: 0.8, duration: 0.5, ease: "power2.in" },
+            0.4 + i * 0.18,
+          );
+          tl.to(sel, { opacity: 0, duration: 0.15 }, 0.4 + i * 0.18 + 0.35);
+        });
+        // repeat speed line bursts twice more across the scene for sustained energy
+        lines.forEach((sel, i) => {
+          tl.fromTo(
+            sel,
+            { x: 0, opacity: 0 },
+            { x: -2200, opacity: 0.7, duration: 0.45, ease: "power2.in" },
+            2.0 + i * 0.15,
+          );
+          tl.to(sel, { opacity: 0, duration: 0.15 }, 2.0 + i * 0.15 + 0.3);
+        });
+        lines.forEach((sel, i) => {
+          tl.fromTo(
+            sel,
+            { x: 0, opacity: 0 },
+            { x: -2200, opacity: 0.6, duration: 0.4, ease: "power2.in" },
+            3.6 + i * 0.12,
+          );
+          tl.to(sel, { opacity: 0, duration: 0.12 }, 3.6 + i * 0.12 + 0.25);
+        });
+
+        tl.fromTo("#dg-bottom-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: "power3.out" }, 0.7);
+        tl.fromTo("#dg-hud-1", { opacity: 0, y: 16 }, { opacity: 0.8, y: 0, duration: 0.35, ease: "power2.out" }, 0.85);
+        tl.fromTo("#dg-hud-2", { opacity: 0, y: 16 }, { opacity: 0.8, y: 0, duration: 0.35, ease: "power2.out" }, 0.98);
+
+        const paws = gsap.utils.toArray("#dg-paws .p");
+        paws.forEach((p, i) => {
+          tl.to(p, { opacity: 0.9, duration: 0.18, yoyo: true, repeat: 1, overwrite: "auto", ease: "none" }, 0.6 + i * 0.22);
+        });
+        // repeat paw-tick walking cadence across the scene
+        paws.forEach((p, i) => {
+          tl.to(p, { opacity: 0.9, duration: 0.18, yoyo: true, repeat: 1, overwrite: "auto", ease: "none" }, 2.4 + i * 0.22);
+        });
+
+        // velocity readout ticks up then settles, deterministic count
+        tl.fromTo(
+          "#dg-hud-1 .accent",
+          { textContent: 0 },
+          {
+            textContent: 5.2,
+            duration: 0.8,
+            ease: "power1.out",
+            snap: { textContent: 0.1 },
+          },
+          1.0,
+        );
+
+        window.__timelines["sc-dogs"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,184 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          background: #0b0908;
+          overflow: hidden;
+          font-family: "Archivo Black", sans-serif;
+          color: #f2ece1;
+        }
+        .op-bg-glow {
+          position: absolute;
+          width: 2400px;
+          height: 2400px;
+          left: 50%;
+          top: 50%;
+          margin-left: -1200px;
+          margin-top: -1200px;
+          background: radial-gradient(circle, rgba(255, 138, 30, 0.22) 0%, rgba(255, 138, 30, 0) 62%);
+          z-index: 1;
+        }
+        .op-ghost {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 18%;
+          text-align: center;
+          font-size: 560px;
+          line-height: 1;
+          color: #f2ece1;
+          opacity: 0.05;
+          letter-spacing: -0.04em;
+          z-index: 1;
+          white-space: nowrap;
+        }
+        .op-stage {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: flex-start;
+          padding: 0 160px;
+          z-index: 5;
+        }
+        .op-line {
+          font-size: 168px;
+          line-height: 0.98;
+          letter-spacing: -0.03em;
+          will-change: transform, filter, opacity;
+        }
+        .op-line .accent {
+          color: #ff8a1e;
+        }
+        .op-rule {
+          position: absolute;
+          left: 160px;
+          right: 160px;
+          height: 6px;
+          background: #ff8a1e;
+          transform-origin: left center;
+          transform: scaleX(0);
+          z-index: 5;
+        }
+        .op-rule-top {
+          top: 980px;
+        }
+        .op-rule-bottom {
+          bottom: 980px;
+        }
+        .op-tag {
+          position: absolute;
+          left: 160px;
+          bottom: 760px;
+          font-family: "JetBrains Mono", monospace;
+          font-size: 38px;
+          letter-spacing: 0.16em;
+          color: #ff8a1e;
+          opacity: 0;
+          z-index: 5;
+        }
+        .op-corner-meta {
+          position: absolute;
+          right: 160px;
+          top: 760px;
+          font-family: "JetBrains Mono", monospace;
+          font-size: 32px;
+          letter-spacing: 0.1em;
+          color: #f2ece1;
+          opacity: 0;
+          text-align: right;
+          z-index: 5;
+        }
+        .op-tick-row {
+          position: absolute;
+          left: 160px;
+          bottom: 560px;
+          display: flex;
+          gap: 18px;
+          z-index: 5;
+        }
+        .op-tick {
+          width: 14px;
+          height: 64px;
+          background: #f2ece1;
+          opacity: 0.2;
+        }
+      </style>
+      <div id="root" data-composition-id="sc-open" data-width="2160" data-height="3840">
+        <div class="op-bg-glow" id="op-glow"></div>
+        <div class="op-ghost" id="op-ghost">LOG</div>
+
+        <div class="op-rule op-rule-top" id="op-rule-top"></div>
+        <div class="op-corner-meta mono" id="op-meta">
+          LAT 38.11N<br />LON 13.36E<br />SICILIA · IT
+        </div>
+
+        <div class="op-stage">
+          <div class="op-line" id="op-l1">UNA</div>
+          <div class="op-line" id="op-l2"><span class="accent">GIORNATA</span></div>
+          <div class="op-line" id="op-l3">QUALSIASI</div>
+        </div>
+
+        <div class="op-tag mono" id="op-tag">REC 00:00:00 — AVVIO SEQUENZA</div>
+        <div class="op-tick-row" id="op-ticks">
+          <div class="op-tick"></div>
+          <div class="op-tick"></div>
+          <div class="op-tick"></div>
+          <div class="op-tick"></div>
+          <div class="op-tick"></div>
+        </div>
+        <div class="op-rule op-rule-bottom" id="op-rule-bottom"></div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        tl.fromTo("#op-glow", { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6, ease: "sine.out" }, 0);
+        tl.fromTo("#op-ghost", { opacity: 0, scale: 1.1 }, { opacity: 0.05, scale: 1, duration: 1.2, ease: "sine.out" }, 0);
+
+        tl.fromTo(
+          "#op-l1",
+          { scale: 1.6, filter: "blur(20px)", opacity: 0 },
+          { scale: 1, filter: "blur(0px)", opacity: 1, duration: 0.4, ease: "power4.out" },
+          0.05,
+        );
+        tl.fromTo(
+          "#op-l2",
+          { x: -360, opacity: 0 },
+          { x: 0, opacity: 1, duration: 0.38, ease: "expo.out" },
+          0.32,
+        );
+        tl.fromTo(
+          "#op-l3",
+          { y: 90, rotation: 5, opacity: 0 },
+          { y: 0, rotation: 0, opacity: 1, duration: 0.42, ease: "circ.out" },
+          0.58,
+        );
+
+        tl.fromTo("#op-rule-top", { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: "power3.out" }, 0.15);
+        tl.fromTo("#op-rule-bottom", { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: "power3.out" }, 0.32);
+        tl.to("#op-meta", { opacity: 0.7, duration: 0.3, ease: "power1.out" }, 0.4);
+        tl.to("#op-tag", { opacity: 0.85, duration: 0.3, ease: "power1.out" }, 0.55);
+
+        const ticks = gsap.utils.toArray("#op-ticks .op-tick");
+        ticks.forEach((t, i) => {
+          tl.to(t, { opacity: 1, duration: 0.07, yoyo: true, repeat: 1, ease: "none" }, 0.2 + i * 0.08);
+        });
+
+        // finale breath hold on the whole stage
+        tl.to(".op-stage", { scale: 1.015, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0.95);
+
+        window.__timelines["sc-open"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

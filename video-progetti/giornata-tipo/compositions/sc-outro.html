@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          background: #0b0908;
+          overflow: hidden;
+          font-family: "Archivo Black", sans-serif;
+          color: #f2ece1;
+        }
+        .ou-glow {
+          position: absolute;
+          width: 2600px;
+          height: 2600px;
+          left: 50%;
+          top: 50%;
+          margin-left: -1300px;
+          margin-top: -1300px;
+          background: radial-gradient(circle, rgba(255, 138, 30, 0.2) 0%, rgba(255, 138, 30, 0) 60%);
+          z-index: 1;
+          opacity: 0;
+        }
+        .ou-wipe {
+          position: absolute;
+          inset: 0;
+          background: #0b0908;
+          z-index: 50;
+          opacity: 1;
+        }
+        .ou-stage {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          z-index: 5;
+        }
+        .ou-line {
+          font-size: 156px;
+          line-height: 0.98;
+          letter-spacing: -0.03em;
+          text-align: center;
+        }
+        .ou-line .accent {
+          color: #ff8a1e;
+        }
+        .ou-rule {
+          width: 0;
+          height: 6px;
+          background: #ff8a1e;
+          margin-top: 56px;
+        }
+        .ou-tag {
+          margin-top: 48px;
+          font-family: "JetBrains Mono", monospace;
+          font-size: 34px;
+          letter-spacing: 0.18em;
+          opacity: 0;
+        }
+        .ou-meta {
+          position: absolute;
+          left: 96px;
+          bottom: 280px;
+          z-index: 5;
+          font-family: "JetBrains Mono", monospace;
+          font-size: 28px;
+          opacity: 0;
+          letter-spacing: 0.06em;
+        }
+        .ou-meta-right {
+          position: absolute;
+          right: 96px;
+          bottom: 280px;
+          z-index: 5;
+          font-family: "JetBrains Mono", monospace;
+          font-size: 28px;
+          opacity: 0;
+          letter-spacing: 0.06em;
+          text-align: right;
+        }
+        .ou-fade-final {
+          position: absolute;
+          inset: 0;
+          background: #0b0908;
+          z-index: 60;
+          opacity: 0;
+          pointer-events: none;
+        }
+      </style>
+      <div id="root" data-composition-id="sc-outro" data-width="2160" data-height="3840">
+        <div class="ou-glow" id="ou-glow"></div>
+        <div class="ou-stage">
+          <div class="ou-line" id="ou-l1">FINE<br /><span class="accent">GIORNATA</span></div>
+          <div class="ou-rule" id="ou-rule"></div>
+          <div class="ou-tag mono" id="ou-tag">TANTILLO · GIORNATA.LOG</div>
+        </div>
+        <div class="ou-meta mono" id="ou-meta-l">23:59 — CHIUSURA</div>
+        <div class="ou-meta-right mono" id="ou-meta-r">DOMANI SI RICOMINCIA</div>
+
+        <div class="ou-fade-final" id="ou-fade"></div>
+        <div class="ou-wipe" id="ou-wipe"></div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        // ---- Transition IN: color dip from black (gentle, outro mood) ----
+        tl.to("#ou-wipe", { opacity: 0, duration: 0.55, ease: "sine.inOut" }, 0);
+        tl.set("#ou-wipe", { display: "none" }, 0.55);
+        tl.fromTo("#ou-glow", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.7, ease: "sine.out" }, 0.2);
+
+        tl.fromTo(
+          "#ou-l1",
+          { scale: 1.4, filter: "blur(16px)", opacity: 0 },
+          { scale: 1, filter: "blur(0px)", opacity: 1, duration: 0.55, ease: "power4.out" },
+          0.35,
+        );
+        tl.fromTo("#ou-rule", { width: 0 }, { width: 360, duration: 0.5, ease: "power3.out" }, 0.85);
+        tl.fromTo("#ou-tag", { opacity: 0, y: 14 }, { opacity: 0.8, y: 0, duration: 0.4, ease: "power2.out" }, 1.0);
+
+        tl.fromTo("#ou-meta-l", { opacity: 0, x: -16 }, { opacity: 0.6, x: 0, duration: 0.4, ease: "power2.out" }, 1.1);
+        tl.fromTo("#ou-meta-r", { opacity: 0, x: 16 }, { opacity: 0.6, x: 0, duration: 0.4, ease: "power2.out" }, 1.2);
+
+        // ---- FINAL SCENE EXCEPTION: fade everything to black at the very end ----
+        tl.to(".ou-stage", { opacity: 0, scale: 1.04, duration: 0.4, ease: "power2.in" }, 1.55);
+        tl.to(["#ou-meta-l", "#ou-meta-r", "#ou-glow"], { opacity: 0, duration: 0.4, ease: "power2.in" }, 1.55);
+        tl.to("#ou-fade", { opacity: 1, duration: 0.45, ease: "power2.in" }, 1.6);
+
+        window.__timelines["sc-outro"] = tl;
+      </script>
+    </template>
+  </body>
+</html>
