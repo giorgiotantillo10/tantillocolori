@@ -31,12 +31,69 @@
           z-index: 1;
           letter-spacing: -0.04em;
         }
+        /* ---- Depth: parallax amber glow drifting behind the bezel ---- */
+        .wk-parallax {
+          position: absolute;
+          left: 10%;
+          top: 20%;
+          width: 90%;
+          height: 50%;
+          z-index: 2;
+          background: radial-gradient(ellipse at 50% 50%, rgba(255, 138, 30, 0.16) 0%, rgba(255, 138, 30, 0) 62%);
+          filter: blur(8px);
+          pointer-events: none;
+        }
+        /* ---- Dust motes drifting in the desk-lamp light beam ---- */
+        .wk-dust {
+          position: absolute;
+          border-radius: 50%;
+          background: rgba(255, 200, 140, 0.55);
+          z-index: 3;
+          opacity: 0;
+          pointer-events: none;
+        }
+        /* ---- Self-drawing frame brackets around the bezel ---- */
+        .wk-bracket {
+          position: absolute;
+          width: 90px;
+          height: 90px;
+          z-index: 7;
+          pointer-events: none;
+        }
+        .wk-bracket span {
+          position: absolute;
+          background: #ff8a1e;
+        }
+        .wk-bracket .h {
+          width: 100%;
+          height: 5px;
+          top: 0;
+          transform-origin: left center;
+          transform: scaleX(0);
+        }
+        .wk-bracket .v {
+          height: 100%;
+          width: 5px;
+          left: 0;
+          transform-origin: top center;
+          transform: scaleY(0);
+        }
+        .wk-bracket.tl { left: 190px; top: 1050px; }
+        .wk-bracket.tr { right: 190px; top: 1050px; }
+        .wk-bracket.tr .h { transform-origin: right center; }
+        .wk-bracket.tr span.v { left: auto; right: 0; transform-origin: top center; }
+        .wk-bracket.bl { left: 190px; bottom: 1130px; }
+        .wk-bracket.bl .h { top: auto; bottom: 0; }
+        .wk-bracket.bl .v { transform-origin: bottom center; }
+        .wk-bracket.br { right: 190px; bottom: 1130px; }
+        .wk-bracket.br .h { top: auto; bottom: 0; transform-origin: right center; }
+        .wk-bracket.br span.v { left: auto; right: 0; transform-origin: bottom center; }
         .wk-wipe {
           position: absolute;
           inset: 0;
           background: #0b0908;
           z-index: 50;
-          clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+          clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
         }
         /* Bezel/glow frame around the host video (positioned to match index.html video coords) */
         .wk-bezel {
@@ -198,6 +255,18 @@
       <div id="root" data-composition-id="sc-work" data-width="2160" data-height="3840">
         <div class="wk-bg-panel"></div>
         <div class="wk-ghost">WORK</div>
+        <div class="wk-parallax" id="wk-parallax"></div>
+
+        <!-- dust motes in the light beam, deterministic positions -->
+        <div class="wk-dust" id="wk-d1" style="left: 18%; top: 30%; width: 8px; height: 8px;"></div>
+        <div class="wk-dust" id="wk-d2" style="left: 30%; top: 22%; width: 5px; height: 5px;"></div>
+        <div class="wk-dust" id="wk-d3" style="left: 85%; top: 35%; width: 7px; height: 7px;"></div>
+        <div class="wk-dust" id="wk-d4" style="left: 12%; top: 55%; width: 6px; height: 6px;"></div>
+
+        <div class="wk-bracket tl" id="wk-bk-tl"><span class="h"></span><span class="v"></span></div>
+        <div class="wk-bracket tr" id="wk-bk-tr"><span class="h"></span><span class="v"></span></div>
+        <div class="wk-bracket bl" id="wk-bk-bl"><span class="h"></span><span class="v"></span></div>
+        <div class="wk-bracket br" id="wk-bk-br"><span class="h"></span><span class="v"></span></div>
 
         <div class="wk-badge mono" id="wk-badge">FASE 02 / 06</div>
         <div class="wk-headline" id="wk-headline">12:00<br /><span class="accent">LAVORO</span></div>
@@ -227,18 +296,43 @@
         window.__timelines = window.__timelines || {};
         const tl = gsap.timeline({ paused: true });
 
-        // ---- Transition IN: diagonal shutter wipe ----
+        // ---- Transition IN: diagonal shutter wipe (CSS sets the full-cover start state) ----
         tl.fromTo(
           "#wk-wipe",
-          { clipPath: "polygon(0 0, 100% 0, 100% 0%, 0 0%)" },
-          { clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)", duration: 0.001 },
-          0,
-        );
-        tl.to(
-          "#wk-wipe",
+          { clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" },
           { clipPath: "polygon(0 0, 100% 0, 100% 0%, 0 0%)", duration: 0.4, ease: "power3.inOut" },
           0,
         );
+
+        // ---- Depth: parallax glow drifts behind the bezel, independent rate ----
+        tl.fromTo(
+          "#wk-parallax",
+          { x: -50, opacity: 0, scale: 1 },
+          { x: 50, opacity: 1, scale: 1.15, duration: 6.5, ease: "sine.inOut" },
+          0,
+        );
+
+        // ---- Self-drawing bezel frame brackets ----
+        const wkBrackets = ["#wk-bk-tl", "#wk-bk-tr", "#wk-bk-bl", "#wk-bk-br"];
+        wkBrackets.forEach((sel, i) => {
+          tl.to(`${sel} .h`, { scaleX: 1, duration: 0.3, ease: "power3.out" }, 0.62 + i * 0.05);
+          tl.to(`${sel} .v`, { scaleY: 1, duration: 0.3, ease: "power3.out" }, 0.62 + i * 0.05);
+        });
+
+        // ---- Dust motes drifting in the desk-lamp beam, staggered loops ----
+        const dusts = ["#wk-d1", "#wk-d2", "#wk-d3", "#wk-d4"];
+        dusts.forEach((sel, i) => {
+          const dur = 2.4 + (i % 3) * 0.4;
+          const start = 0.4 + i * 0.5;
+          tl.fromTo(sel, { opacity: 0, y: 0 }, { opacity: 0.6, duration: 0.5, ease: "sine.out" }, start);
+          tl.to(sel, { y: -120 - (i % 2) * 40, x: i % 2 === 0 ? 30 : -30, opacity: 0, duration: dur, ease: "sine.inOut" }, start);
+        });
+        dusts.forEach((sel, i) => {
+          const dur = 2.2 + (i % 3) * 0.3;
+          const start = 3.4 + i * 0.5;
+          tl.fromTo(sel, { opacity: 0, y: 0 }, { opacity: 0.55, duration: 0.5, ease: "sine.out", overwrite: "auto" }, start);
+          tl.to(sel, { y: -100 - (i % 2) * 30, x: i % 2 === 0 ? 25 : -25, opacity: 0, duration: dur, ease: "sine.inOut", overwrite: "auto" }, start);
+        });
 
         tl.fromTo(
           "#wk-badge",

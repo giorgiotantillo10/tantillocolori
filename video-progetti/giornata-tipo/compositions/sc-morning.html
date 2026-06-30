@@ -14,12 +14,11 @@
           color: #f2ece1;
           background: transparent;
         }
-        /* Wipe-in cover panel — slides off to reveal scene (transition INTO this scene) */
         .mo-wipe {
           position: absolute;
           inset: 0;
           background: #0b0908;
-          z-index: 40;
+          z-index: 45;
           transform: translateX(0%);
         }
         .mo-glitch-bar {
@@ -29,22 +28,92 @@
           height: 26px;
           background: #ff8a1e;
           opacity: 0;
-          z-index: 41;
+          z-index: 46;
+        }
+        /* ---- Depth layer: blurred parallax echo of the subject area, drifts slower ---- */
+        .mo-parallax-glow {
+          position: absolute;
+          left: -10%;
+          top: -6%;
+          width: 120%;
+          height: 60%;
+          z-index: 3;
+          background: radial-gradient(ellipse at 55% 30%, rgba(255, 178, 102, 0.22) 0%, rgba(255, 178, 102, 0) 60%);
+          filter: blur(6px);
+          pointer-events: none;
         }
         .mo-vignette {
           position: absolute;
           inset: 0;
-          z-index: 5;
+          z-index: 6;
           pointer-events: none;
-          background: radial-gradient(ellipse at 50% 40%, rgba(11, 9, 8, 0) 38%, rgba(11, 9, 8, 0.62) 100%);
+          background: radial-gradient(ellipse at 50% 40%, rgba(11, 9, 8, 0) 36%, rgba(11, 9, 8, 0.66) 100%);
         }
         .mo-grade {
           position: absolute;
           inset: 0;
           z-index: 4;
           pointer-events: none;
-          background: linear-gradient(180deg, rgba(255, 138, 30, 0.1) 0%, rgba(11, 9, 8, 0) 30%, rgba(11, 9, 8, 0.35) 100%);
+          background: linear-gradient(180deg, rgba(255, 138, 30, 0.12) 0%, rgba(11, 9, 8, 0) 30%, rgba(11, 9, 8, 0.38) 100%);
         }
+        /* ---- Specular light sweep across the mirror ---- */
+        .mo-specular {
+          position: absolute;
+          top: -10%;
+          width: 360px;
+          height: 130%;
+          background: linear-gradient(100deg, rgba(255, 255, 255, 0) 0%, rgba(255, 235, 210, 0.22) 48%, rgba(255, 255, 255, 0) 100%);
+          z-index: 7;
+          transform: translateX(-700px) skewX(-12deg);
+          pointer-events: none;
+        }
+        /* ---- Steam / condensation motes drifting up ---- */
+        .mo-mote {
+          position: absolute;
+          border-radius: 50%;
+          background: rgba(242, 236, 225, 0.5);
+          filter: blur(2px);
+          z-index: 8;
+          opacity: 0;
+          pointer-events: none;
+        }
+        /* ---- Self-drawing corner frame around the subject ---- */
+        .mo-bracket {
+          position: absolute;
+          width: 110px;
+          height: 110px;
+          z-index: 9;
+          pointer-events: none;
+        }
+        .mo-bracket span {
+          position: absolute;
+          background: #ff8a1e;
+        }
+        .mo-bracket .h {
+          width: 100%;
+          height: 5px;
+          top: 0;
+          transform-origin: left center;
+          transform: scaleX(0);
+        }
+        .mo-bracket .v {
+          height: 100%;
+          width: 5px;
+          left: 0;
+          transform-origin: top center;
+          transform: scaleY(0);
+        }
+        .mo-bracket.tl { left: 220px; top: 980px; }
+        .mo-bracket.tr { right: 220px; top: 980px; }
+        .mo-bracket.tr .h { transform-origin: right center; }
+        .mo-bracket.tr span.v { left: auto; right: 0; transform-origin: top center; }
+        .mo-bracket.bl { left: 220px; bottom: 760px; }
+        .mo-bracket.bl .h { top: auto; bottom: 0; }
+        .mo-bracket.bl .v { transform-origin: bottom center; }
+        .mo-bracket.br { right: 220px; bottom: 760px; }
+        .mo-bracket.br .h { top: auto; bottom: 0; transform-origin: right center; }
+        .mo-bracket.br span.v { left: auto; right: 0; transform-origin: bottom center; }
+
         .mo-top-meta {
           position: absolute;
           top: 280px;
@@ -141,8 +210,24 @@
         }
       </style>
       <div id="root" data-composition-id="sc-morning" data-width="2160" data-height="3840">
+        <div class="mo-parallax-glow" id="mo-parallax"></div>
         <div class="mo-grade"></div>
+        <div class="mo-specular" id="mo-specular"></div>
         <div class="mo-vignette"></div>
+
+        <!-- atmospheric steam motes, deterministic positions -->
+        <div class="mo-mote" id="mo-m1" style="left: 18%; bottom: 12%; width: 22px; height: 22px;"></div>
+        <div class="mo-mote" id="mo-m2" style="left: 64%; bottom: 8%; width: 16px; height: 16px;"></div>
+        <div class="mo-mote" id="mo-m3" style="left: 40%; bottom: 20%; width: 28px; height: 28px;"></div>
+        <div class="mo-mote" id="mo-m4" style="left: 76%; bottom: 30%; width: 18px; height: 18px;"></div>
+        <div class="mo-mote" id="mo-m5" style="left: 28%; bottom: 36%; width: 14px; height: 14px;"></div>
+        <div class="mo-mote" id="mo-m6" style="left: 55%; bottom: 16%; width: 20px; height: 20px;"></div>
+
+        <!-- self-drawing frame around the subject -->
+        <div class="mo-bracket tl" id="mo-bk-tl"><span class="h"></span><span class="v"></span></div>
+        <div class="mo-bracket tr" id="mo-bk-tr"><span class="h"></span><span class="v"></span></div>
+        <div class="mo-bracket bl" id="mo-bk-bl"><span class="h"></span><span class="v"></span></div>
+        <div class="mo-bracket br" id="mo-bk-br"><span class="h"></span><span class="v"></span></div>
 
         <div class="mo-badge mono" id="mo-badge">FASE 01 / 06</div>
         <div class="mo-top-meta mono" id="mo-meta">CAM 01 · INTERNO BAGNO</div>
@@ -171,6 +256,7 @@
       <script>
         window.__timelines = window.__timelines || {};
         const tl = gsap.timeline({ paused: true });
+        const D = 4.19;
 
         // ---- Transition IN: glitch bars flash, then wipe slides off (whip feel) ----
         tl.to("#mo-bar1", { opacity: 0.9, duration: 0.05 }, 0);
@@ -178,6 +264,45 @@
         tl.to("#mo-bar2", { opacity: 0.9, duration: 0.05 }, 0.05);
         tl.to("#mo-bar2", { opacity: 0, duration: 0.05 }, 0.12);
         tl.to("#mo-wipe", { x: "-100%", duration: 0.42, ease: "power4.inOut" }, 0.08);
+
+        // ---- Depth: parallax glow drifts opposite direction to the host Ken Burns push ----
+        tl.fromTo(
+          "#mo-parallax",
+          { x: 40, y: -20, scale: 1.1, opacity: 0 },
+          { x: -70, y: 30, scale: 1.25, opacity: 1, duration: D, ease: "sine.inOut" },
+          0,
+        );
+
+        // ---- Specular sweep crosses the mirror once, like reflected light ----
+        tl.fromTo(
+          "#mo-specular",
+          { x: -700, opacity: 0 },
+          { x: 2400, opacity: 1, duration: 1.6, ease: "sine.inOut" },
+          0.5,
+        );
+        tl.to("#mo-specular", { opacity: 0, duration: 0.3, overwrite: "auto" }, 1.9);
+
+        // ---- Self-drawing frame brackets open around the subject ----
+        const brackets = ["#mo-bk-tl", "#mo-bk-tr", "#mo-bk-bl", "#mo-bk-br"];
+        brackets.forEach((sel, i) => {
+          tl.to(`${sel} .h`, { scaleX: 1, duration: 0.32, ease: "power3.out" }, 0.15 + i * 0.05);
+          tl.to(`${sel} .v`, { scaleY: 1, duration: 0.32, ease: "power3.out" }, 0.15 + i * 0.05);
+        });
+
+        // ---- Steam motes drift upward and fade, staggered, looping across the scene ----
+        const motes = ["#mo-m1", "#mo-m2", "#mo-m3", "#mo-m4", "#mo-m5", "#mo-m6"];
+        motes.forEach((sel, i) => {
+          const rise = 260 + (i % 3) * 60;
+          const dur = 2.6 + (i % 4) * 0.4;
+          const start = 0.2 + i * 0.28;
+          tl.fromTo(
+            sel,
+            { y: 0, x: 0, opacity: 0, scale: 0.8 },
+            { opacity: 0.5, duration: 0.5, ease: "sine.out" },
+            start,
+          );
+          tl.to(sel, { y: -rise, x: i % 2 === 0 ? 30 : -30, scale: 1.3, opacity: 0, duration: dur, ease: "sine.inOut" }, start);
+        });
 
         // ---- Entrances (distinct per element, staggered) ----
         tl.fromTo(
