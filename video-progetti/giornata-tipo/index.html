@@ -1,8 +1,9 @@
 <!doctype html>
-<html lang="en" data-resolution="portrait">
+<html lang="it" data-resolution="portrait">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=1080, height=1920" />
+    <meta name="viewport" content="width=2160, height=3840" />
+    <title>Giornata Tipo</title>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
       * {
@@ -13,18 +14,149 @@
       html,
       body {
         margin: 0;
-        width: 1080px;
-        height: 1920px;
+        width: 2160px;
+        height: 3840px;
         overflow: hidden;
-        background: #000;
+        background: #0b0908;
       }
       body {
-        font-family: "Inter", sans-serif;
+        font-family: "Archivo Black", sans-serif;
+        color: #f2ece1;
       }
-      code,
-      pre,
-      .monospace {
+      .mono {
         font-family: "JetBrains Mono", monospace;
+      }
+      #root {
+        position: relative;
+        width: 2160px;
+        height: 3840px;
+        overflow: hidden;
+        background: #0b0908;
+      }
+      /* Sub-comp slots stretch to fill the root */
+      #root > div[data-composition-src] {
+        position: absolute;
+        inset: 0;
+      }
+      .host-media {
+        position: absolute;
+        overflow: hidden;
+      }
+      .host-media img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      /* Global grain overlay — persistent texture across the whole piece */
+      #grain {
+        position: absolute;
+        inset: 0;
+        z-index: 50;
+        pointer-events: none;
+        opacity: 0.05;
+        mix-blend-mode: overlay;
+        background-image: radial-gradient(circle at 20% 30%, #fff 1px, transparent 1.2px),
+          radial-gradient(circle at 70% 60%, #fff 1px, transparent 1.2px),
+          radial-gradient(circle at 40% 80%, #fff 1px, transparent 1.2px);
+        background-size: 10px 10px, 14px 14px, 12px 12px;
+      }
+      /* Persistent corner registration marks — foreground "produced" texture across whole video */
+      .reg-mark {
+        position: absolute;
+        width: 56px;
+        height: 56px;
+        z-index: 60;
+        opacity: 0.55;
+        pointer-events: none;
+      }
+      .reg-mark::before,
+      .reg-mark::after {
+        content: "";
+        position: absolute;
+        background: #f2ece1;
+      }
+      .reg-mark::before {
+        width: 100%;
+        height: 4px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      .reg-mark::after {
+        height: 100%;
+        width: 4px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      #reg-tl {
+        top: 96px;
+        left: 96px;
+      }
+      #reg-tr {
+        top: 96px;
+        right: 96px;
+      }
+      #reg-bl {
+        bottom: 96px;
+        left: 96px;
+      }
+      #reg-br {
+        bottom: 96px;
+        right: 96px;
+      }
+
+      /* Persistent right-edge progress ladder — fills as the day progresses */
+      #progress-rail {
+        position: absolute;
+        right: 64px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 6px;
+        height: 1400px;
+        background: rgba(242, 236, 225, 0.14);
+        z-index: 55;
+        pointer-events: none;
+      }
+      #progress-fill {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 0%;
+        background: #ff8a1e;
+      }
+      /* Persistent top metadata strip */
+      #top-strip {
+        position: absolute;
+        top: 96px;
+        left: 200px;
+        right: 200px;
+        height: 2px;
+        background: rgba(242, 236, 225, 0.18);
+        z-index: 55;
+        pointer-events: none;
+      }
+      #rec-dot-wrap {
+        position: absolute;
+        top: 88px;
+        left: 96px;
+        z-index: 61;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        pointer-events: none;
+      }
+      #rec-dot {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #e5383b;
+      }
+      #rec-label {
+        font-size: 26px;
+        letter-spacing: 0.18em;
+        color: #f2ece1;
+        opacity: 0.85;
       }
     </style>
   </head>
@@ -33,26 +165,260 @@
       id="root"
       data-composition-id="main"
       data-start="0"
-      data-duration="10"
-      data-width="1080"
-      data-height="1920"
+      data-duration="29.6"
+      data-width="2160"
+      data-height="3840"
     >
-      
-      
+      <!-- ===================== SCENE SLOTS (sub-compositions) ===================== -->
 
-      <!--
-        Add your clips here. Example:
-        <div id="title" class="clip" data-start="0" data-duration="5" data-track-index="1"
-             style="font-size: 64px; color: #fff; padding: 40px">
-          Hello World
-        </div>
-      -->
+      <div
+        id="sc-open"
+        data-composition-id="sc-open"
+        data-composition-src="compositions/sc-open.html"
+        data-start="0"
+        data-duration="1.6"
+        data-track-index="1"
+        data-width="2160"
+        data-height="3840"
+      ></div>
+
+      <div
+        id="sc-morning"
+        data-composition-id="sc-morning"
+        data-composition-src="compositions/sc-morning.html"
+        data-start="1.6"
+        data-duration="4.2"
+        data-track-index="1"
+        data-width="2160"
+        data-height="3840"
+      ></div>
+
+      <div
+        id="sc-work"
+        data-composition-id="sc-work"
+        data-composition-src="compositions/sc-work.html"
+        data-start="5.8"
+        data-duration="6.5"
+        data-track-index="1"
+        data-width="2160"
+        data-height="3840"
+      ></div>
+
+      <div
+        id="sc-dogs"
+        data-composition-id="sc-dogs"
+        data-composition-src="compositions/sc-dogs.html"
+        data-start="12.3"
+        data-duration="5"
+        data-track-index="1"
+        data-width="2160"
+        data-height="3840"
+      ></div>
+
+      <div
+        id="sc-sunset"
+        data-composition-id="sc-sunset"
+        data-composition-src="compositions/sc-sunset.html"
+        data-start="17.3"
+        data-duration="5"
+        data-track-index="1"
+        data-width="2160"
+        data-height="3840"
+      ></div>
+
+      <div
+        id="sc-night"
+        data-composition-id="sc-night"
+        data-composition-src="compositions/sc-night.html"
+        data-start="22.3"
+        data-duration="5.5"
+        data-track-index="1"
+        data-width="2160"
+        data-height="3840"
+      ></div>
+
+      <div
+        id="sc-outro"
+        data-composition-id="sc-outro"
+        data-composition-src="compositions/sc-outro.html"
+        data-start="27.8"
+        data-duration="1.8"
+        data-track-index="1"
+        data-width="2160"
+        data-height="3840"
+      ></div>
+
+      <!-- ===================== HOST MEDIA (direct root children, required) ===================== -->
+
+      <!-- Morning: selfie photo, Ken Burns push-in driven from MAIN timeline -->
+      <div
+        id="media-morning"
+        class="host-media"
+        style="left:0; top:0; width:2160px; height:3840px; z-index:2;"
+      >
+        <img id="img-morning" src="assets/selfie-palestra.png" alt="" style="object-position: 50% 38%;" />
+      </div>
+
+      <!-- Work: screen recording, two trimmed windows back-to-back via two video elements -->
+      <video
+        id="video-work-a"
+        class="host-media-el"
+        src="assets/lavoro-pc.mp4"
+        data-start="5.8"
+        data-duration="3.3"
+        data-track-index="2"
+        muted
+        playsinline
+        style="position:absolute; left:260px; top:1120px; width:1640px; height:1520px; object-fit:cover; object-position: 50% 38%; z-index:3; border-radius:12px;"
+      ></video>
+      <video
+        id="video-work-b"
+        class="host-media-el"
+        src="assets/lavoro-pc.mp4"
+        data-media-start="30.3"
+        data-start="9.1"
+        data-duration="3.2"
+        data-track-index="2"
+        muted
+        playsinline
+        style="position:absolute; left:260px; top:1120px; width:1640px; height:1520px; object-fit:cover; object-position: 50% 38%; z-index:3; border-radius:12px;"
+      ></video>
+      <audio
+        id="audio-work-a"
+        src="assets/lavoro-pc.mp4"
+        data-start="5.8"
+        data-duration="3.3"
+        data-track-index="20"
+        data-volume="0.35"
+      ></audio>
+      <audio
+        id="audio-work-b"
+        src="assets/lavoro-pc.mp4"
+        data-media-start="30.3"
+        data-start="9.1"
+        data-duration="3.2"
+        data-track-index="20"
+        data-volume="0.4"
+      ></audio>
+
+      <!-- Dogs: POV walk video, full-bleed -->
+      <video
+        id="video-dogs"
+        class="host-media-el"
+        src="assets/cani-pov.mov"
+        data-media-start="0.5"
+        data-start="12.3"
+        data-duration="5"
+        data-track-index="2"
+        muted
+        playsinline
+        style="position:absolute; left:0; top:0; width:2160px; height:3840px; object-fit:cover; z-index:2;"
+      ></video>
+      <audio
+        id="audio-dogs"
+        src="assets/cani-pov.mov"
+        data-media-start="0.5"
+        data-start="12.3"
+        data-duration="5"
+        data-track-index="20"
+        data-volume="0.45"
+      ></audio>
+
+      <!-- Sunset: photo, slow Ken Burns -->
+      <div
+        id="media-sunset"
+        class="host-media"
+        style="left:0; top:0; width:2160px; height:3840px; z-index:2;"
+      >
+        <img id="img-sunset" src="assets/tramonto.jpeg" alt="" />
+      </div>
+
+      <!-- Night drive: wide dashboard photo, cropped/cover to portrait -->
+      <div
+        id="media-night"
+        class="host-media"
+        style="left:0; top:0; width:2160px; height:3840px; z-index:2;"
+      >
+        <img id="img-night" src="assets/auto-notte.jpeg" alt="" style="object-position: 64% 50%;" />
+      </div>
+
+      <!-- ===================== GLOBAL FOREGROUND CHROME (persists across all beats) ===================== -->
+      <div id="grain"></div>
+      <div id="progress-rail"><div id="progress-fill"></div></div>
+      <div id="top-strip"></div>
+      <div id="rec-dot-wrap">
+        <div id="rec-dot"></div>
+        <div id="rec-label" class="mono">REC · GIORNATA.LOG</div>
+      </div>
+      <div id="reg-tl" class="reg-mark"></div>
+      <div id="reg-tr" class="reg-mark"></div>
+      <div id="reg-bl" class="reg-mark"></div>
+      <div id="reg-br" class="reg-mark"></div>
     </div>
 
     <script>
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
-      // Example: tl.from("#title", { opacity: 0, y: -50, duration: 1 }, 0);
+      const TOTAL = 29.6;
+
+      // ---- Global progress fill — ticks across the ENTIRE composition (foreground metadata) ----
+      tl.to("#progress-fill", { height: "100%", duration: TOTAL, ease: "none" }, 0);
+
+      // ---- Global rec-dot blink (deterministic finite blink, not CSS infinite) ----
+      tl.to(
+        "#rec-dot",
+        { opacity: 0.15, duration: 0.5, repeat: Math.max(0, Math.floor(TOTAL / 1.0) - 1), yoyo: true, ease: "none" },
+        0,
+      );
+
+      // ---- Morning Ken Burns push-in (image as host media; sub-comp cannot reach it) ----
+      tl.fromTo(
+        "#img-morning",
+        { scale: 1.0, transformOrigin: "62% 30%" },
+        { scale: 1.18, duration: 4.2, ease: "sine.inOut" },
+        1.6,
+      );
+
+      // ---- Work screen: settle-in scale + slight tilt ----
+      tl.fromTo(
+        "#video-work-a",
+        { scale: 1.08, rotation: -1.1 },
+        { scale: 1.0, rotation: -1.1, duration: 3.3, ease: "sine.out" },
+        5.8,
+      );
+      tl.fromTo(
+        "#video-work-b",
+        { scale: 1.12, rotation: -1.1 },
+        { scale: 1.0, rotation: -1.1, duration: 3.2, ease: "sine.inOut" },
+        9.1,
+      );
+
+      // ---- Dogs: handheld shake-amplify accent (adds energy, doesn't fight real footage) ----
+      tl.to("#video-dogs", { x: 10, duration: 0.08, repeat: 11, yoyo: true, ease: "none" }, 12.4);
+      tl.fromTo("#video-dogs", { scale: 1.12 }, { scale: 1.0, duration: 1.0, ease: "power2.out" }, 12.3);
+
+      // ---- Sunset: slow cinematic Ken Burns drift ----
+      tl.fromTo(
+        "#img-sunset",
+        { scale: 1.14, transformOrigin: "50% 70%" },
+        { scale: 1.0, duration: 5, ease: "sine.inOut" },
+        17.3,
+      );
+
+      // ---- Night drive: slow creeping push + parallax feel ----
+      tl.fromTo(
+        "#img-night",
+        { scale: 1.2, x: 0 },
+        { scale: 1.06, x: -36, duration: 5.5, ease: "sine.inOut" },
+        22.3,
+      );
+
+      // ---- Global registration marks: slow ambient pulse (decorative motion, whole piece) ----
+      tl.to(".reg-mark", { opacity: 0.95, duration: 1.6, ease: "sine.inOut", repeat: Math.max(0, Math.floor(TOTAL / 1.6) - 1), yoyo: true }, 0);
+
+      // ---- Grain breathing ----
+      tl.to("#grain", { opacity: 0.09, duration: 2.2, ease: "sine.inOut", repeat: Math.max(0, Math.floor(TOTAL / 2.2) - 1), yoyo: true }, 0);
+
       window.__timelines["main"] = tl;
     </script>
   </body>
