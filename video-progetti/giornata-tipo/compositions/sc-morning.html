@@ -134,6 +134,9 @@
           line-height: 0.96;
           letter-spacing: -0.03em;
         }
+        .mo-headline span.line {
+          display: block;
+        }
         .mo-headline .accent {
           color: #ff8a1e;
         }
@@ -210,7 +213,7 @@
         }
       </style>
       <div id="root" data-composition-id="sc-morning" data-width="2160" data-height="3840">
-        <div class="mo-parallax-glow" id="mo-parallax"></div>
+        <div class="mo-parallax-glow" id="mo-parallax" data-layout-allow-overflow></div>
         <div class="mo-grade"></div>
         <div class="mo-specular" id="mo-specular"></div>
         <div class="mo-vignette"></div>
@@ -239,7 +242,7 @@
           <div class="tick"></div>
         </div>
 
-        <div class="mo-headline" id="mo-headline">06:30<br /><span class="accent">MATTINA</span></div>
+        <div class="mo-headline" id="mo-headline"><span class="line">06:30</span><span class="line accent">MATTINA</span></div>
         <div class="mo-sub mono" id="mo-sub">RITUALE DI PARTENZA — SI PARTE.</div>
         <div class="mo-rule" id="mo-rule"></div>
 
@@ -250,7 +253,7 @@
 
         <div class="mo-glitch-bar" id="mo-bar1" style="top: 30%;"></div>
         <div class="mo-glitch-bar" id="mo-bar2" style="top: 62%;"></div>
-        <div class="mo-wipe" id="mo-wipe"></div>
+        <div class="mo-wipe" id="mo-wipe" data-layout-allow-overflow></div>
       </div>
 
       <script>

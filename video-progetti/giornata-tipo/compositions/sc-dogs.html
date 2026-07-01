@@ -103,6 +103,9 @@
         .dg-bracket.br { right: 96px; bottom: 280px; }
         .dg-bracket.br .h { top: auto; bottom: 0; transform-origin: right center; }
         .dg-bracket.br span.v { left: auto; right: 0; transform-origin: bottom center; }
+        .dg-headline span.line {
+          display: block;
+        }
         .dg-headline {
           position: absolute;
           left: 96px;
@@ -184,7 +187,7 @@
         }
       </style>
       <div id="root" data-composition-id="sc-dogs" data-width="2160" data-height="3840">
-        <div class="dg-parallax" id="dg-parallax"></div>
+        <div class="dg-parallax" id="dg-parallax" data-layout-allow-overflow></div>
         <div class="dg-vignette"></div>
 
         <!-- light flecks, deterministic positions -->
@@ -204,7 +207,7 @@
         <div class="dg-speed-line" id="dg-sl-4" style="top: 2800px;"></div>
 
         <div class="dg-badge mono" id="dg-badge">FASE 03 / 06</div>
-        <div class="dg-headline" id="dg-headline">17:30<br /><span class="accent">I CANI</span></div>
+        <div class="dg-headline" id="dg-headline"><span class="line">17:30</span><span class="line accent">I CANI</span></div>
         <div class="dg-sub mono" id="dg-sub">PASSEGGIATA SUL LUNGOMARE</div>
 
         <div class="dg-paw-tick" id="dg-paws">

@@ -127,6 +127,9 @@
           z-index: 6;
           opacity: 0;
         }
+        .wk-corner-tag span.line {
+          display: block;
+        }
         .wk-tag-tl {
           left: 250px;
           top: 1050px;
@@ -149,11 +152,11 @@
           transform: scale(0.8);
         }
         .wk-callout-1 {
-          left: 1990px;
+          left: 1740px;
           top: 1240px;
         }
         .wk-callout-2 {
-          left: 1990px;
+          left: 1600px;
           top: 2280px;
         }
         .wk-callout-line {
@@ -165,14 +168,17 @@
           transform: scaleX(0);
         }
         .wk-line-1 {
-          left: 1940px;
+          left: 1890px;
           top: 1320px;
           width: 80px;
         }
         .wk-line-2 {
-          left: 1940px;
+          left: 1890px;
           top: 2360px;
           width: 80px;
+        }
+        .wk-headline span.line {
+          display: block;
         }
         .wk-headline {
           position: absolute;
@@ -255,7 +261,7 @@
       <div id="root" data-composition-id="sc-work" data-width="2160" data-height="3840">
         <div class="wk-bg-panel"></div>
         <div class="wk-ghost">WORK</div>
-        <div class="wk-parallax" id="wk-parallax"></div>
+        <div class="wk-parallax" id="wk-parallax" data-layout-allow-overflow></div>
 
         <!-- dust motes in the light beam, deterministic positions -->
         <div class="wk-dust" id="wk-d1" style="left: 18%; top: 30%; width: 8px; height: 8px;"></div>
@@ -269,13 +275,13 @@
         <div class="wk-bracket br" id="wk-bk-br"><span class="h"></span><span class="v"></span></div>
 
         <div class="wk-badge mono" id="wk-badge">FASE 02 / 06</div>
-        <div class="wk-headline" id="wk-headline">12:00<br /><span class="accent">LAVORO</span></div>
+        <div class="wk-headline" id="wk-headline"><span class="line">12:00</span><span class="line accent">LAVORO</span></div>
         <div class="wk-sub mono" id="wk-sub">SCRIVANIA — TANTILLO COLORI ONLINE</div>
 
         <div class="wk-bezel" id="wk-bezel"></div>
         <div class="wk-scanline" id="wk-scanline"></div>
         <div class="wk-corner-tag mono wk-tag-tl" id="wk-tag-tl">● LIVE FEED</div>
-        <div class="wk-corner-tag mono wk-tag-tr" id="wk-tag-tr">CAM 02<br />DESK / SCREEN</div>
+        <div class="wk-corner-tag mono wk-tag-tr" id="wk-tag-tr"><span class="line">CAM 02</span><span class="line">DESK / SCREEN</span></div>
 
         <div class="wk-callout-line wk-line-1" id="wk-line-1"></div>
         <div class="wk-callout wk-callout-1 mono" id="wk-callout-1">e-commerce&nbsp;↑</div>

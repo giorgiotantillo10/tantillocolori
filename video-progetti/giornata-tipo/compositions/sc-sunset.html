@@ -102,6 +102,9 @@
         .su-frame-line.left { left: 220px; }
         .su-frame-line.right { right: 220px; transform-origin: bottom center; }
 
+        .su-headline span.line {
+          display: block;
+        }
         .su-headline {
           position: absolute;
           left: 96px;
@@ -136,6 +139,9 @@
           padding: 14px 28px;
           opacity: 0;
           transform: scale(0.7);
+        }
+        .su-coord span.line {
+          display: block;
         }
         .su-coord {
           position: absolute;
@@ -182,7 +188,7 @@
         }
       </style>
       <div id="root" data-composition-id="sc-sunset" data-width="2160" data-height="3840">
-        <div class="su-parallax" id="su-parallax"></div>
+        <div class="su-parallax" id="su-parallax" data-layout-allow-overflow></div>
         <div class="su-grade"></div>
         <div class="su-specular" id="su-specular"></div>
 
@@ -199,16 +205,16 @@
         <div class="su-frame-line right" id="su-fl-right"></div>
 
         <div class="su-badge mono" id="su-badge">FASE 04 / 06</div>
-        <div class="su-headline" id="su-headline">19:45<br /><span class="accent">TRAMONTO</span></div>
+        <div class="su-headline" id="su-headline"><span class="line">19:45</span><span class="line accent">TRAMONTO</span></div>
         <div class="su-sub mono" id="su-sub">COSTA ROCCIOSA — RESPIRO</div>
         <div class="su-sun-tick" id="su-sun"></div>
 
         <div class="su-rule" id="su-rule"></div>
         <div class="su-quote" id="su-quote">“UN MINUTO PER GUARDARE IL MARE.”</div>
-        <div class="su-coord mono" id="su-coord">SOLE 248° SO<br />T 21°C · VENTO LIEVE</div>
+        <div class="su-coord mono" id="su-coord"><span class="line">SOLE 248° SO</span><span class="line">T 21°C · VENTO LIEVE</span></div>
 
-        <div class="su-letterbox su-letterbox-top" id="su-lb-top"></div>
-        <div class="su-letterbox su-letterbox-bottom" id="su-lb-bottom"></div>
+        <div class="su-letterbox su-letterbox-top" id="su-lb-top" data-layout-allow-overflow></div>
+        <div class="su-letterbox su-letterbox-bottom" id="su-lb-bottom" data-layout-allow-overflow></div>
         <div class="su-wipe" id="su-wipe"></div>
       </div>
 

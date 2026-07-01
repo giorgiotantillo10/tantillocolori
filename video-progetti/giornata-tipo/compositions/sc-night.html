@@ -106,6 +106,9 @@
         .ni-bracket.br .h { top: auto; bottom: 0; transform-origin: right center; }
         .ni-bracket.br span.v { left: auto; right: 0; transform-origin: bottom center; }
 
+        .ni-headline span.line {
+          display: block;
+        }
         .ni-headline {
           position: absolute;
           left: 96px;
@@ -220,7 +223,7 @@
         }
       </style>
       <div id="root" data-composition-id="sc-night" data-width="2160" data-height="3840">
-        <div class="ni-parallax" id="ni-parallax"></div>
+        <div class="ni-parallax" id="ni-parallax" data-layout-allow-overflow></div>
         <div class="ni-grade"></div>
         <div class="ni-specular" id="ni-specular"></div>
         <div class="ni-scan" id="ni-scan" style="top: 1200px;"></div>
@@ -237,7 +240,7 @@
         <div class="ni-bracket br" id="ni-bk-br"><span class="h"></span><span class="v"></span></div>
 
         <div class="ni-badge mono" id="ni-badge">FASE 05 / 06</div>
-        <div class="ni-headline" id="ni-headline">23:10<br /><span class="accent">ON THE ROAD</span></div>
+        <div class="ni-headline" id="ni-headline"><span class="line">23:10</span><span class="line accent">ON THE ROAD</span></div>
         <div class="ni-sub mono" id="ni-sub">RIENTRO — STRADA COSTIERA</div>
 
         <div class="ni-hud-panel" id="ni-hud">
