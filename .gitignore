@@ -200,3 +200,8 @@ dist
 
 ### Astro ###
 .astro/
+
+### HyperFrames ###
+video-progetti/**/snapshots/
+video-progetti/**/renders/
+video-progetti/**/.hyperframes-cache/
