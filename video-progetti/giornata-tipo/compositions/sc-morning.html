@@ -267,6 +267,7 @@
         tl.to("#mo-bar2", { opacity: 0.9, duration: 0.05 }, 0.05);
         tl.to("#mo-bar2", { opacity: 0, duration: 0.05 }, 0.12);
         tl.to("#mo-wipe", { x: "-100%", duration: 0.42, ease: "power4.inOut" }, 0.08);
+        tl.set("#mo-wipe", { display: "none" }, 0.5);
 
         // ---- Depth: parallax glow drifts opposite direction to the host Ken Burns push ----
         tl.fromTo(
