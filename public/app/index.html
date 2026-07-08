@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="theme-color" content="#0B0E14"/>
+<title>LavoroLampo ⚡ — Lavoro a chiamata, subito</title>
+<meta name="description" content="Trova lavoratori disponibili subito o proponiti per lavori a chiamata. Ristoranti, lidi, case: copri il turno in pochi minuti."/>
+<link rel="manifest" href="manifest.json"/>
+<link rel="icon" href="icon-192.png"/>
+<link rel="apple-touch-icon" href="icon-192.png"/>
+<style>
+:root{
+  --bg:#0B0E14; --bg2:#10151F; --card:#151C29; --card2:#1B2333;
+  --border:rgba(255,255,255,.08); --border2:rgba(255,197,61,.35);
+  --accent:#FFC53D; --accent2:#FF8A3D; --ok:#3DDC85; --err:#FF6B6B;
+  --text:#F2F5F9; --muted:#8A94A6;
+  --ease:cubic-bezier(0.4,0,0.2,1);
+  --sans:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;line-height:1.5}
+button{font-family:inherit;cursor:pointer;border:none}
+input,select,textarea{font-family:inherit;font-size:1rem}
+
+/* ── Topbar ── */
+#topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.1rem;background:rgba(11,14,20,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.logo{display:flex;align-items:center;gap:.5rem;font-weight:800;font-size:1.15rem;letter-spacing:-.02em;background:none;color:var(--text)}
+.logo .bolt{display:inline-flex;width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--accent),var(--accent2));align-items:center;justify-content:center;font-size:1rem;box-shadow:0 3px 14px rgba(255,197,61,.35);animation:boltPulse 3s ease-in-out infinite}
+@keyframes boltPulse{0%,100%{box-shadow:0 3px 14px rgba(255,197,61,.35)}50%{box-shadow:0 3px 22px rgba(255,197,61,.6)}}
+.top-actions{display:flex;gap:.5rem;align-items:center}
+.role-badge{font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.3rem .65rem;border-radius:99px;border:1px solid var(--border2);color:var(--accent)}
+.btn-ghost{background:none;color:var(--muted);font-size:.78rem;padding:.35rem .6rem;border-radius:8px;border:1px solid var(--border);transition:color .2s,border-color .2s}
+.btn-ghost:hover{color:var(--text);border-color:var(--muted)}
+
+/* ── Views ── */
+.view{display:none;max-width:640px;margin:0 auto;padding:1.25rem 1.1rem 6rem;animation:viewIn .35s var(--ease)}
+.view.active{display:block}
+@keyframes viewIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* ── Home ── */
+.hero{text-align:center;padding:2.2rem 0 1.6rem}
+.hero h1{font-size:clamp(1.7rem,6vw,2.4rem);font-weight:800;letter-spacing:-.03em;line-height:1.15}
+.hero h1 .hl{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--muted);margin-top:.7rem;font-size:.95rem;max-width:400px;margin-inline:auto}
+.role-cards{display:grid;gap:.9rem;margin-top:1.8rem}
+.role-card{position:relative;text-align:left;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.35rem 1.2rem;color:var(--text);transition:transform .25s var(--ease),border-color .25s,box-shadow .25s;overflow:hidden}
+.role-card:active{transform:scale(.98)}
+.role-card:hover{border-color:var(--border2);box-shadow:0 10px 32px rgba(0,0,0,.35)}
+.role-card .rc-ico{font-size:1.7rem}
+.role-card h3{font-size:1.15rem;font-weight:700;margin:.5rem 0 .25rem}
+.role-card p{color:var(--muted);font-size:.85rem}
+.role-card .rc-cta{display:inline-block;margin-top:.8rem;font-size:.8rem;font-weight:700;color:var(--accent)}
+.role-card::after{content:'';position:absolute;top:-40%;right:-25%;width:60%;height:180%;background:radial-gradient(ellipse,rgba(255,197,61,.07),transparent 70%);pointer-events:none}
+.stats-row{display:flex;justify-content:center;gap:1.6rem;margin-top:2rem;flex-wrap:wrap}
+.stat{text-align:center}
+.stat b{display:block;font-size:1.3rem;color:var(--accent)}
+.stat span{font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.how{margin-top:2.4rem}
+.how h2{font-size:1rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:1rem}
+.how-steps{display:grid;gap:.6rem}
+.how-step{display:flex;gap:.85rem;align-items:flex-start;background:var(--bg2);border:1px solid var(--border);border-radius:13px;padding:.85rem 1rem;font-size:.87rem}
+.how-step .n{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#0B0E14;font-weight:800;font-size:.8rem;display:flex;align-items:center;justify-content:center}
+.how-step span{color:var(--muted)}
+.how-step b{color:var(--text)}
+
+/* ── Forms ── */
+.form-title{font-size:1.35rem;font-weight:800;letter-spacing:-.02em;margin-bottom:.3rem}
+.form-sub{color:var(--muted);font-size:.85rem;margin-bottom:1.4rem}
+.fgroup{margin-bottom:1.05rem}
+.flabel{display:block;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem}
+.finput,select.finput,textarea.finput{width:100%;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.8rem .9rem;color:var(--text);outline:none;transition:border-color .2s;min-height:48px}
+.finput:focus{border-color:var(--accent)}
+.finput.invalid{border-color:var(--err)}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem}
+.chip{background:var(--card);border:1px solid var(--border);color:var(--muted);border-radius:99px;padding:.5rem .85rem;font-size:.82rem;font-weight:600;transition:all .18s var(--ease);min-height:38px}
+.chip.on{background:rgba(255,197,61,.14);border-color:var(--accent);color:var(--accent);transform:scale(1.03)}
+.btn-p{display:flex;align-items:center;justify-content:center;gap:.5rem;width:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#14100A;font-weight:800;font-size:1rem;padding:.95rem;border-radius:13px;margin-top:.5rem;transition:transform .2s,box-shadow .2s;box-shadow:0 6px 22px rgba(255,197,61,.25);min-height:52px}
+.btn-p:active{transform:scale(.98)}
+.btn-s{display:flex;align-items:center;justify-content:center;gap:.4rem;width:100%;background:var(--card2);color:var(--text);font-weight:700;font-size:.9rem;padding:.8rem;border-radius:12px;border:1px solid var(--border);margin-top:.6rem;min-height:46px}
+.hint{font-size:.72rem;color:var(--muted);margin-top:.35rem}
+
+/* ── Dashboard ── */
+.dash-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem;gap:.7rem;flex-wrap:wrap}
+.dash-head h2{font-size:1.25rem;font-weight:800;letter-spacing:-.02em}
+.dash-head .sub{color:var(--muted);font-size:.8rem}
+.filter-row{display:flex;gap:.45rem;margin-bottom:1rem;overflow-x:auto;padding-bottom:.25rem}
+.filter-row .chip{flex-shrink:0}
+
+/* ── Job / candidate cards ── */
+.jcard{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.05rem;margin-bottom:.85rem;animation:cardIn .4s var(--ease) backwards}
+.jcard:nth-child(2){animation-delay:.06s}.jcard:nth-child(3){animation-delay:.12s}.jcard:nth-child(4){animation-delay:.18s}.jcard:nth-child(5){animation-delay:.24s}
+@keyframes cardIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.jc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:.6rem}
+.jc-role{font-size:1.05rem;font-weight:800}
+.jc-biz{color:var(--muted);font-size:.82rem;margin-top:.1rem}
+.match-ring{flex-shrink:0;position:relative;width:54px;height:54px}
+.match-ring svg{transform:rotate(-90deg)}
+.match-ring .mr-txt{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:800;color:var(--accent)}
+.jc-meta{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.7rem}
+.tag{font-size:.72rem;font-weight:600;padding:.28rem .6rem;border-radius:99px;background:var(--bg2);border:1px solid var(--border);color:var(--muted)}
+.tag.urgent{background:rgba(255,107,107,.12);border-color:rgba(255,107,107,.4);color:var(--err);animation:urgentBlink 2s ease-in-out infinite}
+@keyframes urgentBlink{0%,100%{opacity:1}50%{opacity:.65}}
+.tag.soon{background:rgba(255,138,61,.12);border-color:rgba(255,138,61,.4);color:var(--accent2)}
+.tag.ok{background:rgba(61,220,133,.1);border-color:rgba(61,220,133,.35);color:var(--ok)}
+.tag.gold{background:rgba(255,197,61,.1);border-color:var(--border2);color:var(--accent)}
+.jc-why{margin-top:.65rem;display:flex;flex-wrap:wrap;gap:.35rem}
+.why-chip{font-size:.68rem;padding:.22rem .55rem;border-radius:7px;background:var(--bg2);color:var(--muted);border:1px solid var(--border)}
+.why-chip.hit{color:var(--ok);border-color:rgba(61,220,133,.3)}
+.jc-actions{display:flex;gap:.6rem;margin-top:.85rem}
+.jc-actions .btn-p,.jc-actions .btn-s{margin-top:0;width:auto;flex:1;padding:.65rem .9rem;font-size:.85rem;min-height:44px}
+.applied-badge{display:inline-flex;align-items:center;gap:.35rem;color:var(--ok);font-weight:700;font-size:.85rem}
+.avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--card2),var(--bg2));border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;color:var(--accent);flex-shrink:0}
+.rating{color:var(--accent);font-size:.8rem;font-weight:700}
+.empty{text-align:center;padding:3rem 1rem;color:var(--muted)}
+.empty .e-ico{font-size:2.4rem;display:block;margin-bottom:.6rem;opacity:.7}
+.section-label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:1.4rem 0 .7rem}
+
+/* ── FAB ── */
+.fab{position:fixed;bottom:1.4rem;right:1.2rem;z-index:60;display:flex;align-items:center;gap:.5rem;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#14100A;font-weight:800;font-size:.9rem;padding:.9rem 1.25rem;border-radius:99px;box-shadow:0 8px 28px rgba(255,197,61,.4);animation:fabIn .4s var(--ease),fabPulse 3s 1s ease-in-out infinite;min-height:50px}
+@keyframes fabIn{from{transform:translateY(70px)}to{transform:none}}
+@keyframes fabPulse{0%,100%{box-shadow:0 8px 28px rgba(255,197,61,.4)}50%{box-shadow:0 8px 38px rgba(255,197,61,.65)}}
+.fab:active{transform:scale(.96)}
+
+/* ── Modal ── */
+#modalWrap{position:fixed;inset:0;z-index:100;display:none;align-items:flex-end;justify-content:center;background:rgba(5,7,11,.7);backdrop-filter:blur(4px)}
+#modalWrap.open{display:flex}
+.modal{width:100%;max-width:640px;max-height:88vh;overflow-y:auto;background:var(--bg2);border:1px solid var(--border);border-radius:22px 22px 0 0;padding:1.4rem 1.2rem 2rem;animation:modalUp .35s var(--ease)}
+@keyframes modalUp{from{transform:translateY(60%)}to{transform:none}}
+.modal-grab{width:44px;height:4px;border-radius:99px;background:var(--border);margin:0 auto 1.1rem}
+
+/* ── Toast ── */
+#toast{position:fixed;left:50%;bottom:5.6rem;transform:translateX(-50%) translateY(20px);z-index:200;background:var(--card2);border:1px solid var(--border2);color:var(--text);font-size:.88rem;font-weight:600;padding:.75rem 1.2rem;border-radius:12px;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;max-width:90vw;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.back{display:inline-flex;align-items:center;gap:.35rem;background:none;color:var(--muted);font-size:.85rem;font-weight:600;margin-bottom:1rem;padding:.3rem .5rem .3rem 0}
+.back:hover{color:var(--text)}
+@media(min-width:520px){.role-cards{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<header id="topbar">
+  <button class="logo" onclick="go('home')"><span class="bolt">⚡</span>LavoroLampo</button>
+  <div class="top-actions">
+    <span class="role-badge" id="roleBadge" style="display:none"></span>
+    <button class="btn-ghost" id="switchBtn" style="display:none" onclick="switchRole()">Cambia ruolo</button>
+  </div>
+</header>
+
+<!-- ═══════ HOME ═══════ -->
+<section class="view active" id="view-home">
+  <div class="hero">
+    <h1>Il turno scoperto?<br/><span class="hl">Coperto in minuti.</span></h1>
+    <p>Mette in contatto chi cerca lavori a chiamata con ristoranti, lidi, attività e privati che hanno bisogno di qualcuno — subito.</p>
+  </div>
+  <div class="role-cards">
+    <button class="role-card" onclick="chooseRole('worker')">
+      <span class="rc-ico">🧑‍🔧</span>
+      <h3>Cerco lavoro</h3>
+      <p>Registra le tue competenze e ricevi proposte di lavoro a chiamata nella tua zona, ordinate per compatibilità.</p>
+      <span class="rc-cta">Inizia →</span>
+    </button>
+    <button class="role-card" onclick="chooseRole('business')">
+      <span class="rc-ico">🏪</span>
+      <h3>Offro lavoro</h3>
+      <p>Ristorante, lido, negozio o casa: pubblica cosa ti serve e trova subito le persone giuste, già valutate.</p>
+      <span class="rc-cta">Pubblica →</span>
+    </button>
+  </div>
+  <div class="stats-row" id="statsRow"></div>
+  <div class="how">
+    <h2>Come funziona</h2>
+    <div class="how-steps">
+      <div class="how-step"><span class="n">1</span><span><b>Registrati in 2 minuti</b> — competenze e disponibilità, oppure la tua attività.</span></div>
+      <div class="how-step"><span class="n">2</span><span><b>L'algoritmo incrocia</b> competenza, città, disponibilità, paga e valutazioni: match da 0 a 100.</span></div>
+      <div class="how-step"><span class="n">3</span><span><b>Un tap e siete in contatto</b> — candidatura immediata, telefono diretto, turno coperto.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ REGISTRAZIONE LAVORATORE ═══════ -->
+<section class="view" id="view-wreg">
+  <button class="back" onclick="go('home')">← Indietro</button>
+  <h2 class="form-title">Crea il tuo profilo 🧑‍🔧</h2>
+  <p class="form-sub">Più il profilo è completo, più alto sarà il tuo punteggio di match.</p>
+  <div class="frow">
+    <div class="fgroup"><label class="flabel" for="w-nome">Nome</label><input class="finput" id="w-nome" placeholder="Mario" autocomplete="given-name"/></div>
+    <div class="fgroup"><label class="flabel" for="w-cognome">Cognome</label><input class="finput" id="w-cognome" placeholder="Rossi" autocomplete="family-name"/></div>
+  </div>
+  <div class="frow">
+    <div class="fgroup"><label class="flabel" for="w-citta">Città</label><input class="finput" id="w-citta" list="cities" placeholder="Palermo"/></div>
+    <div class="fgroup"><label class="flabel" for="w-tel">Telefono</label><input class="finput" id="w-tel" type="tel" placeholder="333 1234567" autocomplete="tel"/></div>
+  </div>
+  <div class="fgroup">
+    <label class="flabel">Competenze (seleziona tutte le tue)</label>
+    <div class="chips" id="w-skills"></div>
+  </div>
+  <div class="frow">
+    <div class="fgroup"><label class="flabel" for="w-exp">Anni di esperienza</label><input class="finput" id="w-exp" type="number" min="0" max="50" placeholder="3"/></div>
+    <div class="fgroup"><label class="flabel" for="w-rate">Tariffa minima €/h</label><input class="finput" id="w-rate" type="number" min="5" max="100" step="0.5" placeholder="9"/></div>
+  </div>
+  <div class="fgroup">
+    <label class="flabel">Giorni disponibili</label>
+    <div class="chips" id="w-days"></div>
+  </div>
+  <div class="fgroup">
+    <label class="flabel">Fasce orarie</label>
+    <div class="chips" id="w-slots"></div>
+  </div>
+  <div class="fgroup">
+    <label class="flabel" for="w-radius">Distanza massima</label>
+    <select class="finput" id="w-radius">
+      <option value="0">Solo la mia città</option>
+      <option value="30">Fino a 30 km</option>
+      <option value="100">Fino a 100 km</option>
+    </select>
+  </div>
+  <button class="btn-p" onclick="saveWorker()">⚡ Attiva il profilo</button>
+</section>
+
+<!-- ═══════ DASHBOARD LAVORATORE ═══════ -->
+<section class="view" id="view-wdash">
+  <div class="dash-head">
+    <div><h2 id="wd-title">Ciao!</h2><p class="sub" id="wd-sub"></p></div>
+    <button class="btn-ghost" onclick="go('wreg')">Modifica profilo</button>
+  </div>
+  <div class="filter-row" id="wd-filters">
+    <button class="chip on" data-f="all" onclick="setWFilter('all',this)">Tutti</button>
+    <button class="chip" data-f="subito" onclick="setWFilter('subito',this)">🔴 Subito</button>
+    <button class="chip" data-f="breve" onclick="setWFilter('breve',this)">🟠 Entro 3 giorni</button>
+    <button class="chip" data-f="prog" onclick="setWFilter('prog',this)">🟢 Programmati</button>
+  </div>
+  <div id="wd-list"></div>
+</section>
+
+<!-- ═══════ REGISTRAZIONE ATTIVITÀ ═══════ -->
+<section class="view" id="view-breg">
+  <button class="back" onclick="go('home')">← Indietro</button>
+  <h2 class="form-title">Registra la tua attività 🏪</h2>
+  <p class="form-sub">Bastano quattro informazioni, poi puoi pubblicare subito il primo annuncio.</p>
+  <div class="fgroup"><label class="flabel" for="b-nome">Nome attività</label><input class="finput" id="b-nome" placeholder="Ristorante Il Faro"/></div>
+  <div class="frow">
+    <div class="fgroup">
+      <label class="flabel" for="b-tipo">Tipo</label>
+      <select class="finput" id="b-tipo">
+        <option>Ristorante</option><option>Bar / Caffetteria</option><option>Lido / Stabilimento</option>
+        <option>Hotel / B&amp;B</option><option>Negozio</option><option>Evento / Catering</option>
+        <option>Casa privata</option><option>Altro</option>
+      </select>
+    </div>
+    <div class="fgroup"><label class="flabel" for="b-citta">Città</label><input class="finput" id="b-citta" list="cities" placeholder="Palermo"/></div>
+  </div>
+  <div class="fgroup"><label class="flabel" for="b-tel">Telefono</label><input class="finput" id="b-tel" type="tel" placeholder="091 1234567"/></div>
+  <button class="btn-p" onclick="saveBusiness()">⚡ Registra e pubblica</button>
+</section>
+
+<!-- ═══════ DASHBOARD ATTIVITÀ ═══════ -->
+<section class="view" id="view-bdash">
+  <div class="dash-head">
+    <div><h2 id="bd-title"></h2><p class="sub" id="bd-sub"></p></div>
+  </div>
+  <div id="bd-list"></div>
+</section>
+
+<!-- FAB pubblica annuncio -->
+<button class="fab" id="fabPost" style="display:none" onclick="openJobModal()">＋ Pubblica annuncio</button>
+
+<!-- ═══════ MODAL NUOVO ANNUNCIO ═══════ -->
+<div id="modalWrap" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-grab"></div>
+    <h2 class="form-title">Nuovo annuncio 📢</h2>
+    <p class="form-sub">Descrivi chi ti serve: l'algoritmo trova subito i candidati migliori.</p>
+    <div class="fgroup">
+      <label class="flabel" for="j-role">Chi ti serve?</label>
+      <select class="finput" id="j-role"></select>
+    </div>
+    <div class="frow">
+      <div class="fgroup"><label class="flabel" for="j-date">Data</label><input class="finput" id="j-date" type="date"/></div>
+      <div class="fgroup">
+        <label class="flabel" for="j-slot">Fascia oraria</label>
+        <select class="finput" id="j-slot">
+          <option>Mattina</option><option>Pomeriggio</option><option>Sera</option><option>Notte</option>
+        </select>
+      </div>
+    </div>
+    <div class="frow">
+      <div class="fgroup"><label class="flabel" for="j-pay">Paga €/h</label><input class="finput" id="j-pay" type="number" min="5" max="100" step="0.5" placeholder="10"/></div>
+      <div class="fgroup">
+        <label class="flabel" for="j-urg">Urgenza</label>
+        <select class="finput" id="j-urg">
+          <option value="subito">🔴 Subito / oggi</option>
+          <option value="breve">🟠 Entro 3 giorni</option>
+          <option value="prog">🟢 Programmato</option>
+        </select>
+      </div>
+    </div>
+    <div class="fgroup"><label class="flabel" for="j-desc">Note (facoltative)</label><textarea class="finput" id="j-desc" rows="2" placeholder="Es. serata con 60 coperti, serve esperienza sala"></textarea></div>
+    <button class="btn-p" onclick="publishJob()">⚡ Pubblica ora</button>
+    <button class="btn-s" onclick="closeModal()">Annulla</button>
+  </div>
+</div>
+
+<div id="toast" role="status"></div>
+
+<datalist id="cities">
+  <option>Palermo</option><option>Catania</option><option>Messina</option><option>Trapani</option>
+  <option>Agrigento</option><option>Siracusa</option><option>Ragusa</option><option>Cefalù</option>
+  <option>Mondello</option><option>Bagheria</option><option>Monreale</option><option>Marsala</option>
+</datalist>
+
+<script>
+'use strict';
+/* ═══════════ DATI ═══════════ */
+const SKILLS = ['Cameriere','Barista','Cuoco','Aiuto cucina','Pizzaiolo','Bagnino','Animazione','Pulizie','Babysitter','Badante','Giardinaggio','Muratore','Elettricista','Idraulico','Imbianchino','Facchinaggio','Cassiere','Commesso','Autista','Fotografo'];
+const DAYS = ['Lun','Mar','Mer','Gio','Ven','Sab','Dom'];
+const SLOTS = ['Mattina','Pomeriggio','Sera','Notte'];
+const DAY_FROM_DATE = d => DAYS[(new Date(d+'T12:00').getDay()+6)%7];
+
+const store = {
+  read(){ try{ return JSON.parse(localStorage.getItem('lavorolampo')||'null'); }catch(e){ return null; } },
+  write(s){ localStorage.setItem('lavorolampo', JSON.stringify(s)); }
+};
+
+function seed(){
+  const today = new Date(); const iso = o => { const d=new Date(today); d.setDate(d.getDate()+o); return d.toISOString().slice(0,10); };
+  return {
+    workers:[
+      {id:'w1',nome:'Marco',cognome:'Greco',citta:'Palermo',tel:'333 8112233',skills:['Cameriere','Barista'],exp:5,rate:9,days:['Lun','Mar','Mer','Gio','Ven','Sab','Dom'],slots:['Sera','Notte'],radius:30,rating:4.8,jobs:37,demo:true},
+      {id:'w2',nome:'Giulia',cognome:'Russo',citta:'Palermo',tel:'333 2445566',skills:['Pulizie','Babysitter'],exp:7,rate:10,days:['Lun','Mar','Mer','Gio','Ven'],slots:['Mattina','Pomeriggio'],radius:0,rating:4.6,jobs:52,demo:true},
+      {id:'w3',nome:'Salvo',cognome:'Vitale',citta:'Mondello',tel:'333 9887766',skills:['Bagnino','Animazione'],exp:4,rate:11,days:['Ven','Sab','Dom'],slots:['Mattina','Pomeriggio'],radius:30,rating:4.9,jobs:21,demo:true},
+      {id:'w4',nome:'Anna',cognome:'Marino',citta:'Palermo',tel:'333 5223311',skills:['Cuoco','Aiuto cucina','Pizzaiolo'],exp:9,rate:12,days:['Mar','Mer','Gio','Ven','Sab'],slots:['Pomeriggio','Sera'],radius:100,rating:4.7,jobs:64,demo:true},
+      {id:'w5',nome:'Luca',cognome:'Ferrara',citta:'Bagheria',tel:'333 6114499',skills:['Facchinaggio','Muratore','Imbianchino'],exp:6,rate:9.5,days:['Lun','Mar','Mer','Gio','Ven','Sab'],slots:['Mattina','Pomeriggio'],radius:30,rating:4.5,jobs:29,demo:true},
+      {id:'w6',nome:'Elena',cognome:'Costa',citta:'Palermo',tel:'333 7551188',skills:['Commesso','Cassiere'],exp:3,rate:8.5,days:['Lun','Mer','Ven','Sab','Dom'],slots:['Mattina','Pomeriggio','Sera'],radius:0,rating:4.4,jobs:18,demo:true},
+    ],
+    businesses:[
+      {id:'b1',nome:'Ristorante Il Faro',tipo:'Ristorante',citta:'Palermo',tel:'091 6118822',demo:true},
+      {id:'b2',nome:'Lido Onda Blu',tipo:'Lido / Stabilimento',citta:'Mondello',tel:'091 4553311',demo:true},
+      {id:'b3',nome:'Bar Centrale',tipo:'Bar / Caffetteria',citta:'Palermo',tel:'091 2887744',demo:true},
+    ],
+    jobs:[
+      {id:'j1',bizId:'b1',role:'Cameriere',date:iso(0),slot:'Sera',pay:10,urg:'subito',desc:'Serata piena, 60 coperti. Serve esperienza in sala.',status:'aperto'},
+      {id:'j2',bizId:'b2',role:'Bagnino',date:iso(3),slot:'Mattina',pay:11.5,urg:'breve',desc:'Weekend, brevetto obbligatorio.',status:'aperto'},
+      {id:'j3',bizId:'b3',role:'Barista',date:iso(1),slot:'Mattina',pay:9.5,urg:'breve',desc:'Turno colazioni 6-12.',status:'aperto'},
+      {id:'j4',bizId:'b1',role:'Aiuto cucina',date:iso(6),slot:'Sera',pay:10.5,urg:'prog',desc:'Rinforzo cucina per cerimonia.',status:'aperto'},
+    ],
+    applications:[], session:{role:null,id:null}, v:1
+  };
+}
+let S = store.read() || seed();
+store.write(S);
+
+/* ═══════════ MATCHING (0-100) ═══════════ */
+function matchScore(job, w){
+  const why = [];
+  let pts = 0;
+  const biz = S.businesses.find(b=>b.id===job.bizId) || {citta:''};
+  // 1. competenza — 40
+  const skill = w.skills.includes(job.role);
+  pts += skill?40:0; why.push({t:'Competenza', hit:skill, p:40});
+  // 2. città/raggio — 25
+  const sameCity = (w.citta||'').trim().toLowerCase() === (biz.citta||'').trim().toLowerCase();
+  const cityPts = sameCity?25:(+w.radius>=30?10:0);
+  pts += cityPts; why.push({t:sameCity?'Stessa città':'Zona', hit:cityPts>0, p:25});
+  // 3. disponibilità — 15
+  const dayOk = w.days.includes(DAY_FROM_DATE(job.date));
+  const slotOk = w.slots.includes(job.slot);
+  const avPts = dayOk&&slotOk?15:(dayOk?8:0);
+  pts += avPts; why.push({t:'Disponibilità', hit:avPts===15, p:15});
+  // 4. paga — 10
+  const payPts = +job.pay >= +w.rate?10:(+job.pay >= +w.rate*0.8?5:0);
+  pts += payPts; why.push({t:'Paga', hit:payPts===10, p:10});
+  // 5. rating — 10
+  const rPts = w.rating? Math.round(w.rating/5*10) : 6;
+  pts += rPts; why.push({t:'Valutazione', hit:rPts>=8, p:10});
+  return {score:Math.min(100,pts), why};
+}
+
+/* ═══════════ NAVIGATION ═══════════ */
+const views = ['home','wreg','wdash','breg','bdash'];
+function go(v){
+  views.forEach(x => document.getElementById('view-'+x).classList.toggle('active', x===v));
+  document.getElementById('fabPost').style.display = v==='bdash'?'flex':'none';
+  const badge = document.getElementById('roleBadge'), sw = document.getElementById('switchBtn');
+  const r = S.session.role;
+  badge.style.display = r?'inline-block':'none';
+  sw.style.display = r?'inline-block':'none';
+  badge.textContent = r==='worker'?'🧑‍🔧 Lavoratore':r==='business'?'🏪 Attività':'';
+  if(v==='wreg') initWReg();
+  if(v==='breg') initBReg();
+  if(v==='wdash') renderWDash();
+  if(v==='bdash') renderBDash();
+  if(v==='home') renderStats();
+  scrollTo(0,0);
+}
+function chooseRole(r){
+  S.session.role = r; store.write(S);
+  if(r==='worker'){ S.session.id && S.workers.find(w=>w.id===S.session.id) ? go('wdash') : go('wreg'); }
+  else { S.session.id && S.businesses.find(b=>b.id===S.session.id) ? go('bdash') : go('breg'); }
+}
+function switchRole(){
+  const r = S.session.role;
+  const myW = S.workers.find(w=>w.id===S.session.wid);
+  const myB = S.businesses.find(b=>b.id===S.session.bid);
+  if(r==='worker'){ S.session.role='business'; S.session.id=S.session.bid||null; store.write(S); myB?go('bdash'):go('breg'); }
+  else { S.session.role='worker'; S.session.id=S.session.wid||null; store.write(S); myW?go('wdash'):go('wreg'); }
+}
+
+/* ═══════════ TOAST ═══════════ */
+let toastT;
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastT); toastT = setTimeout(()=>t.classList.remove('show'), 2600);
+}
+
+/* ═══════════ CHIPS ═══════════ */
+function buildChips(elId, items, preset){
+  const el = document.getElementById(elId);
+  el.innerHTML = items.map(s=>`<button class="chip${(preset||[]).includes(s)?' on':''}" data-v="${s}" onclick="this.classList.toggle('on')">${s}</button>`).join('');
+}
+const chipVals = elId => [...document.querySelectorAll('#'+elId+' .chip.on')].map(c=>c.dataset.v);
+
+/* ═══════════ WORKER REG ═══════════ */
+function initWReg(){
+  const me = S.workers.find(w=>w.id===S.session.wid);
+  buildChips('w-skills', SKILLS, me?.skills);
+  buildChips('w-days', DAYS, me?.days || DAYS.slice(0,6));
+  buildChips('w-slots', SLOTS, me?.slots || ['Mattina','Pomeriggio']);
+  if(me){ ['nome','cognome','citta','tel','exp','rate'].forEach(k=>document.getElementById('w-'+k).value = me[k]??''); document.getElementById('w-radius').value = me.radius??0; }
+}
+function invalidate(id, bad){ const el=document.getElementById(id); el.classList.toggle('invalid', !!bad); return !!bad; }
+function saveWorker(){
+  const f = k => document.getElementById('w-'+k).value.trim();
+  let bad = false;
+  bad |= invalidate('w-nome', !f('nome'));
+  bad |= invalidate('w-cognome', !f('cognome'));
+  bad |= invalidate('w-citta', !f('citta'));
+  bad |= invalidate('w-tel', !/^[\d\s+\-]{8,}$/.test(f('tel')));
+  const skills = chipVals('w-skills');
+  if(bad || !skills.length){ toast(!skills.length && !bad ? 'Seleziona almeno una competenza' : 'Completa i campi evidenziati'); return; }
+  const me = S.workers.find(w=>w.id===S.session.wid);
+  const data = {nome:f('nome'),cognome:f('cognome'),citta:f('citta'),tel:f('tel'),skills,
+    exp:+f('exp')||0, rate:+f('rate')||8, days:chipVals('w-days'), slots:chipVals('w-slots'),
+    radius:+document.getElementById('w-radius').value};
+  if(me) Object.assign(me, data);
+  else { const id='w'+Date.now(); S.workers.push({id, rating:null, jobs:0, ...data}); S.session.wid=id; }
+  S.session.id = S.session.wid; store.write(S);
+  toast('⚡ Profilo attivo! Ecco i lavori per te');
+  go('wdash');
+}
+
+/* ═══════════ WORKER DASH ═══════════ */
+let wFilter = 'all';
+function setWFilter(f, btn){
+  wFilter = f;
+  document.querySelectorAll('#wd-filters .chip').forEach(c=>c.classList.toggle('on', c===btn));
+  renderWDash();
+}
+const URG = {subito:['🔴 Subito','urgent'], breve:['🟠 Entro 3 giorni','soon'], prog:['🟢 Programmato','ok']};
+const fmtDate = d => new Date(d+'T12:00').toLocaleDateString('it-IT',{weekday:'short',day:'numeric',month:'short'});
+function ring(score){
+  const r=23, c=2*Math.PI*r, off=c*(1-score/100);
+  const col = score>=70?'var(--ok)':score>=45?'var(--accent)':'var(--muted)';
+  return `<div class="match-ring"><svg width="54" height="54"><circle cx="27" cy="27" r="${r}" fill="none" stroke="var(--bg2)" stroke-width="5"/><circle cx="27" cy="27" r="${r}" fill="none" stroke="${col}" stroke-width="5" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${off}"/></svg><span class="mr-txt">${score}%</span></div>`;
+}
+function whyChips(why){ return `<div class="jc-why">${why.map(w=>`<span class="why-chip${w.hit?' hit':''}">${w.hit?'✓':'·'} ${w.t}</span>`).join('')}</div>`; }
+function renderWDash(){
+  const me = S.workers.find(w=>w.id===S.session.wid);
+  if(!me){ go('wreg'); return; }
+  document.getElementById('wd-title').textContent = `Ciao ${me.nome}! 👋`;
+  document.getElementById('wd-sub').textContent = `${me.skills.join(' · ')} — ${me.citta}`;
+  const open = S.jobs.filter(j=>j.status==='aperto' && (wFilter==='all'||j.urg===wFilter));
+  const ranked = open.map(j=>({j, m:matchScore(j, me)})).sort((a,b)=>b.m.score-a.m.score);
+  const list = document.getElementById('wd-list');
+  if(!ranked.length){ list.innerHTML = `<div class="empty"><span class="e-ico">🔎</span>Nessun annuncio in questa categoria.<br/>Torna a controllare tra poco!</div>`; return; }
+  list.innerHTML = ranked.map(({j,m})=>{
+    const biz = S.businesses.find(b=>b.id===j.bizId)||{};
+    const applied = S.applications.find(a=>a.jobId===j.id && a.workerId===me.id);
+    const [uTxt,uCls] = URG[j.urg];
+    return `<div class="jcard">
+      <div class="jc-top"><div><div class="jc-role">${j.role}</div><div class="jc-biz">${biz.nome||''} · ${biz.tipo||''} — ${biz.citta||''}</div></div>${ring(m.score)}</div>
+      <div class="jc-meta"><span class="tag ${uCls}">${uTxt}</span><span class="tag">📅 ${fmtDate(j.date)}</span><span class="tag">🕐 ${j.slot}</span><span class="tag gold">💶 ${j.pay} €/h</span></div>
+      ${j.desc?`<p style="font-size:.83rem;color:var(--muted);margin-top:.6rem">${j.desc}</p>`:''}
+      ${whyChips(m.why)}
+      <div class="jc-actions">${applied
+        ? (applied.status==='accettata'
+            ? `<span class="applied-badge">✅ Confermato! Ti chiameranno al ${me.tel}</span>`
+            : `<span class="applied-badge" style="color:var(--accent)">📨 Candidatura inviata</span>`)
+        : `<button class="btn-p" onclick="applyJob('${j.id}')">⚡ Mi propongo</button>`}</div>
+    </div>`;
+  }).join('');
+}
+function applyJob(jobId){
+  const me = S.workers.find(w=>w.id===S.session.wid);
+  if(S.applications.find(a=>a.jobId===jobId && a.workerId===me.id)) return;
+  S.applications.push({jobId, workerId:me.id, status:'inviata', ts:Date.now()});
+  store.write(S);
+  toast('📨 Candidatura inviata! L\'attività vedrà il tuo profilo');
+  renderWDash();
+}
+
+/* ═══════════ BUSINESS REG ═══════════ */
+function initBReg(){
+  const me = S.businesses.find(b=>b.id===S.session.bid);
+  if(me){ document.getElementById('b-nome').value=me.nome; document.getElementById('b-tipo').value=me.tipo; document.getElementById('b-citta').value=me.citta; document.getElementById('b-tel').value=me.tel; }
+}
+function saveBusiness(){
+  const f = k => document.getElementById('b-'+k).value.trim();
+  let bad=false;
+  bad |= invalidate('b-nome', !f('nome'));
+  bad |= invalidate('b-citta', !f('citta'));
+  bad |= invalidate('b-tel', !/^[\d\s+\-]{8,}$/.test(f('tel')));
+  if(bad){ toast('Completa i campi evidenziati'); return; }
+  const me = S.businesses.find(b=>b.id===S.session.bid);
+  const data = {nome:f('nome'), tipo:document.getElementById('b-tipo').value, citta:f('citta'), tel:f('tel')};
+  if(me) Object.assign(me,data);
+  else { const id='b'+Date.now(); S.businesses.push({id,...data}); S.session.bid=id; }
+  S.session.id = S.session.bid; store.write(S);
+  toast('🏪 Attività registrata!');
+  go('bdash');
+  setTimeout(openJobModal, 450);
+}
+
+/* ═══════════ BUSINESS DASH ═══════════ */
+function renderBDash(){
+  const me = S.businesses.find(b=>b.id===S.session.bid);
+  if(!me){ go('breg'); return; }
+  document.getElementById('bd-title').textContent = me.nome;
+  document.getElementById('bd-sub').textContent = `${me.tipo} — ${me.citta}`;
+  const myJobs = S.jobs.filter(j=>j.bizId===me.id).sort((a,b)=>b.id<a.id?-1:1);
+  const list = document.getElementById('bd-list');
+  if(!myJobs.length){ list.innerHTML = `<div class="empty"><span class="e-ico">📢</span>Nessun annuncio ancora.<br/>Pubblica il primo con il pulsante qui sotto!</div>`; return; }
+  list.innerHTML = myJobs.map(j=>{
+    const [uTxt,uCls] = URG[j.urg];
+    const cands = S.workers.map(w=>({w, m:matchScore(j,w)}))
+      .filter(x=>x.m.score>=30).sort((a,b)=>b.m.score-a.m.score).slice(0,5);
+    const apps = S.applications.filter(a=>a.jobId===j.id);
+    return `<div class="jcard">
+      <div class="jc-top"><div><div class="jc-role">${j.role}</div><div class="jc-biz">📅 ${fmtDate(j.date)} · ${j.slot} · 💶 ${j.pay} €/h</div></div>
+        <span class="tag ${uCls}" style="align-self:flex-start">${j.status==='coperto'?'✅ Coperto':uTxt}</span></div>
+      ${apps.length?`<p style="font-size:.8rem;color:var(--ok);font-weight:700;margin-top:.5rem">📨 ${apps.length} candidatur${apps.length>1?'e':'a'} ricevut${apps.length>1?'e':'a'}</p>`:''}
+      <p class="section-label" style="margin:.9rem 0 .5rem">Candidati suggeriti</p>
+      ${cands.length? cands.map(({w,m})=>candCard(j,w,m,apps)).join('') : '<p style="font-size:.83rem;color:var(--muted)">Nessun candidato compatibile al momento.</p>'}
+    </div>`;
+  }).join('');
+}
+function candCard(j,w,m,apps){
+  const app = apps.find(a=>a.workerId===w.id);
+  const accepted = app?.status==='accettata';
+  return `<div style="display:flex;gap:.7rem;align-items:flex-start;background:var(--bg2);border:1px solid ${accepted?'rgba(61,220,133,.4)':'var(--border)'};border-radius:13px;padding:.75rem;margin-bottom:.5rem">
+    <div class="avatar">${w.nome[0]}${w.cognome[0]}</div>
+    <div style="flex:1;min-width:0">
+      <div style="display:flex;justify-content:space-between;gap:.5rem;align-items:center">
+        <b style="font-size:.92rem">${w.nome} ${w.cognome}</b>
+        <span style="font-size:.8rem;font-weight:800;color:${m.score>=70?'var(--ok)':'var(--accent)'}">${m.score}%</span>
+      </div>
+      <div style="font-size:.75rem;color:var(--muted)">${w.skills.join(' · ')} — ${w.citta}</div>
+      <div style="margin-top:.25rem">${w.rating?`<span class="rating">★ ${w.rating}</span> <span style="font-size:.72rem;color:var(--muted)">· ${w.jobs} lavori</span>`:`<span class="tag" style="padding:.15rem .5rem">Nuovo</span>`}
+      ${app?` · <span style="font-size:.72rem;color:var(--accent);font-weight:700">📨 si è proposto</span>`:''}</div>
+      <div style="display:flex;gap:.45rem;margin-top:.55rem">
+        ${accepted
+          ? `<a href="tel:${w.tel.replace(/\s/g,'')}" class="btn-p" style="margin:0;flex:1;padding:.5rem;font-size:.8rem;min-height:38px;text-decoration:none">📞 ${w.tel}</a>`
+          : `<button class="btn-s" style="margin:0;flex:1;padding:.5rem;font-size:.8rem;min-height:38px" onclick="acceptWorker('${j.id}','${w.id}')">✓ Ingaggia</button>`}
+      </div>
+    </div>
+  </div>`;
+}
+function acceptWorker(jobId, workerId){
+  let app = S.applications.find(a=>a.jobId===jobId && a.workerId===workerId);
+  if(!app){ app = {jobId, workerId, status:'accettata', ts:Date.now()}; S.applications.push(app); }
+  else app.status = 'accettata';
+  const job = S.jobs.find(j=>j.id===jobId); if(job) job.status='coperto';
+  store.write(S);
+  toast('✅ Turno coperto! Ora puoi chiamare direttamente');
+  renderBDash();
+}
+
+/* ═══════════ JOB MODAL ═══════════ */
+function openJobModal(){
+  const sel = document.getElementById('j-role');
+  sel.innerHTML = SKILLS.map(s=>`<option>${s}</option>`).join('');
+  const d = new Date(); document.getElementById('j-date').value = d.toISOString().slice(0,10);
+  document.getElementById('modalWrap').classList.add('open');
+}
+function closeModal(){ document.getElementById('modalWrap').classList.remove('open'); }
+function publishJob(){
+  const pay = +document.getElementById('j-pay').value;
+  const date = document.getElementById('j-date').value;
+  if(!pay || pay<5){ invalidate('j-pay', true); toast('Indica la paga oraria'); return; }
+  if(!date){ invalidate('j-date', true); toast('Indica la data'); return; }
+  invalidate('j-pay', false); invalidate('j-date', false);
+  S.jobs.push({id:'j'+Date.now(), bizId:S.session.bid, role:document.getElementById('j-role').value,
+    date, slot:document.getElementById('j-slot').value, pay, urg:document.getElementById('j-urg').value,
+    desc:document.getElementById('j-desc').value.trim(), status:'aperto'});
+  store.write(S);
+  closeModal();
+  toast('📢 Annuncio pubblicato! Ecco i candidati suggeriti');
+  renderBDash();
+}
+
+/* ═══════════ STATS ═══════════ */
+function renderStats(){
+  document.getElementById('statsRow').innerHTML = `
+    <div class="stat"><b>${S.workers.length}</b><span>Lavoratori</span></div>
+    <div class="stat"><b>${S.jobs.filter(j=>j.status==='aperto').length}</b><span>Annunci aperti</span></div>
+    <div class="stat"><b>${S.businesses.length}</b><span>Attività</span></div>`;
+}
+
+/* ═══════════ INIT ═══════════ */
+initWReg(); initBReg(); renderStats();
+// riprendi la sessione
+if(S.session.role==='worker' && S.session.wid && S.workers.find(w=>w.id===S.session.wid)){ S.session.id=S.session.wid; go('wdash'); }
+else if(S.session.role==='business' && S.session.bid && S.businesses.find(b=>b.id===S.session.bid)){ S.session.id=S.session.bid; go('bdash'); }
+// PWA
+if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body>
+</html>
