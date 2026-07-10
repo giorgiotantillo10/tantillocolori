@@ -1,0 +1,548 @@
+<!DOCTYPE html><html lang="it"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/svg+xml" href="favicon.svg"><title>HIO Sushi Lab — Ristorante di Sushi · Palermo</title><meta name="description" content="HIO Sushi Lab a Palermo: dove l'Oriente incontra la Sicilia. Chef Filippo Gugino, Gambero Rosso 2026, Guida Kenta 2025/2027. Via Quintino Sella 48/a."><meta property="og:type" content="website"><meta property="og:title" content="HIO Sushi Lab — Palermo"><meta property="og:description" content="Dove l'Oriente incontra la Sicilia. Chef Filippo Gugino · Gambero Rosso 2026. Prenota il tuo tavolo."><meta property="og:site_name" content="HIO Sushi Lab"><meta property="og:image" content="https://giorgiotantillo10.github.io/tantillocolori/img/og-cover.jpg"><meta property="og:image:secure_url" content="https://giorgiotantillo10.github.io/tantillocolori/img/og-cover.jpg"><meta property="og:image:type" content="image/jpeg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="HIO Sushi Lab — Palermo"><link rel="image_src" href="https://giorgiotantillo10.github.io/tantillocolori/img/og-cover.jpg"><meta property="og:url" content="https://giorgiotantillo10.github.io/tantillocolori/"><meta property="og:locale" content="it_IT"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="HIO Sushi Lab — Palermo"><meta name="twitter:description" content="Dove l'Oriente incontra la Sicilia. Chef Filippo Gugino · Gambero Rosso 2026."><meta name="twitter:image" content="https://giorgiotantillo10.github.io/tantillocolori/img/og-cover.jpg"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet"><style>
+    :root {
+      --bg:       #0A0A0A;
+      --bg-2:     #111111;
+      --bg-card:  #141414;
+      --gold:     #C9A84C;
+      --gold-2:   #E3C47A;
+      --cream:    #F0EBE1;
+      --muted:    #7A6D5E;
+      --border:   rgba(201,168,76,0.15);
+      --serif:    'Noto Serif JP', serif;
+      --sans:     'Noto Sans JP', sans-serif;
+      --ease:     cubic-bezier(0.4,0,0.2,1);
+    }
+    *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--bg); color:var(--cream); font-family:var(--sans); font-weight:300; line-height:1.75; overflow-x:hidden; }
+    h1,h2,h3,h4 { font-family:var(--serif); font-weight:500; }
+    a { color:inherit; text-decoration:none; }
+    ul { list-style:none; }
+    button { cursor:pointer; font-family:var(--sans); }
+
+    /* ════════ KEYFRAMES ════════ */
+    @keyframes fadeInUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+    @keyframes expandX { from{transform:scaleX(0)} to{transform:scaleX(1)} }
+    @keyframes scrollBounce { 0%,100%{transform:translateY(0);opacity:1} 50%{transform:translateY(8px);opacity:.4} }
+    @keyframes floatRoll { 0%,100%{transform:translateY(0) rotate(var(--ra))} 50%{transform:translateY(-18px) rotate(var(--rb))} }
+    @keyframes sakuraFall { 0%{transform:translateY(-60px) rotate(0) translateX(0);opacity:1} 80%{opacity:.8} 100%{transform:translateY(680px) rotate(720deg) translateX(var(--drift));opacity:0} }
+    @keyframes toriiGlow { 0%,100%{filter:drop-shadow(0 0 6px rgba(201,168,76,.35))} 50%{filter:drop-shadow(0 0 22px rgba(201,168,76,.8))} }
+    @keyframes shimmer { 0%{background-position:200% center} 100%{background-position:-200% center} }
+    @keyframes letterIn { from{opacity:0;transform:translateY(50px) rotate(10deg) scale(.7)} to{opacity:1;transform:none} }
+    @keyframes ensoSpin { from{transform:rotate(0)} to{transform:rotate(360deg)} }
+    @keyframes dustFloat { 0%,100%{transform:translateY(0);opacity:0} 20%{opacity:.8} 50%{transform:translateY(-36px);opacity:.4} 80%{opacity:.7} }
+    @keyframes marqueeX { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    @keyframes waveMove { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    @keyframes koiSwim { 0%{transform:translate(0,0)} 25%{transform:translate(30vw,20px)} 50%{transform:translate(58vw,-14px)} 75%{transform:translate(85vw,12px)} 100%{transform:translate(118vw,0)} }
+    @keyframes koiSwimBack { 0%{transform:translate(0,0)} 25%{transform:translate(-30vw,16px)} 50%{transform:translate(-58vw,-12px)} 75%{transform:translate(-85vw,14px)} 100%{transform:translate(-118vw,0)} }
+    @keyframes tailWag { from{transform:rotate(-14deg)} to{transform:rotate(14deg)} }
+    @keyframes finWag { from{transform:rotate(-10deg)} to{transform:rotate(12deg)} }
+    @keyframes steamRise { 0%{transform:translateY(0) scaleX(1);opacity:0} 25%{opacity:.55} 100%{transform:translateY(-26px) scaleX(1.4);opacity:0} }
+    @keyframes flameFlick { 0%,100%{transform:scaleY(1) scaleX(1)} 30%{transform:scaleY(1.18) scaleX(.92)} 60%{transform:scaleY(.88) scaleX(1.08)} 80%{transform:scaleY(1.1) scaleX(.95)} }
+    @keyframes sparkleTwk { 0%,100%{opacity:0;transform:scale(.4)} 50%{opacity:1;transform:scale(1.1)} }
+    @keyframes ikuraPulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.22)} }
+    @keyframes sesameFall { 0%{transform:translateY(-8px) rotate(0);opacity:0} 15%{opacity:1} 90%{opacity:1} 100%{transform:translateY(95px) rotate(220deg);opacity:0} }
+    @keyframes sliceBob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+    @keyframes dishFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+    @keyframes sheenSweep { 0%{transform:translateX(-70px) rotate(18deg)} 60%,100%{transform:translateX(240px) rotate(18deg)} }
+    @keyframes lanternSwing { from{transform:rotate(-5deg)} to{transform:rotate(5deg)} }
+    @keyframes lanternGlow { 0%,100%{opacity:.25} 50%{opacity:.6} }
+    @keyframes sojuRipple { 0%{transform:scale(.6);opacity:.7} 100%{transform:scale(1.6);opacity:0} }
+
+    /* ════════ SCROLL ANIM BASE ════════ */
+    .anim { opacity:0; transform:translateY(32px); transition:opacity .7s var(--ease),transform .7s var(--ease); }
+    .anim.in { opacity:1; transform:none; }
+    .d1{transition-delay:.1s} .d2{transition-delay:.2s} .d3{transition-delay:.3s} .d4{transition-delay:.4s}
+
+    /* ════════ PROGRESS BAR ════════ */
+    #progress { position:fixed; top:0; left:0; height:3px; width:0; z-index:200; background:linear-gradient(90deg,var(--gold),var(--gold-2)); box-shadow:0 0 12px rgba(201,168,76,.6); transition:width .1s linear; }
+
+    /* ════════ UTILITIES ════════ */
+    .lbl { display:flex; align-items:center; gap:.75rem; font-size:.7rem; letter-spacing:.35em; text-transform:uppercase; color:var(--gold); margin-bottom:1.25rem; }
+    .lbl::before { content:''; display:block; width:32px; height:1px; background:var(--gold); }
+    #omakase .lbl, #torii .lbl { justify-content:center; }
+    .sec-title { font-size:clamp(2rem,4vw,3rem); color:var(--cream); line-height:1.2; margin-bottom:1.25rem; position:relative; display:inline-block; }
+    .sec-title::after { content:''; position:absolute; left:0; bottom:-6px; width:100%; height:1px; background:linear-gradient(90deg,var(--gold),transparent); transform:scaleX(0); transform-origin:left; transition:transform .9s .35s var(--ease); }
+    .anim.in .sec-title::after, .sec-title.anim.in::after { transform:scaleX(1); }
+    .sec-sub { font-size:.95rem; color:var(--muted); max-width:520px; line-height:1.8; }
+    .btn-p { position:relative; overflow:hidden; display:inline-flex; align-items:center; gap:.5rem; padding:.85rem 2rem; background:var(--gold); color:#0A0A0A; font-size:.8rem; font-weight:500; letter-spacing:.12em; text-transform:uppercase; border:none; transition:background .25s var(--ease),transform .2s var(--ease),box-shadow .25s; cursor:pointer; }
+    .btn-p::after { content:''; position:absolute; top:-20%; left:0; width:40px; height:140%; background:rgba(255,255,255,.35); transform:translateX(-70px) rotate(18deg); }
+    .btn-p:hover { background:var(--gold-2); transform:translateY(-2px); box-shadow:0 8px 24px rgba(201,168,76,.35); }
+    .btn-p:hover::after { animation:sheenSweep .8s var(--ease); }
+    .btn-s { display:inline-flex; align-items:center; gap:.5rem; padding:.85rem 2rem; background:transparent; color:var(--cream); font-size:.8rem; letter-spacing:.12em; text-transform:uppercase; border:1px solid rgba(240,235,225,.25); transition:border-color .25s,color .25s,transform .2s,box-shadow .25s; cursor:pointer; }
+    .btn-s:hover { border-color:var(--gold); color:var(--gold); transform:translateY(-2px); box-shadow:0 8px 24px rgba(201,168,76,.15); }
+
+    /* ════════ NAVBAR ════════ */
+    #navbar { position:fixed; top:0; left:0; right:0; z-index:100; padding:1.5rem 2.5rem; transition:background .4s var(--ease),padding .4s var(--ease),box-shadow .4s var(--ease); }
+    #navbar.scrolled { background:rgba(10,10,10,.93); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); padding:1rem 2.5rem; box-shadow:0 1px 0 var(--border); }
+    .nav-inner { max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; }
+    .nav-logo { display:flex; align-items:center; gap:.6rem; line-height:1; cursor:pointer; }
+    .logo-fan { width:38px; height:38px; flex-shrink:0; }
+    .logo-stack { display:flex; flex-direction:column; gap:2.5px; font-family:var(--sans); font-weight:300; font-size:.62rem; letter-spacing:.42em; }
+    .ls-gold { color:var(--gold); } .ls-cream { color:var(--cream); }
+    .nav-links { display:flex; align-items:center; gap:2.5rem; }
+    .nav-links a { position:relative; font-size:.78rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); transition:color .25s; }
+    .nav-links a:not(.nav-reserve)::after { content:''; position:absolute; left:0; bottom:-4px; width:100%; height:1px; background:var(--gold); transform:scaleX(0); transform-origin:right; transition:transform .3s var(--ease); }
+    .nav-links a:hover { color:var(--cream); }
+    .nav-links a:not(.nav-reserve):hover::after { transform:scaleX(1); transform-origin:left; }
+    .nav-reserve { font-size:.78rem!important; padding:.6rem 1.4rem!important; border:1px solid var(--gold)!important; color:var(--gold)!important; transition:background .25s,color .25s!important; }
+    .nav-reserve:hover { background:var(--gold)!important; color:#0A0A0A!important; }
+    .nav-burger { display:none; flex-direction:column; gap:5px; background:none; border:none; padding:.25rem; }
+    .nav-burger span { display:block; width:22px; height:1px; background:var(--cream); }
+    .nav-mobile { display:none; position:fixed; inset:0; background:rgba(10,10,10,.98); z-index:99; flex-direction:column; align-items:center; justify-content:center; gap:2.5rem; }
+    .nav-mobile.open { display:flex; }
+    .nav-mobile a { font-family:var(--serif); font-size:1.8rem; color:var(--cream); letter-spacing:.1em; }
+    .nav-mobile a:hover { color:var(--gold); }
+    .nav-mc { position:absolute; top:1.5rem; right:2rem; background:none; border:none; color:var(--muted); font-size:1.5rem; line-height:1; }
+
+    /* ════════ HERO ════════ */
+    #hero { height:100vh; min-height:620px; position:relative; display:flex; align-items:center; justify-content:center; text-align:center; overflow:hidden; }
+    .hero-bg { position:absolute; inset:0; background:url('img/hio-interno.jpg') center/cover no-repeat; }
+    .hero-bg::after { content:''; position:absolute; inset:0; background:linear-gradient(180deg,rgba(8,5,3,.82) 0%,rgba(10,7,5,.7) 50%,rgba(10,7,5,.92) 100%); }
+    .hero-kanji { position:absolute; font-family:var(--serif); font-size:min(55vw,52vh); font-weight:700; color:rgba(201,168,76,.025); user-select:none; pointer-events:none; line-height:1; top:50%; left:50%; transform:translate(-50%,-50%); will-change:transform; }
+    .hero-enso { position:absolute; top:50%; left:50%; width:min(540px,90vw); height:min(540px,90vw); margin:calc(min(540px,90vw)/-2) 0 0 calc(min(540px,90vw)/-2); pointer-events:none; opacity:0; animation:fadeIn 2s 1.2s forwards; }
+    .hero-enso svg { width:100%; height:100%; animation:ensoSpin 50s linear infinite; }
+    .hero-content { position:relative; z-index:2; padding:0 1.5rem; }
+    .hero-sup { display:block; font-size:.7rem; letter-spacing:.45em; text-transform:uppercase; color:var(--gold); margin-bottom:1.75rem; opacity:0; animation:fadeInUp .9s .2s var(--ease) forwards; }
+    .hero-title { font-family:var(--serif); font-size:clamp(5rem,15vw,12rem); font-weight:400; letter-spacing:.16em; line-height:1; margin-bottom:1.5rem; }
+    .hero-title span {
+      display:inline-block; opacity:0;
+      background:linear-gradient(90deg,var(--cream) 0%,var(--gold-2) 40%,var(--cream) 60%,var(--gold-2) 80%,var(--cream) 100%);
+      background-size:200% auto;
+      -webkit-background-clip:text; background-clip:text;
+      -webkit-text-fill-color:transparent;
+      animation:letterIn .8s calc(.35s + var(--i)*.1s) var(--ease) forwards, shimmer 4s calc(1.6s + var(--i)*.12s) linear infinite;
+    }
+    .hero-tagline { font-size:clamp(.85rem,1.5vw,1rem); color:var(--muted); letter-spacing:.08em; margin-bottom:3rem; opacity:0; animation:fadeInUp .9s .95s var(--ease) forwards; }
+    .hero-divider { width:60px; height:1px; background:var(--gold); margin:0 auto 3rem; opacity:0; animation:expandX .8s 1.1s var(--ease) forwards, fadeIn .8s 1.1s forwards; }
+    .hero-actions { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; opacity:0; animation:fadeInUp .9s 1.25s var(--ease) forwards; }
+    .hero-scroll { position:absolute; bottom:2.5rem; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:.5rem; opacity:0; animation:fadeIn 1s 1.6s forwards; z-index:2; }
+    .hero-scroll span { font-size:.6rem; letter-spacing:.35em; text-transform:uppercase; color:var(--muted); }
+    .scroll-arr { width:1px; height:36px; background:linear-gradient(180deg,var(--gold),transparent); animation:scrollBounce 2s ease-in-out infinite; }
+    .dust { position:absolute; width:4px; height:4px; border-radius:50%; background:var(--gold-2); opacity:0; animation:dustFloat var(--dd) var(--dl) ease-in-out infinite; pointer-events:none; }
+
+
+    /* ════════ MARQUEE ════════ */
+    .marquee { overflow:hidden; border-top:1px solid var(--border); border-bottom:1px solid var(--border); background:#0C0C0C; padding:1rem 0; }
+    .marquee-track { display:flex; gap:0; width:max-content; animation:marqueeX 30s linear infinite; }
+    .marquee-seq { display:flex; align-items:center; gap:3rem; padding-right:3rem; white-space:nowrap; }
+    .mq-jp { font-family:var(--serif); font-size:1.05rem; color:var(--gold); letter-spacing:.2em; }
+    .mq-en { font-size:.7rem; letter-spacing:.4em; text-transform:uppercase; color:var(--muted); }
+    .mq-dot { width:5px; height:5px; border-radius:50%; background:var(--gold); opacity:.5; flex-shrink:0; }
+
+    /* ════════ WAVE DIVIDER ════════ */
+    .wave-div { position:relative; height:70px; overflow:hidden; background:var(--bg-2); }
+    .wave-layer { position:absolute; bottom:0; left:0; width:200%; height:100%; display:flex; }
+    .wave-layer svg { width:50%; height:100%; flex-shrink:0; }
+    .w1 { animation:waveMove 22s linear infinite; opacity:.5; }
+    .w2 { animation:waveMove 14s linear infinite reverse; opacity:.3; }
+
+    /* ════════ KOI ════════ */
+    .koi { position:absolute; left:-170px; width:130px; opacity:.45; pointer-events:none; z-index:0; animation:koiSwim 19s linear infinite; }
+    .koi-back { left:auto; right:-170px; animation:koiSwimBack 23s 6s linear infinite; }
+    .koi svg { overflow:visible; }
+    .koi-tail { animation:tailWag .55s ease-in-out infinite alternate; transform-origin:4% 50%; transform-box:fill-box; }
+    .koi-fin { animation:finWag .8s ease-in-out infinite alternate; transform-origin:top center; transform-box:fill-box; }
+
+    /* ════════ PHILOSOPHY ════════ */
+    #philosophy { padding:7rem 2.5rem; background:var(--bg-2); position:relative; overflow:hidden; }
+    .phil-inner { position:relative; z-index:1; max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:6rem; align-items:center; }
+    .phil-art { font-family:var(--serif); font-size:clamp(6rem,12vw,10rem); font-weight:700; color:rgba(201,168,76,.15); line-height:1; text-align:center; animation:dishFloat 6s ease-in-out infinite; }
+    .phil-art-lbl { text-align:center; font-size:.65rem; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin-top:.5rem; }
+    .phil-sub { max-width:100%!important; margin-bottom:1.5rem; }
+    .phil-quote { border-left:2px solid var(--gold); padding:.75rem 1.25rem; font-family:var(--serif); font-size:1.05rem; color:var(--muted); font-style:italic; margin-top:2rem; }
+
+    /* ════════ SIGNATURE — PIATTI ANIMATI ════════ */
+    #signature { padding:7rem 2.5rem; background:var(--bg); position:relative; overflow:hidden; }
+    .sig-hd { max-width:1100px; margin:0 auto 4rem; position:relative; z-index:1; }
+    .dishes-grid { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:1.5rem; position:relative; z-index:1; }
+    .dish-card { background:var(--bg-card); border:1px solid var(--border); overflow:hidden; cursor:pointer; transition:border-color .3s var(--ease),transform .35s var(--ease),box-shadow .35s var(--ease); }
+    .dish-card:hover { border-color:rgba(201,168,76,.45); transform:translateY(-8px) scale(1.01); box-shadow:0 20px 50px rgba(0,0,0,.5),0 0 30px rgba(201,168,76,.08); }
+    .dish-img { height:230px; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+    .dish-scene { width:100%; height:100%; animation:dishFloat 5s ease-in-out infinite; }
+    .dish-photo { width:100%; height:100%; object-fit:cover; display:block; animation:kenBurns 16s ease-in-out infinite; transition:transform .8s var(--ease),filter .8s var(--ease); }
+    @keyframes kenBurns { 0%,100% { transform:scale(1.02) translate(0,0); } 50% { transform:scale(1.12) translate(-1.5%,1%); } }
+    .dish-card:hover .dish-photo { transform:scale(1.16); filter:brightness(1.12) saturate(1.1); animation-play-state:paused; }
+    .dish-img::after { content:''; position:absolute; inset:0; background:linear-gradient(180deg,rgba(10,10,10,.25) 0%,transparent 35%,transparent 70%,rgba(10,10,10,.45) 100%); pointer-events:none; z-index:1; }
+    .dish-card:nth-child(2) .dish-photo { animation-delay:-4s; }
+    .dish-card:nth-child(3) .dish-photo { animation-delay:-8s; }
+    .dish-card:nth-child(4) .dish-photo { animation-delay:-12s; }
+    .dish-kanji-bg { position:absolute; font-family:var(--serif); font-size:6.5rem; font-weight:700; color:rgba(240,235,225,.04); user-select:none; pointer-events:none; }
+    .dish-tag { position:absolute; top:.75rem; left:.75rem; font-size:.6rem; letter-spacing:.25em; text-transform:uppercase; color:var(--gold); background:rgba(201,168,76,.12); padding:.3rem .7rem; z-index:2; backdrop-filter:blur(4px); }
+    .dish-info { padding:1.25rem; }
+    .dish-name { font-family:var(--serif); font-size:1.1rem; color:var(--cream); margin-bottom:.3rem; }
+    .dish-desc { font-size:.8rem; color:var(--muted); line-height:1.6; margin-bottom:.75rem; }
+    .dish-price { font-size:.85rem; color:var(--gold); letter-spacing:.05em; }
+    .dish-toro .dish-img   { background:radial-gradient(ellipse at 50% 80%,#241010 0%,#160808 70%); }
+    .dish-uni .dish-img    { background:radial-gradient(ellipse at 50% 80%,#1a2415 0%,#0e1510 70%); }
+    .dish-dragon .dish-img { background:radial-gradient(ellipse at 50% 80%,#1c2a10 0%,#0d1508 70%); }
+    .dish-wagyu .dish-img  { background:radial-gradient(ellipse at 50% 80%,#2a1c08 0%,#150e05 70%); }
+
+    /* SVG dish animations */
+    .steam { animation:steamRise 3.2s ease-out infinite; transform-box:fill-box; }
+    .steam.s2 { animation-delay:1.1s; }
+    .steam.s3 { animation-delay:2.2s; }
+    .flame { animation:flameFlick .55s ease-in-out infinite; transform-origin:bottom center; transform-box:fill-box; }
+    .flame.f2 { animation-delay:.2s; animation-duration:.7s; }
+    .flame.f3 { animation-delay:.35s; animation-duration:.45s; }
+    .sparkle { animation:sparkleTwk 2.4s ease-in-out infinite; transform-origin:center; transform-box:fill-box; }
+    .sparkle.k2 { animation-delay:.8s; }
+    .sparkle.k3 { animation-delay:1.5s; }
+    .ikura { animation:ikuraPulse 2s ease-in-out infinite; transform-origin:center; transform-box:fill-box; }
+    .ikura.i2 { animation-delay:.5s; }
+    .ikura.i3 { animation-delay:1s; }
+    .sesame { animation:sesameFall 3.4s linear infinite; transform-box:fill-box; }
+    .sesame.e2 { animation-delay:1.2s; }
+    .sesame.e3 { animation-delay:2.3s; }
+    .slice { animation:sliceBob 3.4s ease-in-out infinite; transform-box:fill-box; }
+    .slice.sl2 { animation-delay:.6s; }
+    .slice.sl3 { animation-delay:1.2s; }
+    .ripple { animation:sojuRipple 2.6s ease-out infinite; transform-origin:center; transform-box:fill-box; }
+
+    /* ════════ OMAKASE ════════ */
+    #omakase { padding:8rem 2.5rem; background:var(--bg-2); position:relative; overflow:hidden; text-align:center; }
+    .om-bg-k { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:var(--serif); font-size:40vw; font-weight:700; color:rgba(201,168,76,.02); pointer-events:none; user-select:none; line-height:1; }
+    .om-lantern { position:absolute; top:0; right:6%; width:74px; transform-origin:top center; animation:lanternSwing 3.5s ease-in-out infinite alternate; z-index:1; }
+    .om-lantern .lglow { animation:lanternGlow 3s ease-in-out infinite; }
+    .om-lantern-l { right:auto; left:6%; animation-delay:1.2s; }
+    @media (max-width:640px){ .om-lantern { width:48px; right:3%; } .om-lantern-l { left:3%; } }
+    .om-inner { position:relative; z-index:2; max-width:700px; margin:0 auto; }
+    .om-inner .sec-sub { max-width:100%; margin:0 auto 1.5rem; }
+    .om-price { display:inline-flex; flex-direction:column; align-items:center; gap:.25rem; margin:2rem 0; padding:1.5rem 3rem; border:1px solid var(--border); transition:border-color .3s,box-shadow .3s; }
+    .om-price:hover { border-color:var(--gold); box-shadow:0 0 30px rgba(201,168,76,.12); }
+    .om-plabel { font-size:.65rem; letter-spacing:.35em; text-transform:uppercase; color:var(--muted); }
+    .om-pval { font-family:var(--serif); font-size:2.5rem; color:var(--gold); font-weight:500; }
+    .om-pnote { font-size:.75rem; color:var(--muted); }
+    .om-feats { display:flex; justify-content:center; gap:3rem; margin-bottom:2.5rem; flex-wrap:wrap; }
+    .om-feat { display:flex; flex-direction:column; align-items:center; gap:.5rem; }
+    .om-feat-icon { width:40px; height:40px; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; color:var(--gold); transition:transform .3s,border-color .3s; }
+    .om-feat:hover .om-feat-icon { transform:rotate(45deg); border-color:var(--gold); }
+    .om-feat:hover .om-feat-icon svg { transform:rotate(-45deg); }
+    .om-feat-icon svg { width:18px; height:18px; transition:transform .3s; }
+    .om-feat-txt { font-size:.72rem; letter-spacing:.08em; color:var(--muted); text-align:center; }
+
+    /* ════════ TORII ════════ */
+    #torii { padding:7rem 2.5rem 5rem; background:#060606; position:relative; overflow:hidden; text-align:center; }
+    .torii-top { margin-bottom:4rem; position:relative; z-index:1; }
+    .torii-top .sec-sub { max-width:520px; margin:0 auto; }
+    .torii-stage { position:relative; display:flex; justify-content:center; align-items:flex-start; }
+    .torii-svg { width:min(420px,82vw); height:auto; }
+    .torii-path { stroke:var(--gold); stroke-linecap:square; fill:none; }
+    .torii-svg.glowing .torii-path { animation:toriiGlow 2.5s ease-in-out infinite; }
+    .torii-pillar-inner { stroke:rgba(201,168,76,.3); }
+    .torii-kanji-base { position:absolute; bottom:-10px; left:50%; transform:translateX(-50%); font-family:var(--serif); font-size:1rem; letter-spacing:.6em; color:var(--gold); opacity:0; transition:opacity 1.2s ease; white-space:nowrap; }
+    .torii-kanji-base.show { opacity:1; }
+    .sakura-layer { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+    .spetal { position:absolute; top:0; width:22px; height:22px; opacity:0; animation:sakuraFall var(--dur) var(--del) linear forwards; }
+
+    /* ════════ MENU ════════ */
+    #menu { padding:7rem 2.5rem; background:var(--bg); position:relative; overflow:hidden; }
+    .menu-inner { max-width:900px; margin:0 auto; position:relative; z-index:1; }
+    .menu-hd { margin-bottom:3.5rem; }
+    .menu-tabs { display:flex; gap:0; border-bottom:1px solid var(--border); margin-bottom:3rem; }
+    .menu-tab { padding:.75rem 1.75rem; background:none; border:none; color:var(--muted); font-size:.78rem; letter-spacing:.15em; text-transform:uppercase; cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px; transition:color .25s,border-color .25s; }
+    .menu-tab.active { color:var(--gold); border-bottom-color:var(--gold); }
+    .menu-tab:hover { color:var(--cream); }
+    .menu-panel { display:none; }
+    .menu-panel.active { display:block; }
+    .menu-items { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem 3rem; }
+    .menu-panel.active .menu-item { opacity:0; animation:fadeInUp .5s var(--ease) forwards; }
+    .menu-panel.active .menu-item:nth-child(1){animation-delay:.05s}
+    .menu-panel.active .menu-item:nth-child(2){animation-delay:.1s}
+    .menu-panel.active .menu-item:nth-child(3){animation-delay:.15s}
+    .menu-panel.active .menu-item:nth-child(4){animation-delay:.2s}
+    .menu-panel.active .menu-item:nth-child(5){animation-delay:.25s}
+    .menu-panel.active .menu-item:nth-child(6){animation-delay:.3s}
+    .menu-panel.active .menu-item:nth-child(7){animation-delay:.35s}
+    .menu-panel.active .menu-item:nth-child(8){animation-delay:.4s}
+    .menu-item { display:flex; justify-content:space-between; align-items:baseline; gap:1rem; padding-bottom:1.25rem; border-bottom:1px solid rgba(240,235,225,.05); transition:border-color .3s,transform .3s; }
+    .menu-item:hover { border-bottom-color:rgba(201,168,76,.4); transform:translateX(6px); }
+    .mi-name { font-family:var(--serif); font-size:1rem; color:var(--cream); margin-bottom:.2rem; }
+    .mi-desc { font-size:.75rem; color:var(--muted); }
+    .mi-price { font-size:.9rem; color:var(--gold); white-space:nowrap; flex-shrink:0; }
+
+    /* ════════ RESERVATION ════════ */
+    #reservation { padding:7rem 2.5rem; background:var(--bg-2); }
+    .res-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:6rem; align-items:start; }
+    .res-title { font-family:var(--serif); font-size:clamp(2rem,4vw,3rem); margin-bottom:1rem; }
+    .res-sub { font-size:.9rem; color:var(--muted); margin-bottom:2.5rem; line-height:1.8; }
+    .res-det { display:flex; flex-direction:column; gap:1rem; }
+    .res-det-item { display:flex; flex-direction:column; gap:.15rem; }
+    .res-det-lbl { font-size:.65rem; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); }
+    .res-det-val { font-size:.9rem; color:var(--cream); }
+    .res-form { display:flex; flex-direction:column; gap:1.25rem; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; }
+    .form-group { display:flex; flex-direction:column; gap:.4rem; }
+    .form-lbl { font-size:.65rem; letter-spacing:.25em; text-transform:uppercase; color:var(--muted); }
+    .form-input,.form-sel,.form-ta { background:rgba(240,235,225,.04); border:1px solid var(--border); color:var(--cream); font-family:var(--sans); font-size:.9rem; font-weight:300; padding:.85rem 1rem; outline:none; transition:border-color .25s,background .25s,box-shadow .25s; width:100%; }
+    .form-input::placeholder,.form-ta::placeholder { color:var(--muted); }
+    .form-input:focus,.form-sel:focus,.form-ta:focus { border-color:var(--gold); background:rgba(201,168,76,.04); box-shadow:0 0 0 3px rgba(201,168,76,.08); }
+    .form-sel { cursor:pointer; }
+    .form-sel option { background:#111; color:var(--cream); }
+    .form-ta { resize:vertical; min-height:100px; }
+    .form-submit { width:100%; padding:1rem; margin-top:.5rem; }
+
+    /* ════════ FOOTER ════════ */
+    footer { background:#080808; border-top:1px solid var(--border); padding:4rem 2.5rem 2.5rem; }
+    .foot-inner { max-width:1100px; margin:0 auto; }
+    .foot-top { display:grid; grid-template-columns:2fr 1fr 1fr; gap:4rem; margin-bottom:3.5rem; }
+    .foot-logo-en { font-family:var(--serif); font-size:1.6rem; letter-spacing:.2em; color:var(--cream); }
+    .foot-logo-jp { font-family:var(--serif); font-size:.7rem; letter-spacing:.3em; color:var(--gold); margin:.15rem 0 1rem; }
+    .foot-tag { font-size:.82rem; color:var(--muted); line-height:1.7; max-width:260px; }
+    .foot-col-t { font-size:.65rem; letter-spacing:.35em; text-transform:uppercase; color:var(--gold); margin-bottom:1.25rem; }
+    .foot-col ul { display:flex; flex-direction:column; gap:.75rem; }
+    .foot-col a { font-size:.82rem; color:var(--muted); transition:color .25s,padding-left .25s; }
+    .foot-col a:hover { color:var(--cream); padding-left:6px; }
+    .foot-hrs { display:flex; flex-direction:column; gap:.6rem; }
+    .foot-hr { display:flex; justify-content:space-between; font-size:.8rem; }
+    .foot-hr-day { color:var(--muted); }
+    .foot-hr-time { color:var(--cream); }
+    .foot-bot { display:flex; justify-content:space-between; align-items:center; padding-top:2rem; border-top:1px solid rgba(240,235,225,.05); flex-wrap:wrap; gap:1rem; }
+    .foot-copy { font-size:.72rem; color:var(--muted); letter-spacing:.05em; }
+    .foot-addr { font-size:.72rem; color:var(--muted); text-align:right; }
+
+    /* ════════ RESPONSIVE ════════ */
+    @media (max-width:900px) {
+      .dishes-grid { grid-template-columns:repeat(2,1fr); }
+      .phil-inner { grid-template-columns:1fr; gap:3rem; }
+      .phil-art { font-size:8rem; }
+      .res-inner { grid-template-columns:1fr; gap:3rem; }
+      .foot-top { grid-template-columns:1fr 1fr; gap:2.5rem; }
+      .foot-brand { grid-column:1/-1; }
+    }
+    @media (max-width:640px) {
+      .dishes-grid { grid-template-columns:1fr; }
+      .nav-links { display:none; }
+      .nav-burger { display:flex; }
+      .menu-items { grid-template-columns:1fr; }
+      .form-row { grid-template-columns:1fr; }
+      .foot-top { grid-template-columns:1fr; }
+      .om-feats { gap:1.5rem; }
+      #navbar { padding:1.25rem 1.5rem; }
+      #navbar.scrolled { padding:.85rem 1.5rem; }
+      .menu-tab { padding:.75rem 1rem; font-size:.7rem; }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      *,*::before,*::after { animation-duration:.01ms!important; transition-duration:.01ms!important; }
+    }
+
+    /* ════════ FAB PRENOTA ════════ */
+    .fab-prenota { position:fixed; bottom:2rem; right:2rem; z-index:150; display:inline-flex; align-items:center; gap:.6rem; padding:.85rem 1.6rem; background:var(--gold); color:#0A0A0A; font-family:var(--sans); font-size:.76rem; font-weight:500; letter-spacing:.14em; text-transform:uppercase; box-shadow:0 8px 32px rgba(201,168,76,.45),0 2px 8px rgba(0,0,0,.4); transition:background .25s var(--ease),transform .2s var(--ease),box-shadow .25s; text-decoration:none; overflow:hidden; }
+    .fab-prenota::before { content:''; position:absolute; inset:0; background:rgba(255,255,255,.06); }
+    .fab-prenota::after { content:''; position:absolute; top:-20%; left:0; width:40px; height:140%; background:rgba(255,255,255,.35); transform:translateX(-70px) rotate(18deg); transition:none; }
+    .fab-prenota:hover { background:var(--gold-2); transform:translateY(-3px); box-shadow:0 16px 44px rgba(201,168,76,.6),0 4px 12px rgba(0,0,0,.4); }
+    .fab-prenota:hover::after { animation:sheenSweep .8s var(--ease); }
+    .fab-prenota svg { width:15px; height:15px; flex-shrink:0; }
+    @keyframes fabPulse { 0%,100%{box-shadow:0 8px 32px rgba(201,168,76,.45),0 2px 8px rgba(0,0,0,.4)} 50%{box-shadow:0 8px 40px rgba(201,168,76,.7),0 2px 8px rgba(0,0,0,.4)} }
+    .fab-prenota { animation:fabPulse 3s ease-in-out infinite; }
+    .fab-prenota:hover { animation:none; }
+    @media (max-width:640px){ .fab-prenota { bottom:1.25rem; right:1.25rem; padding:.7rem 1.1rem; font-size:.7rem; gap:.45rem; letter-spacing:.1em; } }
+
+    /* ════════ PAGE TRANSITION — BACCHETTE ════════ */
+    #ptOverlay { position:fixed; inset:0; z-index:300; visibility:hidden; pointer-events:none; }
+    #ptOverlay.pt-active { visibility:visible; pointer-events:all; }
+    .pt-panel { position:absolute; left:0; width:100%; height:50.5%; background:linear-gradient(180deg,#0B0A08,#0E0C08); transform:scaleY(0); transition:transform .42s cubic-bezier(0.4,0,0.2,1); }
+    .pt-top { top:0; transform-origin:top; box-shadow:0 1px 0 rgba(201,168,76,.25); }
+    .pt-bot { bottom:0; transform-origin:bottom; box-shadow:0 -1px 0 rgba(201,168,76,.25); }
+    #ptOverlay.pt-closing .pt-panel,
+    #ptOverlay.pt-open    .pt-panel { transform:scaleY(1); }
+    #ptOverlay.pt-opening .pt-panel { transform:scaleY(0); }
+    .pt-center { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.5rem; opacity:0; transition:opacity .25s ease; }
+    #ptOverlay.pt-open .pt-center { opacity:1; }
+    #ptOverlay.pt-opening .pt-center { opacity:0; }
+    .pt-scene { width:160px; height:210px; overflow:visible; }
+    .pt-grab { transform:translateY(-235px); transition:transform .6s cubic-bezier(0.33,0,0.2,1); }
+    #ptOverlay.pt-open .pt-grab { transform:translateY(0); }
+    .pt-nigiri { transition:transform .55s cubic-bezier(0.4,0,1,1); }
+    .pt-lift .pt-grab, .pt-lift .pt-nigiri { transform:translateY(-285px) rotate(-3deg) !important; transition:transform .55s cubic-bezier(0.4,0,1,1) !important; }
+    .pt-stick-l { transform:rotate(-9deg); transition:transform .2s ease; transform-box:fill-box; transform-origin:top center; }
+    .pt-stick-r { transform:rotate(9deg); transition:transform .2s ease; transform-box:fill-box; transform-origin:top center; }
+    #ptOverlay.pt-grabbed .pt-stick-l { transform:rotate(0deg); }
+    #ptOverlay.pt-grabbed .pt-stick-r { transform:rotate(0deg); }
+    .pt-shadow { transition:opacity .5s, transform .5s; transform-box:fill-box; transform-origin:center; }
+    .pt-lift .pt-shadow { opacity:0 !important; transform:scaleX(.4) !important; }
+    .pt-label { font-family:var(--serif); font-size:1rem; letter-spacing:.55em; color:var(--gold); text-indent:.55em; }
+    .pt-label-jp { font-family:var(--serif); font-size:.75rem; letter-spacing:.4em; color:var(--muted); text-indent:.4em; }
+
+    /* ════════ FLOATING FOOD ════════ */
+    .ffood { position:absolute; pointer-events:none; z-index:0; opacity:.8; animation:floatRoll var(--fd,8s) ease-in-out infinite; }
+    .ffood svg { display:block; width:100%; height:auto; filter:drop-shadow(0 5px 16px rgba(0,0,0,.45)); }
+    #reservation { position:relative; overflow:hidden; }
+    @media (max-width:640px) {
+      .ffood { opacity:.5; }
+      .ffood.hide-m { display:none; }
+    }
+  </style></head> <body> <div id="progress"></div> <!-- ═══════════ FAB PRENOTA --> <a href="#reservation" class="fab-prenota" aria-label="Prenota un tavolo"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+Prenota Tavolo
+</a> <!-- ═══════════ PAGE TRANSITION — BACCHETTE CHE AFFERRANO IL NIGIRI --> <div id="ptOverlay" aria-hidden="true"> <div class="pt-panel pt-top"></div> <div class="pt-panel pt-bot"></div> <div class="pt-center"> <svg class="pt-scene" viewBox="0 0 160 210" xmlns="http://www.w3.org/2000/svg"> <!-- ombra sotto il nigiri --> <ellipse class="pt-shadow" cx="78" cy="180" rx="42" ry="7" fill="#000" opacity=".5"></ellipse> <!-- nigiri --> <g class="pt-nigiri"> <path d="M48 160 Q48 142 78 140 Q108 142 108 160 Q93 168 78 168 Q63 168 48 160 Z" fill="#F5EED8"></path> <circle cx="62" cy="153" r="1.8" fill="#E8E0CC"></circle><circle cx="78" cy="158" r="1.8" fill="#E8E0CC"></circle><circle cx="94" cy="153" r="1.8" fill="#E8E0CC"></circle> <path d="M40 146 Q48 130 78 128 Q108 130 116 146 Q108 154 78 154 Q48 154 40 146 Z" fill="#E8806A"></path> <path d="M52 142 Q78 134 104 142" stroke="#F5C3B8" stroke-width="1.6" fill="none" opacity=".8"></path> <path d="M58 148 Q78 141 98 148" stroke="#F5C3B8" stroke-width="1.3" fill="none" opacity=".6"></path> </g> <!-- bacchette --> <g class="pt-grab"> <g class="pt-stick-l"> <path d="M50 -50 L58 -50 L72 130 L67 136 Z" fill="#4A3520"></path> <path d="M50 -50 L58 -50 L59 -24 L51 -24 Z" fill="#C9A84C"></path> <path d="M54 -50 L58 -50 L71 130 L69 133 Z" fill="rgba(255,255,255,.12)"></path> </g> <g class="pt-stick-r"> <path d="M106 -50 L98 -50 L84 130 L89 136 Z" fill="#4A3520"></path> <path d="M106 -50 L98 -50 L97 -24 L105 -24 Z" fill="#C9A84C"></path> <path d="M102 -50 L106 -50 L88 133 L86 130 Z" fill="rgba(255,255,255,.12)"></path> </g> </g> </svg> <span class="pt-label">HIO</span> <span class="pt-label-jp">SUSHI LAB · いただきます</span> </div> </div> <!-- ═══════════ NAVBAR --> <nav id="navbar"> <div class="nav-inner"> <a href="#" class="nav-logo"> <svg class="logo-fan" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#B22A38" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"> <circle cx="50" cy="50" r="45.8" stroke-width="2.6"></circle> <g stroke-width="1.9"><line x1="50" y1="70" x2="88.3" y2="40.4"></line><line x1="50" y1="70" x2="85.3" y2="32.3"></line><line x1="50" y1="70" x2="80.6" y2="25.0"></line><line x1="50" y1="70" x2="74.3" y2="18.9"></line><line x1="50" y1="70" x2="66.9" y2="14.3"></line><line x1="50" y1="70" x2="58.7" y2="11.5"></line><line x1="50" y1="70" x2="50.0" y2="10.5"></line><line x1="50" y1="70" x2="41.3" y2="11.5"></line><line x1="50" y1="70" x2="33.1" y2="14.3"></line><line x1="50" y1="70" x2="25.7" y2="18.9"></line><line x1="50" y1="70" x2="19.4" y2="25.0"></line><line x1="50" y1="70" x2="14.7" y2="32.3"></line><line x1="50" y1="70" x2="11.7" y2="40.4"></line></g> <path d="M50 94.5 C 31 91.5, 13.5 79, 8 55"></path> <path d="M50 94.5 C 69 91.5, 86.5 79, 92 55"></path> <path d="M8 55 Q 50 76 92 55"></path> </svg> <span class="logo-stack"> <span class="ls-gold">HIO</span> <span class="ls-cream">SUSHI</span> <span class="ls-gold">LAB</span> </span> </a> <ul class="nav-links"> <li><a href="#philosophy">Filosofia</a></li> <li><a href="#signature">Creazioni</a></li> <li><a href="#omakase">Selezione</a></li> <li><a href="#menu">Menu</a></li> <li><a href="#reviews">Recensioni</a></li> <li><a href="#reservation" class="nav-reserve">Prenota</a></li> </ul> <button class="nav-burger" id="navBurger" aria-label="Apri menu"> <span></span><span></span><span></span> </button> </div> </nav> <nav class="nav-mobile" id="navMobile"> <button class="nav-mc" id="navClose" aria-label="Chiudi">✕</button> <a href="#philosophy" onclick="closeMob()">Filosofia</a> <a href="#signature" onclick="closeMob()">Creazioni</a> <a href="#omakase" onclick="closeMob()">Selezione</a> <a href="#menu" onclick="closeMob()">Menu</a> <a href="#reviews" onclick="closeMob()">Recensioni</a> <a href="#reservation" onclick="closeMob()">Prenota</a> </nav> <!-- ═══════════ HERO --> <section id="hero"> <div class="hero-bg"></div> <div class="hero-kanji" id="heroKanji">H</div> <!-- Enso ring --> <div class="hero-enso"> <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg"> <circle cx="100" cy="100" r="92" stroke="rgba(201,168,76,.12)" stroke-width="1.5" stroke-dasharray="500 80" stroke-linecap="round"></circle> <circle cx="100" cy="100" r="80" stroke="rgba(201,168,76,.06)" stroke-width="1" stroke-dasharray="60 24"></circle> </svg> </div> <!-- Gold dust --> <div class="dust" style="top:30%;left:20%;--dd:5s;--dl:.5s"></div> <div class="dust" style="top:60%;left:12%;--dd:7s;--dl:2s"></div> <div class="dust" style="top:25%;left:78%;--dd:6s;--dl:1s"></div> <div class="dust" style="top:68%;left:85%;--dd:5.5s;--dl:3s"></div> <div class="dust" style="top:45%;left:8%;--dd:8s;--dl:1.5s"></div> <div class="dust" style="top:38%;left:90%;--dd:6.5s;--dl:2.5s"></div> <div class="dust" style="top:80%;left:35%;--dd:7.5s;--dl:.8s"></div> <div class="dust" style="top:15%;left:45%;--dd:9s;--dl:4s"></div> <div class="hero-content"> <span class="hero-sup">Palermo · Sicilia — Dove l'Oriente incontra la Sicilia</span> <h1 class="hero-title"><span style="--i:0">H</span><span style="--i:1">I</span><span style="--i:2">O</span></h1> <p class="hero-tagline">Sushi Lab · Chef Filippo Gugino · Gambero Rosso 2026</p> <div class="hero-divider"></div> <div class="hero-actions"> <a href="#reservation" class="btn-p">Prenota un Tavolo</a> <a href="#menu" class="btn-s">Scopri il Menu</a> </div> </div> <div class="hero-scroll"> <span>Scroll</span> <div class="scroll-arr"></div> </div> </section> <!-- ═══════════ MARQUEE 1 --> <div class="marquee" aria-hidden="true"> <div class="marquee-track"> <div class="marquee-seq"> <span class="mq-jp">寿司</span><span class="mq-en">Sushi</span><span class="mq-dot"></span> <span class="mq-jp">刺身</span><span class="mq-en">Sashimi</span><span class="mq-dot"></span> <span class="mq-jp">海苔</span><span class="mq-en">Nori</span><span class="mq-dot"></span> <span class="mq-jp">山葵</span><span class="mq-en">Wasabi</span><span class="mq-dot"></span> <span class="mq-jp">HIO</span><span class="mq-en">Palermo</span><span class="mq-dot"></span> <span class="mq-jp">和牛</span><span class="mq-en">Wagyu</span><span class="mq-dot"></span> </div> <div class="marquee-seq"> <span class="mq-jp">寿司</span><span class="mq-en">Sushi</span><span class="mq-dot"></span> <span class="mq-jp">刺身</span><span class="mq-en">Sashimi</span><span class="mq-dot"></span> <span class="mq-jp">海苔</span><span class="mq-en">Nori</span><span class="mq-dot"></span> <span class="mq-jp">山葵</span><span class="mq-en">Wasabi</span><span class="mq-dot"></span> <span class="mq-jp">HIO</span><span class="mq-en">Palermo</span><span class="mq-dot"></span> <span class="mq-jp">和牛</span><span class="mq-en">Wagyu</span><span class="mq-dot"></span> </div> </div> </div> <!-- ═══════════ PHILOSOPHY --> <section id="philosophy"> <!-- Koi che nuota --> <div class="koi" style="top:14%"> <svg viewBox="0 0 130 60" fill="none" xmlns="http://www.w3.org/2000/svg"> <g class="koi-tail"> <path d="M28 30 L4 12 Q12 30 4 48 Z" fill="rgba(201,168,76,.55)"></path> </g> <ellipse cx="68" cy="30" rx="42" ry="17" fill="rgba(201,168,76,.5)"></ellipse> <path d="M50 16 Q60 4 74 12 L66 22 Z" class="koi-fin" fill="rgba(201,168,76,.4)"></path> <circle cx="96" cy="26" r="2.8" fill="#0A0A0A"></circle> <path d="M58 23 Q66 30 58 37" stroke="rgba(10,10,10,.4)" stroke-width="2" fill="none"></path> <path d="M72 21 Q80 30 72 39" stroke="rgba(10,10,10,.4)" stroke-width="2" fill="none"></path> </svg> </div> <!-- Floating food: nigiri salmone oblique view --> <div class="ffood" style="top:10%;right:5%;width:80px;--ra:-7deg;--rb:5deg;--fd:9s"> <svg viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg"> <defs> <radialGradient id="ph1ri" cx="42%" cy="35%" r="65%"><stop offset="0%" stop-color="#FDFAF0"></stop><stop offset="100%" stop-color="#D8D0B8"></stop></radialGradient> <radialGradient id="ph1sa" cx="38%" cy="28%" r="68%"><stop offset="0%" stop-color="#F4A878"></stop><stop offset="45%" stop-color="#D87248"></stop><stop offset="100%" stop-color="#A84C28"></stop></radialGradient> </defs> <ellipse cx="61" cy="75" rx="46" ry="6" fill="rgba(0,0,0,.38)"></ellipse> <!-- Rice mound --> <path d="M18 58 Q18 36 60 34 Q102 36 102 58 Q86 68 60 68 Q34 68 18 58 Z" fill="url(#ph1ri)"></path> <!-- Rice grain texture --> <path d="M26 50 Q60 42 94 50" stroke="#C8C0A8" stroke-width=".7" fill="none" opacity=".5"></path> <path d="M24 56 Q60 48 96 56" stroke="#C8C0A8" stroke-width=".6" fill="none" opacity=".4"></path> <!-- Tiny rice grains --> <ellipse cx="36" cy="46" rx="2" ry="1" fill="#E8E0C8" opacity=".6" transform="rotate(15 36 46)"></ellipse> <ellipse cx="52" cy="43" rx="2" ry="1" fill="#E8E0C8" opacity=".6" transform="rotate(-10 52 43)"></ellipse> <ellipse cx="68" cy="43" rx="2" ry="1" fill="#E8E0C8" opacity=".6" transform="rotate(8 68 43)"></ellipse> <ellipse cx="84" cy="46" rx="2" ry="1" fill="#E8E0C8" opacity=".6" transform="rotate(-14 84 46)"></ellipse> <!-- Salmon slice draping over rice --> <path d="M12 46 Q16 28 60 26 Q104 28 108 46 Q100 54 60 54 Q20 54 12 46 Z" fill="url(#ph1sa)"></path> <!-- Salmon marbling lines --> <path d="M22 38 Q60 30 98 38" stroke="rgba(255,210,185,.55)" stroke-width="1.5" fill="none"></path> <path d="M18 43 Q60 35 102 43" stroke="rgba(255,210,185,.4)" stroke-width="1" fill="none"></path> <path d="M25 33 Q60 26 95 33" stroke="rgba(255,230,205,.45)" stroke-width=".8" fill="none"></path> <!-- Subtle sheen on fish --> <ellipse cx="45" cy="34" rx="18" ry="5" fill="rgba(255,255,255,.18)" transform="rotate(-8 45 34)"></ellipse> </svg> </div> <!-- Floating food: gunkan maki con ikura --> <div class="ffood hide-m" style="bottom:9%;left:4%;width:74px;--ra:5deg;--rb:-6deg;--fd:11s"> <svg viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"> <defs> <radialGradient id="ph2ri" cx="45%" cy="40%" r="60%"><stop offset="0%" stop-color="#FDFAF0"></stop><stop offset="100%" stop-color="#D8D0B8"></stop></radialGradient> <radialGradient id="ph2ik" cx="35%" cy="28%" r="68%"><stop offset="0%" stop-color="#FF8040"></stop><stop offset="55%" stop-color="#E84818"></stop><stop offset="100%" stop-color="#B83008"></stop></radialGradient> </defs> <ellipse cx="51" cy="76" rx="38" ry="5" fill="rgba(0,0,0,.38)"></ellipse> <!-- Nori band (gunkan boat) --> <path d="M14 52 Q14 34 50 32 Q86 34 86 52 L80 70 Q50 76 20 70 Z" fill="#141810"></path> <path d="M16 52 Q50 38 84 52" stroke="#1E2818" stroke-width="1" fill="none" opacity=".5"></path> <!-- Nori texture lines --> <path d="M20 58 Q50 48 80 58" stroke="#0A0E08" stroke-width=".8" fill="none" opacity=".6"></path> <path d="M22 64 Q50 55 78 64" stroke="#0A0E08" stroke-width=".7" fill="none" opacity=".4"></path> <!-- Rice top visible --> <ellipse cx="50" cy="34" rx="32" ry="8" fill="url(#ph2ri)"></ellipse> <path d="M24 32 Q50 26 76 32" stroke="#C8C0A8" stroke-width=".7" fill="none" opacity=".45"></path> <!-- Ikura (salmon roe) cluster --> <circle cx="37" cy="22" r="7.5" fill="url(#ph2ik)"></circle> <circle cx="37" cy="22" r="6.5" fill="none" stroke="rgba(255,160,100,.3)" stroke-width="1"></circle> <circle cx="37" cy="20" r="2.5" fill="rgba(255,255,255,.45)"></circle> <circle cx="50" cy="18" r="7.5" fill="url(#ph2ik)"></circle> <circle cx="50" cy="18" r="6.5" fill="none" stroke="rgba(255,160,100,.3)" stroke-width="1"></circle> <circle cx="50" cy="16" r="2.5" fill="rgba(255,255,255,.45)"></circle> <circle cx="63" cy="22" r="7.5" fill="url(#ph2ik)"></circle> <circle cx="63" cy="22" r="6.5" fill="none" stroke="rgba(255,160,100,.3)" stroke-width="1"></circle> <circle cx="63" cy="20" r="2.5" fill="rgba(255,255,255,.45)"></circle> <circle cx="43" cy="12" r="6.5" fill="url(#ph2ik)"></circle> <circle cx="43" cy="11" r="2.2" fill="rgba(255,255,255,.42)"></circle> <circle cx="57" cy="12" r="6.5" fill="url(#ph2ik)"></circle> <circle cx="57" cy="11" r="2.2" fill="rgba(255,255,255,.42)"></circle> <!-- Gloss on roe cluster --> <ellipse cx="48" cy="14" rx="14" ry="5" fill="rgba(255,255,255,.12)" transform="rotate(-10 48 14)"></ellipse> </svg> </div> <div class="phil-inner"> <div class="anim"> <div class="phil-art">肥</div> <p class="phil-art-lbl">Hio — Il Nutrimento</p> </div> <div class="phil-text"> <p class="lbl anim">La Nostra Filosofia</p> <h2 class="sec-title anim d1">Oriente e Sicilia<br>in un solo piatto</h2> <p class="sec-sub phil-sub anim d2">HIO Sushi Lab nasce dalla visione dello Chef Filippo Gugino: un incontro autentico tra la precisione millenaria della cucina giapponese e la ricchezza dei sapori siciliani. Ogni piatto è un dialogo tra due culture, due mari, due identità.</p> <p class="sec-sub phil-sub anim d3" style="margin-top:1rem">Riconosciuto dal Gambero Rosso 2026 e dalla Guida Kenta 2025/2027, HIO è oggi uno dei riferimenti dell'alta cucina fusion nel Sud Italia. Il pesce arriva fresco ogni mattina direttamente dai mercati siciliani.</p> <blockquote class="phil-quote anim d4">"La Sicilia ha il mare più bello del mondo. Il Giappone sa come rispettarlo."</blockquote> </div> </div> </section> <!-- ═══════════ WAVE DIVIDER --> <div class="wave-div" aria-hidden="true"> <div class="wave-layer w1"> <svg viewBox="0 0 600 70" preserveAspectRatio="none"><path d="M0,40 C100,20 200,60 300,40 C400,20 500,60 600,40 L600,70 L0,70 Z" fill="rgba(201,168,76,.06)"></path></svg> <svg viewBox="0 0 600 70" preserveAspectRatio="none"><path d="M0,40 C100,20 200,60 300,40 C400,20 500,60 600,40 L600,70 L0,70 Z" fill="rgba(201,168,76,.06)"></path></svg> </div> <div class="wave-layer w2"> <svg viewBox="0 0 600 70" preserveAspectRatio="none"><path d="M0,50 C150,30 300,65 450,45 C520,38 560,50 600,45 L600,70 L0,70 Z" fill="rgba(201,168,76,.09)"></path></svg> <svg viewBox="0 0 600 70" preserveAspectRatio="none"><path d="M0,50 C150,30 300,65 450,45 C520,38 560,50 600,45 L600,70 L0,70 Z" fill="rgba(201,168,76,.09)"></path></svg> </div> </div> <!-- ═══════════ SIGNATURE — PIATTI ILLUSTRATI ANIMATI --> <section id="signature"> <!-- Floating food: temaki cone salmone --> <div class="ffood hide-m" style="top:5%;right:3%;width:64px;--ra:8deg;--rb:-5deg;--fd:10s"> <svg viewBox="0 0 80 110" xmlns="http://www.w3.org/2000/svg"> <defs> <radialGradient id="sg1ri" cx="45%" cy="40%" r="60%"><stop offset="0%" stop-color="#FDFAF0"></stop><stop offset="100%" stop-color="#D8D0B8"></stop></radialGradient> <radialGradient id="sg1sa" cx="35%" cy="30%" r="68%"><stop offset="0%" stop-color="#F4A070"></stop><stop offset="55%" stop-color="#D46C40"></stop><stop offset="100%" stop-color="#A04820"></stop></radialGradient> <radialGradient id="sg1av" cx="35%" cy="30%" r="68%"><stop offset="0%" stop-color="#8CC858"></stop><stop offset="100%" stop-color="#3A7010"></stop></radialGradient> </defs> <ellipse cx="40" cy="106" rx="14" ry="4" fill="rgba(0,0,0,.38)"></ellipse> <!-- Nori cone --> <path d="M12 20 L40 104 L68 20 Z" fill="#141810"></path> <!-- Nori texture grain --> <path d="M18 30 L38 94 L42 94 L62 30" stroke="#1E2818" stroke-width=".8" fill="none" opacity=".5"></path> <path d="M22 40 L38 90" stroke="#0A0E08" stroke-width=".6" fill="none" opacity=".4"></path> <path d="M58 40 L42 90" stroke="#0A0E08" stroke-width=".6" fill="none" opacity=".4"></path> <!-- Rice visible inside top --> <path d="M15 22 Q40 16 65 22 L62 28 Q40 22 18 28 Z" fill="url(#sg1ri)"></path> <!-- Salmon sticking out --> <path d="M22 18 Q40 8 58 18 Q56 26 40 26 Q24 26 22 18 Z" fill="url(#sg1sa)"></path> <path d="M26 14 Q40 8 54 14" stroke="rgba(255,200,165,.55)" stroke-width="1.1" fill="none"></path> <!-- Avocado slice --> <ellipse cx="54" cy="12" rx="9" ry="6" fill="url(#sg1av)"></ellipse> <ellipse cx="54" cy="11" rx="4.5" ry="3" fill="#C8EE88" opacity=".6"></ellipse> <!-- Cucumber tip --> <rect x="30" y="5" width="6" height="10" rx="3" fill="#A8D070" opacity=".8"></rect> <!-- Ikura peeking out --> <circle cx="44" cy="14" r="5" fill="#E84818"></circle> <circle cx="44" cy="13" r="2" fill="rgba(255,255,255,.45)"></circle> <!-- Nori sheen --> <path d="M15 22 L40 104 L12 20 Z" fill="rgba(255,255,255,.04)"></path> </svg> </div> <!-- Floating food: uramaki maki cross-section salmone-cetriolo --> <div class="ffood hide-m" style="bottom:6%;left:3%;width:54px;--ra:-10deg;--rb:7deg;--fd:8s"> <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"> <defs> <radialGradient id="sg2ri" cx="42%" cy="38%" r="62%"><stop offset="0%" stop-color="#FDFAF2"></stop><stop offset="100%" stop-color="#DDD4BC"></stop></radialGradient> <radialGradient id="sg2sa" cx="35%" cy="28%" r="70%"><stop offset="0%" stop-color="#F4A070"></stop><stop offset="55%" stop-color="#D87040"></stop><stop offset="100%" stop-color="#A84828"></stop></radialGradient> </defs> <ellipse cx="51" cy="96" rx="32" ry="4" fill="rgba(0,0,0,.38)"></ellipse> <circle cx="50" cy="50" r="46" fill="url(#sg2ri)"></circle> <circle cx="50" cy="50" r="45.5" fill="none" stroke="#C8BEA8" stroke-width=".6" stroke-dasharray="1 3" opacity=".4"></circle> <!-- Sesame --> <ellipse cx="50" cy="6.5" rx="2.1" ry="1.2" fill="#C8A038"></ellipse> <ellipse cx="71" cy="14" rx="2.1" ry="1.2" fill="#C8A038" transform="rotate(38 71 14)"></ellipse> <ellipse cx="85" cy="32" rx="2.1" ry="1.2" fill="#C8A038" transform="rotate(70 85 32)"></ellipse> <ellipse cx="88" cy="54" rx="2.1" ry="1.2" fill="#C8A038" transform="rotate(-88 88 54)"></ellipse> <ellipse cx="75" cy="80" rx="2.1" ry="1.2" fill="#C8A038" transform="rotate(-55 75 80)"></ellipse> <ellipse cx="48" cy="91" rx="2.1" ry="1.2" fill="#C8A038" transform="rotate(-12 48 91)"></ellipse> <ellipse cx="22" cy="78" rx="2.1" ry="1.2" fill="#C8A038" transform="rotate(55 22 78)"></ellipse> <ellipse cx="11" cy="52" rx="2.1" ry="1.2" fill="#C8A038" transform="rotate(85 11 52)"></ellipse> <ellipse cx="16" cy="28" rx="2.1" ry="1.2" fill="#C8A038" transform="rotate(-62 16 28)"></ellipse> <circle cx="60" cy="8" r="1.4" fill="#1A1A18"></circle> <circle cx="85" cy="42" r="1.4" fill="#1A1A18"></circle> <circle cx="70" cy="86" r="1.4" fill="#1A1A18"></circle> <circle cx="26" cy="84" r="1.4" fill="#1A1A18"></circle> <circle cx="12" cy="60" r="1.4" fill="#1A1A18"></circle> <circle cx="28" cy="12" r="1.4" fill="#1A1A18"></circle> <circle cx="36" cy="91" r="1.4" fill="#1A1A18"></circle> <!-- Nori --> <circle cx="50" cy="50" r="37" fill="#111610"></circle> <circle cx="50" cy="50" r="36" fill="none" stroke="#1C2415" stroke-width="1.2" opacity=".6"></circle> <!-- Inner rice --> <circle cx="50" cy="50" r="28" fill="url(#sg2ri)"></circle> <!-- Salmone (top half) --> <path d="M50,50 L22,50 A28,28 0 0 1 78,50 Z" fill="url(#sg2sa)"></path> <path d="M30,38 Q50,30 70,38" stroke="rgba(255,205,175,.5)" stroke-width="1" fill="none"></path> <path d="M33,44 Q50,36 67,44" stroke="rgba(255,205,175,.38)" stroke-width=".7" fill="none"></path> <!-- Cetriolo (bottom half) --> <path d="M50,50 L22,50 A28,28 0 0 0 78,50 Z" fill="#72B840"></path> <ellipse cx="50" cy="64" rx="13" ry="5.5" fill="#A8E060" opacity=".65"></ellipse> <!-- Center --> <circle cx="50" cy="50" r="9" fill="url(#sg2ri)"></circle> <circle cx="47.5" cy="47.5" r="2.8" fill="rgba(255,255,255,.55)"></circle> <ellipse cx="43" cy="28" rx="9" ry="4" fill="rgba(255,255,255,.2)" transform="rotate(-15 43 28)"></ellipse> </svg> </div> <div class="sig-hd anim"> <p class="lbl">I Nostri Signature</p> <h2 class="sec-title">Creazioni Filippo Gugino</h2> <p class="sec-sub">Quattro espressioni dell'incontro tra Giappone e Sicilia.</p> </div> <div class="dishes-grid"> <!-- NIGIRI VENTRESCA E CAVIALE — foto reale HIO --> <div class="dish-card dish-toro anim d1"> <div class="dish-img"> <span class="dish-tag">Signature</span> <img class="dish-photo" src="img/nigiri-ventresca-caviale.jpg" alt="Nigiri di ventresca con caviale su piatto di marmo" loading="lazy"> </div> <div class="dish-info"> <h3 class="dish-name">Nigiri Ventresca e Caviale</h3> <p class="dish-desc">Ventresca Balfegò, caviale Baikal, su riso stagionato al vapore.</p> <span class="dish-price">€ 16 · 2 pz</span> </div> </div> <!-- DOLCE HIO — foto reale: la sfera bianca con il logo --> <div class="dish-card dish-uni anim d2"> <div class="dish-img"> <span class="dish-tag">Dolce HIO</span> <img class="dish-photo" src="img/dolce-hio.jpg" alt="Sfera Dolce HIO con logo inciso tra le mani dello chef" loading="lazy"> </div> <div class="dish-info"> <h3 class="dish-name">Dolce HIO</h3> <p class="dish-desc">Sfera di cioccolato bianco, ripieno a sorpresa del giorno, firma dello chef.</p> <span class="dish-price">€ 9</span> </div> </div> <!-- NIGIRI SALMONE SCOTTATO — foto reale HIO --> <div class="dish-card dish-dragon anim d3"> <div class="dish-img"> <span class="dish-tag">Aburi</span> <img class="dish-photo" src="img/nigiri-salmone.jpg" alt="Nigiri di salmone scottato sospeso con le bacchette sulla soia" loading="lazy"> </div> <div class="dish-info"> <h3 class="dish-name">Nigiri Salmone Scottato</h3> <p class="dish-desc">Salmone scottato alla fiamma su riso al vapore, servito con salsa di soia.</p> <span class="dish-price">€ 6 · 2 pz</span> </div> </div> <!-- COME UN RISOTTO AL LIMONE — foto reale HIO --> <div class="dish-card dish-wagyu anim d4"> <div class="dish-img"> <span class="dish-tag">Creazione HIO</span> <img class="dish-photo" src="img/risotto-limone.jpg" alt="Creazione HIO in ciotola bianca su tavolo scuro" loading="lazy"> </div> <div class="dish-info"> <h3 class="dish-name">Come un Risotto al Limone</h3> <p class="dish-desc">Creazione HIO: riso su alga, crema di limone e gamberi. L'incontro tra Sicilia e Giappone.</p> <span class="dish-price">€ 18 · 4 pz</span> </div> </div> </div> </section> <!-- ═══════════ OMAKASE --> <section id="omakase"> <div class="om-bg-k">お</div> <!-- Lanterne oscillanti --> <div class="om-lantern om-lantern-l" aria-hidden="true"> <svg viewBox="0 0 70 120" xmlns="http://www.w3.org/2000/svg"> <line x1="35" y1="0" x2="35" y2="16" stroke="rgba(201,168,76,.5)" stroke-width="1.5"></line> <rect x="26" y="16" width="18" height="6" fill="#2A2118"></rect> <ellipse class="lglow" cx="35" cy="58" rx="30" ry="40" fill="#E8923F" opacity=".3"></ellipse> <path d="M14 30 Q35 22 56 30 Q62 58 56 86 Q35 94 14 86 Q8 58 14 30 Z" fill="#C9472A"></path> <path d="M14 30 Q35 22 56 30" fill="none" stroke="#8B2C18" stroke-width="1.5"></path> <path d="M12 44 Q35 38 58 44" fill="none" stroke="#8B2C18" stroke-width="1.2"></path> <path d="M11 58 Q35 53 59 58" fill="none" stroke="#8B2C18" stroke-width="1.2"></path> <path d="M12 72 Q35 67 58 72" fill="none" stroke="#8B2C18" stroke-width="1.2"></path> <path d="M14 86 Q35 94 56 86" fill="none" stroke="#8B2C18" stroke-width="1.5"></path> <text x="35" y="64" font-family="serif" font-size="20" fill="#F5EED8" text-anchor="middle">祭</text> <rect x="26" y="92" width="18" height="6" fill="#2A2118"></rect> <line x1="35" y1="98" x2="35" y2="110" stroke="rgba(201,168,76,.5)" stroke-width="1.5"></line> <circle cx="35" cy="113" r="3" fill="#C9A84C"></circle> </svg> </div> <div class="om-lantern" aria-hidden="true"> <svg viewBox="0 0 70 120" xmlns="http://www.w3.org/2000/svg"> <line x1="35" y1="0" x2="35" y2="16" stroke="rgba(201,168,76,.5)" stroke-width="1.5"></line> <rect x="26" y="16" width="18" height="6" fill="#2A2118"></rect> <ellipse class="lglow" cx="35" cy="58" rx="30" ry="40" fill="#E8923F" opacity=".3"></ellipse> <path d="M14 30 Q35 22 56 30 Q62 58 56 86 Q35 94 14 86 Q8 58 14 30 Z" fill="#C9472A"></path> <path d="M12 44 Q35 38 58 44" fill="none" stroke="#8B2C18" stroke-width="1.2"></path> <path d="M11 58 Q35 53 59 58" fill="none" stroke="#8B2C18" stroke-width="1.2"></path> <path d="M12 72 Q35 67 58 72" fill="none" stroke="#8B2C18" stroke-width="1.2"></path> <text x="35" y="64" font-family="serif" font-size="20" fill="#F5EED8" text-anchor="middle">宴</text> <rect x="26" y="92" width="18" height="6" fill="#2A2118"></rect> <line x1="35" y1="98" x2="35" y2="110" stroke="rgba(201,168,76,.5)" stroke-width="1.5"></line> <circle cx="35" cy="113" r="3" fill="#C9A84C"></circle> </svg> </div> <!-- Floating food --> <!-- Floating food: gunkan maki con scampi e caviale --> <div class="ffood hide-m" style="bottom:14%;left:5%;width:62px;--ra:-6deg;--rb:8deg;--fd:9.5s"> <svg viewBox="0 0 90 80" xmlns="http://www.w3.org/2000/svg"> <defs> <radialGradient id="om1ri" cx="45%" cy="40%" r="60%"><stop offset="0%" stop-color="#FDFAF0"></stop><stop offset="100%" stop-color="#D8D0B8"></stop></radialGradient> <radialGradient id="om1sc" cx="35%" cy="28%" r="70%"><stop offset="0%" stop-color="#F4B888"></stop><stop offset="55%" stop-color="#D88848"></stop><stop offset="100%" stop-color="#A86028"></stop></radialGradient> </defs> <ellipse cx="45" cy="77" rx="34" ry="4.5" fill="rgba(0,0,0,.35)"></ellipse> <!-- Nori boat --> <path d="M12 52 Q12 34 45 32 Q78 34 78 52 L72 68 Q45 74 18 68 Z" fill="#141810"></path> <path d="M16 52 Q45 40 74 52" stroke="#1E2818" stroke-width=".8" fill="none" opacity=".5"></path> <path d="M20 60 Q45 50 70 60" stroke="#0A0E08" stroke-width=".7" fill="none" opacity=".4"></path> <!-- Rice top --> <ellipse cx="45" cy="34" rx="29" ry="7.5" fill="url(#om1ri)"></ellipse> <path d="M22 32 Q45 26 68 32" stroke="#C8C0A8" stroke-width=".6" fill="none" opacity=".4"></path> <!-- Scampo topping --> <path d="M24 28 Q45 16 66 28 Q60 34 45 34 Q30 34 24 28 Z" fill="url(#om1sc)"></path> <path d="M28 24 Q45 16 62 24" stroke="rgba(255,210,170,.5)" stroke-width=".9" fill="none"></path> <!-- Caviale nero sopra scampo --> <circle cx="36" cy="20" r="4.5" fill="#1C1C18"></circle> <circle cx="36" cy="19.2" r="1.6" fill="rgba(255,255,255,.38)"></circle> <circle cx="45" cy="16" r="4.5" fill="#1C1C18"></circle> <circle cx="45" cy="15.2" r="1.6" fill="rgba(255,255,255,.38)"></circle> <circle cx="54" cy="19" r="4.5" fill="#1C1C18"></circle> <circle cx="54" cy="18.2" r="1.6" fill="rgba(255,255,255,.38)"></circle> <circle cx="41" cy="12" r="3.8" fill="#1C1C18"></circle> <circle cx="41" cy="11.4" r="1.4" fill="rgba(255,255,255,.35)"></circle> <circle cx="50" cy="12" r="3.8" fill="#1C1C18"></circle> <circle cx="50" cy="11.4" r="1.4" fill="rgba(255,255,255,.35)"></circle> <!-- Gloss --> <ellipse cx="42" cy="18" rx="12" ry="4" fill="rgba(255,255,255,.1)" transform="rotate(-8 42 18)"></ellipse> </svg> </div> <!-- Floating food: nigiri tonno ventresca con wasabi --> <div class="ffood hide-m" style="bottom:10%;right:6%;width:76px;--ra:5deg;--rb:-7deg;--fd:11s"> <svg viewBox="0 0 120 78" xmlns="http://www.w3.org/2000/svg"> <defs> <radialGradient id="om2ri" cx="42%" cy="35%" r="65%"><stop offset="0%" stop-color="#FDFAF0"></stop><stop offset="100%" stop-color="#D8D0B8"></stop></radialGradient> <radialGradient id="om2tu" cx="38%" cy="28%" r="68%"><stop offset="0%" stop-color="#C86868"></stop><stop offset="45%" stop-color="#A03C3C"></stop><stop offset="100%" stop-color="#701818"></stop></radialGradient> </defs> <ellipse cx="61" cy="74" rx="46" ry="5.5" fill="rgba(0,0,0,.38)"></ellipse> <!-- Rice mound --> <path d="M18 56 Q18 36 60 34 Q102 36 102 56 Q86 66 60 66 Q34 66 18 56 Z" fill="url(#om2ri)"></path> <path d="M26 48 Q60 40 94 48" stroke="#C8C0A8" stroke-width=".7" fill="none" opacity=".45"></path> <path d="M24 54 Q60 46 96 54" stroke="#C8C0A8" stroke-width=".6" fill="none" opacity=".35"></path> <ellipse cx="38" cy="44" rx="2.2" ry="1" fill="#E0D8C0" opacity=".6" transform="rotate(12 38 44)"></ellipse> <ellipse cx="56" cy="41" rx="2.2" ry="1" fill="#E0D8C0" opacity=".6" transform="rotate(-8 56 41)"></ellipse> <ellipse cx="74" cy="41" rx="2.2" ry="1" fill="#E0D8C0" opacity=".6" transform="rotate(10 74 41)"></ellipse> <ellipse cx="86" cy="44" rx="2.2" ry="1" fill="#E0D8C0" opacity=".6" transform="rotate(-12 86 44)"></ellipse> <!-- Wasabi stripe --> <path d="M30 42 Q60 38 90 42" stroke="#5A8C30" stroke-width="2.5" fill="none" opacity=".75"></path> <!-- Tuna slice --> <path d="M12 44 Q16 26 60 24 Q104 26 108 44 Q100 52 60 52 Q20 52 12 44 Z" fill="url(#om2tu)"></path> <path d="M22 36 Q60 28 98 36" stroke="rgba(255,185,185,.5)" stroke-width="1.4" fill="none"></path> <path d="M18 41 Q60 33 102 41" stroke="rgba(255,185,185,.35)" stroke-width=".9" fill="none"></path> <path d="M26 30 Q60 23 94 30" stroke="rgba(255,205,205,.4)" stroke-width=".7" fill="none"></path> <!-- Sheen on fish --> <ellipse cx="44" cy="32" rx="18" ry="5" fill="rgba(255,255,255,.17)" transform="rotate(-8 44 32)"></ellipse> <!-- Soy sauce drop at edge --> <ellipse cx="105" cy="46" rx="4" ry="2.5" fill="#5A2808" opacity=".7" transform="rotate(8 105 46)"></ellipse> </svg> </div> <div class="om-inner"> <p class="lbl anim">Esperienza Esclusiva</p> <h2 class="sec-title anim d1">Selezione Creazioni<br>Filippo Gugino</h2> <p class="sec-sub anim d2">Il massimo dell'esperienza HIO in un unico vassoio: 24 pezzi selezionati dallo chef tra i suoi Hiomaki più iconici. Wagyu, scampi, caviale, tartufo, ricci e molto altro — la firma di una cucina unica.</p> <div class="om-feats anim d3"> <div class="om-feat"> <div class="om-feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 6v6l4 2M12 2a10 10 0 100 20A10 10 0 0012 2z"></path></svg></div> <span class="om-feat-txt">Prenotazione<br>obbligatoria</span> </div> <div class="om-feat"> <div class="om-feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"></path></svg></div> <span class="om-feat-txt">24 pezzi<br>signature</span> </div> <div class="om-feat"> <div class="om-feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg></div> <span class="om-feat-txt">Gambero Rosso<br>2026</span> </div> </div> <div class="om-price anim d4"> <span class="om-plabel">A vassoio</span> <span class="om-pval">€ 80</span> <span class="om-pnote">Bevande escluse · abbinamento sake disponibile</span> </div> <div class="anim d4"><a href="#reservation" class="btn-p">Prenota il Tuo Tavolo</a></div> </div> </section> <!-- ═══════════ TORII --> <section id="torii"> <div class="sakura-layer" id="sakuraLayer"></div> <div class="torii-top"> <p class="lbl anim" style="justify-content:center">Il Simbolo</p> <h2 class="sec-title anim d1">Il Portale Sacro</h2> <p class="sec-sub anim d2">Come in Giappone ogni tempio custodisce un torii, ogni piatto di HIO Sushi Lab è un varco verso un mondo di sapori millenari. Scorri per attraversarlo.</p> </div> <div class="torii-stage"> <svg id="toriiSvg" class="torii-svg" viewBox="0 0 400 470" xmlns="http://www.w3.org/2000/svg"> <path class="torii-path" id="tpKasagi" d="M -5,118 Q 200,58 405,118 L 405,146 Q 200,85 -5,146 Z" stroke-width="3"></path> <rect class="torii-path" id="tpCapL" x="78" y="140" width="56" height="16" stroke-width="2.5"></rect> <rect class="torii-path" id="tpCapR" x="266" y="140" width="56" height="16" stroke-width="2.5"></rect> <rect class="torii-path" id="tpNuki" x="96" y="194" width="208" height="18" stroke-width="2.5"></rect> <rect class="torii-path" id="tpPilL" x="96" y="155" width="27" height="295" stroke-width="2.5"></rect> <rect class="torii-path" id="tpPilR" x="277" y="155" width="27" height="295" stroke-width="2.5"></rect> <line class="torii-path torii-pillar-inner" id="tpDL" x1="109" y1="220" x2="109" y2="448" stroke-width="1" opacity=".4"></line> <line class="torii-path torii-pillar-inner" id="tpDR" x1="291" y1="220" x2="291" y2="448" stroke-width="1" opacity=".4"></line> </svg> <span class="torii-kanji-base" id="toriiLabel">HIO SUSHI LAB</span> </div> </section> <!-- ═══════════ MARQUEE 2 --> <div class="marquee" aria-hidden="true"> <div class="marquee-track"> <div class="marquee-seq"> <span class="mq-jp">鮪</span><span class="mq-en">Maguro</span><span class="mq-dot"></span> <span class="mq-jp">鮭</span><span class="mq-en">Sake</span><span class="mq-dot"></span> <span class="mq-jp">雲丹</span><span class="mq-en">Uni</span><span class="mq-dot"></span> <span class="mq-jp">帆立</span><span class="mq-en">Hotate</span><span class="mq-dot"></span> <span class="mq-jp">いくら</span><span class="mq-en">Ikura</span><span class="mq-dot"></span> <span class="mq-jp">蛸</span><span class="mq-en">Tako</span><span class="mq-dot"></span> </div> <div class="marquee-seq"> <span class="mq-jp">鮪</span><span class="mq-en">Maguro</span><span class="mq-dot"></span> <span class="mq-jp">鮭</span><span class="mq-en">Sake</span><span class="mq-dot"></span> <span class="mq-jp">雲丹</span><span class="mq-en">Uni</span><span class="mq-dot"></span> <span class="mq-jp">帆立</span><span class="mq-en">Hotate</span><span class="mq-dot"></span> <span class="mq-jp">いくら</span><span class="mq-en">Ikura</span><span class="mq-dot"></span> <span class="mq-jp">蛸</span><span class="mq-en">Tako</span><span class="mq-dot"></span> </div> </div> </div> <!-- ═══════════ MENU --> <section id="menu"> <!-- Koi che torna indietro --> <div class="koi koi-back" style="top:10%"> <svg viewBox="0 0 130 60" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform:scaleX(-1)"> <g class="koi-tail"> <path d="M28 30 L4 12 Q12 30 4 48 Z" fill="rgba(201,168,76,.45)"></path> </g> <ellipse cx="68" cy="30" rx="42" ry="17" fill="rgba(201,168,76,.4)"></ellipse> <path d="M50 16 Q60 4 74 12 L66 22 Z" class="koi-fin" fill="rgba(201,168,76,.32)"></path> <circle cx="96" cy="26" r="2.8" fill="#0A0A0A"></circle> <path d="M58 23 Q66 30 58 37" stroke="rgba(10,10,10,.35)" stroke-width="2" fill="none"></path> <path d="M72 21 Q80 30 72 39" stroke="rgba(10,10,10,.35)" stroke-width="2" fill="none"></path> </svg> </div> <!-- Floating food: nigiri salmone e caviale --> <div class="ffood" style="top:14%;right:4%;width:70px;--ra:-8deg;--rb:6deg;--fd:10s"> <svg viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg"> <defs> <radialGradient id="mn1ri" cx="42%" cy="35%" r="65%"><stop offset="0%" stop-color="#FDFAF0"></stop><stop offset="100%" stop-color="#D8D0B8"></stop></radialGradient> <radialGradient id="mn1sa" cx="38%" cy="28%" r="68%"><stop offset="0%" stop-color="#F4A878"></stop><stop offset="45%" stop-color="#D87248"></stop><stop offset="100%" stop-color="#A84C28"></stop></radialGradient> </defs> <ellipse cx="61" cy="76" rx="46" ry="5" fill="rgba(0,0,0,.38)"></ellipse> <path d="M18 58 Q18 38 60 36 Q102 38 102 58 Q86 66 60 66 Q34 66 18 58 Z" fill="url(#mn1ri)"></path> <path d="M26 50 Q60 42 94 50" stroke="#C8C0A8" stroke-width=".7" fill="none" opacity=".45"></path> <path d="M24 56 Q60 48 96 56" stroke="#C8C0A8" stroke-width=".6" fill="none" opacity=".35"></path> <ellipse cx="36" cy="46" rx="2" ry="1" fill="#E0D8C0" opacity=".6" transform="rotate(14 36 46)"></ellipse> <ellipse cx="54" cy="43" rx="2" ry="1" fill="#E0D8C0" opacity=".6" transform="rotate(-9 54 43)"></ellipse> <ellipse cx="72" cy="43" rx="2" ry="1" fill="#E0D8C0" opacity=".6" transform="rotate(11 72 43)"></ellipse> <ellipse cx="86" cy="46" rx="2" ry="1" fill="#E0D8C0" opacity=".6" transform="rotate(-13 86 46)"></ellipse> <!-- Salmon --> <path d="M12 46 Q16 28 60 26 Q104 28 108 46 Q100 54 60 54 Q20 54 12 46 Z" fill="url(#mn1sa)"></path> <path d="M22 38 Q60 30 98 38" stroke="rgba(255,210,185,.55)" stroke-width="1.4" fill="none"></path> <path d="M18 43 Q60 35 102 43" stroke="rgba(255,210,185,.38)" stroke-width=".9" fill="none"></path> <!-- Caviale cluster on top --> <circle cx="48" cy="22" r="5" fill="#1C1C18"></circle> <circle cx="48" cy="21" r="1.8" fill="rgba(255,255,255,.38)"></circle> <circle cx="58" cy="20" r="5" fill="#1C1C18"></circle> <circle cx="58" cy="19" r="1.8" fill="rgba(255,255,255,.38)"></circle> <circle cx="68" cy="22" r="4.5" fill="#1C1C18"></circle> <circle cx="68" cy="21.2" r="1.6" fill="rgba(255,255,255,.35)"></circle> <circle cx="53" cy="15" r="4" fill="#1C1C18"></circle> <circle cx="53" cy="14.3" r="1.4" fill="rgba(255,255,255,.32)"></circle> <circle cx="63" cy="15" r="4" fill="#1C1C18"></circle> <circle cx="63" cy="14.3" r="1.4" fill="rgba(255,255,255,.32)"></circle> <ellipse cx="44" cy="33" rx="19" ry="5" fill="rgba(255,255,255,.18)" transform="rotate(-7 44 33)"></ellipse> </svg> </div> <!-- Floating food: uramaki gambero rosso --> <div class="ffood hide-m" style="bottom:8%;left:3%;width:52px;--ra:9deg;--rb:-6deg;--fd:8.5s"> <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"> <defs> <radialGradient id="mn2ri" cx="42%" cy="38%" r="62%"><stop offset="0%" stop-color="#FDFAF2"></stop><stop offset="100%" stop-color="#DDD4BC"></stop></radialGradient> <radialGradient id="mn2sh" cx="35%" cy="28%" r="70%"><stop offset="0%" stop-color="#F49068"></stop><stop offset="55%" stop-color="#D86040"></stop><stop offset="100%" stop-color="#A83C18"></stop></radialGradient> </defs> <ellipse cx="51" cy="96" rx="30" ry="4" fill="rgba(0,0,0,.38)"></ellipse> <circle cx="50" cy="50" r="46" fill="url(#mn2ri)"></circle> <circle cx="50" cy="50" r="45.5" fill="none" stroke="#C8BEA8" stroke-width=".6" stroke-dasharray="1 3" opacity=".4"></circle> <ellipse cx="50" cy="6.5" rx="2.1" ry="1.2" fill="#C8A038"></ellipse> <ellipse cx="72" cy="14" rx="2.1" ry="1.2" fill="#C8A038" transform="rotate(38 72 14)"></ellipse> <ellipse cx="85" cy="33" rx="2.1" ry="1.2" fill="#C8A038" transform="rotate(70 85 33)"></ellipse> <ellipse cx="87" cy="60" rx="2.1" ry="1.2" fill="#C8A038" transform="rotate(-80 87 60)"></ellipse> <ellipse cx="70" cy="82" rx="2.1" ry="1.2" fill="#C8A038" transform="rotate(-52 70 82)"></ellipse> <ellipse cx="44" cy="91" rx="2.1" ry="1.2" fill="#C8A038" transform="rotate(-10 44 91)"></ellipse> <ellipse cx="20" cy="76" rx="2.1" ry="1.2" fill="#C8A038" transform="rotate(55 20 76)"></ellipse> <ellipse cx="11" cy="52" rx="2.1" ry="1.2" fill="#C8A038" transform="rotate(86 11 52)"></ellipse> <ellipse cx="16" cy="27" rx="2.1" ry="1.2" fill="#C8A038" transform="rotate(-62 16 27)"></ellipse> <ellipse cx="33" cy="9" rx="2.1" ry="1.2" fill="#C8A038" transform="rotate(-28 33 9)"></ellipse> <circle cx="62" cy="8" r="1.4" fill="#1A1A18"></circle> <circle cx="85" cy="44" r="1.4" fill="#1A1A18"></circle> <circle cx="71" cy="87" r="1.4" fill="#1A1A18"></circle> <circle cx="25" cy="83" r="1.4" fill="#1A1A18"></circle> <circle cx="12" cy="61" r="1.4" fill="#1A1A18"></circle> <circle cx="28" cy="13" r="1.4" fill="#1A1A18"></circle> <circle cx="37" cy="92" r="1.4" fill="#1A1A18"></circle> <!-- Nori --> <circle cx="50" cy="50" r="37" fill="#111610"></circle> <circle cx="50" cy="50" r="36" fill="none" stroke="#1C2415" stroke-width="1.2" opacity=".6"></circle> <!-- Inner rice --> <circle cx="50" cy="50" r="28" fill="url(#mn2ri)"></circle> <!-- Gambero rosso (top half) --> <path d="M50,50 L22,50 A28,28 0 0 1 78,50 Z" fill="url(#mn2sh)"></path> <path d="M30,38 Q50,30 70,38" stroke="rgba(255,200,170,.5)" stroke-width=".9" fill="none"></path> <path d="M33,44 Q50,36 67,44" stroke="rgba(255,200,170,.38)" stroke-width=".6" fill="none"></path> <!-- Avocado (bottom half) --> <path d="M50,50 L22,50 A28,28 0 0 0 78,50 Z" fill="#58A030"></path> <ellipse cx="50" cy="64" rx="12" ry="5" fill="#88C858" opacity=".65"></ellipse> <!-- Center --> <circle cx="50" cy="50" r="9" fill="url(#mn2ri)"></circle> <circle cx="47.5" cy="47.5" r="2.8" fill="rgba(255,255,255,.55)"></circle> <ellipse cx="43" cy="28" rx="8.5" ry="4" fill="rgba(255,255,255,.2)" transform="rotate(-14 43 28)"></ellipse> </svg> </div> <div class="menu-inner"> <div class="menu-hd anim"> <p class="lbl">La Nostra Carta</p> <h2 class="sec-title">Il Menu</h2> </div> <div class="menu-tabs anim d1"> <button class="menu-tab active" data-tab="nigiri">Nigiri</button> <button class="menu-tab" data-tab="maki">Uramaki</button> <button class="menu-tab" data-tab="sashimi">Crudi</button> <button class="menu-tab" data-tab="specials">HIO Specials</button> </div> <div class="menu-panel active" id="tab-nigiri"> <div class="menu-items"> <div class="menu-item"><div><p class="mi-name">Nigiri Salmone</p><p class="mi-desc">Salmone fresco</p></div><span class="mi-price">€ 6 · 2pz</span></div> <div class="menu-item"><div><p class="mi-name">Nigiri Tonno</p><p class="mi-desc">Tonno Balfegò</p></div><span class="mi-price">€ 8 · 2pz</span></div> <div class="menu-item"><div><p class="mi-name">Nigiri Ricciola Hamachi</p><p class="mi-desc">Amberjack, ponzu yuzu</p></div><span class="mi-price">€ 7 · 2pz</span></div> <div class="menu-item"><div><p class="mi-name">Nigiri Gamberone</p><p class="mi-desc">Gamberone siciliano</p></div><span class="mi-price">€ 16 · 2pz</span></div> <div class="menu-item"><div><p class="mi-name">Nigiri Ventresca e Caviale</p><p class="mi-desc">Ventresca Balfegò, caviale Baikal</p></div><span class="mi-price">€ 16 · 2pz</span></div> <div class="menu-item"><div><p class="mi-name">Nigiri Salmone e Caviar</p><p class="mi-desc">Salmone, caviale pregiato</p></div><span class="mi-price">€ 16 · 2pz</span></div> <div class="menu-item"><div><p class="mi-name">Nigiri Wagyu e Tartufo</p><p class="mi-desc">Wagyu giapponese A5, tartufo nero</p></div><span class="mi-price">€ 16 · 2pz</span></div> <div class="menu-item"><div><p class="mi-name">Sashimi Mix</p><p class="mi-desc">Selezione del giorno, 9 pezzi</p></div><span class="mi-price">€ 18 · 9pz</span></div> </div> </div> <div class="menu-panel" id="tab-maki"> <div class="menu-items"> <div class="menu-item"><div><p class="mi-name">Salmone e Avocado</p><p class="mi-desc">Classico intramontabile</p></div><span class="mi-price">€ 13 · 8pz</span></div> <div class="menu-item"><div><p class="mi-name">Rainbow New Style</p><p class="mi-desc">Pesce misto, avocado, salsa speciale HIO</p></div><span class="mi-price">€ 25 · 8pz</span></div> <div class="menu-item"><div><p class="mi-name">Lobster Sensation</p><p class="mi-desc">Aragosta, avocado, philadelphia, spicy</p></div><span class="mi-price">€ 22 · 8pz</span></div> <div class="menu-item"><div><p class="mi-name">Ventresca e Tartufo</p><p class="mi-desc">Ventresca Balfegò, tartufo, philadelphia</p></div><span class="mi-price">€ 22 · 8pz</span></div> <div class="menu-item"><div><p class="mi-name">Gambero Rosso e Yuzu</p><p class="mi-desc">Gambero rosso di Sicilia, yuzu, sesamo</p></div><span class="mi-price">€ 22 · 8pz</span></div> <div class="menu-item"><div><p class="mi-name">Salmone e Scampi</p><p class="mi-desc">Salmone, scampi del Mediterraneo</p></div><span class="mi-price">€ 25 · 8pz</span></div> <div class="menu-item"><div><p class="mi-name">Tataki Tuna Balfegò</p><p class="mi-desc">Tonno tataki scottato, wasabi, zenzero</p></div><span class="mi-price">€ 20 · 8pz</span></div> <div class="menu-item"><div><p class="mi-name">Hamachi</p><p class="mi-desc">Ricciola, avocado, sesamo tostato</p></div><span class="mi-price">€ 22 · 8pz</span></div> </div> </div> <div class="menu-panel" id="tab-sashimi"> <div class="menu-items"> <div class="menu-item"><div><p class="mi-name">Tartare di Tonno</p><p class="mi-desc">Tonno rosso, citronette, capperi</p></div><span class="mi-price">€ 22</span></div> <div class="menu-item"><div><p class="mi-name">Tartare di Tonno al Tartufo</p><p class="mi-desc">Tonno, tartufo nero, olio EVO siciliano</p></div><span class="mi-price">€ 25</span></div> <div class="menu-item"><div><p class="mi-name">Tartare di Salmone</p><p class="mi-desc">Salmone, avocado, limone, erba cipollina</p></div><span class="mi-price">€ 16</span></div> <div class="menu-item"><div><p class="mi-name">Tris di Tartare</p><p class="mi-desc">Tonno, salmone, pesce bianco</p></div><span class="mi-price">€ 28</span></div> <div class="menu-item"><div><p class="mi-name">Ostrica Gillardeau n4</p><p class="mi-desc">Con perle di yuzu</p></div><span class="mi-price">€ 5 · 1pz</span></div> <div class="menu-item"><div><p class="mi-name">Bon bon Ricciola e Tartufo</p><p class="mi-desc">Bocconcini crudi di ricciola hamachi e tartufo</p></div><span class="mi-price">€ 12 · 4pz</span></div> </div> </div> <div class="menu-panel" id="tab-specials"> <div class="menu-items"> <div class="menu-item"><div><p class="mi-name">Bao Wagyu al Tartufo</p><p class="mi-desc">Mantou al vapore, wagyu A5, pastrami al tartufo</p></div><span class="mi-price">€ 15 · 1pz</span></div> <div class="menu-item"><div><p class="mi-name">Gyoza Gambero Rosso e Tartufo</p><p class="mi-desc">Ravioli di gambero rosso siciliano e tartufo</p></div><span class="mi-price">€ 18 · 4pz</span></div> <div class="menu-item"><div><p class="mi-name">Tacos Scampi e Caviar</p><p class="mi-desc">Tacos croccante, scampi freschi, caviale</p></div><span class="mi-price">€ 26 · 2pz</span></div> <div class="menu-item"><div><p class="mi-name">Come un Risotto al Limone</p><p class="mi-desc">Creazione HIO: riso su alga, crema di limone, gamberi</p></div><span class="mi-price">€ 18 · 4pz</span></div> <div class="menu-item"><div><p class="mi-name">Edamame</p><p class="mi-desc">Fagioli di soia al vapore</p></div><span class="mi-price">€ 5</span></div> <div class="menu-item"><div><p class="mi-name">Dolce HIO</p><p class="mi-desc">Sfera di cioccolato bianco, ripieno a sorpresa</p></div><span class="mi-price">€ 9</span></div> </div> </div> </div> </section> <!-- ═══════════ RECENSIONI --> <section id="reviews" style="padding:6rem 2.5rem;background:var(--bg);position:relative;overflow:hidden;"> <div style="max-width:1100px;margin:0 auto;"> <div class="anim" style="margin-bottom:3rem;"> <p class="lbl">Cosa Dicono di Noi</p> <h2 class="sec-title">Recensioni</h2> <div style="display:flex;align-items:center;gap:1.5rem;margin-top:1.25rem;flex-wrap:wrap;"> <div style="display:flex;align-items:center;gap:.5rem;"> <span style="font-size:1.8rem;color:var(--gold);font-family:var(--serif);font-weight:600;">4.6</span> <div> <div style="display:flex;gap:2px;margin-bottom:2px;"> <span style="color:var(--gold);font-size:1rem;">★★★★★</span> </div> <span style="font-size:.7rem;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;">461 recensioni Google</span> </div> </div> <div style="width:1px;height:40px;background:var(--border);"></div> <div style="display:flex;align-items:center;gap:.75rem;"> <svg width="20" height="20" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><circle cx="30" cy="30" r="28" fill="none" stroke="#C9131A" stroke-width="3"></circle><path d="M30 8 C30 8 14 18 14 30 C14 42 22 50 30 52 C38 50 46 42 46 30 C46 18 30 8 30 8 Z" fill="none" stroke="#C9131A" stroke-width="2.2"></path><line x1="30" y1="8" x2="30" y2="52" stroke="#C9131A" stroke-width="1.4" opacity=".6"></line><line x1="14" y1="30" x2="46" y2="30" stroke="#C9131A" stroke-width="1.4" opacity=".6"></line></svg> <span style="font-size:.75rem;letter-spacing:.1em;color:var(--muted);">Gambero Rosso 2026 · Guida Kenta 2025/27</span> </div> </div> </div> <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;"> <div class="anim d1" style="background:var(--bg-card);border:1px solid var(--border);padding:1.75rem;transition:border-color .3s,transform .3s;" onmouseenter="this.style.borderColor='rgba(201,168,76,.4)';this.style.transform='translateY(-4px)'" onmouseleave="this.style.borderColor='rgba(201,168,76,0.15)';this.style.transform='none'"> <div style="display:flex;gap:2px;margin-bottom:.75rem;"><span style="color:var(--gold);">★★★★★</span></div> <p style="font-size:.88rem;color:var(--cream);line-height:1.7;margin-bottom:1rem;font-style:italic;">"Qualità indiscutibile! Ogni cosa ordinata era ottima. I bao di wagyu e il 'come un risotto al limone' e il dolce HIO, miei piatti preferiti. Il servizio è attento."</p> <div style="display:flex;justify-content:space-between;align-items:center;"> <span style="font-size:.78rem;font-weight:500;color:var(--cream);">Giulia Peruggini</span> <span style="font-size:.68rem;color:var(--muted);letter-spacing:.1em;">4 mesi fa · Google</span> </div> </div> <div class="anim d2" style="background:var(--bg-card);border:1px solid var(--border);padding:1.75rem;transition:border-color .3s,transform .3s;" onmouseenter="this.style.borderColor='rgba(201,168,76,.4)';this.style.transform='translateY(-4px)'" onmouseleave="this.style.borderColor='rgba(201,168,76,0.15)';this.style.transform='none'"> <div style="display:flex;gap:2px;margin-bottom:.75rem;"><span style="color:var(--gold);">★★★★★</span></div> <p style="font-size:.88rem;color:var(--cream);line-height:1.7;margin-bottom:1rem;font-style:italic;">"Un'esperienza di altissimo livello, sotto ogni punto di vista. Da HIO Sushi Lab non si viene semplicemente a mangiare: si vive un vero percorso sensoriale indimenticabile."</p> <div style="display:flex;justify-content:space-between;align-items:center;"> <span style="font-size:.78rem;font-weight:500;color:var(--cream);">Mariella Lorito</span> <span style="font-size:.68rem;color:var(--muted);letter-spacing:.1em;">5 mesi fa · Google</span> </div> </div> <div class="anim d3" style="background:var(--bg-card);border:1px solid var(--border);padding:1.75rem;transition:border-color .3s,transform .3s;" onmouseenter="this.style.borderColor='rgba(201,168,76,.4)';this.style.transform='translateY(-4px)'" onmouseleave="this.style.borderColor='rgba(201,168,76,0.15)';this.style.transform='none'"> <div style="display:flex;gap:2px;margin-bottom:.75rem;"><span style="color:var(--gold);">★★★★★</span></div> <p style="font-size:.88rem;color:var(--cream);line-height:1.7;margin-bottom:1rem;font-style:italic;">"Semplicemente fantastico! Talmente fantastico che ci torniamo due sere di fila. Ho vissuto 4 anni in Giappone e posso confermare la freschezza del sushi e la maestria dello chef."</p> <div style="display:flex;justify-content:space-between;align-items:center;"> <span style="font-size:.78rem;font-weight:500;color:var(--cream);">Andrea P.</span> <span style="font-size:.68rem;color:var(--muted);letter-spacing:.1em;">9 mesi fa · Google</span> </div> </div> </div> </div> <style>@media(max-width:900px){#reviews [style*="grid-template-columns:repeat(3"]{grid-template-columns:1fr!important;}}@media(max-width:640px){#reviews [style*="grid-template-columns:repeat(3"]{grid-template-columns:1fr!important;}}</style> </section> <!-- ═══════════ RESERVATION --> <section id="reservation"> <!-- Floating food --> <!-- Floating food: temaki tonno-avocado --> <div class="ffood hide-m" style="top:8%;right:5%;width:58px;--ra:6deg;--rb:-8deg;--fd:9s"> <svg viewBox="0 0 80 110" xmlns="http://www.w3.org/2000/svg"> <defs> <radialGradient id="rs1ri" cx="45%" cy="40%" r="60%"><stop offset="0%" stop-color="#FDFAF0"></stop><stop offset="100%" stop-color="#D8D0B8"></stop></radialGradient> <radialGradient id="rs1tu" cx="35%" cy="30%" r="68%"><stop offset="0%" stop-color="#C87070"></stop><stop offset="55%" stop-color="#A04040"></stop><stop offset="100%" stop-color="#702020"></stop></radialGradient> <radialGradient id="rs1av" cx="35%" cy="30%" r="68%"><stop offset="0%" stop-color="#8CC858"></stop><stop offset="100%" stop-color="#3A7010"></stop></radialGradient> </defs> <ellipse cx="40" cy="106" rx="12" ry="3.5" fill="rgba(0,0,0,.38)"></ellipse> <!-- Nori cone --> <path d="M14 22 L40 104 L66 22 Z" fill="#141810"></path> <path d="M18 32 L38 92 L42 92 L62 32" stroke="#1E2818" stroke-width=".8" fill="none" opacity=".5"></path> <path d="M24 44 L38 88" stroke="#0A0E08" stroke-width=".6" fill="none" opacity=".4"></path> <path d="M56 44 L42 88" stroke="#0A0E08" stroke-width=".6" fill="none" opacity=".4"></path> <!-- Nori sheen left face --> <path d="M14 22 L40 104 L26 62 Z" fill="rgba(255,255,255,.035)"></path> <!-- Rice visible top edge --> <path d="M17 24 Q40 18 63 24 L60 30 Q40 24 20 30 Z" fill="url(#rs1ri)"></path> <!-- Tuna sticking out top-left --> <path d="M20 20 Q33 10 46 18 Q44 26 33 26 Q22 26 20 20 Z" fill="url(#rs1tu)"></path> <path d="M23 16 Q34 10 45 16" stroke="rgba(255,185,185,.5)" stroke-width="1" fill="none"></path> <!-- Avocado slice top-right --> <ellipse cx="55" cy="14" rx="9" ry="5.5" fill="url(#rs1av)"></ellipse> <ellipse cx="55" cy="13" rx="4.5" ry="2.5" fill="#B8EE88" opacity=".55"></ellipse> <!-- Cucumber strip --> <rect x="36" y="6" width="5" height="10" rx="2.5" fill="#A8D070" opacity=".8"></rect> <!-- Ikura peeking --> <circle cx="48" cy="16" r="4.5" fill="#E84818"></circle> <circle cx="48" cy="15.2" r="1.8" fill="rgba(255,255,255,.42)"></circle> <!-- Rice grains at opening --> <ellipse cx="30" cy="22" rx="1.8" ry=".9" fill="#E8E0C8" opacity=".7" transform="rotate(15 30 22)"></ellipse> <ellipse cx="42" cy="20" rx="1.8" ry=".9" fill="#E8E0C8" opacity=".7" transform="rotate(-8 42 20)"></ellipse> </svg> </div> <div class="res-inner"> <div> <p class="lbl anim">Contattaci</p> <h2 class="res-title anim d1">Prenota il Tuo<br>Tavolo</h2> <p class="res-sub anim d2">La prenotazione è obbligatoria. Per la Selezione Creazioni Filippo Gugino si consiglia di prenotare con almeno 2 giorni di anticipo.</p> <div class="res-det anim d3"> <div class="res-det-item"><span class="res-det-lbl">Indirizzo</span><span class="res-det-val">Via Quintino Sella, 48/a · 90139 Palermo PA</span></div> <div class="res-det-item"><span class="res-det-lbl">Telefono</span><span class="res-det-val">+39 393 129 1969</span></div> <div class="res-det-item"><span class="res-det-lbl">Apertura</span><span class="res-det-val">Mar–Dom · 19:30–00:00 · Lunedì chiuso</span></div> <div class="res-det-item"><span class="res-det-lbl">Prezzo</span><span class="res-det-val">50–100 € · Tavoli all'aperto disponibili</span></div> </div> </div> <form class="res-form anim d2" onsubmit="handleSub(event)"> <div class="form-row"> <div class="form-group"><label class="form-lbl" for="fn">Nome</label><input class="form-input" id="fn" type="text" placeholder="Il tuo nome" required></div> <div class="form-group"><label class="form-lbl" for="fe">Email</label><input class="form-input" id="fe" type="email" placeholder="email@esempio.com" required></div> </div> <div class="form-row"> <div class="form-group"><label class="form-lbl" for="fd">Data</label><input class="form-input" id="fd" type="date" required></div> <div class="form-group"><label class="form-lbl" for="ft">Ora</label> <select class="form-sel" id="ft" required> <option value="" disabled selected>Seleziona</option> <option>12:00</option><option>12:30</option><option>13:00</option><option>13:30</option> <option>18:30</option><option>19:00</option><option>19:30</option><option>20:00</option> <option>20:30</option><option>21:00</option><option>21:30</option> </select> </div> </div> <div class="form-row"> <div class="form-group"><label class="form-lbl" for="fg">Ospiti</label> <select class="form-sel" id="fg" required> <option value="" disabled selected>N. persone</option> <option>1</option><option>2</option><option>3</option><option>4</option> <option>5</option><option>6</option><option>7</option><option>8+</option> </select> </div> <div class="form-group"><label class="form-lbl" for="ftp">Tipo</label> <select class="form-sel" id="ftp"> <option value="" disabled selected>Esperienza</option> <option>À la Carte</option><option>Omakase (€120 p.p.)</option><option>Occasione speciale</option> </select> </div> </div> <div class="form-group"><label class="form-lbl" for="fnote">Note speciali</label><textarea class="form-ta" id="fnote" placeholder="Allergie, richieste particolari, occasioni speciali..."></textarea></div> <button type="submit" class="btn-p form-submit">Invia Prenotazione</button> </form> </div> </section> <!-- ═══════════ FOOTER --> <footer> <div class="foot-inner"> <div class="foot-top"> <div class="foot-brand"> <div class="foot-logo-en" style="display:flex;align-items:center;gap:.75rem;"> <svg width="52" height="52" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#B22A38" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"> <circle cx="50" cy="50" r="45.8" stroke-width="2.6"></circle> <g stroke-width="1.9"><line x1="50" y1="70" x2="88.3" y2="40.4"></line><line x1="50" y1="70" x2="85.3" y2="32.3"></line><line x1="50" y1="70" x2="80.6" y2="25.0"></line><line x1="50" y1="70" x2="74.3" y2="18.9"></line><line x1="50" y1="70" x2="66.9" y2="14.3"></line><line x1="50" y1="70" x2="58.7" y2="11.5"></line><line x1="50" y1="70" x2="50.0" y2="10.5"></line><line x1="50" y1="70" x2="41.3" y2="11.5"></line><line x1="50" y1="70" x2="33.1" y2="14.3"></line><line x1="50" y1="70" x2="25.7" y2="18.9"></line><line x1="50" y1="70" x2="19.4" y2="25.0"></line><line x1="50" y1="70" x2="14.7" y2="32.3"></line><line x1="50" y1="70" x2="11.7" y2="40.4"></line></g> <path d="M50 94.5 C 31 91.5, 13.5 79, 8 55"></path> <path d="M50 94.5 C 69 91.5, 86.5 79, 92 55"></path> <path d="M8 55 Q 50 76 92 55"></path> </svg> <span class="logo-stack" style="font-size:.72rem;"> <span class="ls-gold">HIO</span> <span class="ls-cream">SUSHI</span> <span class="ls-gold">LAB</span> </span> </div> <div class="foot-logo-jp" style="margin-top:.6rem;">PALERMO · SICILIA</div> <p class="foot-tag">Dove l'Oriente incontra la Sicilia. Chef Filippo Gugino · Gambero Rosso 2026 · Guida Kenta 2025/27.</p> </div> <div class="foot-col"> <p class="foot-col-t">Navigazione</p> <ul> <li><a href="#philosophy">Filosofia</a></li> <li><a href="#signature">Creazioni Filippo Gugino</a></li> <li><a href="#omakase">Selezione dello Chef</a></li> <li><a href="#menu">Il Menu</a></li> <li><a href="#reviews">Recensioni</a></li> <li><a href="#reservation">Prenota</a></li> </ul> </div> <div class="foot-col"> <p class="foot-col-t">Orari</p> <div class="foot-hrs"> <div class="foot-hr"><span class="foot-hr-day">Lunedì</span><span class="foot-hr-time">Chiuso</span></div> <div class="foot-hr"><span class="foot-hr-day">Mar – Ven</span><span class="foot-hr-time">19:30–00:00</span></div> <div class="foot-hr"><span class="foot-hr-day">Sab – Dom</span><span class="foot-hr-time">19:30–00:00</span></div> </div> </div> </div> <div class="foot-bot"> <p class="foot-copy">© 2025 HIO Sushi Lab · Tutti i diritti riservati</p> <p class="foot-addr">Via Quintino Sella 48/a · 90139 Palermo · +39 393 129 1969</p> </div> </div> </footer> <script>
+// ── Progress bar + navbar + parallax
+const nb = document.getElementById('navbar');
+const hk = document.getElementById('heroKanji');
+const pg = document.getElementById('progress');
+window.addEventListener('scroll', () => {
+  nb.classList.toggle('scrolled', scrollY > 50);
+  if(hk) hk.style.transform = `translate(-50%,calc(-50% + ${scrollY * 0.15}px))`;
+  const max = document.documentElement.scrollHeight - innerHeight;
+  if(pg && max > 0) pg.style.width = (scrollY / max * 100) + '%';
+}, {passive:true});
+
+// ── Mobile menu
+const burger = document.getElementById('navBurger');
+const mob = document.getElementById('navMobile');
+burger.addEventListener('click', () => mob.classList.add('open'));
+document.getElementById('navClose').addEventListener('click', () => mob.classList.remove('open'));
+function closeMob() { mob.classList.remove('open'); }
+
+// ── Scroll animations
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } });
+}, {threshold:0.12});
+document.querySelectorAll('.anim').forEach(el => obs.observe(el));
+
+// ── Page transition: bacchette che afferrano il nigiri
+(function(){
+  const ov = document.getElementById('ptOverlay');
+  if(!ov) return;
+  const ptReduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  let busy = false;
+  const cl = ov.classList;
+
+  function jumpTo(target){
+    const html = document.documentElement;
+    const prev = html.style.scrollBehavior;
+    html.style.scrollBehavior = 'auto';
+    if(target === document.body) scrollTo(0,0);
+    else target.scrollIntoView();
+    html.style.scrollBehavior = prev;
+  }
+
+  function runTransition(target){
+    if(busy) return;
+    busy = true;
+    // fase 1 — chiudi sipario (pannelli scendono, 0-420ms)
+    cl.add('pt-active','pt-closing');
+    // fase 2 — sipario chiuso, le bacchette scendono verso il nigiri (430ms, discesa .6s)
+    setTimeout(() => {
+      cl.remove('pt-closing');
+      cl.add('pt-open');
+    }, 430);
+    // fase 3 — salta alla sezione dietro al sipario chiuso (720ms)
+    setTimeout(() => jumpTo(target), 720);
+    // fase 4 — le bacchette arrivano sul nigiri e si chiudono a pinza (1050ms)
+    setTimeout(() => cl.add('pt-grabbed'), 1050);
+    // fase 5 — sollevano il nigiri afferrato (1300ms)
+    setTimeout(() => cl.add('pt-lift'), 1300);
+    // fase 6 — apri sipario (1950ms, transition 420ms)
+    setTimeout(() => {
+      cl.remove('pt-open','pt-grabbed','pt-lift');
+      cl.add('pt-opening');
+    }, 1950);
+    // fase 7 — ripristina tutto (2420ms)
+    setTimeout(() => {
+      cl.remove('pt-active','pt-opening');
+      busy = false;
+    }, 2420);
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const href = a.getAttribute('href');
+      const target = href === '#' ? document.body : document.querySelector(href);
+      if(!target) return;
+      e.preventDefault();
+      if(typeof mob !== 'undefined') mob.classList.remove('open');
+      if(ptReduce){ jumpTo(target); return; }
+      runTransition(target);
+    });
+  });
+})();
+
+// ── Menu tabs
+document.querySelectorAll('.menu-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+  });
+});
+
+// ── Form
+function handleSub(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.form-submit');
+  btn.textContent = 'Prenotazione Inviata ✓';
+  btn.style.background = '#4a7c59';
+  btn.disabled = true;
+}
+const di = document.getElementById('fd');
+if(di){ const t = new Date(); t.setDate(t.getDate()+1); di.min = t.toISOString().split('T')[0]; }
+
+// ── TORII draw animation
+(function(){
+  const paths = document.querySelectorAll('.torii-path');
+  const svg = document.getElementById('toriiSvg');
+  const label = document.getElementById('toriiLabel');
+  paths.forEach(p => {
+    try {
+      const len = p.getTotalLength ? p.getTotalLength() : 800;
+      p.style.strokeDasharray = len;
+      p.style.strokeDashoffset = len;
+    } catch(err) {
+      p.style.strokeDasharray = 800;
+      p.style.strokeDashoffset = 800;
+    }
+  });
+  let drawn = false;
+  const tObs = new IntersectionObserver(([entry]) => {
+    if(entry.isIntersecting && !drawn){
+      drawn = true;
+      const order = ['tpKasagi','tpCapL','tpCapR','tpNuki','tpPilL','tpPilR','tpDL','tpDR'];
+      order.forEach((id, i) => {
+        const el = document.getElementById(id);
+        if(!el) return;
+        setTimeout(() => {
+          el.style.transition = `stroke-dashoffset ${id.startsWith('tpPil') ? 1000 : 700}ms cubic-bezier(0.4,0,0.2,1)`;
+          el.style.strokeDashoffset = '0';
+        }, i * 280);
+      });
+      setTimeout(() => {
+        svg.classList.add('glowing');
+        label.classList.add('show');
+        spawnSakura();
+      }, order.length * 280 + 1100);
+      tObs.disconnect();
+    }
+  }, {threshold:0.35});
+  const sec = document.getElementById('torii');
+  if(sec) tObs.observe(sec);
+
+  function spawnSakura(){
+    const layer = document.getElementById('sakuraLayer');
+    if(!layer) return;
+    const colors = ['#FFB7C5','#FFCCD5','#FFA0B4','#FFD6E0','#E8A0B0'];
+    for(let i = 0; i < 22; i++){
+      const p = document.createElement('div');
+      p.className = 'spetal';
+      const dur = (3.5 + Math.random() * 4.5).toFixed(1) + 's';
+      const del = (Math.random() * 3.5).toFixed(1) + 's';
+      const left = (Math.random() * 92 + 2).toFixed(1) + '%';
+      const drift = ((Math.random() - 0.5) * 120).toFixed(0) + 'px';
+      const col = colors[Math.floor(Math.random() * colors.length)];
+      const rot = Math.floor(Math.random() * 360);
+      p.style.cssText = `left:${left};--dur:${dur};--del:${del};--drift:${drift};`;
+      p.innerHTML = `<svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(${rot}deg)">
+        <ellipse cx="20" cy="10" rx="6" ry="10" fill="${col}" opacity=".85" transform="rotate(0 20 20)"/>
+        <ellipse cx="20" cy="10" rx="6" ry="10" fill="${col}" opacity=".85" transform="rotate(72 20 20)"/>
+        <ellipse cx="20" cy="10" rx="6" ry="10" fill="${col}" opacity=".85" transform="rotate(144 20 20)"/>
+        <ellipse cx="20" cy="10" rx="6" ry="10" fill="${col}" opacity=".85" transform="rotate(216 20 20)"/>
+        <ellipse cx="20" cy="10" rx="6" ry="10" fill="${col}" opacity=".85" transform="rotate(288 20 20)"/>
+        <circle cx="20" cy="20" r="3" fill="${col}"/>
+      </svg>`;
+      layer.appendChild(p);
+    }
+    setTimeout(spawnSakura, 5000);
+  }
+})();
+</script> </body> </html>
